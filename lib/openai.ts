@@ -4,9 +4,13 @@
 import OpenAI from "openai";
 import type { CVFormData } from "@/types";
 
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!_openai) {
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return _openai;
+}
 
 /**
  * Generate a professional CV from structured form data
@@ -14,7 +18,7 @@ export const openai = new OpenAI({
 export async function generateCV(data: CVFormData): Promise<string> {
   const prompt = buildCVPrompt(data);
 
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
@@ -37,7 +41,7 @@ export async function generateCV(data: CVFormData): Promise<string> {
 export async function optimizeCV(
   cvContent: string
 ): Promise<{ content: string; score: number; suggestions: string[] }> {
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
@@ -69,7 +73,7 @@ export async function matchJobDescription(
   cvContent: string,
   jobDescription: string
 ): Promise<{ matchScore: number; improvements: string[]; keywords: string[] }> {
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
@@ -102,7 +106,7 @@ export async function generateCoverLetter(
   jobDescription: string,
   companyName: string
 ): Promise<string> {
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
