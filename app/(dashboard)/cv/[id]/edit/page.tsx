@@ -35,12 +35,12 @@ export default async function EditCVPage({ params }: Props) {
   // Cast Prisma JSON fields to proper types
   const cvData: CV = {
     ...(cv as unknown as CV),
-    experience: (cv.experience as CV["experience"]) ?? [],
-    education: (cv.education as CV["education"]) ?? [],
-    skills: (cv.skills as string[]) ?? [],
-    projects: (cv.projects as CV["projects"]) ?? [],
-    languages: (cv.languages as CV["languages"]) ?? [],
-    certifications: (cv.certifications as CV["certifications"]) ?? [],
+    experience: (cv.experience as unknown as CV["experience"]) ?? [],
+    education: (cv.education as unknown as CV["education"]) ?? [],
+    skills: (cv.skills as unknown as string[]) ?? [],
+    projects: (cv.projects as unknown as CV["projects"]) ?? [],
+    languages: (cv.languages as unknown as CV["languages"]) ?? [],
+    certifications: (cv.certifications as unknown as CV["certifications"]) ?? [],
   };
 
   return <CVEditorClient cv={cvData} isPro={isPro} />;

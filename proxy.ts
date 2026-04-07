@@ -1,5 +1,5 @@
 /**
- * Next.js Middleware
+ * Next.js Proxy (formerly Middleware)
  * Handles Supabase session refresh and protects dashboard routes
  */
 import { createServerClient } from "@supabase/ssr";
@@ -10,7 +10,7 @@ const PROTECTED_ROUTES = ["/dashboard", "/cv", "/onboarding", "/account"];
 // Routes that should redirect authenticated users away
 const AUTH_ROUTES = ["/login", "/signup"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
