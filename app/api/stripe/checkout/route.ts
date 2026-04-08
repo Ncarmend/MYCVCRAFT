@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createCheckoutSession } from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
     });
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    const { priceId } = await request.json();
-    if (!priceId) return NextResponse.json({ error: "Price ID required" }, { status: 400 });
+    const priceId = process.env.STRIPE_PRO_PRICE_ID;
+    if (!priceId) return NextResponse.json({ error: "Stripe price not configured" }, { status: 500 });
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL!;
 
