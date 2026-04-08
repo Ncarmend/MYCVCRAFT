@@ -52,17 +52,21 @@ export function CVEditorClient({ cv, isPro }: Props) {
       toast.info("Free plan includes a watermark. Upgrade to remove it.");
     }
     try {
-      toast.loading("Generating PDF...", { id: "pdf" });
+      toast.loading("Preparing PDF...", { id: "pdf" });
       const res = await fetch(`/api/pdf?cvId=${cv.id}`);
       if (!res.ok) throw new Error("PDF generation failed");
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${cv.title || cv.name}-cv.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast.success("PDF downloaded!", { id: "pdf" });
+      const html = await res.text();
+
+      // Open in a new window and trigger browser print-to-PDF
+      const win = window.open("", "_blank");
+      if (!win) throw new Error("Popup blocked");
+      win.document.write(html);
+      win.document.close();
+      win.onload = () => {
+        win.focus();
+        win.print();
+      };
+      toast.success("Use your browser's 'Save as PDF' option.", { id: "pdf", duration: 5000 });
     } catch {
       toast.error("Failed to generate PDF", { id: "pdf" });
     }

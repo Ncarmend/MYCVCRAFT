@@ -62,13 +62,16 @@ export function CVCard({ cv, index, isPro }: CVCardProps) {
     try {
       const res = await fetch(`/api/pdf?cvId=${cv.id}`);
       if (!res.ok) throw new Error("Failed to generate PDF");
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${cv.title || cv.name}-cv.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const html = await res.text();
+      const win = window.open("", "_blank");
+      if (!win) throw new Error("Popup blocked");
+      win.document.write(html);
+      win.document.close();
+      win.onload = () => {
+        win.focus();
+        win.print();
+      };
+      toast.success("Use 'Save as PDF' in the print dialog.", { duration: 5000 });
     } catch {
       toast.error("Failed to generate PDF");
     }
