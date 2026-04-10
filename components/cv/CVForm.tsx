@@ -117,7 +117,7 @@ export function CVForm({
     getValues,
     formState: { errors },
   } = useForm<CVFormData>({
-    resolver: zodResolver(schema) as never,
+    resolver: zodResolver(schema),
     defaultValues: {
       title: "",
       template: "BASIC",
@@ -608,8 +608,13 @@ export function CVForm({
       </Tabs>
 
       {/* Save button */}
-      <div className="flex justify-end border-t border-gray-100 pt-4">
-        <Button type="submit" size="lg" loading={saving} className="gap-2 px-8">
+      <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+        {Object.keys(errors).length > 0 && (
+          <p className="text-sm text-red-500">
+            Please fill in the required fields: {Object.keys(errors).join(", ")}
+          </p>
+        )}
+        <Button type="submit" size="lg" loading={saving} className="ml-auto gap-2 px-8">
           Save CV
         </Button>
       </div>
