@@ -53,12 +53,12 @@ export interface CVFormData {
   // Personal
   name: string;
   jobTitle: string;
-  email: string;
-  phone: string;
-  location: string;
-  website: string;
-  linkedin: string;
-  summary: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+  website?: string;
+  linkedin?: string;
+  summary?: string;
   // Sections
   experience: ExperienceItem[];
   education: EducationItem[];
