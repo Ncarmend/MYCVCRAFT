@@ -130,6 +130,7 @@ export function CVForm({
       location: "",
       website: "",
       linkedin: "",
+      github: "",
       summary: "",
       skills: [],
       experience: [],
