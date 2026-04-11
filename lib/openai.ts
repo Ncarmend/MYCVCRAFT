@@ -126,6 +126,39 @@ export async function generateCoverLetter(
   return response.choices[0]?.message?.content ?? "";
 }
 
+/**
+ * Generate achievement bullet points for a job experience entry
+ */
+export async function getOpenAIBullets({
+  role,
+  company,
+  description,
+}: {
+  role: string;
+  company?: string;
+  description?: string;
+}): Promise<string[]> {
+  const response = await getOpenAI().chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are an expert CV writer. Generate 3-5 concise, impactful achievement bullet points for a job role. Use strong action verbs, quantify achievements where plausible, and keep each bullet under 15 words. Return a JSON object with a 'bullets' array of strings.",
+      },
+      {
+        role: "user",
+        content: `Role: ${role}\nCompany: ${company || "N/A"}\nDescription: ${description || "N/A"}\n\nGenerate bullet points.`,
+      },
+    ],
+    temperature: 0.7,
+    response_format: { type: "json_object" },
+  });
+
+  const result = JSON.parse(response.choices[0]?.message?.content ?? "{}");
+  return Array.isArray(result.bullets) ? result.bullets : [];
+}
+
 // --- Helpers ---
 
 function buildCVPrompt(data: CVFormData): string {

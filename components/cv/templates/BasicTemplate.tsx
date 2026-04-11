@@ -14,6 +14,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
   const projects = Array.isArray(cv.projects) ? cv.projects : [];
+  const languages = Array.isArray(cv.languages) ? cv.languages : [];
   const certifications = Array.isArray(cv.certifications) ? cv.certifications : [];
 
   return (
@@ -31,6 +32,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
           {cv.location && <span>{cv.location}</span>}
           {cv.website && <span>{cv.website}</span>}
           {cv.linkedin && <span>{cv.linkedin}</span>}
+          {cv.github && <span>{cv.github}</span>}
         </div>
       </header>
 
@@ -144,6 +146,23 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
                   </p>
                 )}
               </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Languages */}
+      {languages.length > 0 && (
+        <section className="mb-5">
+          <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
+            Languages
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {languages.map((lang) => (
+              <span key={lang.id} className="text-sm text-gray-700">
+                <span className="font-medium">{lang.name}</span>
+                <span className="text-gray-400"> — {lang.proficiency}</span>
+              </span>
             ))}
           </div>
         </section>

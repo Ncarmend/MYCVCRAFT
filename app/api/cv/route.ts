@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
         location: body.location || null,
         website: body.website || null,
         linkedin: body.linkedin || null,
+        github: body.github || null,
         summary: body.summary || null,
         experience: body.experience ?? [],
         education: body.education ?? [],

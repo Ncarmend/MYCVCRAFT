@@ -46,6 +46,7 @@ model CV {
   location String?
   website  String?
   linkedin String?
+  github   String?
   summary  String?  @db.Text
 
   // Structured content (stored as JSON)

@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Trash2, Sparkles, Wand2, Target, FileText } from "lucide-react";
+import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2 } from "lucide-react";
 import type { CVFormData } from "@/types";
 
 // --- Zod schema ---
@@ -33,6 +33,7 @@ const schema = z.object({
   location: z.string().optional(),
   website: z.string().url().optional().or(z.literal("")),
   linkedin: z.string().optional(),
+  github: z.string().optional(),
   summary: z.string().optional(),
   skills: z.array(z.string()),
   experience: z.array(
@@ -102,6 +103,7 @@ export function CVForm({
   saving = false,
 }: CVFormProps) {
   const [aiLoading, setAiLoading] = useState<string | null>(null);
+  const [bulletLoading, setBulletLoading] = useState<number | null>(null);
   const [skillInput, setSkillInput] = useState("");
   const [atsResult, setAtsResult] = useState<{
     score: number;
@@ -164,6 +166,12 @@ export function CVForm({
     remove: removeProj,
   } = useFieldArray({ control, name: "projects" });
 
+  const {
+    fields: langFields,
+    append: appendLang,
+    remove: removeLang,
+  } = useFieldArray({ control, name: "languages" });
+
   // --- AI Actions ---
 
   async function handleAIGenerate() {
@@ -206,6 +214,27 @@ export function CVForm({
     }
   }
 
+  async function handleGenerateBullets(idx: number) {
+    setBulletLoading(idx);
+    try {
+      const exp = getValues(`experience.${idx}`);
+      const res = await fetch("/api/ai/bullets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const { bullets } = await res.json();
+      setValue(`experience.${idx}.achievements`, bullets);
+      notifyChange();
+      toast.success("Bullet points generated!");
+    } catch {
+      toast.error("Failed to generate bullet points.");
+    } finally {
+      setBulletLoading(null);
+    }
+  }
+
   function addSkill() {
     const trimmed = skillInput.trim();
     if (!trimmed) return;
@@ -238,6 +267,7 @@ export function CVForm({
           <TabsTrigger value="education">Education</TabsTrigger>
           <TabsTrigger value="skills">Skills</TabsTrigger>
           <TabsTrigger value="projects">Projects</TabsTrigger>
+          <TabsTrigger value="languages">Languages</TabsTrigger>
           <TabsTrigger value="ai">AI Tools</TabsTrigger>
         </TabsList>
 
@@ -296,7 +326,10 @@ export function CVForm({
             <Input label="Website" placeholder="https://jane.dev" {...register("website")} />
           </div>
 
-          <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
+            <Input label="GitHub" placeholder="github.com/jane-smith" {...register("github")} />
+          </div>
 
           <Textarea
             label="Professional Summary"
@@ -346,17 +379,30 @@ export function CVForm({
                 rows={3}
                 {...register(`experience.${idx}.description`)}
               />
-              <Textarea
-                label="Achievements (one per line)"
-                placeholder="Increased performance by 40%&#10;Led a team of 8 engineers"
-                rows={3}
-                onChange={(e) => {
-                  const lines = e.target.value.split("\n").filter(Boolean);
-                  setValue(`experience.${idx}.achievements`, lines);
-                  notifyChange();
-                }}
-                defaultValue={field.achievements?.join("\n")}
-              />
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-sm font-medium text-gray-700">Achievements (one per line)</label>
+                  <button
+                    type="button"
+                    onClick={() => handleGenerateBullets(idx)}
+                    disabled={bulletLoading === idx}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
+                  >
+                    {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
+                    AI Generate
+                  </button>
+                </div>
+                <Textarea
+                  placeholder="Increased performance by 40%&#10;Led a team of 8 engineers"
+                  rows={3}
+                  onChange={(e) => {
+                    const lines = e.target.value.split("\n").filter(Boolean);
+                    setValue(`experience.${idx}.achievements`, lines);
+                    notifyChange();
+                  }}
+                  defaultValue={field.achievements?.join("\n")}
+                />
+              </div>
             </div>
           ))}
           <Button
@@ -515,11 +561,55 @@ export function CVForm({
           </Button>
         </TabsContent>
 
+        {/* ─── Languages Tab ─── */}
+        <TabsContent value="languages" className="space-y-4">
+          {langFields.map((field, idx) => (
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="font-medium text-gray-700">Language {idx + 1}</h4>
+                <button type="button" onClick={() => removeLang(idx)} className="text-red-400 hover:text-red-600">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Input label="Language" placeholder="English" {...register(`languages.${idx}.name`)} />
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-gray-700">Proficiency</label>
+                  <Select
+                    defaultValue={field.proficiency}
+                    onValueChange={(v) => {
+                      setValue(`languages.${idx}.proficiency`, v as "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic");
+                      notifyChange();
+                    }}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {["Native", "Fluent", "Advanced", "Intermediate", "Basic"].map((p) => (
+                        <SelectItem key={p} value={p}>{p}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          ))}
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="gap-2"
+            onClick={() => appendLang({ id: crypto.randomUUID(), name: "", proficiency: "Fluent" })}
+          >
+            <Plus className="h-4 w-4" />
+            Add Language
+          </Button>
+        </TabsContent>
+
         {/* ─── AI Tools Tab ─── */}
         <TabsContent value="ai" className="space-y-6">
           {!isPro && (
             <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-4 text-sm text-indigo-700">
-              <strong>Some AI features are Pro-only.</strong> Upgrade to unlock job matching and cover letter generation.
+              <strong>ATS Check is free.</strong> Upgrade to Pro to unlock job matching and cover letter generation.
             </div>
           )}
 
