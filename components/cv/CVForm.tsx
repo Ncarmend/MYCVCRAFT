@@ -216,9 +216,13 @@ export function CVForm({
   }
 
   async function handleGenerateBullets(idx: number) {
+    const exp = getValues(`experience.${idx}`);
+    if (!exp.role) {
+      toast.error("Enter a role title first.");
+      return;
+    }
     setBulletLoading(idx);
     try {
-      const exp = getValues(`experience.${idx}`);
       const res = await fetch("/api/ai/bullets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -396,12 +400,12 @@ export function CVForm({
                 <Textarea
                   placeholder="Increased performance by 40%&#10;Led a team of 8 engineers"
                   rows={3}
+                  value={watch(`experience.${idx}.achievements`)?.join("\n") ?? ""}
                   onChange={(e) => {
                     const lines = e.target.value.split("\n").filter(Boolean);
                     setValue(`experience.${idx}.achievements`, lines);
                     notifyChange();
                   }}
-                  defaultValue={field.achievements?.join("\n")}
                 />
               </div>
             </div>
