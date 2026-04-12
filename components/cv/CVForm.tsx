@@ -189,8 +189,9 @@ export function CVForm({
       setValue("summary", content);
       notifyChange();
       toast.success("CV content generated!");
-    } catch {
-      toast.error("AI generation failed. Please try again.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "";
+      toast.error(msg.includes("quota") ? "OpenAI quota exceeded — check your billing." : "AI generation failed. Please try again.");
     } finally {
       setAiLoading(null);
     }
@@ -233,8 +234,9 @@ export function CVForm({
       setValue(`experience.${idx}.achievements`, bullets);
       notifyChange();
       toast.success("Bullet points generated!");
-    } catch {
-      toast.error("Failed to generate bullet points.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to generate bullet points.";
+      toast.error(msg.includes("quota") ? "OpenAI quota exceeded — check your billing." : "Failed to generate bullet points.");
     } finally {
       setBulletLoading(null);
     }
