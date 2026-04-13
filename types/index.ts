@@ -59,6 +59,7 @@ export interface CVFormData {
   website?: string;
   linkedin?: string;
   github?: string;
+  portfolio?: string;
   summary?: string;
   // Sections
   experience: ExperienceItem[];
@@ -83,6 +84,7 @@ export type CV = {
   website?: string | null;
   linkedin?: string | null;
   github?: string | null;
+  portfolio?: string | null;
   summary?: string | null;
   experience: ExperienceItem[];
   education: EducationItem[];

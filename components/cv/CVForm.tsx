@@ -34,6 +34,7 @@ const schema = z.object({
   website: z.string().url().optional().or(z.literal("")),
   linkedin: z.string().optional(),
   github: z.string().optional(),
+  portfolio: z.string().optional(),
   summary: z.string().optional(),
   skills: z.array(z.string()),
   experience: z.array(
@@ -131,6 +132,7 @@ export function CVForm({
       website: "",
       linkedin: "",
       github: "",
+      portfolio: "",
       summary: "",
       skills: [],
       experience: [],
@@ -337,6 +339,7 @@ export function CVForm({
             <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
             <Input label="GitHub" placeholder="github.com/jane-smith" {...register("github")} />
           </div>
+          <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
 
           <Textarea
             label="Professional Summary"

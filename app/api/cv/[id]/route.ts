@@ -63,6 +63,7 @@ export async function PATCH(
         website: body.website || null,
         linkedin: body.linkedin || null,
         github: body.github || null,
+        portfolio: body.portfolio || null,
         summary: body.summary || null,
         experience: body.experience ?? [],
         education: body.education ?? [],

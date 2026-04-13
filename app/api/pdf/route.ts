@@ -93,6 +93,9 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
         ${cv.phone ? `<span>${cv.phone}</span>` : ""}
         ${cv.location ? `<span>${cv.location}</span>` : ""}
         ${cv.website ? `<span>${cv.website}</span>` : ""}
+        ${cv.linkedin ? `<span>${cv.linkedin}</span>` : ""}
+        ${cv.github ? `<span>${cv.github}</span>` : ""}
+        ${cv.portfolio ? `<span>${cv.portfolio}</span>` : ""}
       </div>
     </header>
 

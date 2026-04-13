@@ -41,6 +41,7 @@ export default async function EditCVPage({ params }: Props) {
     website: cv.website ?? "",
     linkedin: cv.linkedin ?? "",
     github: cv.github ?? "",
+    portfolio: cv.portfolio ?? "",
     summary: cv.summary ?? "",
     experience: (cv.experience as unknown as CV["experience"]) ?? [],
     education: (cv.education as unknown as CV["education"]) ?? [],

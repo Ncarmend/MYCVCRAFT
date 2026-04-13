@@ -52,6 +52,8 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
             {cv.location && <p>{cv.location}</p>}
             {cv.website && <p className="break-all">{cv.website}</p>}
             {cv.linkedin && <p className="break-all">{cv.linkedin}</p>}
+            {cv.github && <p className="break-all">{cv.github}</p>}
+            {cv.portfolio && <p className="break-all">{cv.portfolio}</p>}
           </div>
         </div>
 

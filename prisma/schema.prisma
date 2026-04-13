@@ -45,9 +45,10 @@ model CV {
   phone    String?
   location String?
   website  String?
-  linkedin String?
-  github   String?
-  summary  String?  @db.Text
+  linkedin  String?
+  github    String?
+  portfolio String?
+  summary   String?  @db.Text
 
   // Structured content (stored as JSON)
   experience     Json @default("[]")

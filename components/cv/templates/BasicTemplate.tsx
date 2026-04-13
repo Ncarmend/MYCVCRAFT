@@ -33,6 +33,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
           {cv.website && <span>{cv.website}</span>}
           {cv.linkedin && <span>{cv.linkedin}</span>}
           {cv.github && <span>{cv.github}</span>}
+          {cv.portfolio && <span>{cv.portfolio}</span>}
         </div>
       </header>
 
