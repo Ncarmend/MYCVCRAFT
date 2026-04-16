@@ -1,18 +1,37 @@
 /**
- * Settings page — placeholder
+ * Settings page — profile, password, billing, danger zone
  */
-import { Settings } from "lucide-react";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import prisma from "@/lib/prisma";
+import { Header } from "@/components/dashboard/Header";
+import { SettingsClient } from "./SettingsClient";
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const dbUser = await prisma.user.findUnique({
+    where: { supabaseId: user.id },
+    include: { subscription: true },
+  });
+  if (!dbUser) redirect("/onboarding");
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center px-6">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-100">
-        <Settings className="h-8 w-8 text-gray-400" />
+    <div>
+      <Header title="Settings" subtitle="Manage your account and subscription" />
+      <div className="p-8 max-w-2xl mx-auto space-y-8">
+        <SettingsClient
+          user={{
+            name: dbUser.name ?? "",
+            email: dbUser.email,
+            plan: dbUser.subscription?.plan ?? "FREE",
+            stripeCustomerId: dbUser.subscription?.stripeCustomerId ?? null,
+            currentPeriodEnd: dbUser.subscription?.stripeCurrentPeriodEnd?.toISOString() ?? null,
+          }}
+        />
       </div>
-      <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-      <p className="text-gray-500 max-w-sm">
-        Account settings and preferences are coming soon.
-      </p>
     </div>
   );
 }
