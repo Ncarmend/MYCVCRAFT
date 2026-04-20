@@ -202,11 +202,11 @@ export function Hero() {
                         <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
                         {/* ATS bar */}
                         <div className="mb-1 flex items-center justify-between">
-                          <span className="text-[9px] text-gray-800">ATS Score</span>
-                          <span className="text-[9px] font-semibold text-amber-400">81%</span>
+                          <span className="text-[9px] text-gray-400">ATS Score</span>
+                          <span className="text-[9px] font-semibold text-green-600">81%</span>
                         </div>
                         <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <div className="h-full w-[81%] rounded-full bg-amber-400" />
+                          <div className="h-full w-[81%] rounded-full bg-green-400" />
                         </div>
                         <div className="flex gap-1.5">
                           <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">Draft</span>
