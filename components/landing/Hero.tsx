@@ -203,7 +203,7 @@ export function Hero() {
                         {/* ATS bar */}
                         <div className="mb-1 flex items-center justify-between">
                           <span className="text-[9px] text-gray-800">ATS Score</span>
-                          <span className="text-[9px] font-semibold text-amber-900">81%</span>
+                          <span className="text-[9px] font-semibold text-amber-400">81%</span>
                         </div>
                         <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
                           <div className="h-full w-[81%] rounded-full bg-amber-400" />
