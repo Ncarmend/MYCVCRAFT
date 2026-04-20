@@ -99,7 +99,7 @@ export function Hero() {
                 <div className="h-3 w-3 rounded-full bg-yellow-400" />
                 <div className="h-3 w-3 rounded-full bg-green-400" />
                 <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-400">
-                  app.cvcraft.io/dashboard Carmen
+                  app.cvcraft.io/dashboard 
                 </div>
               </div>
 
@@ -198,7 +198,7 @@ export function Hero() {
                     <div className="overflow-hidden rounded-xl border border-purple-100 bg-white shadow-sm">
                       <div className="h-1.5 w-full bg-linear-to-r from-purple-500 to-purple-400" />
                       <div className="p-3">
-                        <p className="mb-0.5 text-xs font-bold text-red-800">Product Manager</p>
+                        <p className="mb-0.5 text-xs font-bold text-gray-800">Product Manager</p>
                         <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
                         {/* ATS bar */}
                         <div className="mb-1 flex items-center justify-between">
