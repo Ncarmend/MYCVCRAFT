@@ -91,7 +91,7 @@ export default async function DashboardPage() {
         }
       />
 
-      <div className="p-8">
+      <div className="p-4 sm:p-8">
         {/* Stats grid */}
         <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {stats.map((stat) => (
@@ -112,15 +112,15 @@ export default async function DashboardPage() {
 
         {/* Free plan banner */}
         {!isPro && (
-          <div className="mb-8 flex items-center justify-between rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 p-5 text-white">
+          <div className="mb-8 flex flex-col gap-4 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-5 text-white sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-semibold">Unlock unlimited CVs with Pro</p>
               <p className="mt-0.5 text-sm text-indigo-100">
                 Get AI optimization, job matching, cover letters + PDF export
               </p>
             </div>
-            <Link href="/pricing">
-              <Button className="bg-white text-indigo-700 hover:bg-indigo-50 flex-shrink-0">
+            <Link href="/pricing" className="shrink-0">
+              <Button className="w-full bg-white text-indigo-700 hover:bg-indigo-50 sm:w-auto">
                 Upgrade — $12/mo
               </Button>
             </Link>

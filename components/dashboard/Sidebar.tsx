@@ -14,6 +14,7 @@ import {
   Sparkles,
   LogOut,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -32,9 +33,11 @@ interface SidebarProps {
   userEmail?: string;
   userName?: string;
   plan?: "FREE" | "PRO";
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export function Sidebar({ userEmail, userName, plan = "FREE" }: SidebarProps) {
+export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
@@ -46,7 +49,18 @@ export function Sidebar({ userEmail, userName, plan = "FREE" }: SidebarProps) {
   }
 
   return (
-    <aside className="flex h-full w-64 flex-col border-r border-gray-100 bg-white">
+    <aside
+      className={cn(
+        // Base styles
+        "flex h-full w-64 shrink-0 flex-col border-r border-gray-100 bg-white",
+        // Mobile: fixed drawer that slides in/out
+        "fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out",
+        // Desktop: static in flex flow, always visible
+        "lg:static lg:z-auto lg:translate-x-0 lg:transition-none",
+        // Toggle on mobile
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      )}
+    >
       {/* Logo */}
       <div className="flex items-center gap-2.5 border-b border-gray-100 px-5 py-4">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
@@ -56,6 +70,14 @@ export function Sidebar({ userEmail, userName, plan = "FREE" }: SidebarProps) {
         {plan === "PRO" && (
           <Badge variant="info" size="sm">Pro</Badge>
         )}
+        {/* Mobile close button */}
+        <button
+          onClick={onClose}
+          className="ml-auto rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 lg:hidden"
+          aria-label="Close menu"
+        >
+          <X className="h-4 w-4" />
+        </button>
       </div>
 
       {/* Nav */}
@@ -71,6 +93,7 @@ export function Sidebar({ userEmail, userName, plan = "FREE" }: SidebarProps) {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={onClose}
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                     item.highlight

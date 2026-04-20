@@ -51,6 +51,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/** Strip HTML tags from a string so stored HTML content renders as plain text */
+function stripHtml(str: unknown): string {
+  if (typeof str !== "string") return "";
+  return str.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+}
+
 function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
@@ -102,7 +108,7 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
     ${cv.summary ? `
     <div class="section">
       <h2>Professional Summary</h2>
-      <p>${cv.summary}</p>
+      <p>${stripHtml(cv.summary)}</p>
     </div>` : ""}
 
     ${experience.length > 0 ? `

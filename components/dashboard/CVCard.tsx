@@ -88,7 +88,7 @@ export function CVCard({ cv, index, isPro }: CVCardProps) {
       <div className="group relative rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
         {/* Color accent header */}
         <div
-          className={`h-2 rounded-t-2xl bg-gradient-to-r ${getGradient(index)}`}
+          className={`h-2 rounded-t-2xl bg-linear-to-r ${getGradient(index)}`}
         />
 
         <div className="p-5">

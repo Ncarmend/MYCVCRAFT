@@ -159,6 +159,34 @@ export async function getOpenAIBullets({
   return Array.isArray(result.bullets) ? result.bullets : [];
 }
 
+/**
+ * Generate a professional summary paragraph in plain text (no HTML)
+ */
+export async function generateSummary(data: CVFormData): Promise<string> {
+  const response = await getOpenAI().chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are an expert CV writer. Write a concise, compelling professional summary paragraph (3-4 sentences, under 80 words). Rules: plain text only, no HTML tags, no markdown, no bullet points, no headings, do NOT repeat the person's name or job title — jump straight into the description. Return only the paragraph text, nothing else.",
+      },
+      {
+        role: "user",
+        content: `Job Title: ${data.jobTitle}
+Experience: ${JSON.stringify(data.experience?.slice(0, 2) ?? [])}
+Skills: ${Array.isArray(data.skills) ? data.skills.join(", ") : data.skills ?? ""}
+
+Write the professional summary paragraph now.`,
+      },
+    ],
+    temperature: 0.7,
+    max_tokens: 200,
+  });
+
+  return (response.choices[0]?.message?.content ?? "").trim();
+}
+
 // --- Helpers ---
 
 function buildCVPrompt(data: CVFormData): string {

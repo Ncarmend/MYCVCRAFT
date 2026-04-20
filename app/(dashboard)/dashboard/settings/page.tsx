@@ -21,7 +21,7 @@ export default async function SettingsPage() {
   return (
     <div>
       <Header title="Settings" subtitle="Manage your account and subscription" />
-      <div className="p-8 max-w-2xl mx-auto space-y-8">
+      <div className="mx-auto max-w-2xl space-y-8 p-4 sm:p-8">
         <SettingsClient
           user={{
             name: dbUser.name ?? "",

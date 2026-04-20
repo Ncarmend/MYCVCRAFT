@@ -28,10 +28,10 @@ const schema = z.object({
   template: z.enum(["BASIC", "MODERN", "EXECUTIVE"]),
   name: z.string().min(1, "Name is required"),
   jobTitle: z.string().min(1, "Job title is required"),
-  email: z.string().email().optional().or(z.literal("")),
+  email: z.email().optional().or(z.literal("")),
   phone: z.string().optional(),
   location: z.string().optional(),
-  website: z.string().url().optional().or(z.literal("")),
+  website: z.url().optional().or(z.literal("")),
   linkedin: z.string().optional(),
   github: z.string().optional(),
   portfolio: z.string().optional(),
@@ -181,16 +181,16 @@ export function CVForm({
     setAiLoading("generate");
     try {
       const values = getValues();
-      const res = await fetch("/api/ai/generate", {
+      const res = await fetch("/api/ai/summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
       if (!res.ok) throw new Error(await res.text());
-      const { content } = await res.json();
-      setValue("summary", content);
+      const { summary } = await res.json();
+      setValue("summary", summary);
       notifyChange();
-      toast.success("CV content generated!");
+      toast.success("Summary generated!");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "";
       toast.error(msg.includes("quota") ? "OpenAI quota exceeded — check your billing." : "AI generation failed. Please try again.");

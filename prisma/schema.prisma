@@ -17,8 +17,36 @@ model User {
   updatedAt    DateTime      @updatedAt
   cvs          CV[]
   subscription Subscription?
+  settings     UserSettings?
 
   @@map("users")
+}
+
+model UserSettings {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // CV preferences
+  cvLanguage String   @default("en")
+  cvFont     String   @default("Inter")
+  cvColor    String   @default("#4f46e5")
+  cvFormat   String   @default("A4")
+  showSummary     Boolean @default(true)
+  showProjects    Boolean @default(true)
+  showSkills      Boolean @default(true)
+  showInterests   Boolean @default(false)
+
+  // AI preferences
+  aiTone     String   @default("professional")
+  aiLength   String   @default("medium")
+  aiLanguage String   @default("en")
+  aiStyle    String   @default("corporate")
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("user_settings")
 }
 
 model CV {
