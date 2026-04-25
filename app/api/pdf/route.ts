@@ -61,6 +61,9 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
   const education = Array.isArray(cv.education) ? cv.education as Array<Record<string, unknown>> : [];
+  const projects = Array.isArray(cv.projects) ? cv.projects as Array<Record<string, unknown>> : [];
+  const languages = Array.isArray(cv.languages) ? cv.languages as Array<Record<string, unknown>> : [];
+  const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -150,6 +153,44 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
       <div class="skills">
         ${skills.map((s) => `<span class="skill">${s}</span>`).join("")}
       </div>
+    </div>` : ""}
+
+    ${projects.length > 0 ? `
+    <div class="section">
+      <h2>Projects</h2>
+      ${projects.map((proj) => `
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <h3>${proj.name}</h3>
+            ${proj.url ? `<span style="font-size:9pt;color:#888;">${proj.url}</span>` : ""}
+          </div>
+          ${proj.description ? `<p style="margin-top:3px;">${proj.description}</p>` : ""}
+          ${Array.isArray(proj.technologies) && (proj.technologies as string[]).length > 0
+            ? `<p style="margin-top:4px;font-size:9pt;color:#888;">${(proj.technologies as string[]).join(" · ")}</p>`
+            : ""}
+        </div>
+      `).join("")}
+    </div>` : ""}
+
+    ${languages.length > 0 ? `
+    <div class="section">
+      <h2>Languages</h2>
+      <div class="skills">
+        ${languages.map((lang) => `
+          <span class="skill"><strong>${lang.name}</strong> — ${lang.proficiency}</span>
+        `).join("")}
+      </div>
+    </div>` : ""}
+
+    ${certifications.length > 0 ? `
+    <div class="section">
+      <h2>Certifications</h2>
+      ${certifications.map((cert) => `
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span><strong>${cert.name}</strong> · ${cert.issuer}</span>
+          <span class="date">${cert.date}</span>
+        </div>
+      `).join("")}
     </div>` : ""}
   </div>
 </body>
