@@ -116,12 +116,12 @@ export function Hero() {
                       </div>
 
                       {/* Navigation */}
-                      <div className="space-y-1.5">
+                      <div className="space-y-1.5  font-size-xs text-gray-600">
                         {[
                           { label: "Dashboard", active: true },
-                          { label: "Mes CV", active: false },
-                          { label: "Modèles", active: false },
-                          { label: "Paramètres", active: false },
+                          { label: "My CV", active: false },
+                          { label: "Models", active: false },
+                          { label: "Parameters", active: false },
                           { label: "Support", active: false },
                         ].map((item, i) => (
                           <div
