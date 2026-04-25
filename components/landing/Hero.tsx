@@ -87,9 +87,8 @@ export function Hero() {
         </div>
 
         {/* Browser mockup */}
-        <div className="mt-16 flow-root sm:mt-20 scale-[0.80] sm:scale-100 origin-top">
-
-        
+        <div className="mt-16 sm:mt-20 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:overflow-x-visible sm:px-0">
+          <div className="min-w-[640px] sm:min-w-0">
           <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
             <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
 
@@ -108,50 +107,50 @@ export function Hero() {
 
                 {/* ── Sidebar ── */}
                 {/* ── Sidebar Premium ── */}
-<div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
+                    <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
 
-  {/* Logo */}
-  <div className="mb-8 flex items-center gap-2">
-    <div className="h-7 w-7 rounded-lg bg-indigo-600" />
-    <span className="h-3 w-20 rounded bg-gray-300" />
-  </div>
+                      {/* Logo */}
+                      <div className="mb-8 flex items-center gap-2">
+                        <div className="h-7 w-7 rounded-lg bg-indigo-600" />
+                        <span className="h-3 w-20 rounded bg-gray-300" />
+                      </div>
 
-  {/* Navigation */}
-  <div className="space-y-1.5">
-    {[
-      { label: "Dashboard", active: true },
-      { label: "Mes CV", active: false },
-      { label: "Modèles", active: false },
-      { label: "Paramètres", active: false },
-      { label: "Support", active: false },
-    ].map((item, i) => (
-      <div
-        key={i}
-        className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
-          item.active
-            ? "bg-indigo-50 text-indigo-700 shadow-sm"
-            : "text-gray-500 hover:bg-gray-50"
-        }`}
-      >
-        <div
-          className={`h-3 w-3 rounded ${
-            item.active ? "bg-indigo-500" : "bg-gray-300"
-          }`}
-        />
-        <span className="text-xs font-medium">{item.label}</span>
-      </div>
-    ))}
-  </div>
+                      {/* Navigation */}
+                      <div className="space-y-1.5">
+                        {[
+                          { label: "Dashboard", active: true },
+                          { label: "Mes CV", active: false },
+                          { label: "Modèles", active: false },
+                          { label: "Paramètres", active: false },
+                          { label: "Support", active: false },
+                        ].map((item, i) => (
+                          <div
+                            key={i}
+                            className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
+                              item.active
+                                ? "bg-indigo-50 text-indigo-700 shadow-sm"
+                                : "text-gray-500 hover:bg-gray-50"
+                            }`}
+                          >
+                            <div
+                              className={`h-3 w-3 rounded ${
+                                item.active ? "bg-indigo-500" : "bg-gray-300"
+                              }`}
+                            />
+                            <span className="text-xs font-medium">{item.label}</span>
+                          </div>
+                        ))}
+                      </div>
 
-  {/* Bottom user section */}
-  <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
-    <div className="h-7 w-7 rounded-full bg-indigo-200" />
-    <div className="space-y-1">
-      <div className="h-2.5 w-16 rounded bg-gray-300" />
-      <div className="h-2 w-12 rounded bg-gray-200" />
-    </div>
-  </div>
-</div>
+                    {/* Bottom user section */}
+                    <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
+                      <div className="h-7 w-7 rounded-full bg-indigo-200" />
+                      <div className="space-y-1">
+                        <div className="h-2.5 w-16 rounded bg-gray-300" />
+                        <div className="h-2 w-12 rounded bg-gray-200" />
+                      </div>
+                    </div>
+                  </div>
 
 
                 {/* ── Main content ── */}
@@ -243,6 +242,7 @@ export function Hero() {
               </div>
 
             </div>
+          </div>
           </div>
         </div>
       </div>
