@@ -116,7 +116,7 @@ export function Hero() {
                       </div>
 
                       {/* Navigation */}
-                      <div className="space-y-1.5  font-size: 0.65rem text-gray-600">
+                      <div className="space-y-1.5  font-size: 0.45rem text-gray-600">
                         {[
                           { label: "Dashboard", active: true },
                           { label: "My CV", active: false },

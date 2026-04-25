@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ArrowLeft } from "lucide-react";
 
 const faqs = [
   {
@@ -64,8 +64,19 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Back button */}
+      <div className="mx-auto max-w-7xl px-6 pt-6">
+        <button
+          onClick={() => router.back()}
+          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </button>
+      </div>
+
       {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 py-24 text-center">
+      <div className="mx-auto max-w-7xl px-6 py-16 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           Simple, transparent pricing
         </h1>
