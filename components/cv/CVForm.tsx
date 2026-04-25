@@ -175,6 +175,12 @@ export function CVForm({
     remove: removeLang,
   } = useFieldArray({ control, name: "languages" });
 
+  const {
+    fields: certFields,
+    append: appendCert,
+    remove: removeCert,
+  } = useFieldArray({ control, name: "certifications" });
+
   // --- AI Actions ---
 
   async function handleAIGenerate() {
@@ -277,6 +283,7 @@ export function CVForm({
           <TabsTrigger value="skills">Skills</TabsTrigger>
           <TabsTrigger value="projects">Projects</TabsTrigger>
           <TabsTrigger value="languages">Languages</TabsTrigger>
+          <TabsTrigger value="certifications">Certifications</TabsTrigger>
           <TabsTrigger value="ai">AI Tools</TabsTrigger>
         </TabsList>
 
@@ -612,6 +619,36 @@ export function CVForm({
           >
             <Plus className="h-4 w-4" />
             Add Language
+          </Button>
+        </TabsContent>
+
+        {/* ─── Certifications Tab ─── */}
+        <TabsContent value="certifications" className="space-y-4">
+          {certFields.map((field, idx) => (
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="font-medium text-gray-700">Certification {idx + 1}</h4>
+                <button type="button" onClick={() => removeCert(idx)} className="text-red-400 hover:text-red-600">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Input label="Certification name" placeholder="AWS Solutions Architect" {...register(`certifications.${idx}.name`)} />
+                <Input label="Issuing organization" placeholder="Amazon Web Services" {...register(`certifications.${idx}.issuer`)} />
+                <Input label="Date" placeholder="2024-03" {...register(`certifications.${idx}.date`)} />
+                <Input label="URL (optional)" placeholder="https://credly.com/..." {...register(`certifications.${idx}.url`)} />
+              </div>
+            </div>
+          ))}
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="gap-2"
+            onClick={() => appendCert({ id: crypto.randomUUID(), name: "", issuer: "", date: "", url: "" })}
+          >
+            <Plus className="h-4 w-4" />
+            Add Certification
           </Button>
         </TabsContent>
 
