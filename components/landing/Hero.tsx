@@ -107,37 +107,52 @@ export function Hero() {
               <div className="grid grid-cols-12" style={{ minHeight: "420px" }}>
 
                 {/* ── Sidebar ── */}
-                <div className="col-span-2 flex flex-col border-r border-gray-100 bg-gray-50 p-3">
-                  {/* Logo */}
-                  <div className="mb-5 flex items-center gap-1.5">
-                    <div className="h-6 w-6 rounded-md bg-indigo-600" />
-                    <div className="h-3 w-14 rounded bg-gray-300" />
-                  </div>
-                  {/* Nav items */}
-                  {[
-                    { w: "w-16", active: true },
-                    { w: "w-14", active: false },
-                    { w: "w-12", active: false },
-                    { w: "w-16", active: false },
-                    { w: "w-10", active: false },
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      className={`mb-1 flex items-center gap-1.5 rounded-md px-2 py-1.5 ${item.active ? "bg-indigo-100" : ""}`}
-                    >
-                      <div className={`h-3 w-3 rounded ${item.active ? "bg-indigo-500" : "bg-gray-300"}`} />
-                      <div className={`h-2 rounded ${item.w} ${item.active ? "bg-indigo-400" : "bg-gray-200"}`} />
-                    </div>
-                  ))}
-                  {/* User avatar at bottom */}
-                  <div className="mt-auto flex items-center gap-1.5 border-t border-gray-200 pt-3">
-                    <div className="h-6 w-6 rounded-full bg-indigo-200" />
-                    <div className="space-y-1">
-                      <div className="h-2 w-12 rounded bg-gray-300" />
-                      <div className="h-1.5 w-10 rounded bg-gray-200" />
-                    </div>
-                  </div>
-                </div>
+                {/* ── Sidebar Premium ── */}
+<div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
+
+  {/* Logo */}
+  <div className="mb-8 flex items-center gap-2">
+    <div className="h-7 w-7 rounded-lg bg-indigo-600" />
+    <span className="h-3 w-20 rounded bg-gray-300" />
+  </div>
+
+  {/* Navigation */}
+  <div className="space-y-1.5">
+    {[
+      { label: "Dashboard", active: true },
+      { label: "Mes CV", active: false },
+      { label: "Modèles", active: false },
+      { label: "Paramètres", active: false },
+      { label: "Support", active: false },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
+          item.active
+            ? "bg-indigo-50 text-indigo-700 shadow-sm"
+            : "text-gray-500 hover:bg-gray-50"
+        }`}
+      >
+        <div
+          className={`h-3 w-3 rounded ${
+            item.active ? "bg-indigo-500" : "bg-gray-300"
+          }`}
+        />
+        <span className="text-xs font-medium">{item.label}</span>
+      </div>
+    ))}
+  </div>
+
+  {/* Bottom user section */}
+  <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
+    <div className="h-7 w-7 rounded-full bg-indigo-200" />
+    <div className="space-y-1">
+      <div className="h-2.5 w-16 rounded bg-gray-300" />
+      <div className="h-2 w-12 rounded bg-gray-200" />
+    </div>
+  </div>
+</div>
+
 
                 {/* ── Main content ── */}
                 <div className="col-span-10 bg-gray-50/40 p-5">
