@@ -87,7 +87,7 @@ export function Hero() {
         </div>
 
         {/* Browser mockup */}
-        <div className="mt-16 flow-root sm:mt-20 scale-[0.50] sm:scale-100 origin-top">
+        <div className="mt-16 flow-root sm:mt-20 scale-[0.80] sm:scale-100 origin-top">
 
         
           <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
