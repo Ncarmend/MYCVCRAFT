@@ -4,7 +4,7 @@
  */
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -144,12 +144,16 @@ export function CVForm({
     },
   });
 
-  // Watch all values for live preview
-  const watchedValues = watch();
-  // Notify parent of changes (debounced via useCallback)
-  const notifyChange = useCallback(() => {
-    onChange?.(getValues());
-  }, [onChange, getValues]);
+  // Subscribe to every form change and push to preview
+  useEffect(() => {
+    const subscription = watch((values) => {
+      onChange?.(values as Partial<CVFormData>);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, onChange]);
+
+  // Skills watched separately for the tag input UI
+  const skills = watch("skills") || [];
 
   const {
     fields: expFields,
@@ -195,7 +199,6 @@ export function CVForm({
       if (!res.ok) throw new Error(await res.text());
       const { summary } = await res.json();
       setValue("summary", summary);
-      notifyChange();
       toast.success("Summary generated!");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "";
@@ -240,7 +243,6 @@ export function CVForm({
       if (!res.ok) throw new Error(await res.text());
       const { bullets } = await res.json();
       setValue(`experience.${idx}.achievements`, bullets);
-      notifyChange();
       toast.success("Bullet points generated!");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed to generate bullet points.";
@@ -256,7 +258,6 @@ export function CVForm({
     const current = getValues("skills") || [];
     if (!current.includes(trimmed)) {
       setValue("skills", [...current, trimmed]);
-      notifyChange();
     }
     setSkillInput("");
   }
@@ -264,15 +265,13 @@ export function CVForm({
   function removeSkill(skill: string) {
     const current = getValues("skills") || [];
     setValue("skills", current.filter((s) => s !== skill));
-    notifyChange();
   }
 
-  const skills = watchedValues.skills || [];
 
   return (
     <form
       onSubmit={handleSubmit(onSave)}
-      onChange={notifyChange}
+
       className="space-y-6"
     >
       <Tabs defaultValue="personal">
@@ -302,7 +301,6 @@ export function CVForm({
                 defaultValue={defaultValues?.template || "BASIC"}
                 onValueChange={(v) => {
                   setValue("template", v as "BASIC" | "MODERN" | "EXECUTIVE");
-                  notifyChange();
                 }}
               >
                 <SelectTrigger>
@@ -416,7 +414,6 @@ export function CVForm({
                   onChange={(e) => {
                     const lines = e.target.value.split("\n").filter(Boolean);
                     setValue(`experience.${idx}.achievements`, lines);
-                    notifyChange();
                   }}
                 />
               </div>
@@ -553,7 +550,6 @@ export function CVForm({
                 onChange={(e) => {
                   const techs = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
                   setValue(`projects.${idx}.technologies`, techs);
-                  notifyChange();
                 }}
                 defaultValue={field.technologies?.join(", ")}
               />
@@ -596,7 +592,6 @@ export function CVForm({
                     defaultValue={field.proficiency}
                     onValueChange={(v) => {
                       setValue(`languages.${idx}.proficiency`, v as "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic");
-                      notifyChange();
                     }}
                   >
                     <SelectTrigger><SelectValue /></SelectTrigger>
