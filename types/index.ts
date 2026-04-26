@@ -52,6 +52,7 @@ export interface CVFormData {
   template: "BASIC" | "MODERN" | "EXECUTIVE";
   // Personal
   name: string;
+  photoUrl?: string;
   jobTitle: string;
   email?: string;
   phone?: string;
