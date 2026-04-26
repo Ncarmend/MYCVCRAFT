@@ -78,6 +78,7 @@ export type CV = {
   template: "BASIC" | "MODERN" | "EXECUTIVE";
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
   name: string;
+  photoUrl?: string | null;
   jobTitle: string;
   email?: string | null;
   phone?: string | null;
