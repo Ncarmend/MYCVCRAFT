@@ -145,10 +145,10 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         style={{ width: "240px", padding: "40px 28px" }}
       >
         {/* Photo */}
-        {cv.photo && (
+        {cv.photoUrl && (
           <div className="mb-6 flex justify-center">
             <img
-              src={cv.photo}
+              src={cv.photoUrl}
               alt="Profile"
               className="h-28 w-28 rounded-full object-cover border-4 border-yellow-600 shadow-lg"
             />

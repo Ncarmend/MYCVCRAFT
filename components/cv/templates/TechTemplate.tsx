@@ -34,11 +34,11 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         style={{ width: "240px", padding: "40px 28px" }}
       >
         {/* Photo hexagonale */}
-        {cv.photo && (
+        {cv.photoUrl && (
           <div className="mb-6 flex justify-center">
             <div className="relative h-28 w-28">
               <img
-                src={cv.photo}
+                src={cv.photoUrl}
                 alt="Profile"
                 className="h-full w-full object-cover"
                 style={{
