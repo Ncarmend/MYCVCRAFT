@@ -49,7 +49,7 @@ export interface CertificationItem {
 
 export interface CVFormData {
   title: string;
-  template: "BASIC" | "MODERN" | "EXECUTIVE";
+  template: "BASIC" | "MODERN" | "EXECUTIVE" | "CREATIVE" | "MINIMAL" | "TECH" | "CORPORATE" | "ELEGANT";
   // Personal
   name: string;
   photoUrl?: string;
@@ -75,7 +75,7 @@ export type CV = {
   id: string;
   userId: string;
   title: string;
-  template: "BASIC" | "MODERN" | "EXECUTIVE";
+  template: "BASIC" | "MODERN" | "EXECUTIVE" | "CREATIVE" | "MINIMAL" | "ELEGANT" | "TECH" | "CORPORATE";
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
   name: string;
   photoUrl?: string | null;
