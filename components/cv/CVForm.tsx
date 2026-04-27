@@ -300,7 +300,7 @@ export function CVForm({
               <Select
                 defaultValue={defaultValues?.template || "BASIC"}
                 onValueChange={(v) => {
-                  setValue("template", v as "BASIC" | "MODERN" | "EXECUTIVE" | "CREATIVE" | "MINIMAL" | "TECH" | "CORPORATE" | "ELEGANT");
+                  setValue("template", v as CVFormData["template"]);
                 }}
               >
                 <SelectTrigger>
