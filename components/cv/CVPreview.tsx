@@ -5,6 +5,12 @@
 
 import { BasicTemplate } from "./templates/BasicTemplate";
 import { ModernTemplate } from "./templates/ModernTemplate";
+import { ExecutiveTemplate } from "./templates/Executivetemplate";
+import { CreativeTemplate } from "./templates/Creativetemplate";
+import { MinimalTemplate } from "./templates/Minimaltemplate";
+import { ElegantTemplate } from "./templates/ElegantTemplate";
+import { TechTemplate } from "./templates/TechTemplate";
+import { CorporateTemplate } from "./templates/CorporateTemplate";
 import type { CVFormData } from "@/types";
 
 interface CVPreviewProps {
@@ -25,6 +31,12 @@ export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProp
     >
       {template === "BASIC" && <BasicTemplate cv={data} watermark={watermark} />}
       {template === "MODERN" && <ModernTemplate cv={data} watermark={watermark} />}
+      {template === "EXECUTIVE" && <ExecutiveTemplate cv={data} watermark={watermark} />}
+      {template === "CREATIVE" && <CreativeTemplate cv={data} watermark={watermark} />}
+      {template === "MINIMAL" && <MinimalTemplate cv={data} watermark={watermark} />}
+      {template === "ELEGANT" && <ElegantTemplate cv={data} watermark={watermark} />}
+      {template === "TECH" && <TechTemplate cv={data} watermark={watermark} />}
+      {template === "CORPORATE" && <CorporateTemplate cv={data} watermark={watermark} />}
     </div>
   );
 }
