@@ -52,6 +52,7 @@ export default function PricingPage() {
         return;
       }
 
+      if (!res.ok) throw new Error(await res.text());
       const { url, error } = await res.json();
       if (error) throw new Error(error);
       if (url) window.location.href = url;

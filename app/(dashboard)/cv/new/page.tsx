@@ -33,8 +33,10 @@ export default function NewCVPage() {
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to save CV");
+        const text = await res.text();
+        let msg = "Failed to save CV";
+        try { msg = JSON.parse(text).error || msg; } catch { msg = text || msg; }
+        throw new Error(msg);
       }
 
       const { cv } = await res.json();

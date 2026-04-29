@@ -136,6 +136,7 @@ export function SettingsClient({ user }: Props) {
     setPortalLoading(true);
     try {
       const res = await fetch("/api/stripe/portal", { method: "POST" });
+      if (!res.ok) throw new Error(await res.text());
       const { url, error } = await res.json();
       if (error) throw new Error(error);
       if (url) window.location.href = url;

@@ -35,8 +35,10 @@ export function CVEditorClient({ cv, isPro }: Props) {
         body: JSON.stringify(data),
       });
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Save failed");
+        const text = await res.text();
+        let msg = "Save failed";
+        try { msg = JSON.parse(text).error || msg; } catch { msg = text || msg; }
+        throw new Error(msg);
       }
       toast.success("CV saved!");
       router.refresh();
