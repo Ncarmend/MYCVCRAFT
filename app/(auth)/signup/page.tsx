@@ -64,7 +64,7 @@ function SignupForm() {
         password: data.password,
         options: {
           data: { full_name: data.name },
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback?next=${returnTo}`,
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback?next=${returnTo}`,
         },
       });
       if (error) throw error;
