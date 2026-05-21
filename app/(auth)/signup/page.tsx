@@ -48,8 +48,6 @@ function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<string | null>(null);
 
-  const supabase = createClient();
-
   const {
     register,
     handleSubmit,
@@ -59,6 +57,7 @@ function SignupForm() {
   async function onSubmit(data: FormData) {
     setLoading(true);
     try {
+      const supabase = createClient();
       const { error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -82,10 +81,11 @@ function SignupForm() {
 
   async function signUpWithOAuth(provider: "google" | "github") {
     setOauthLoading(provider);
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback?next=${returnTo}`,
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback?next=${returnTo}`,
       },
     });
     if (error) {

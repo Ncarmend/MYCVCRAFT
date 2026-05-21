@@ -36,8 +36,6 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<string | null>(null);
 
-  const supabase = createClient();
-
   const {
     register,
     handleSubmit,
@@ -47,6 +45,7 @@ function LoginForm() {
   async function onSubmit(data: FormData) {
     setLoading(true);
     try {
+      const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -65,6 +64,7 @@ function LoginForm() {
 
   async function signInWithOAuth(provider: "google" | "github") {
     setOauthLoading(provider);
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
