@@ -1,6 +1,7 @@
 /**
  * CV edit page — loads existing CV, shows form + preview
  */
+export const dynamic = 'force-dynamic';
 import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
@@ -19,11 +20,25 @@ export default async function EditCVPage({ params }: Props) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const dbUser = await prisma.user.findUnique({
+
+
+
+  let dbUser = null
+try {
+  dbUser = await prisma.user.findUnique({
     where: { supabaseId: user.id },
-    include: { subscription: true },
-  });
-  if (!dbUser) redirect("/onboarding");
+    include: {
+      subscription: true,
+      cvs: { orderBy: { updatedAt: "desc" } },
+    },
+  })
+} catch (err) {
+  console.error('Prisma error:', err)
+  redirect('/login?error=db_error')
+}
+
+
+
 
   const cv = await prisma.cV.findFirst({
     where: { id, userId: dbUser.id },
@@ -33,6 +48,7 @@ export default async function EditCVPage({ params }: Props) {
   const isPro = dbUser.subscription?.plan === "PRO";
 
   // Cast Prisma JSON fields to proper types
+  
   const cvData: CV = {
     ...(cv as unknown as CV),
     email: cv.email ?? "",
