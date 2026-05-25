@@ -20,22 +20,13 @@ export default async function EditCVPage({ params }: Props) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
+  
 
-
-
-  let dbUser = null
-try {
-  dbUser = await prisma.user.findUnique({
+  const dbUser = await prisma.user.findUnique({
     where: { supabaseId: user.id },
-    include: {
-      subscription: true,
-      cvs: { orderBy: { updatedAt: "desc" } },
-    },
-  })
-} catch (err) {
-  console.error('Prisma error:', err)
-  redirect('/login?error=db_error')
-}
+    include: { subscription: true },
+  });
+  if (!dbUser) redirect("/onboarding");
 
 
 
