@@ -10,6 +10,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env.DATABASE_URL,
+    // Use session-mode pooler (port 5432) for migrations — transaction mode (6543) hangs
+    url: process.env.DATABASE_MIGRATION_URL ?? process.env.DATABASE_URL,
   },
 });
