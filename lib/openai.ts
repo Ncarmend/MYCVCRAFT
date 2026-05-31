@@ -15,14 +15,22 @@ function getClient(): Anthropic {
 const MODEL = "claude-haiku-4-5-20251001";
 
 async function ask(system: string, user: string, maxTokens = 2000): Promise<string> {
-  const msg = await getClient().messages.create({
-    model: MODEL,
-    max_tokens: maxTokens,
-    system,
-    messages: [{ role: "user", content: user }],
-  });
-  const block = msg.content[0];
-  return block.type === "text" ? block.text : "";
+  try {
+    const msg = await getClient().messages.create({
+      model: MODEL,
+      max_tokens: maxTokens,
+      system,
+      messages: [{ role: "user", content: user }],
+    });
+    const block = msg.content[0];
+    return block.type === "text" ? block.text : "";
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes("credit balance") || msg.includes("insufficient_quota")) {
+      throw new Error("AI_NO_CREDITS");
+    }
+    throw err;
+  }
 }
 
 async function askJSON(system: string, user: string, maxTokens = 1024): Promise<unknown> {

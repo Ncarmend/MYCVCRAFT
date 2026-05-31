@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateCV } from "@/lib/openai";
+import { checkAIQuota, aiErrorResponse, AIQuotaError } from "@/lib/aiGuard";
 import type { CVFormData } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -12,6 +13,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    await checkAIQuota(user.id);
 
     const data: CVFormData = await request.json();
 
@@ -23,10 +26,11 @@ export async function POST(request: NextRequest) {
     }
 
     const content = await generateCV(data);
-
     return NextResponse.json({ content });
   } catch (err) {
     console.error("[POST /api/ai/generate]", err);
-    return NextResponse.json({ error: "AI generation failed" }, { status: 500 });
+    const mapped = aiErrorResponse(err);
+    const status = err instanceof AIQuotaError ? 429 : 500;
+    return NextResponse.json(mapped, { status });
   }
 }

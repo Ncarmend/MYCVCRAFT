@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { optimizeCV } from "@/lib/openai";
+import { checkAIQuota, aiErrorResponse, AIQuotaError } from "@/lib/aiGuard";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
@@ -12,6 +13,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    await checkAIQuota(user.id);
 
     const { cvId, data } = await request.json();
 
@@ -42,6 +45,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result);
   } catch (err) {
     console.error("[POST /api/ai/optimize]", err);
-    return NextResponse.json({ error: "Optimization failed" }, { status: 500 });
+    const mapped = aiErrorResponse(err);
+    const status = err instanceof AIQuotaError ? 429 : 500;
+    return NextResponse.json(mapped, { status });
   }
 }
