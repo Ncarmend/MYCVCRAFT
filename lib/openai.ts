@@ -1,64 +1,53 @@
 /**
- * OpenAI client + CV generation helpers
+ * AI generation helpers — backed by Anthropic Claude
  */
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import type { CVFormData } from "@/types";
 
-let _openai: OpenAI | null = null;
-function getOpenAI(): OpenAI {
-  if (!_openai) {
-    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _client: Anthropic | null = null;
+function getClient(): Anthropic {
+  if (!_client) {
+    _client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   }
-  return _openai;
+  return _client;
 }
 
-/**
- * Generate a professional CV from structured form data
- */
+const MODEL = "claude-haiku-4-5-20251001";
+
+async function ask(system: string, user: string, maxTokens = 2000): Promise<string> {
+  const msg = await getClient().messages.create({
+    model: MODEL,
+    max_tokens: maxTokens,
+    system,
+    messages: [{ role: "user", content: user }],
+  });
+  const block = msg.content[0];
+  return block.type === "text" ? block.text : "";
+}
+
+async function askJSON(system: string, user: string, maxTokens = 1024): Promise<unknown> {
+  const text = await ask(system, user + "\n\nRespond with valid JSON only, no markdown.", maxTokens);
+  const match = text.match(/\{[\s\S]*\}/);
+  return JSON.parse(match ? match[0] : text);
+}
+
 export async function generateCV(data: CVFormData): Promise<string> {
-  const prompt = buildCVPrompt(data);
-
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are an expert CV writer and career coach. Generate professional, ATS-optimized CV content in clean HTML format. Use strong action verbs, quantify achievements where possible, and ensure the content is tailored to the job title.",
-      },
-      { role: "user", content: prompt },
-    ],
-    temperature: 0.7,
-    max_tokens: 2000,
-  });
-
-  return response.choices[0]?.message?.content ?? "";
+  return ask(
+    "You are an expert CV writer and career coach. Generate professional, ATS-optimized CV content in clean HTML format. Use strong action verbs, quantify achievements where possible, and ensure the content is tailored to the job title.",
+    buildCVPrompt(data),
+    2000,
+  );
 }
 
-/**
- * Optimize an existing CV for ATS (Applicant Tracking Systems)
- */
 export async function optimizeCV(
-  cvContent: string
+  cvContent: string,
 ): Promise<{ content: string; score: number; suggestions: string[] }> {
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are an ATS optimization expert. Analyze the CV and return a JSON object with: content (improved CV HTML), score (ATS score 0-100), suggestions (array of improvement tips).",
-      },
-      {
-        role: "user",
-        content: `Optimize this CV for ATS systems and return JSON:\n\n${cvContent}`,
-      },
-    ],
-    temperature: 0.5,
-    response_format: { type: "json_object" },
-  });
+  const result = (await askJSON(
+    "You are an ATS optimization expert. Analyze the CV and return a JSON object with: content (improved CV HTML), score (ATS score 0-100), suggestions (array of improvement tips).",
+    `Optimize this CV for ATS systems and return JSON:\n\n${cvContent}`,
+    1500,
+  )) as { content?: string; score?: number; suggestions?: string[] };
 
-  const result = JSON.parse(response.choices[0]?.message?.content ?? "{}");
   return {
     content: result.content ?? cvContent,
     score: result.score ?? 70,
@@ -66,31 +55,15 @@ export async function optimizeCV(
   };
 }
 
-/**
- * Match a CV against a job description and suggest improvements
- */
 export async function matchJobDescription(
   cvContent: string,
-  jobDescription: string
+  jobDescription: string,
 ): Promise<{ matchScore: number; improvements: string[]; keywords: string[] }> {
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a career expert. Analyze how well a CV matches a job description. Return JSON with: matchScore (0-100), improvements (array of specific changes), keywords (missing keywords to add).",
-      },
-      {
-        role: "user",
-        content: `CV:\n${cvContent}\n\nJob Description:\n${jobDescription}\n\nReturn JSON analysis.`,
-      },
-    ],
-    temperature: 0.5,
-    response_format: { type: "json_object" },
-  });
+  const result = (await askJSON(
+    "You are a career expert. Analyze how well a CV matches a job description. Return JSON with: matchScore (0-100), improvements (array of specific changes), keywords (missing keywords to add).",
+    `CV:\n${cvContent}\n\nJob Description:\n${jobDescription}\n\nReturn JSON analysis.`,
+  )) as { matchScore?: number; improvements?: string[]; keywords?: string[] };
 
-  const result = JSON.parse(response.choices[0]?.message?.content ?? "{}");
   return {
     matchScore: result.matchScore ?? 50,
     improvements: result.improvements ?? [],
@@ -98,37 +71,18 @@ export async function matchJobDescription(
   };
 }
 
-/**
- * Generate a tailored cover letter
- */
 export async function generateCoverLetter(
   cvContent: string,
   jobDescription: string,
-  companyName: string
+  companyName: string,
 ): Promise<string> {
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a professional cover letter writer. Write compelling, personalized cover letters that highlight relevant experience and show enthusiasm for the role.",
-      },
-      {
-        role: "user",
-        content: `Write a professional cover letter for ${companyName}.\n\nCV:\n${cvContent}\n\nJob Description:\n${jobDescription}`,
-      },
-    ],
-    temperature: 0.7,
-    max_tokens: 800,
-  });
-
-  return response.choices[0]?.message?.content ?? "";
+  return ask(
+    "You are a professional cover letter writer. Write compelling, personalized cover letters that highlight relevant experience and show enthusiasm for the role.",
+    `Write a professional cover letter for ${companyName}.\n\nCV:\n${cvContent}\n\nJob Description:\n${jobDescription}`,
+    800,
+  );
 }
 
-/**
- * Generate achievement bullet points for a job experience entry
- */
 export async function getOpenAIBullets({
   role,
   company,
@@ -138,53 +92,25 @@ export async function getOpenAIBullets({
   company?: string;
   description?: string;
 }): Promise<string[]> {
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are an expert CV writer. Generate 3-5 concise, impactful achievement bullet points for a job role. Use strong action verbs, quantify achievements where plausible, and keep each bullet under 15 words. Return a JSON object with a 'bullets' array of strings.",
-      },
-      {
-        role: "user",
-        content: `Role: ${role}\nCompany: ${company || "N/A"}\nDescription: ${description || "N/A"}\n\nGenerate bullet points.`,
-      },
-    ],
-    temperature: 0.7,
-    response_format: { type: "json_object" },
-  });
+  const result = (await askJSON(
+    "You are an expert CV writer. Generate 3-5 concise, impactful achievement bullet points for a job role. Use strong action verbs, quantify achievements where plausible, and keep each bullet under 15 words. Return a JSON object with a 'bullets' array of strings.",
+    `Role: ${role}\nCompany: ${company || "N/A"}\nDescription: ${description || "N/A"}\n\nGenerate bullet points.`,
+  )) as { bullets?: string[] };
 
-  const result = JSON.parse(response.choices[0]?.message?.content ?? "{}");
   return Array.isArray(result.bullets) ? result.bullets : [];
 }
 
-/**
- * Generate a professional summary paragraph in plain text (no HTML)
- */
 export async function generateSummary(data: CVFormData): Promise<string> {
-  const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are an expert CV writer. Write a concise, compelling professional summary paragraph (3-4 sentences, under 80 words). Rules: plain text only, no HTML tags, no markdown, no bullet points, no headings, do NOT repeat the person's name or job title — jump straight into the description. Return only the paragraph text, nothing else.",
-      },
-      {
-        role: "user",
-        content: `Job Title: ${data.jobTitle}
+  const text = await ask(
+    "You are an expert CV writer. Write a concise, compelling professional summary paragraph (3-4 sentences, under 80 words). Rules: plain text only, no HTML tags, no markdown, no bullet points, no headings, do NOT repeat the person's name or job title — jump straight into the description. Return only the paragraph text, nothing else.",
+    `Job Title: ${data.jobTitle}
 Experience: ${JSON.stringify(data.experience?.slice(0, 2) ?? [])}
-Skills: ${Array.isArray(data.skills) ? data.skills.join(", ") : data.skills ?? ""}
+Skills: ${Array.isArray(data.skills) ? data.skills.join(", ") : (data.skills ?? "")}
 
 Write the professional summary paragraph now.`,
-      },
-    ],
-    temperature: 0.7,
-    max_tokens: 200,
-  });
-
-  return (response.choices[0]?.message?.content ?? "").trim();
+    200,
+  );
+  return text.trim();
 }
 
 // --- Helpers ---
