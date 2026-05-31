@@ -86,6 +86,48 @@ const schema = z.object({
   ),
 });
 
+const TEMPLATES = [
+  { value: "BASIC",     label: "Basic",     desc: "ATS-friendly, clean",    color: "#6366f1" },
+  { value: "MODERN",    label: "Modern",    desc: "Two-column layout",       color: "#0ea5e9" },
+  { value: "EXECUTIVE", label: "Executive", desc: "Bold & professional",     color: "#1e293b" },
+  { value: "CREATIVE",  label: "Creative",  desc: "Colourful & eye-catching", color: "#f59e0b" },
+  { value: "MINIMAL",   label: "Minimal",   desc: "Clean whitespace",        color: "#64748b" },
+  { value: "ELEGANT",   label: "Elegant",   desc: "Serif, refined",          color: "#7c3aed" },
+  { value: "TECH",      label: "Tech",      desc: "Dark header accent",      color: "#10b981" },
+] as const;
+
+function TemplatePicker({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
+      {TEMPLATES.map((t) => (
+        <button
+          key={t.value}
+          type="button"
+          onClick={() => onChange(t.value)}
+          className={`flex flex-col items-center gap-1 rounded-lg border-2 p-2 text-center transition-all hover:shadow-md ${
+            value === t.value
+              ? "border-indigo-500 bg-indigo-50"
+              : "border-gray-200 bg-white hover:border-gray-300"
+          }`}
+        >
+          <span
+            className="h-8 w-8 rounded-md"
+            style={{ backgroundColor: t.color }}
+          />
+          <span className="text-xs font-semibold leading-tight text-gray-800">{t.label}</span>
+          <span className="hidden text-[10px] leading-tight text-gray-500 sm:block">{t.desc}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 interface CVFormProps {
   defaultValues?: Partial<CVFormData>;
   onSave: (data: CVFormData) => Promise<void>;
@@ -295,23 +337,12 @@ export function CVForm({
               error={errors.title?.message}
               {...register("title")}
             />
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 col-span-2">
               <label className="text-sm font-medium text-gray-700">Template</label>
-              <Select
-                defaultValue={defaultValues?.template || "BASIC"}
-                onValueChange={(v) => {
-                  setValue("template", v as CVFormData["template"]);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose template" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="BASIC">Basic (ATS-friendly)</SelectItem>
-                  <SelectItem value="MODERN">Modern (Two-column)</SelectItem>
-                  <SelectItem value="EXECUTIVE">Executive (Coming soon)</SelectItem>
-                </SelectContent>
-              </Select>
+              <TemplatePicker
+                value={watch("template") || defaultValues?.template || "BASIC"}
+                onChange={(v) => setValue("template", v as CVFormData["template"])}
+              />
             </div>
           </div>
 
