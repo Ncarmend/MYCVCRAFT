@@ -134,6 +134,10 @@ enum CVTemplate {
   ELEGANT
   TECH
   CORPORATE
+  SLATE
+  WARM
+  SOFT
+  PHOTO
 }
 
 enum CVStatus {

@@ -1,6 +1,3 @@
-/**
- * CV Preview panel — renders the correct template based on selection
- */
 "use client";
 
 import { BasicTemplate } from "./templates/BasicTemplate";
@@ -11,32 +8,44 @@ import { MinimalTemplate } from "./templates/Minimaltemplate";
 import { ElegantTemplate } from "./templates/ElegantTemplate";
 import { TechTemplate } from "./templates/TechTemplate";
 import { CorporateTemplate } from "./templates/CorporateTemplate";
+import { SlateTemplate } from "./templates/SlateTemplate";
+import { WarmTemplate } from "./templates/WarmTemplate";
+import { SoftTemplate } from "./templates/SoftTemplate";
+import { PhotoTemplate } from "./templates/PhotoTemplate";
 import type { CVFormData } from "@/types";
 
 interface CVPreviewProps {
   data: Partial<CVFormData>;
   watermark?: boolean;
-  /** Pass a ref if you want to print/export this element */
   previewRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {
-  const template = data.template ?? "BASIC";
+/** Renders the correct template component for given data — no outer wrapper. */
+export function TemplateRenderer({ data, watermark = false }: { data: Partial<CVFormData>; watermark?: boolean }) {
+  const t = data.template ?? "BASIC";
+  if (t === "BASIC")     return <BasicTemplate     cv={data} watermark={watermark} />;
+  if (t === "MODERN")    return <ModernTemplate    cv={data} watermark={watermark} />;
+  if (t === "EXECUTIVE") return <ExecutiveTemplate cv={data} watermark={watermark} />;
+  if (t === "CREATIVE")  return <CreativeTemplate  cv={data} watermark={watermark} />;
+  if (t === "MINIMAL")   return <MinimalTemplate   cv={data} watermark={watermark} />;
+  if (t === "ELEGANT")   return <ElegantTemplate   cv={data} watermark={watermark} />;
+  if (t === "TECH")      return <TechTemplate      cv={data} watermark={watermark} />;
+  if (t === "CORPORATE") return <CorporateTemplate cv={data} watermark={watermark} />;
+  if (t === "SLATE")     return <SlateTemplate     cv={data} watermark={watermark} />;
+  if (t === "WARM")      return <WarmTemplate      cv={data} watermark={watermark} />;
+  if (t === "SOFT")      return <SoftTemplate      cv={data} watermark={watermark} />;
+  if (t === "PHOTO")     return <PhotoTemplate     cv={data} watermark={watermark} />;
+  return <BasicTemplate cv={data} watermark={watermark} />;
+}
 
+export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {
   return (
     <div
       ref={previewRef as React.RefObject<HTMLDivElement>}
       className="overflow-hidden rounded-xl shadow-lg ring-1 ring-gray-200"
       style={{ transform: "scale(0.8)", transformOrigin: "top center", marginBottom: "-20%" }}
     >
-      {template === "BASIC" && <BasicTemplate cv={data} watermark={watermark} />}
-      {template === "MODERN" && <ModernTemplate cv={data} watermark={watermark} />}
-      {template === "EXECUTIVE" && <ExecutiveTemplate cv={data} watermark={watermark} />}
-      {template === "CREATIVE" && <CreativeTemplate cv={data} watermark={watermark} />}
-      {template === "MINIMAL" && <MinimalTemplate cv={data} watermark={watermark} />}
-      {template === "ELEGANT" && <ElegantTemplate cv={data} watermark={watermark} />}
-      {template === "TECH" && <TechTemplate cv={data} watermark={watermark} />}
-      {template === "CORPORATE" && <CorporateTemplate cv={data} watermark={watermark} />}
+      <TemplateRenderer data={data} watermark={watermark} />
     </div>
   );
 }

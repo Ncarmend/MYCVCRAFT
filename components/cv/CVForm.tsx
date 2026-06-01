@@ -19,13 +19,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/modal";
 import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2 } from "lucide-react";
+import { TemplateRenderer } from "@/components/cv/CVPreview";
 import type { CVFormData } from "@/types";
 
 // --- Zod schema ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
-  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE"]),
+  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO"]),
+  photoUrl: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   jobTitle: z.string().min(1, "Job title is required"),
   email: z.email().optional().or(z.literal("")),
@@ -86,45 +89,125 @@ const schema = z.object({
   ),
 });
 
-const TEMPLATES = [
-  { value: "BASIC",     label: "Basic",     desc: "ATS-friendly, clean",    color: "#6366f1" },
-  { value: "MODERN",    label: "Modern",    desc: "Two-column layout",       color: "#0ea5e9" },
-  { value: "EXECUTIVE", label: "Executive", desc: "Bold & professional",     color: "#1e293b" },
-  { value: "CREATIVE",  label: "Creative",  desc: "Colourful & eye-catching", color: "#f59e0b" },
-  { value: "MINIMAL",   label: "Minimal",   desc: "Clean whitespace",        color: "#64748b" },
-  { value: "ELEGANT",   label: "Elegant",   desc: "Serif, refined",          color: "#7c3aed" },
-  { value: "TECH",      label: "Tech",      desc: "Dark header accent",      color: "#10b981" },
-] as const;
+const TEMPLATES: { value: string; label: string; desc: string }[] = [
+  { value: "BASIC",     label: "Basic",     desc: "ATS-friendly" },
+  { value: "MODERN",    label: "Modern",    desc: "Two-column, indigo" },
+  { value: "EXECUTIVE", label: "Executive", desc: "Dark header" },
+  { value: "CREATIVE",  label: "Creative",  desc: "Amber accent" },
+  { value: "MINIMAL",   label: "Minimal",   desc: "Clean & light" },
+  { value: "ELEGANT",   label: "Elegant",   desc: "Serif, refined" },
+  { value: "TECH",      label: "Tech",      desc: "Dark sidebar" },
+  { value: "CORPORATE", label: "Corporate", desc: "Navy & blue" },
+  { value: "SLATE",     label: "Slate",     desc: "Grey sidebar" },
+  { value: "WARM",      label: "Warm",      desc: "Beige & cream" },
+  { value: "SOFT",      label: "Soft",      desc: "Pale lavender" },
+  { value: "PHOTO",     label: "Photo",     desc: "With portrait" },
+];
 
-function TemplatePicker({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+const SAMPLE_CV: Partial<CVFormData> = {
+  name: "Sophie Laurent",
+  jobTitle: "Product Designer",
+  email: "sophie@example.com",
+  phone: "+33 6 12 34 56 78",
+  location: "Paris, France",
+  linkedin: "linkedin.com/in/sophie",
+  summary: "Creative designer with 5+ years crafting user-centred digital products for global brands.",
+  skills: ["Figma", "React", "UX Research", "Prototyping", "CSS"],
+  experience: [{
+    id: "1", company: "Studio Créatif", role: "Senior Designer",
+    startDate: "2021", endDate: "Present",
+    description: "Led design for flagship SaaS product.",
+    achievements: ["Increased conversion by 35%", "Mentored 3 designers"],
+  }, {
+    id: "2", company: "Agence Numérique", role: "UI Designer",
+    startDate: "2018", endDate: "2021",
+    description: "Built design system from scratch.",
+    achievements: ["Delivered 12 client projects on time"],
+  }],
+  education: [{
+    id: "1", institution: "École des Beaux-Arts", degree: "Master",
+    field: "Design Graphique", startDate: "2015", endDate: "2017",
+  }],
+  projects: [{ id: "1", name: "DesignKit", description: "Open-source component library", technologies: ["React", "Storybook"], url: "designkit.io" }],
+  languages: [{ id: "1", name: "Français", proficiency: "Native" }, { id: "2", name: "English", proficiency: "Fluent" }],
+  certifications: [{ id: "1", name: "Google UX Certificate", issuer: "Google", date: "2022" }],
+};
+
+function MiniPreview({ templateKey }: { templateKey: string }) {
+  const SCALE = 0.196;
+  const W = 816;
   return (
-    <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
-      {TEMPLATES.map((t) => (
-        <button
-          key={t.value}
-          type="button"
-          onClick={() => onChange(t.value)}
-          className={`flex flex-col items-center gap-1 rounded-lg border-2 p-2 text-center transition-all hover:shadow-md ${
-            value === t.value
-              ? "border-indigo-500 bg-indigo-50"
-              : "border-gray-200 bg-white hover:border-gray-300"
-          }`}
-        >
-          <span
-            className="h-8 w-8 rounded-md"
-            style={{ backgroundColor: t.color }}
-          />
-          <span className="text-xs font-semibold leading-tight text-gray-800">{t.label}</span>
-          <span className="hidden text-[10px] leading-tight text-gray-500 sm:block">{t.desc}</span>
-        </button>
-      ))}
+    <div style={{ width: "100%", aspectRatio: "0.772", overflow: "hidden", position: "relative", borderRadius: "6px" }}>
+      <div style={{ transform: `scale(${SCALE})`, transformOrigin: "top left", width: `${W}px`, pointerEvents: "none", userSelect: "none", position: "absolute", top: 0, left: 0 }}>
+        <TemplateRenderer data={{ ...SAMPLE_CV, template: templateKey as CVFormData["template"] }} watermark={false} />
+      </div>
     </div>
+  );
+}
+
+function TemplatePicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [preview, setPreview] = useState<string | null>(null);
+
+  return (
+    <>
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
+        {TEMPLATES.map((t) => (
+          <div key={t.value} className="relative">
+            <button
+              type="button"
+              onClick={() => onChange(t.value)}
+              className={`w-full overflow-hidden rounded-lg border-2 transition-all hover:shadow-md ${
+                value === t.value ? "border-indigo-500 ring-2 ring-indigo-200" : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              <MiniPreview templateKey={t.value} />
+              <div className={`px-1.5 py-1 text-center ${value === t.value ? "bg-indigo-50" : "bg-white"}`}>
+                <p className="text-[11px] font-semibold leading-tight text-gray-800">{t.label}</p>
+                <p className="text-[9px] text-gray-400">{t.desc}</p>
+              </div>
+            </button>
+            <button
+              type="button"
+              title="Preview"
+              onClick={() => setPreview(t.value)}
+              className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/40 text-white opacity-0 transition-opacity hover:bg-black/60 group-hover:opacity-100 focus:opacity-100"
+              style={{ fontSize: "10px" }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3">
+                <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                <path fillRule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Preview modal */}
+      {preview && (
+        <Dialog open={!!preview} onOpenChange={(open) => { if (!open) setPreview(null); }}>
+          <DialogContent className="max-w-2xl p-0 overflow-hidden">
+            <div className="flex items-center justify-between border-b px-5 py-3">
+              <div>
+                <DialogTitle className="text-base">{TEMPLATES.find((t) => t.value === preview)?.label} Template</DialogTitle>
+                <DialogDescription className="text-xs">{TEMPLATES.find((t) => t.value === preview)?.desc}</DialogDescription>
+              </div>
+              <button
+                type="button"
+                onClick={() => { onChange(preview); setPreview(null); }}
+                className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700"
+              >
+                Use this template
+              </button>
+            </div>
+            <div className="overflow-y-auto" style={{ maxHeight: "70vh" }}>
+              <div style={{ transform: "scale(0.72)", transformOrigin: "top left", width: "816px", marginBottom: "-28%" }}>
+                <TemplateRenderer data={{ ...SAMPLE_CV, template: preview as CVFormData["template"] }} watermark={false} />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }
 
@@ -375,7 +458,10 @@ export function CVForm({
             <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
             <Input label="GitHub" placeholder="github.com/jane-smith" {...register("github")} />
           </div>
-          <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
+            <Input label="Photo URL" placeholder="https://example.com/photo.jpg" {...register("photoUrl")} />
+          </div>
 
           <Textarea
             label="Professional Summary"

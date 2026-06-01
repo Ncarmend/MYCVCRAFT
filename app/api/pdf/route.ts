@@ -173,6 +173,78 @@ function getTemplateStyles(template: string, watermark: boolean): string {
         p{font-size:10pt;color:#444;line-height:1.6;}
         .skill{border:1px solid #bfdbfe;border-radius:3px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;color:#1e40af;}`;
 
+    case "SLATE":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;display:flex;}
+        .sidebar{width:230px;flex-shrink:0;background:#334155;color:white;padding:40px 24px;}
+        .sidebar h1{font-size:17pt;font-weight:700;color:white;line-height:1.2;}
+        .sidebar .jobtitle{font-size:9pt;color:#94a3b8;margin-top:5px;}
+        .sidebar .contact{font-size:8.5pt;color:#cbd5e1;margin-top:3px;word-break:break-all;}
+        .sidebar h2{font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;border-bottom:1px solid #475569;padding-bottom:3px;margin:16px 0 7px;}
+        .sidebar .skill{display:inline-block;background:#475569;border-radius:3px;padding:2px 7px;font-size:8pt;color:#e2e8f0;margin:2px 2px 2px 0;}
+        .main{flex:1;padding:40px 32px;}
+        .main h2{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#334155;border-bottom:2px solid #334155;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;color:#111;}
+        .section{margin-bottom:18px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;background:#f1f5f9;padding:1px 6px;border-radius:3px;}
+        p{font-size:10pt;color:#444;line-height:1.6;}`;
+
+    case "WARM":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;}
+        .header{background:#f5f0e8;padding:40px 56px 32px;}
+        .header h1{font-size:24pt;font-weight:700;color:#3d2b1f;}
+        .header .jobtitle{font-size:12pt;color:#7c5c3e;margin-top:4px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:9pt;color:#a07a5a;}
+        .divider{height:3px;background:linear-gradient(90deg,#c9956a,#e8c9a0);}
+        .body{padding:32px 56px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7c5c3e;border-bottom:1px solid #e8d5c0;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;color:#3d2b1f;}
+        .section{margin-bottom:20px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#a07a5a;}
+        p{font-size:10pt;color:#555;line-height:1.6;}
+        .skill{background:#f5ece2;border:1px solid #e8d5c0;border-radius:999px;padding:2px 10px;font-size:9pt;display:inline-block;margin:2px;color:#7c5c3e;}`;
+
+    case "SOFT":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;}
+        .header{background:linear-gradient(135deg,#fdf2f8 0%,#ede9fe 100%);padding:44px 56px 32px;}
+        .header h1{font-size:24pt;font-weight:700;color:#4c1d5c;}
+        .header .jobtitle{font-size:12pt;color:#7c3aed;margin-top:5px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:9pt;color:#9461b8;}
+        .body{padding:32px 56px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7c3aed;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;color:#111;}
+        .section{margin-bottom:20px;background:#faf5ff;border:1px solid #ede9fe;border-radius:8px;padding:12px 14px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;background:#ede9fe;color:#5b21b6;padding:1px 7px;border-radius:999px;}
+        p{font-size:10pt;color:#444;line-height:1.6;}
+        .skill{background:#fce7f3;border:1px solid #fbcfe8;border-radius:999px;padding:2px 10px;font-size:9pt;display:inline-block;margin:2px;color:#9d174d;}`;
+
+    case "PHOTO":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;display:flex;}
+        .sidebar{width:220px;flex-shrink:0;background:#1e1b4b;color:white;padding:40px 20px;text-align:center;}
+        .photo{width:100px;height:100px;border-radius:50%;background:#4f46e5;margin:0 auto 16px;border:3px solid #6366f1;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:white;overflow:hidden;}
+        .photo img{width:100%;height:100%;object-fit:cover;}
+        .sidebar h1{font-size:15pt;font-weight:700;color:white;text-align:center;}
+        .sidebar .jobtitle{font-size:8.5pt;color:#a5b4fc;margin-top:5px;text-align:center;}
+        .sidebar-contact{text-align:left;margin-top:16px;}
+        .sidebar-contact .contact{font-size:8pt;color:#c7d2fe;margin-top:3px;word-break:break-all;}
+        .sidebar h2{font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#818cf8;border-bottom:1px solid #312e81;padding-bottom:3px;margin:16px 0 7px;text-align:left;}
+        .sidebar .skill{display:block;font-size:8pt;text-align:left;}
+        .bar-bg{height:4px;background:#312e81;border-radius:2px;margin-top:2px;}
+        .bar-fg{height:4px;background:#6366f1;border-radius:2px;}
+        .main{flex:1;padding:40px 32px;}
+        .main h2{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#4338ca;border-bottom:2px solid #4338ca;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;color:#111;}
+        .section{margin-bottom:18px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#3730a3;background:#e0e7ff;padding:1px 7px;border-radius:999px;}
+        p{font-size:10pt;color:#444;line-height:1.6;}`;
+
     default: // BASIC
       return `${base}
         .page{max-width:816px;margin:0 auto;min-height:1056px;padding:48px 56px;}
@@ -289,17 +361,22 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   const css = getTemplateStyles(template, watermark);
   const wm = watermark ? `<div class="watermark">CVCraft Free</div>` : "";
 
-  // Two-column templates (MODERN, TECH) need a special layout
-  if (template === "MODERN" || template === "TECH") {
-    const accentColor = template === "TECH" ? "#10b981" : "#4f46e5";
-    const sidebarSkillEl = template === "TECH" ? "div" : "span";
-    const sidebarSkillClass = template === "TECH" ? "skill" : "skill";
-
+  // Two-column templates with sidebar
+  const twoColumnTemplates = ["MODERN", "TECH", "SLATE", "PHOTO"] as const;
+  if (twoColumnTemplates.includes(template as typeof twoColumnTemplates[number])) {
+    const skillEl = template === "TECH" ? "div" : "span";
     const sidebarSkillsHtml = skills.length
-      ? `<h2>Skills</h2>${skills.map((s) => `<${sidebarSkillEl} class="${sidebarSkillClass}">${s}</${sidebarSkillEl}>`).join(" ")}`
+      ? `<h2>Skills</h2>${skills.map((s) => `<${skillEl} class="skill">${s}</${skillEl}>`).join(" ")}`
       : "";
     const sidebarLangHtml = languages.length
       ? `<h2>Languages</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}`
+      : "";
+
+    // PHOTO template has circular photo / initials at top of sidebar
+    const photoEl = template === "PHOTO"
+      ? cv.photoUrl
+        ? `<div class="photo"><img src="${cv.photoUrl}" alt="${cv.name}" /></div>`
+        : `<div class="photo">${String(cv.name ?? "").split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}</div>`
       : "";
 
     return `<!DOCTYPE html><html lang="en"><head>
@@ -310,50 +387,51 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
       <div class="page">
         ${wm}
         <div class="sidebar">
+          ${photoEl}
           <h1>${cv.name}</h1>
           <div class="jobtitle">${cv.jobTitle}</div>
-          ${cv.email ? `<div class="contact">${cv.email}</div>` : ""}
-          ${cv.phone ? `<div class="contact">${cv.phone}</div>` : ""}
-          ${cv.location ? `<div class="contact">${cv.location}</div>` : ""}
-          ${cv.website ? `<div class="contact">${cv.website}</div>` : ""}
-          ${cv.linkedin ? `<div class="contact">${cv.linkedin}</div>` : ""}
-          ${cv.github ? `<div class="contact">${cv.github}</div>` : ""}
+          <div class="${template === "PHOTO" ? "sidebar-contact" : ""}">
+            ${cv.email ? `<div class="contact">${cv.email}</div>` : ""}
+            ${cv.phone ? `<div class="contact">${cv.phone}</div>` : ""}
+            ${cv.location ? `<div class="contact">${cv.location}</div>` : ""}
+            ${cv.website ? `<div class="contact">${cv.website}</div>` : ""}
+            ${cv.linkedin ? `<div class="contact">${cv.linkedin}</div>` : ""}
+            ${cv.github ? `<div class="contact">${cv.github}</div>` : ""}
+          </div>
           ${sidebarSkillsHtml}
           ${sidebarLangHtml}
+          ${certificationsHTML(certifications)}
         </div>
         <div class="main">
           ${cv.summary ? `<div class="section"><h2>Summary</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
           ${experienceHTML(experience)}
           ${educationHTML(education)}
           ${projectsHTML(projects)}
-          ${certificationsHTML(certifications)}
         </div>
       </div>
     </body></html>`;
   }
 
   // All single-column templates share the same structure, only CSS differs
-  const hasColorHeader = ["EXECUTIVE", "CREATIVE", "CORPORATE"].includes(template);
+  const hasColorHeader = ["EXECUTIVE", "CREATIVE", "CORPORATE", "WARM", "SOFT"].includes(template);
+
+  const contactSpans = [cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
+    .filter(Boolean).map((v) => `<span>${v}</span>`).join("");
 
   const headerHTML = hasColorHeader
     ? `<div class="header">
         <h1>${cv.name}</h1>
         <div class="jobtitle">${cv.jobTitle}</div>
-        <div class="contacts">
-          ${[cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
-            .filter(Boolean).map((v) => `<span>${v}</span>`).join("")}
-        </div>
+        <div class="contacts">${contactSpans}</div>
       </div>
+      ${template === "WARM" ? `<div class="divider"></div>` : ""}
       <div class="body">`
     : `<div class="page">
         ${wm}
         <div class="header">
           <h1>${cv.name}</h1>
           <div class="jobtitle">${cv.jobTitle}</div>
-          <div class="contacts">
-            ${[cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
-              .filter(Boolean).map((v) => `<span>${v}</span>`).join("")}
-          </div>
+          <div class="contacts">${contactSpans}</div>
         </div>`;
 
   const bodyContent = `
