@@ -55,7 +55,8 @@ export function CVEditorClient({ cv, isPro }: Props) {
     }
     try {
       toast.loading("Preparing PDF...", { id: "pdf" });
-      const res = await fetch(`/api/pdf?cvId=${cv.id}`);
+      const template = (previewData.template as string) || "BASIC";
+      const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}`);
       if (!res.ok) throw new Error("PDF generation failed");
       const html = await res.text();
 

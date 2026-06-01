@@ -1,10 +1,8 @@
 /**
- * GET /api/pdf?cvId=xxx
- * Generates a PDF of the CV using HTML + puppeteer-compatible rendering
- *
- * For production, use a headless browser service or @react-pdf/renderer.
- * This implementation uses jsPDF with HTML-to-canvas for simplicity.
- * On Vercel, use a serverless-compatible approach (e.g., Chromium via @sparticuz/chromium).
+ * GET /api/pdf?cvId=xxx&template=MODERN
+ * Returns a styled HTML document for the CV, ready for browser print-to-PDF.
+ * The `template` query param overrides whatever is stored in the DB so the user
+ * can download with an unsaved template change.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
@@ -25,20 +23,17 @@ export async function GET(request: NextRequest) {
     });
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    const cv = await prisma.cV.findFirst({
-      where: { id: cvId, userId: dbUser.id },
-    });
+    const cv = await prisma.cV.findFirst({ where: { id: cvId, userId: dbUser.id } });
     if (!cv) return NextResponse.json({ error: "CV not found" }, { status: 404 });
 
     const isPro = dbUser.subscription?.plan === "PRO";
 
-    // Build CV HTML for PDF generation
-    const html = buildCVHTML(cv, !isPro);
+    // Allow client to pass the currently selected (possibly unsaved) template
+    const templateOverride = request.nextUrl.searchParams.get("template");
+    const cvData = { ...cv, template: templateOverride ?? cv.template ?? "BASIC" };
 
-    // Return the HTML as a downloadable "PDF" — in production, pass this to
-    // a headless browser (Puppeteer/Playwright) or a PDF service like PDFShift.
-    // For the demo we return the HTML with correct headers.
-    // Replace this block with your PDF service integration.
+    const html = buildCVHTML(cvData as Record<string, unknown>, !isPro);
+
     return new NextResponse(html, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
@@ -51,13 +46,239 @@ export async function GET(request: NextRequest) {
   }
 }
 
-/** Strip HTML tags from a string so stored HTML content renders as plain text */
 function stripHtml(str: unknown): string {
   if (typeof str !== "string") return "";
   return str.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
 }
 
+// ─── Per-template CSS + layout ───────────────────────────────────────────────
+
+function getTemplateStyles(template: string, watermark: boolean): string {
+  const wm = watermark
+    ? `.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:64pt;font-weight:900;color:rgba(99,102,241,0.06);white-space:nowrap;pointer-events:none;z-index:9999;}`
+    : "";
+
+  const base = `*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;background:white;color:#1a1a1a;}ul{padding-left:16px;margin-top:4px;}li{margin-bottom:2px;font-size:10pt;color:#444;line-height:1.6;}${wm}`;
+
+  switch (template) {
+    case "MODERN":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;display:flex;}
+        .sidebar{width:240px;flex-shrink:0;background:#4f46e5;color:white;padding:40px 24px;}
+        .sidebar h1{font-size:18pt;font-weight:700;line-height:1.2;color:white;}
+        .sidebar .jobtitle{font-size:10pt;color:#c7d2fe;margin-top:6px;}
+        .sidebar .contact{font-size:8.5pt;color:#c7d2fe;margin-top:4px;word-break:break-all;}
+        .sidebar h2{font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a5b4fc;border-bottom:1px solid #6366f1;padding-bottom:4px;margin:20px 0 8px;}
+        .sidebar .skill{display:inline-block;background:#6366f1;border-radius:3px;padding:2px 7px;font-size:8.5pt;color:white;margin:2px 2px 2px 0;}
+        .main{flex:1;padding:40px 36px;}
+        .main h2{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#4f46e5;border-bottom:2px solid #4f46e5;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:20px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;}
+        p{font-size:10pt;color:#444;line-height:1.6;}`;
+
+    case "EXECUTIVE":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;}
+        .header{background:#1e293b;color:white;padding:40px 56px;}
+        .header h1{font-size:26pt;font-weight:700;letter-spacing:-0.5px;}
+        .header .jobtitle{font-size:13pt;color:#94a3b8;margin-top:6px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;font-size:9pt;color:#94a3b8;}
+        .body{padding:40px 56px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1e293b;border-bottom:2px solid #1e293b;padding-bottom:4px;margin-bottom:12px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:22px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;}
+        p{font-size:10pt;color:#444;line-height:1.6;}
+        .skill{border:1px solid #334155;border-radius:3px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;}`;
+
+    case "CREATIVE":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;padding:0;}
+        .header{background:#f59e0b;padding:36px 56px;}
+        .header h1{font-size:26pt;font-weight:800;color:white;}
+        .header .jobtitle{font-size:12pt;color:#fef3c7;margin-top:4px;font-weight:500;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:9pt;color:#fef3c7;}
+        .body{padding:36px 56px;}
+        h2{font-size:10pt;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#f59e0b;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:700;}
+        .section{margin-bottom:22px;border-left:3px solid #fde68a;padding-left:14px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;}
+        p{font-size:10pt;color:#444;line-height:1.6;}
+        .skill{background:#fef3c7;border-radius:999px;padding:2px 10px;font-size:9pt;display:inline-block;margin:2px;color:#92400e;}`;
+
+    case "MINIMAL":
+      return `${base}
+        .page{max-width:720px;margin:0 auto;min-height:1056px;padding:64px 56px;}
+        .header{margin-bottom:40px;}
+        .header h1{font-size:22pt;font-weight:300;letter-spacing:-0.5px;color:#111;}
+        .header .jobtitle{font-size:11pt;color:#888;margin-top:4px;font-weight:400;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:20px;margin-top:10px;font-size:9pt;color:#aaa;}
+        h2{font-size:8pt;font-weight:400;text-transform:uppercase;letter-spacing:0.15em;color:#bbb;margin-bottom:12px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:28px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#bbb;}
+        p{font-size:10pt;color:#555;line-height:1.7;}
+        .skill{border:1px solid #eee;border-radius:2px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;color:#555;}`;
+
+    case "ELEGANT":
+      return `${base}
+        .page{max-width:760px;margin:0 auto;min-height:1056px;padding:56px 60px;}
+        .header{text-align:center;padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid #d1c4a8;}
+        .header h1{font-family:Georgia,serif;font-size:28pt;font-weight:400;letter-spacing:2px;color:#2c2416;}
+        .header .jobtitle{font-family:Georgia,serif;font-size:11pt;color:#7c6a4e;margin-top:6px;font-style:italic;}
+        .header .contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:10px;font-size:9pt;color:#999;}
+        h2{font-family:Georgia,serif;font-size:11pt;font-weight:400;font-style:italic;color:#7c6a4e;border-bottom:1px solid #d1c4a8;padding-bottom:4px;margin-bottom:12px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:22px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#aaa;}
+        p{font-size:10pt;color:#444;line-height:1.7;}
+        .skill{border:1px solid #d1c4a8;border-radius:2px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;color:#7c6a4e;}`;
+
+    case "TECH":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;display:flex;}
+        .sidebar{width:220px;flex-shrink:0;background:#0f172a;color:white;padding:36px 20px;}
+        .sidebar h1{font-size:16pt;font-weight:700;color:white;line-height:1.2;}
+        .sidebar .jobtitle{font-size:9pt;color:#10b981;margin-top:6px;font-family:monospace;}
+        .sidebar .contact{font-size:8pt;color:#64748b;margin-top:3px;word-break:break-all;font-family:monospace;}
+        .sidebar h2{font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#10b981;border-bottom:1px solid #1e293b;padding-bottom:3px;margin:18px 0 8px;}
+        .sidebar .skill{display:block;font-size:8.5pt;color:#94a3b8;padding:2px 0;font-family:monospace;}
+        .main{flex:1;padding:36px 32px;background:#fff;}
+        .main h2{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;border-bottom:2px solid #10b981;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;color:#0f172a;}
+        .section{margin-bottom:18px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#10b981;font-family:monospace;}
+        p{font-size:10pt;color:#334155;line-height:1.6;}`;
+
+    case "CORPORATE":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;padding:0;}
+        .header{background:#1e40af;padding:36px 56px;}
+        .header h1{font-size:24pt;font-weight:700;color:white;}
+        .header .jobtitle{font-size:11pt;color:#bfdbfe;margin-top:6px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;font-size:9pt;color:#bfdbfe;}
+        .body{padding:36px 56px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1e40af;background:#eff6ff;padding:4px 8px;margin-bottom:12px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:20px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;}
+        p{font-size:10pt;color:#444;line-height:1.6;}
+        .skill{border:1px solid #bfdbfe;border-radius:3px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;color:#1e40af;}`;
+
+    default: // BASIC
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;padding:48px 56px;}
+        .header{border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:24px;}
+        .header h1{font-size:22pt;font-weight:700;color:#111;}
+        .header .jobtitle{font-size:12pt;color:#555;margin-top:3px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;font-size:9pt;color:#666;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#111;border-bottom:1.5px solid #ddd;padding-bottom:4px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:600;}
+        .section{margin-bottom:20px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-size:9pt;color:#888;}
+        p{font-size:10pt;color:#444;line-height:1.6;}
+        .skill{border:1px solid #ddd;border-radius:4px;padding:2px 8px;font-size:9pt;display:inline-block;margin:2px;}`;
+  }
+}
+
+// ─── Reusable section builders ────────────────────────────────────────────────
+
+function experienceHTML(experience: Array<Record<string, unknown>>): string {
+  if (!experience.length) return "";
+  return `<div class="section">
+    <h2>Work Experience</h2>
+    ${experience.map((exp) => `
+      <div style="margin-bottom:14px;">
+        <div class="row">
+          <div><h3>${exp.role}</h3><p style="font-size:10pt;color:#555;">${exp.company}</p></div>
+          <span class="date">${exp.startDate} — ${exp.endDate}</span>
+        </div>
+        ${exp.description ? `<p style="margin-top:4px;">${stripHtml(exp.description)}</p>` : ""}
+        ${Array.isArray(exp.achievements) && (exp.achievements as string[]).length
+          ? `<ul>${(exp.achievements as string[]).map((a) => `<li>${a}</li>`).join("")}</ul>`
+          : ""}
+      </div>`).join("")}
+  </div>`;
+}
+
+function educationHTML(education: Array<Record<string, unknown>>): string {
+  if (!education.length) return "";
+  return `<div class="section">
+    <h2>Education</h2>
+    ${education.map((edu) => `
+      <div class="row" style="margin-bottom:10px;">
+        <div>
+          <h3>${edu.degree}${edu.field ? ` in ${edu.field}` : ""}</h3>
+          <p style="font-size:10pt;color:#555;">${edu.institution}</p>
+        </div>
+        <span class="date">${edu.startDate} — ${edu.endDate}</span>
+      </div>`).join("")}
+  </div>`;
+}
+
+function skillsHTML(skills: string[], className = "skill"): string {
+  if (!skills.length) return "";
+  return `<div class="section">
+    <h2>Skills</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;">
+      ${skills.map((s) => `<span class="${className}">${s}</span>`).join("")}
+    </div>
+  </div>`;
+}
+
+function projectsHTML(projects: Array<Record<string, unknown>>): string {
+  if (!projects.length) return "";
+  return `<div class="section">
+    <h2>Projects</h2>
+    ${projects.map((proj) => `
+      <div style="margin-bottom:12px;">
+        <div class="row" style="align-items:baseline;">
+          <h3>${proj.name}</h3>
+          ${proj.url ? `<span style="font-size:9pt;color:#888;">${proj.url}</span>` : ""}
+        </div>
+        ${proj.description ? `<p style="margin-top:3px;">${stripHtml(proj.description as string)}</p>` : ""}
+        ${Array.isArray(proj.technologies) && (proj.technologies as string[]).length
+          ? `<p style="margin-top:4px;font-size:9pt;color:#888;">${(proj.technologies as string[]).join(" · ")}</p>`
+          : ""}
+      </div>`).join("")}
+  </div>`;
+}
+
+function languagesHTML(languages: Array<Record<string, unknown>>): string {
+  if (!languages.length) return "";
+  return `<div class="section">
+    <h2>Languages</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;">
+      ${languages.map((l) => `<span class="skill"><strong>${l.name}</strong> — ${l.proficiency}</span>`).join("")}
+    </div>
+  </div>`;
+}
+
+function certificationsHTML(certifications: Array<Record<string, unknown>>): string {
+  if (!certifications.length) return "";
+  return `<div class="section">
+    <h2>Certifications</h2>
+    ${certifications.map((c) => `
+      <div class="row" style="margin-bottom:6px;">
+        <span><strong>${c.name}</strong> · ${c.issuer}</span>
+        <span class="date">${c.date}</span>
+      </div>`).join("")}
+  </div>`;
+}
+
+// ─── Main builder ─────────────────────────────────────────────────────────────
+
 function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
+  const template = (cv.template as string) || "BASIC";
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
   const education = Array.isArray(cv.education) ? cv.education as Array<Record<string, unknown>> : [];
@@ -65,134 +286,95 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   const languages = Array.isArray(cv.languages) ? cv.languages as Array<Record<string, unknown>> : [];
   const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${cv.name} — CV</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11pt; color: #1a1a1a; background: white; }
-    .page { max-width: 816px; margin: 0 auto; padding: 48px 56px; min-height: 1056px; position: relative; }
-    h1 { font-size: 22pt; font-weight: 700; color: #111; }
-    h2 { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #111; border-bottom: 1.5px solid #ddd; padding-bottom: 4px; margin-bottom: 10px; }
-    h3 { font-size: 11pt; font-weight: 600; }
-    p, li { font-size: 10pt; color: #444; line-height: 1.6; }
-    .subtitle { font-size: 12pt; color: #555; margin-top: 3px; }
-    .contacts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; font-size: 9pt; color: #666; }
-    .section { margin-bottom: 20px; }
-    .exp-header, .edu-header { display: flex; justify-content: space-between; }
-    .date { font-size: 9pt; color: #888; }
-    .skills { display: flex; flex-wrap: wrap; gap: 6px; }
-    .skill { border: 1px solid #ddd; border-radius: 4px; padding: 2px 8px; font-size: 9pt; }
-    ul { padding-left: 16px; margin-top: 4px; }
-    li { margin-bottom: 2px; }
-    ${watermark ? `.watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-30deg); font-size: 64pt; font-weight: 900; color: rgba(99,102,241,0.06); white-space: nowrap; pointer-events: none; z-index: 9999; }` : ""}
-  </style>
-</head>
-<body>
-  <div class="page">
-    ${watermark ? `<div class="watermark">CVCraft Free</div>` : ""}
-    <header style="border-bottom: 2px solid #111; padding-bottom: 16px; margin-bottom: 24px;">
-      <h1>${cv.name}</h1>
-      <p class="subtitle">${cv.jobTitle}</p>
-      <div class="contacts">
-        ${cv.email ? `<span>${cv.email}</span>` : ""}
-        ${cv.phone ? `<span>${cv.phone}</span>` : ""}
-        ${cv.location ? `<span>${cv.location}</span>` : ""}
-        ${cv.website ? `<span>${cv.website}</span>` : ""}
-        ${cv.linkedin ? `<span>${cv.linkedin}</span>` : ""}
-        ${cv.github ? `<span>${cv.github}</span>` : ""}
-        ${cv.portfolio ? `<span>${cv.portfolio}</span>` : ""}
+  const css = getTemplateStyles(template, watermark);
+  const wm = watermark ? `<div class="watermark">CVCraft Free</div>` : "";
+
+  // Two-column templates (MODERN, TECH) need a special layout
+  if (template === "MODERN" || template === "TECH") {
+    const accentColor = template === "TECH" ? "#10b981" : "#4f46e5";
+    const sidebarSkillEl = template === "TECH" ? "div" : "span";
+    const sidebarSkillClass = template === "TECH" ? "skill" : "skill";
+
+    const sidebarSkillsHtml = skills.length
+      ? `<h2>Skills</h2>${skills.map((s) => `<${sidebarSkillEl} class="${sidebarSkillClass}">${s}</${sidebarSkillEl}>`).join(" ")}`
+      : "";
+    const sidebarLangHtml = languages.length
+      ? `<h2>Languages</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}`
+      : "";
+
+    return `<!DOCTYPE html><html lang="en"><head>
+      <meta charset="UTF-8"/>
+      <title>${cv.name} — CV</title>
+      <style>${css}</style>
+    </head><body>
+      <div class="page">
+        ${wm}
+        <div class="sidebar">
+          <h1>${cv.name}</h1>
+          <div class="jobtitle">${cv.jobTitle}</div>
+          ${cv.email ? `<div class="contact">${cv.email}</div>` : ""}
+          ${cv.phone ? `<div class="contact">${cv.phone}</div>` : ""}
+          ${cv.location ? `<div class="contact">${cv.location}</div>` : ""}
+          ${cv.website ? `<div class="contact">${cv.website}</div>` : ""}
+          ${cv.linkedin ? `<div class="contact">${cv.linkedin}</div>` : ""}
+          ${cv.github ? `<div class="contact">${cv.github}</div>` : ""}
+          ${sidebarSkillsHtml}
+          ${sidebarLangHtml}
+        </div>
+        <div class="main">
+          ${cv.summary ? `<div class="section"><h2>Summary</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
+          ${experienceHTML(experience)}
+          ${educationHTML(education)}
+          ${projectsHTML(projects)}
+          ${certificationsHTML(certifications)}
+        </div>
       </div>
-    </header>
+    </body></html>`;
+  }
 
-    ${cv.summary ? `
-    <div class="section">
-      <h2>Professional Summary</h2>
-      <p>${stripHtml(cv.summary)}</p>
-    </div>` : ""}
+  // All single-column templates share the same structure, only CSS differs
+  const hasColorHeader = ["EXECUTIVE", "CREATIVE", "CORPORATE"].includes(template);
 
-    ${experience.length > 0 ? `
-    <div class="section">
-      <h2>Work Experience</h2>
-      ${experience.map((exp) => `
-        <div style="margin-bottom: 14px;">
-          <div class="exp-header">
-            <div>
-              <h3>${exp.role}</h3>
-              <p style="font-size:10pt;color:#555;">${exp.company}</p>
-            </div>
-            <span class="date">${exp.startDate} — ${exp.endDate}</span>
-          </div>
-          ${exp.description ? `<p style="margin-top:4px;">${exp.description}</p>` : ""}
-          ${Array.isArray(exp.achievements) && exp.achievements.length > 0 ? `
-          <ul>${(exp.achievements as string[]).map((a) => `<li>${a}</li>`).join("")}</ul>` : ""}
+  const headerHTML = hasColorHeader
+    ? `<div class="header">
+        <h1>${cv.name}</h1>
+        <div class="jobtitle">${cv.jobTitle}</div>
+        <div class="contacts">
+          ${[cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
+            .filter(Boolean).map((v) => `<span>${v}</span>`).join("")}
         </div>
-      `).join("")}
-    </div>` : ""}
-
-    ${education.length > 0 ? `
-    <div class="section">
-      <h2>Education</h2>
-      ${education.map((edu) => `
-        <div class="edu-header" style="margin-bottom: 10px;">
-          <div>
-            <h3>${edu.degree}${edu.field ? ` in ${edu.field}` : ""}</h3>
-            <p style="font-size:10pt;color:#555;">${edu.institution}</p>
-          </div>
-          <span class="date">${edu.startDate} — ${edu.endDate}</span>
-        </div>
-      `).join("")}
-    </div>` : ""}
-
-    ${skills.length > 0 ? `
-    <div class="section">
-      <h2>Skills</h2>
-      <div class="skills">
-        ${skills.map((s) => `<span class="skill">${s}</span>`).join("")}
       </div>
-    </div>` : ""}
-
-    ${projects.length > 0 ? `
-    <div class="section">
-      <h2>Projects</h2>
-      ${projects.map((proj) => `
-        <div style="margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;">
-            <h3>${proj.name}</h3>
-            ${proj.url ? `<span style="font-size:9pt;color:#888;">${proj.url}</span>` : ""}
+      <div class="body">`
+    : `<div class="page">
+        ${wm}
+        <div class="header">
+          <h1>${cv.name}</h1>
+          <div class="jobtitle">${cv.jobTitle}</div>
+          <div class="contacts">
+            ${[cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
+              .filter(Boolean).map((v) => `<span>${v}</span>`).join("")}
           </div>
-          ${proj.description ? `<p style="margin-top:3px;">${proj.description}</p>` : ""}
-          ${Array.isArray(proj.technologies) && (proj.technologies as string[]).length > 0
-            ? `<p style="margin-top:4px;font-size:9pt;color:#888;">${(proj.technologies as string[]).join(" · ")}</p>`
-            : ""}
-        </div>
-      `).join("")}
-    </div>` : ""}
+        </div>`;
 
-    ${languages.length > 0 ? `
-    <div class="section">
-      <h2>Languages</h2>
-      <div class="skills">
-        ${languages.map((lang) => `
-          <span class="skill"><strong>${lang.name}</strong> — ${lang.proficiency}</span>
-        `).join("")}
-      </div>
-    </div>` : ""}
+  const bodyContent = `
+    ${cv.summary ? `<div class="section"><h2>Professional Summary</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
+    ${experienceHTML(experience)}
+    ${educationHTML(education)}
+    ${skillsHTML(skills)}
+    ${projectsHTML(projects)}
+    ${languagesHTML(languages)}
+    ${certificationsHTML(certifications)}`;
 
-    ${certifications.length > 0 ? `
-    <div class="section">
-      <h2>Certifications</h2>
-      ${certifications.map((cert) => `
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-          <span><strong>${cert.name}</strong> · ${cert.issuer}</span>
-          <span class="date">${cert.date}</span>
-        </div>
-      `).join("")}
-    </div>` : ""}
-  </div>
-</body>
-</html>`;
+  const footerHTML = hasColorHeader ? `</div>` : `</div>`;
+
+  return `<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <title>${cv.name} — CV</title>
+    <style>${css}</style>
+  </head><body>
+    ${wm}
+    ${headerHTML}
+    ${bodyContent}
+    ${footerHTML}
+  </body></html>`;
 }
