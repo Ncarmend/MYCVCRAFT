@@ -19,24 +19,20 @@ export default async function DashboardLayout({
 
   if (!user) redirect("/login");
 
-  const dbUser = await prisma.user.findUnique({
+  const dbUser = await prisma.user.upsert({
     where: { supabaseId: user.id },
+    create: {
+      supabaseId: user.id,
+      email: user.email!,
+      name: user.user_metadata?.full_name || null,
+      avatarUrl: user.user_metadata?.avatar_url || null,
+      subscription: { create: { plan: "FREE", status: "ACTIVE" } },
+    },
+    update: {},
     include: { subscription: true },
   });
 
-  if (!dbUser) {
-    await prisma.user.create({
-      data: {
-        supabaseId: user.id,
-        email: user.email!,
-        name: user.user_metadata?.full_name || null,
-        avatarUrl: user.user_metadata?.avatar_url || null,
-        subscription: { create: { plan: "FREE", status: "ACTIVE" } },
-      },
-    });
-  }
-
-  const plan = dbUser?.subscription?.plan ?? "FREE";
+  const plan = dbUser.subscription?.plan ?? "FREE";
 
   return (
     <DashboardShell
