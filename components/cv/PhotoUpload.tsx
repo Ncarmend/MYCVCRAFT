@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { Upload, X, UserCircle, Loader2 } from "lucide-react";
+import { Upload, X, UserCircle, Loader2, AlertCircle } from "lucide-react";
 
 interface PhotoUploadProps {
   value?: string | null;
@@ -15,8 +15,14 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
   const [error, setError] = useState<string | null>(null);
 
   const upload = useCallback(async (file: File) => {
-    if (!file.type.startsWith("image/")) { setError("Please upload an image file (JPG, PNG, WebP)."); return; }
-    if (file.size > 5 * 1024 * 1024) { setError("File too large — max 5 MB."); return; }
+    if (!file.type.startsWith("image/")) {
+      setError("Please upload an image file (JPG, PNG, WebP).");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("File too large — max 5 MB.");
+      return;
+    }
     setError(null);
     setUploading(true);
     try {
@@ -42,7 +48,12 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-medium text-gray-700">Profile Photo</label>
+      <div className="flex items-center gap-2">
+        <label className="text-sm font-medium text-gray-700">Profile Photo</label>
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-500">
+          optional
+        </span>
+      </div>
 
       <div className="flex items-center gap-3">
         {/* Current photo or placeholder */}
@@ -54,8 +65,9 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
               </div>
               <button
                 type="button"
-                onClick={() => onChange("")}
+                onClick={() => { onChange(""); setError(null); }}
                 className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
+                title="Remove photo"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -100,11 +112,27 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           type="file"
           accept="image/jpeg,image/png,image/webp"
           className="hidden"
-          onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }}
+          onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); e.target.value = ""; }}
         />
       </div>
 
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {/* Non-blocking error — dismissible, with reassurance that the form can still be saved */}
+      {error && (
+        <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-amber-800">{error}</p>
+            <p className="mt-0.5 text-[10px] text-amber-600">You can still save your CV without a photo.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            className="shrink-0 text-amber-400 hover:text-amber-600"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
