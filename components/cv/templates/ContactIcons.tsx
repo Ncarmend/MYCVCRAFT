@@ -1,21 +1,35 @@
-/**
- * Tiny icon wrappers for CV template contact rows.
- * Size defaults to 11 to stay legible at print scale.
- */
+"use client";
+
 import { Mail, Phone, MapPin, Globe, Briefcase, Code2, Link } from "lucide-react";
-import type { LucideProps } from "lucide-react";
 
-type P = { size?: number; style?: React.CSSProperties; className?: string };
+interface IconProps {
+  size?: number;
+  style?: React.CSSProperties;
+  className?: string;
+}
 
-const icon =
-  (Icon: React.FC<LucideProps>) =>
-  ({ size = 11, style, className }: P) =>
-    <Icon size={size} style={{ flexShrink: 0, display: "inline-block", ...style }} className={className} />;
+const s = (extra?: React.CSSProperties): React.CSSProperties => ({
+  flexShrink: 0, display: "inline-block", ...extra,
+});
 
-export const MailIcon      = icon(Mail);
-export const PhoneIcon     = icon(Phone);
-export const LocationIcon  = icon(MapPin);
-export const WebIcon       = icon(Globe);
-export const LinkedinIcon  = icon(Briefcase);
-export const GithubIcon    = icon(Code2);
-export const PortfolioIcon = icon(Link);
+export function MailIcon({ size = 11, style, className }: IconProps) {
+  return <Mail size={size} style={s(style)} className={className} />;
+}
+export function PhoneIcon({ size = 11, style, className }: IconProps) {
+  return <Phone size={size} style={s(style)} className={className} />;
+}
+export function LocationIcon({ size = 11, style, className }: IconProps) {
+  return <MapPin size={size} style={s(style)} className={className} />;
+}
+export function WebIcon({ size = 11, style, className }: IconProps) {
+  return <Globe size={size} style={s(style)} className={className} />;
+}
+export function LinkedinIcon({ size = 11, style, className }: IconProps) {
+  return <Briefcase size={size} style={s(style)} className={className} />;
+}
+export function GithubIcon({ size = 11, style, className }: IconProps) {
+  return <Code2 size={size} style={s(style)} className={className} />;
+}
+export function PortfolioIcon({ size = 11, style, className }: IconProps) {
+  return <Link size={size} style={s(style)} className={className} />;
+}
