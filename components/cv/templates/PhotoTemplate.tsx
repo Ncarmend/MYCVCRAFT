@@ -17,19 +17,20 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto", display: "flex" }}>
 
       {/* Dark sidebar with photo */}
-      <div className="flex-shrink-0 text-white" style={{ width: "220px", padding: "40px 20px", background: "#1e1b4b" }}>
+      <div className="shrink-0 text-white" style={{ width: "220px", padding: "40px 20px", background: "#1e1b4b" }}>
         {/* Profile photo / initials circle */}
         <div className="mb-5 flex justify-center">
           {cv.photoUrl ? (
-            <img
-              src={cv.photoUrl}
-              alt={cv.name}
-              className="rounded-full object-cover"
-              style={{ width: "100px", height: "100px", border: "3px solid #4f46e5" }}
-            />
+            <div style={{ width: "100px", height: "100px", borderRadius: "50%", overflow: "hidden", border: "3px solid #4f46e5", flexShrink: 0 }}>
+              <img
+                src={cv.photoUrl}
+                alt={cv.name ?? "Profile"}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
           ) : (
-            <div className="flex items-center justify-center rounded-full text-2xl font-bold"
-              style={{ width: "100px", height: "100px", background: "#4f46e5", color: "white", border: "3px solid #6366f1" }}>
+            <div className="flex items-center justify-center text-2xl font-bold"
+              style={{ width: "100px", height: "100px", borderRadius: "50%", background: "#4f46e5", color: "white", border: "3px solid #6366f1", flexShrink: 0 }}>
               {initials}
             </div>
           )}
@@ -120,7 +121,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
                       <h3 className="font-semibold text-gray-900">{exp.role}</h3>
                       <p className="text-xs font-medium" style={{ color: "#4338ca" }}>{exp.company}</p>
                     </div>
-                    <span className="ml-3 flex-shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: "#e0e7ff", color: "#3730a3" }}>
+                    <span className="ml-3 shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: "#e0e7ff", color: "#3730a3" }}>
                       {exp.startDate} — {exp.endDate}
                     </span>
                   </div>
@@ -129,7 +130,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
                     <ul className="mt-1.5 space-y-0.5">
                       {exp.achievements.map((a, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ background: "#6366f1" }} />{a}
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#6366f1" }} />{a}
                         </li>
                       ))}
                     </ul>
@@ -151,7 +152,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
                   <h3 className="font-semibold text-gray-900">{edu.degree}{edu.field ? ` in ${edu.field}` : ""}</h3>
                   <p className="text-xs" style={{ color: "#4338ca" }}>{edu.institution}</p>
                 </div>
-                <span className="ml-3 flex-shrink-0 text-xs text-gray-400">{edu.startDate} — {edu.endDate}</span>
+                <span className="ml-3 shrink-0 text-xs text-gray-400">{edu.startDate} — {edu.endDate}</span>
               </div>
             ))}
           </section>

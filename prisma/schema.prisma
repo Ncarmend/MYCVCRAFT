@@ -138,6 +138,8 @@ enum CVTemplate {
   WARM
   SOFT
   PHOTO
+  CLASSIC
+  CRISP
 }
 
 enum CVStatus {

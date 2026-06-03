@@ -245,6 +245,41 @@ function getTemplateStyles(template: string, watermark: boolean): string {
         .date{font-size:9pt;color:#3730a3;background:#e0e7ff;padding:1px 7px;border-radius:999px;}
         p{font-size:10pt;color:#444;line-height:1.6;}`;
 
+    case "CLASSIC":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;padding:52px 64px;font-family:'Times New Roman',Times,serif;font-size:11pt;color:#111;line-height:1.5;}
+        .header{text-align:center;padding-bottom:14px;margin-bottom:20px;border-bottom:2px solid #111;}
+        .header h1{font-size:24pt;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;}
+        .header .jobtitle{font-size:12pt;color:#444;margin-top:4px;font-style:italic;}
+        .header .contacts{font-size:9pt;color:#555;margin-top:6px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:3px;margin-bottom:10px;}
+        h3{font-size:11pt;font-weight:700;}
+        .section{margin-bottom:18px;}
+        .row{display:flex;justify-content:space-between;}
+        .date{font-style:italic;color:#555;}
+        .company{font-style:italic;color:#333;}
+        p{color:#333;}
+        .skill-list{color:#333;}`;
+
+    case "CRISP":
+      return `${base}
+        .page{max-width:816px;margin:0 auto;min-height:1056px;}
+        .header{background:#eff6ff;border-bottom:3px solid #2563eb;padding:36px 52px 28px;}
+        .header h1{font-size:22pt;font-weight:800;color:#0f172a;margin:0;letter-spacing:-0.3px;}
+        .header .jobtitle{font-size:12pt;color:#2563eb;font-weight:500;margin-top:5px;}
+        .header .contacts{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:9pt;color:#64748b;}
+        .body{padding:32px 52px;}
+        h2{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#2563eb;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+        h2::before{content:'';display:inline-block;width:3px;height:14px;background:#2563eb;border-radius:2px;flex-shrink:0;}
+        h3{font-size:11pt;font-weight:700;color:#0f172a;}
+        .section{margin-bottom:22px;}
+        .entry{padding-left:12px;border-left:2px solid #e2e8f0;margin-bottom:14px;}
+        .row{display:flex;justify-content:space-between;align-items:flex-start;}
+        .date{font-size:9pt;color:#64748b;background:#eff6ff;padding:2px 8px;border-radius:4px;white-space:nowrap;}
+        .company{color:#2563eb;font-weight:500;}
+        p{color:#475569;line-height:1.6;}
+        .skill{border:1px solid #2563eb;border-radius:4px;padding:2px 10px;font-size:9.5pt;color:#2563eb;background:#eff6ff;display:inline-block;margin:2px;}`;
+
     default: // BASIC
       return `${base}
         .page{max-width:816px;margin:0 auto;min-height:1056px;padding:48px 56px;}
@@ -413,7 +448,7 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   }
 
   // All single-column templates share the same structure, only CSS differs
-  const hasColorHeader = ["EXECUTIVE", "CREATIVE", "CORPORATE", "WARM", "SOFT"].includes(template);
+  const hasColorHeader = ["EXECUTIVE", "CREATIVE", "CORPORATE", "WARM", "SOFT", "CRISP"].includes(template);
 
   const contactSpans = [cv.email, cv.phone, cv.location, cv.website, cv.linkedin, cv.github, cv.portfolio]
     .filter(Boolean).map((v) => `<span>${v}</span>`).join("");

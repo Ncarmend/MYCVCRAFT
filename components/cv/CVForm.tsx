@@ -27,7 +27,7 @@ import type { CVFormData } from "@/types";
 // --- Zod schema ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
-  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO"]),
+  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP"]),
   photoUrl: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   jobTitle: z.string().min(1, "Job title is required"),
@@ -102,6 +102,8 @@ const TEMPLATES: { value: string; label: string; desc: string }[] = [
   { value: "WARM",      label: "Warm",      desc: "Beige & cream" },
   { value: "SOFT",      label: "Soft",      desc: "Pale lavender" },
   { value: "PHOTO",     label: "Photo",     desc: "With portrait" },
+  { value: "CLASSIC",   label: "Classic",   desc: "ATS traditional" },
+  { value: "CRISP",     label: "Crisp",     desc: "ATS modern" },
 ];
 
 const SAMPLE_CV: Partial<CVFormData> = {

@@ -12,6 +12,8 @@ import { SlateTemplate } from "./templates/SlateTemplate";
 import { WarmTemplate } from "./templates/WarmTemplate";
 import { SoftTemplate } from "./templates/SoftTemplate";
 import { PhotoTemplate } from "./templates/PhotoTemplate";
+import { ClassicTemplate } from "./templates/ClassicTemplate";
+import { CrispTemplate } from "./templates/CrispTemplate";
 import type { CVFormData } from "@/types";
 
 interface CVPreviewProps {
@@ -35,6 +37,8 @@ export function TemplateRenderer({ data, watermark = false }: { data: Partial<CV
   if (t === "WARM")      return <WarmTemplate      cv={data} watermark={watermark} />;
   if (t === "SOFT")      return <SoftTemplate      cv={data} watermark={watermark} />;
   if (t === "PHOTO")     return <PhotoTemplate     cv={data} watermark={watermark} />;
+  if (t === "CLASSIC")   return <ClassicTemplate   cv={data} watermark={watermark} />;
+  if (t === "CRISP")     return <CrispTemplate     cv={data} watermark={watermark} />;
   return <BasicTemplate cv={data} watermark={watermark} />;
 }
 
