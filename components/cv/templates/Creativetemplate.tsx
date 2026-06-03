@@ -3,6 +3,7 @@
  * Designed for creative, marketing, design roles
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface CreativeTemplateProps {
   cv: Partial<CV>;
@@ -100,21 +101,13 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
             <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px", fontWeight: 500, margin: "6px 0 14px", letterSpacing: "1px" }}>
               {cv.jobTitle}
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
-              {[cv.email, cv.phone, cv.location, cv.linkedin, cv.github, cv.website]
-                .filter(Boolean)
-                .map((info, i) => (
-                  <span key={i} style={{
-                    fontSize: "10px",
-                    color: "rgba(255,255,255,0.75)",
-                    background: "rgba(255,255,255,0.12)",
-                    padding: "3px 10px",
-                    borderRadius: "20px",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}>
-                    {info}
-                  </span>
-                ))}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {cv.email    && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><MailIcon />     {cv.email}</span>}
+              {cv.phone    && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><PhoneIcon />    {cv.phone}</span>}
+              {cv.location && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><LocationIcon /> {cv.location}</span>}
+              {cv.linkedin && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><LinkedinIcon /> {cv.linkedin}</span>}
+              {cv.github   && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><GithubIcon />   {cv.github}</span>}
+              {cv.website  && <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "3px 10px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.2)", display: "inline-flex", alignItems: "center", gap: "4px" }}><WebIcon />      {cv.website}</span>}
             </div>
           </div>
         </div>

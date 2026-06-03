@@ -1,4 +1,5 @@
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
@@ -19,12 +20,12 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
         <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#4c1d5c" }}>{cv.name}</h1>
         <p className="mt-1.5 text-base font-medium" style={{ color: "#7c3aed" }}>{cv.jobTitle}</p>
         <div className="mt-3 flex flex-wrap gap-4 text-xs" style={{ color: "#9461b8" }}>
-          {cv.email && <span>✉ {cv.email}</span>}
-          {cv.phone && <span>✆ {cv.phone}</span>}
-          {cv.location && <span>⌖ {cv.location}</span>}
-          {cv.website && <span>⬡ {cv.website}</span>}
-          {cv.linkedin && <span>in {cv.linkedin}</span>}
-          {cv.github && <span>⌥ {cv.github}</span>}
+          {cv.email    && <span className="flex items-center gap-1"><MailIcon />     {cv.email}</span>}
+          {cv.phone    && <span className="flex items-center gap-1"><PhoneIcon />    {cv.phone}</span>}
+          {cv.location && <span className="flex items-center gap-1"><LocationIcon /> {cv.location}</span>}
+          {cv.website  && <span className="flex items-center gap-1"><WebIcon />      {cv.website}</span>}
+          {cv.linkedin && <span className="flex items-center gap-1"><LinkedinIcon /> {cv.linkedin}</span>}
+          {cv.github   && <span className="flex items-center gap-1"><GithubIcon />   {cv.github}</span>}
         </div>
       </header>
 

@@ -3,6 +3,7 @@
  * Designed for any role, focus on readability and elegance
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
 interface MinimalTemplateProps {
   cv: Partial<CV>;
@@ -91,20 +92,13 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
 
           {/* Contact — horizontal row */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-            {[cv.email, cv.phone, cv.location, cv.linkedin, cv.github, cv.website, cv.portfolio]
-              .filter(Boolean)
-              .map((info, i) => (
-                <span key={i} style={{
-                  fontSize: "11px",
-                  color: "#888",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}>
-                  {i > 0 && <span style={{ color: "#ddd", marginRight: "-10px" }}>·</span>}
-                  {info}
-                </span>
-              ))}
+            {cv.email    && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><MailIcon />     {cv.email}</span>}
+            {cv.phone    && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><PhoneIcon />    {cv.phone}</span>}
+            {cv.location && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><LocationIcon /> {cv.location}</span>}
+            {cv.linkedin && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><LinkedinIcon /> {cv.linkedin}</span>}
+            {cv.github   && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><GithubIcon />   {cv.github}</span>}
+            {cv.website  && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><WebIcon />      {cv.website}</span>}
+            {cv.portfolio && <span style={{ fontSize: "11px", color: "#888", display: "flex", alignItems: "center", gap: "5px" }}><PortfolioIcon />{cv.portfolio}</span>}
           </div>
         </div>
       </header>

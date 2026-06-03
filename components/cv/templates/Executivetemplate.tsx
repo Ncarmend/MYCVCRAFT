@@ -3,6 +3,7 @@
  * Designed for senior/executive roles
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
 interface ExecutiveTemplateProps {
   cv: Partial<CV>;
@@ -114,13 +115,13 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
 
           {/* Contact info */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-            {[cv.email, cv.phone, cv.location, cv.linkedin, cv.github, cv.website, cv.portfolio]
-              .filter(Boolean)
-              .map((info, i) => (
-                <span key={i} style={{ color: "#9e9e9e", fontSize: "11px" }}>
-                  {info}
-                </span>
-              ))}
+            {cv.email    && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><MailIcon />     {cv.email}</span>}
+            {cv.phone    && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><PhoneIcon />    {cv.phone}</span>}
+            {cv.location && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><LocationIcon /> {cv.location}</span>}
+            {cv.linkedin && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><LinkedinIcon /> {cv.linkedin}</span>}
+            {cv.github   && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><GithubIcon />   {cv.github}</span>}
+            {cv.website  && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><WebIcon />      {cv.website}</span>}
+            {cv.portfolio && <span style={{ color: "#9e9e9e", fontSize: "11px", display: "inline-flex", alignItems: "center", gap: "4px" }}><PortfolioIcon />{cv.portfolio}</span>}
           </div>
         </div>
       </header>

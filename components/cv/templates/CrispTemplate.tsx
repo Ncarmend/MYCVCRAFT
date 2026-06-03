@@ -1,4 +1,5 @@
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
@@ -42,12 +43,12 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
         </h1>
         <p style={{ fontSize: "12pt", color: blue, fontWeight: 500, marginTop: "5px" }}>{cv.jobTitle}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", marginTop: "10px", fontSize: "9pt", color: muted }}>
-          {cv.email && <span>{cv.email}</span>}
-          {cv.phone && <span>{cv.phone}</span>}
-          {cv.location && <span>{cv.location}</span>}
-          {cv.linkedin && <span>{cv.linkedin}</span>}
-          {cv.github && <span>{cv.github}</span>}
-          {cv.website && <span>{cv.website}</span>}
+          {cv.email    && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><MailIcon />     {cv.email}</span>}
+          {cv.phone    && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><PhoneIcon />    {cv.phone}</span>}
+          {cv.location && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><LocationIcon /> {cv.location}</span>}
+          {cv.linkedin && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><LinkedinIcon /> {cv.linkedin}</span>}
+          {cv.github   && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><GithubIcon />   {cv.github}</span>}
+          {cv.website  && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><WebIcon />      {cv.website}</span>}
         </div>
       </div>
 

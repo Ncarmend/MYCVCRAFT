@@ -1,4 +1,5 @@
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface ElegantTemplateProps {
   cv: Partial<CV>;
@@ -135,12 +136,12 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
             Contact
           </h2>
           <div style={{ fontSize: "9pt", color: "#d1d5db", lineHeight: 1.7 }}>
-            {cv.email && <p style={{ wordBreak: "break-all" }}>{cv.email}</p>}
-            {cv.phone && <p>{cv.phone}</p>}
-            {cv.location && <p>{cv.location}</p>}
-            {cv.website && <p style={{ wordBreak: "break-all" }}>{cv.website}</p>}
-            {cv.linkedin && <p style={{ wordBreak: "break-all" }}>{cv.linkedin}</p>}
-            {cv.github && <p style={{ wordBreak: "break-all" }}>{cv.github}</p>}
+            {cv.email    && <p style={{ display: "flex", alignItems: "center", gap: "5px", wordBreak: "break-all" }}><MailIcon />     {cv.email}</p>}
+            {cv.phone    && <p style={{ display: "flex", alignItems: "center", gap: "5px" }}><PhoneIcon />    {cv.phone}</p>}
+            {cv.location && <p style={{ display: "flex", alignItems: "center", gap: "5px" }}><LocationIcon /> {cv.location}</p>}
+            {cv.website  && <p style={{ display: "flex", alignItems: "center", gap: "5px", wordBreak: "break-all" }}><WebIcon />      {cv.website}</p>}
+            {cv.linkedin && <p style={{ display: "flex", alignItems: "center", gap: "5px", wordBreak: "break-all" }}><LinkedinIcon /> {cv.linkedin}</p>}
+            {cv.github   && <p style={{ display: "flex", alignItems: "center", gap: "5px", wordBreak: "break-all" }}><GithubIcon />   {cv.github}</p>}
           </div>
         </div>
 

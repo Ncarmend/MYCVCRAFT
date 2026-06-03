@@ -3,6 +3,7 @@
  * Optimized for ATS parsing
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
 interface BasicTemplateProps {
   cv: Partial<CV>;
@@ -27,13 +28,13 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">{cv.name}</h1>
         <p className="mt-1 text-base font-medium text-gray-600">{cv.jobTitle}</p>
         <div className="mt-2 flex flex-wrap gap-4 text-xs text-gray-500">
-          {cv.email && <span>{cv.email}</span>}
-          {cv.phone && <span>{cv.phone}</span>}
-          {cv.location && <span>{cv.location}</span>}
-          {cv.website && <span>{cv.website}</span>}
-          {cv.linkedin && <span>{cv.linkedin}</span>}
-          {cv.github && <span>{cv.github}</span>}
-          {cv.portfolio && <span>{cv.portfolio}</span>}
+          {cv.email    && <span className="flex items-center gap-1"><MailIcon />      {cv.email}</span>}
+          {cv.phone    && <span className="flex items-center gap-1"><PhoneIcon />     {cv.phone}</span>}
+          {cv.location && <span className="flex items-center gap-1"><LocationIcon />  {cv.location}</span>}
+          {cv.website  && <span className="flex items-center gap-1"><WebIcon />       {cv.website}</span>}
+          {cv.linkedin && <span className="flex items-center gap-1"><LinkedinIcon />  {cv.linkedin}</span>}
+          {cv.github   && <span className="flex items-center gap-1"><GithubIcon />    {cv.github}</span>}
+          {cv.portfolio && <span className="flex items-center gap-1"><PortfolioIcon />{cv.portfolio}</span>}
         </div>
       </header>
 

@@ -1,4 +1,5 @@
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
@@ -28,10 +29,14 @@ export function ClassicTemplate({ cv, watermark = false }: Props) {
           {cv.name}
         </h1>
         <p style={{ fontSize: "12pt", color: "#444", marginTop: "4px", fontStyle: "italic" }}>{cv.jobTitle}</p>
-        <p style={{ fontSize: "9pt", color: "#555", marginTop: "6px" }}>
-          {([cv.email, cv.phone, cv.location, cv.linkedin, cv.github, cv.website] as (string | null | undefined)[])
-            .filter((v): v is string => !!v).join("  ·  ")}
-        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "14px", fontSize: "9pt", color: "#555", marginTop: "6px" }}>
+          {cv.email    && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><MailIcon />     {cv.email}</span>}
+          {cv.phone    && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><PhoneIcon />    {cv.phone}</span>}
+          {cv.location && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><LocationIcon /> {cv.location}</span>}
+          {cv.linkedin && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><LinkedinIcon /> {cv.linkedin}</span>}
+          {cv.github   && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><GithubIcon />   {cv.github}</span>}
+          {cv.website  && <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><WebIcon />      {cv.website}</span>}
+        </div>
       </div>
 
       {cv.summary && (

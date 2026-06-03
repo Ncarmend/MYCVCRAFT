@@ -3,6 +3,7 @@
  * Designed for design/tech roles
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
 interface ModernTemplateProps {
   cv: Partial<CV>;
@@ -47,13 +48,13 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
             Contact
           </h2>
           <div className="space-y-1.5 text-xs text-indigo-100">
-            {cv.email && <p>{cv.email}</p>}
-            {cv.phone && <p>{cv.phone}</p>}
-            {cv.location && <p>{cv.location}</p>}
-            {cv.website && <p className="break-all">{cv.website}</p>}
-            {cv.linkedin && <p className="break-all">{cv.linkedin}</p>}
-            {cv.github && <p className="break-all">{cv.github}</p>}
-            {cv.portfolio && <p className="break-all">{cv.portfolio}</p>}
+            {cv.email    && <p className="flex items-center gap-1.5"><MailIcon />     {cv.email}</p>}
+            {cv.phone    && <p className="flex items-center gap-1.5"><PhoneIcon />    {cv.phone}</p>}
+            {cv.location && <p className="flex items-center gap-1.5"><LocationIcon /> {cv.location}</p>}
+            {cv.website  && <p className="flex items-center gap-1.5 break-all"><WebIcon />      {cv.website}</p>}
+            {cv.linkedin && <p className="flex items-center gap-1.5 break-all"><LinkedinIcon /> {cv.linkedin}</p>}
+            {cv.github   && <p className="flex items-center gap-1.5 break-all"><GithubIcon />   {cv.github}</p>}
+            {cv.portfolio && <p className="flex items-center gap-1.5 break-all"><PortfolioIcon />{cv.portfolio}</p>}
           </div>
         </div>
 

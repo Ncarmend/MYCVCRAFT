@@ -1,4 +1,5 @@
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
@@ -25,12 +26,12 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
         <div className="mt-6 mb-5">
           <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Contact</h2>
           <div className="space-y-1 text-xs text-slate-200">
-            {cv.email && <p>{cv.email}</p>}
-            {cv.phone && <p>{cv.phone}</p>}
-            {cv.location && <p>{cv.location}</p>}
-            {cv.website && <p className="break-all">{cv.website}</p>}
-            {cv.linkedin && <p className="break-all">{cv.linkedin}</p>}
-            {cv.github && <p className="break-all">{cv.github}</p>}
+            {cv.email    && <p className="flex items-center gap-1.5"><MailIcon />     {cv.email}</p>}
+            {cv.phone    && <p className="flex items-center gap-1.5"><PhoneIcon />    {cv.phone}</p>}
+            {cv.location && <p className="flex items-center gap-1.5"><LocationIcon /> {cv.location}</p>}
+            {cv.website  && <p className="flex items-center gap-1.5 break-all"><WebIcon />      {cv.website}</p>}
+            {cv.linkedin && <p className="flex items-center gap-1.5 break-all"><LinkedinIcon /> {cv.linkedin}</p>}
+            {cv.github   && <p className="flex items-center gap-1.5 break-all"><GithubIcon />   {cv.github}</p>}
           </div>
         </div>
 

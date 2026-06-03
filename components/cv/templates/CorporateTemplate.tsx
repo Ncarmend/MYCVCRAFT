@@ -3,6 +3,7 @@
  * Idéal pour business, finance, RH, administratif
  */
 import type { CV } from "@/types";
+import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon } from "./ContactIcons";
 
 interface CorporateTemplateProps {
   cv: Partial<CV>;
@@ -35,11 +36,11 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
 
         {/* Contact row */}
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-600">
-          {cv.email && <span>{cv.email}</span>}
-          {cv.phone && <span>{cv.phone}</span>}
-          {cv.location && <span>{cv.location}</span>}
-          {cv.linkedin && <span className="break-all">{cv.linkedin}</span>}
-          {cv.website && <span className="break-all">{cv.website}</span>}
+          {cv.email    && <span className="flex items-center gap-1"><MailIcon />     {cv.email}</span>}
+          {cv.phone    && <span className="flex items-center gap-1"><PhoneIcon />    {cv.phone}</span>}
+          {cv.location && <span className="flex items-center gap-1"><LocationIcon /> {cv.location}</span>}
+          {cv.linkedin && <span className="flex items-center gap-1 break-all"><LinkedinIcon /> {cv.linkedin}</span>}
+          {cv.website  && <span className="flex items-center gap-1 break-all"><WebIcon />      {cv.website}</span>}
         </div>
       </header>
 

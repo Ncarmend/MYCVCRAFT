@@ -22,6 +22,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/modal";
 import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2 } from "lucide-react";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
+import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import type { CVFormData } from "@/types";
 
 // --- Zod schema ---
@@ -460,10 +461,11 @@ export function CVForm({
             <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
             <Input label="GitHub" placeholder="github.com/jane-smith" {...register("github")} />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
-            <Input label="Photo URL" placeholder="https://example.com/photo.jpg" {...register("photoUrl")} />
-          </div>
+          <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
+          <PhotoUpload
+            value={watch("photoUrl")}
+            onChange={(url) => setValue("photoUrl", url)}
+          />
 
           <Textarea
             label="Professional Summary"
