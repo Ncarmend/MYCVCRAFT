@@ -17,9 +17,15 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
       {/* Slate sidebar */}
       <div className="flex-shrink-0 bg-slate-700 text-white" style={{ width: "230px", padding: "40px 24px" }}>
-        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-slate-500 text-xl font-bold text-white">
-          {cv.name?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
-        </div>
+        {cv.photoUrl ? (
+          <div className="mb-6 h-14 w-14 overflow-hidden rounded-full border-2 border-slate-400">
+            <img src={cv.photoUrl} alt={cv.name ?? "Profile"} className="h-full w-full object-cover" />
+          </div>
+        ) : (
+          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-slate-500 text-xl font-bold text-white">
+            {cv.name?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+          </div>
+        )}
         <h1 className="text-lg font-bold leading-tight text-white">{cv.name}</h1>
         <p className="mt-1 text-xs text-slate-300">{cv.jobTitle}</p>
 

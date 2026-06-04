@@ -221,6 +221,7 @@ interface CVFormProps {
   cvId?: string;
   isPro: boolean;
   saving?: boolean;
+  hideSaveButton?: boolean;
 }
 
 export function CVForm({
@@ -230,6 +231,7 @@ export function CVForm({
   cvId,
   isPro,
   saving = false,
+  hideSaveButton = false,
 }: CVFormProps) {
   const [aiLoading, setAiLoading] = useState<string | null>(null);
   const [bulletLoading, setBulletLoading] = useState<number | null>(null);
@@ -892,7 +894,8 @@ export function CVForm({
         </TabsContent>
       </Tabs>
 
-      {/* Save button */}
+      {/* Save button — hidden when auto-save is active */}
+      {!hideSaveButton && (
       <div className="flex items-center justify-between border-t border-gray-100 pt-4">
         {Object.keys(errors).length > 0 && (
           <p className="text-sm text-red-500">
@@ -903,6 +906,7 @@ export function CVForm({
           Save CV
         </Button>
       </div>
+      )}
     </form>
   );
 }

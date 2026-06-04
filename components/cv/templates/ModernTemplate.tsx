@@ -25,19 +25,20 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
     >
       {/* Left sidebar */}
       <div
-        className="bg-indigo-700 text-white flex-shrink-0"
+        className="bg-indigo-700 text-white shrink-0"
         style={{ width: "240px", padding: "40px 28px" }}
       >
         {/* Name block */}
         <div className="mb-8">
-          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500 text-2xl font-bold">
-            {cv.name
-              ?.split(" ")
-              .map((n) => n[0])
-              .join("")
-              .slice(0, 2)
-              .toUpperCase()}
-          </div>
+          {cv.photoUrl ? (
+            <div className="mb-3 h-16 w-16 overflow-hidden rounded-full border-2 border-indigo-300">
+              <img src={cv.photoUrl} alt={cv.name ?? "Profile"} className="h-full w-full object-cover" />
+            </div>
+          ) : (
+            <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500 text-2xl font-bold">
+              {cv.name?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+            </div>
+          )}
           <h1 className="text-xl font-bold leading-tight">{cv.name}</h1>
           <p className="mt-1 text-sm text-indigo-200">{cv.jobTitle}</p>
         </div>
@@ -144,7 +145,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
                       <h3 className="font-semibold text-gray-900">{exp.role}</h3>
                       <p className="text-indigo-600 font-medium text-xs">{exp.company}</p>
                     </div>
-                    <span className="text-xs text-gray-400 flex-shrink-0 ml-3 mt-0.5 bg-gray-50 px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-gray-400 shrink-0 ml-3 mt-0.5 bg-gray-50 px-2 py-0.5 rounded-full">
                       {exp.startDate} — {exp.endDate}
                     </span>
                   </div>
@@ -155,7 +156,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
                     <ul className="mt-1.5 space-y-0.5">
                       {exp.achievements.map((ach, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-400" />
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
                           {ach}
                         </li>
                       ))}
@@ -183,7 +184,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
                     <p className="text-sm text-indigo-600">{edu.institution}</p>
                     {edu.grade && <p className="text-xs text-gray-400">{edu.grade}</p>}
                   </div>
-                  <span className="text-xs text-gray-400 flex-shrink-0 ml-3 bg-gray-50 px-2 py-0.5 rounded-full">
+                  <span className="text-xs text-gray-400 shrink-0 ml-3 bg-gray-50 px-2 py-0.5 rounded-full">
                     {edu.startDate} — {edu.endDate}
                   </span>
                 </div>

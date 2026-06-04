@@ -31,25 +31,29 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
     >
       {/* Sidebar (left) */}
       <div
-        className="bg-slate-900 text-white flex-shrink-0"
+        className="bg-slate-900 text-white shrink-0"
         style={{ width: "240px", padding: "40px 28px" }}
       >
-        {/* Photo hexagonale */}
-        {cv.photoUrl && (
-          <div className="mb-6 flex justify-center">
+        {/* Photo or initials */}
+        <div className="mb-6 flex justify-center">
+          {cv.photoUrl ? (
             <div className="relative h-28 w-28">
               <img
                 src={cv.photoUrl}
-                alt="Profile"
+                alt={cv.name ?? "Profile"}
                 className="h-full w-full object-cover"
-                style={{
-                  clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-                  border: "4px solid #22d3ee"
-                }}
+                style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)", border: "4px solid #22d3ee" }}
               />
             </div>
-          </div>
-        )}
+          ) : (
+            <div
+              className="flex h-20 w-20 items-center justify-center text-xl font-bold text-white"
+              style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)", background: "#1e40af", border: "3px solid #22d3ee" }}
+            >
+              {cv.name?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+            </div>
+          )}
+        </div>
 
         {/* Name */}
         <div className="mb-8">
