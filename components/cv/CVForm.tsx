@@ -411,6 +411,7 @@ export function CVForm({
           <TabsTrigger value="projects">Projects</TabsTrigger>
           <TabsTrigger value="languages">Languages</TabsTrigger>
           <TabsTrigger value="certifications">Certifications</TabsTrigger>
+          <TabsTrigger value="templates">Templates</TabsTrigger>
           <TabsTrigger value="ai">AI Tools</TabsTrigger>
         </TabsList>
 
@@ -423,12 +424,14 @@ export function CVForm({
               error={errors.title?.message}
               {...register("title")}
             />
-            <div className="flex flex-col gap-1.5 col-span-2">
+            <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-gray-700">Template</label>
-              <TemplatePicker
-                value={watch("template") || defaultValues?.template || "BASIC"}
-                onChange={(v) => setValue("template", v as CVFormData["template"])}
-              />
+              <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm">
+                <span className="font-medium text-gray-800">
+                  {TEMPLATES.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
+                </span>
+                <span className="text-xs text-gray-400">— change in the Templates tab</span>
+              </div>
             </div>
           </div>
 
@@ -766,6 +769,35 @@ export function CVForm({
             <Plus className="h-4 w-4" />
             Add Certification
           </Button>
+        </TabsContent>
+
+        {/* ─── Templates Tab ─── */}
+        <TabsContent value="templates" className="space-y-6">
+          <div>
+            <h3 className="text-sm font-semibold text-gray-800 mb-1">Choose a template</h3>
+            <p className="text-xs text-gray-500 mb-4">
+              Click a template to apply it instantly. Use the eye icon to preview it full-size before choosing.
+            </p>
+            <TemplatePicker
+              value={watch("template") || defaultValues?.template || "BASIC"}
+              onChange={(v) => setValue("template", v as CVFormData["template"])}
+            />
+          </div>
+
+          <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+            <p className="text-xs font-semibold text-gray-700 mb-2">About the templates</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-gray-500">
+              <span><strong className="text-gray-700">Basic / Classic / Crisp</strong> — ATS-optimised, single column</span>
+              <span><strong className="text-gray-700">Modern / Slate / Tech</strong> — Two-column with sidebar</span>
+              <span><strong className="text-gray-700">Executive / Corporate</strong> — Dark header, formal</span>
+              <span><strong className="text-gray-700">Elegant</strong> — Gold accents, serif fonts</span>
+              <span><strong className="text-gray-700">Creative</strong> — Amber colour, bold headings</span>
+              <span><strong className="text-gray-700">Minimal</strong> — Ultra-light, lots of whitespace</span>
+              <span><strong className="text-gray-700">Warm</strong> — Beige & cream tones</span>
+              <span><strong className="text-gray-700">Soft</strong> — Pale lavender & rose</span>
+              <span><strong className="text-gray-700">Photo</strong> — Includes circular profile photo</span>
+            </div>
+          </div>
         </TabsContent>
 
         {/* ─── AI Tools Tab ─── */}

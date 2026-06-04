@@ -1,5 +1,3 @@
-"use client";
-
 import { Mail, Phone, MapPin, Globe, Briefcase, Code2, Link } from "lucide-react";
 
 interface IconProps {

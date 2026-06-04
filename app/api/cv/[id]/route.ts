@@ -56,6 +56,7 @@ export async function PATCH(
         title: body.title,
         template: body.template,
         name: body.name,
+        photoUrl: body.photoUrl || null,
         jobTitle: body.jobTitle,
         email: body.email || null,
         phone: body.phone || null,
