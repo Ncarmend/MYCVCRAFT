@@ -62,7 +62,7 @@ export function Testimonials() {
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
             Testimonials
           </h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Loved by job seekers worldwide
           </p>
         </div>
@@ -85,11 +85,11 @@ export function Testimonials() {
               </p>
 
               <div className="mt-4 flex items-center gap-3">
-                <div className="flex h-8 w-10 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
                   {t.avatar}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{t.name}</p>
+                  <p className="text-xs font-semibold text-gray-900">{t.name}</p>
                   <p className="text-xs text-gray-500">{t.role}</p>
                 </div>
               </div>
