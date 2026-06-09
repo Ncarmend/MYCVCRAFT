@@ -57,17 +57,17 @@ const testimonials = [
 export function Testimonials() {
   return (
     <section className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
             Testimonials
           </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Loved by job seekers worldwide
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-14 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t) => (
             <div
               key={t.name}
@@ -84,8 +84,8 @@ export function Testimonials() {
                 &ldquo;{t.content}&rdquo;
               </p>
 
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex h-8 w-10 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
                   {t.avatar}
                 </div>
                 <div>

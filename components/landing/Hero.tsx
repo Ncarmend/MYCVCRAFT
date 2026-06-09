@@ -41,7 +41,7 @@ export function Hero() {
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-500 sm:text-xl">
+        <p className="mx-auto mt-6 max-w-2xl text-md leading-relaxed text-gray-500 sm:text-xl">
           Generate ATS-optimized, professionally crafted CVs in minutes. Match
           your CV to any job description and download beautiful PDFs instantly.
         </p>

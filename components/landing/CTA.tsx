@@ -18,10 +18,10 @@ export function CTA() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 text-center">
-        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-4xl">
+        <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
           Ready to land your dream job?
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-md text-indigo-100">
+        <p className="mx-auto mt-4 max-w-md text-sm text-indigo-100">
           Join 10,000+ professionals who have already leveled up their job
           search with CVCraft. Start free, upgrade when you need.
         </p>

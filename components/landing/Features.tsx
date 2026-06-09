@@ -75,7 +75,7 @@ export function Features() {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to land the job
           </p>
-          <p className="mt-4 text-lg text-gray-500">
+          <p className="mt-4 text-md text-gray-500">
             From first draft to final PDF — CVCraft handles the heavy lifting so
             you can focus on what matters.
           </p>
