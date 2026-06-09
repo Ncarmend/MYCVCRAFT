@@ -68,14 +68,14 @@ export function Features() {
   return (
     <section className="bg-gray-50 py-24 sm:py-32" id="features">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-xl text-center">
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
             Features
           </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-1xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to land the job
           </p>
-          <p className="mt-4 text-md text-gray-500">
+          <p className="mt-2 text-xs text-gray-500">
             From first draft to final PDF — CVCraft handles the heavy lifting so
             you can focus on what matters.
           </p>
@@ -95,7 +95,7 @@ export function Features() {
               <h3 className="mt-4 text-base font-semibold text-gray-900">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+              <p className="mt-2 text-xs leading-relaxed text-gray-500">
                 {feature.description}
               </p>
             </div>
