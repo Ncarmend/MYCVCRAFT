@@ -18,17 +18,17 @@ export function CTA() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-4xl">
           Ready to land your dream job?
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
+        <p className="mx-auto mt-4 max-w-xl text-md text-indigo-100">
           Join 10,000+ professionals who have already leveled up their job
           search with CVCraft. Start free, upgrade when you need.
         </p>
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button
-              size="lg"
+              size="md"
               className="bg-white text-indigo-700 hover:bg-indigo-50 gap-2 px-8 shadow-lg"
             >
               <Sparkles className="h-5 w-5" />
@@ -38,7 +38,7 @@ export function CTA() {
           </Link>
           <Link href="/pricing">
             <Button
-              size="lg"
+              size="md"
               variant="ghost"
               className="text-white hover:bg-white/10 border border-white/20"
             >
