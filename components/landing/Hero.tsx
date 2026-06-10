@@ -26,7 +26,7 @@ export function Hero() {
         <div className="absolute -bottom-40 -left-40 h-125 w-125 rounded-full bg-purple-50 opacity-50 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 pb-24 pt-16 text-center lg:pt-28">
+      <div className="mx-auto max-w-5xl px-6 pb-24 pt-16 text-center lg:pt-28">
         {/* Badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-sm font-medium text-indigo-700">
           <Sparkles className="h-3.5 w-3.5" />
@@ -34,14 +34,14 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+        <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
           Land your dream job{" "}
           <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             with AI
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-md leading-relaxed text-gray-500 sm:text-xl">
+        <p className="mx-auto mt-4 max-w-xl text-md leading-relaxed text-gray-500 sm:text-xl">
           Generate ATS-optimized, professionally crafted CVs in minutes. Match
           your CV to any job description and download beautiful PDFs instantly.
         </p>
