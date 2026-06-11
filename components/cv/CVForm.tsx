@@ -402,7 +402,7 @@ export function CVForm({
     <form
       onSubmit={handleSubmit(onSave)}
 
-      className="space-y-4"
+      className="space-y-2"
     >
       <Tabs defaultValue="personal">
         <TabsList>

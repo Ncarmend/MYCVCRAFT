@@ -1,14 +1,16 @@
-/**
- * Call to action section for the landing page
- */
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function CTA() {
+  const { lang } = useLanguage();
+  const T = translations[lang].cta;
+
   return (
     <section className="relative overflow-hidden bg-indigo-600 py-24">
-      {/* Subtle background pattern */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -19,12 +21,9 @@ export function CTA() {
 
       <div className="relative mx-auto max-w-7xl px-6 text-center">
         <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
-          Ready to land your dream job?
+          {T.headline}
         </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm text-indigo-100">
-          Join 10,000+ professionals who have already leveled up their job
-          search with CVCraft. Start free, upgrade when you need.
-        </p>
+        <p className="mx-auto mt-4 max-w-md text-sm text-indigo-100">{T.subtext}</p>
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button
@@ -32,7 +31,7 @@ export function CTA() {
               className="bg-white text-indigo-700 hover:bg-indigo-50 gap-2 px-8 shadow-lg"
             >
               <Sparkles className="h-5 w-5" />
-              Get started for free
+              {T.primary}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
@@ -42,13 +41,11 @@ export function CTA() {
               variant="ghost"
               className="text-white hover:bg-white/10 border border-white/20"
             >
-              See all plans
+              {T.secondary}
             </Button>
           </Link>
         </div>
-        <p className="mt-4 text-sm text-indigo-200">
-          No credit card required · Cancel anytime · 7-day Pro trial
-        </p>
+        <p className="mt-4 text-sm text-indigo-200">{T.footnote}</p>
       </div>
     </section>
   );

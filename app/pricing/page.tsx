@@ -1,6 +1,3 @@
-/**
- * Pricing page — shows Free vs Pro plans
- */
 "use client";
 
 import { useState } from "react";
@@ -9,33 +6,13 @@ import { toast } from "sonner";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
 import { HelpCircle, ArrowLeft } from "lucide-react";
-
-const faqs = [
-  {
-    q: "Can I cancel anytime?",
-    a: "Yes. Cancel your Pro subscription any time from your account settings. You retain Pro access until the end of your billing period.",
-  },
-  {
-    q: "What happens to my CVs if I downgrade?",
-    a: "Your CVs are always saved. On the Free plan, you can only actively edit 1 CV, but your others remain accessible in read-only mode.",
-  },
-  {
-    q: "Is there a free trial?",
-    a: "Yes — Pro comes with a 7-day free trial. No credit card required to sign up for the Free plan.",
-  },
-  {
-    q: "What AI model powers the CV generation?",
-    a: "We use OpenAI's GPT-4o for all AI features — the same model behind ChatGPT's most advanced responses.",
-  },
-  {
-    q: "Are my CVs private?",
-    a: "Absolutely. Your CVs are private by default. You can choose to generate a shareable link, but nothing is public unless you explicitly share it.",
-  },
-];
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export default function PricingPage() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const { lang } = useLanguage();
+  const T = translations[lang].pricing;
 
   async function handleSelectPro() {
     setLoadingPlan("PRO");
@@ -47,7 +24,6 @@ export default function PricingPage() {
       });
 
       if (res.status === 401) {
-        // Not logged in — redirect to signup with returnTo
         router.push("/signup?returnTo=/pricing");
         return;
       }
@@ -57,7 +33,7 @@ export default function PricingPage() {
       if (error) throw new Error(error);
       if (url) window.location.href = url;
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error(lang === "fr" ? "Une erreur est survenue. Veuillez réessayer." : "Something went wrong. Please try again.");
     } finally {
       setLoadingPlan(null);
     }
@@ -72,18 +48,16 @@ export default function PricingPage() {
           className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back
+          {T.back}
         </button>
       </div>
 
       {/* Header */}
       <div className="mx-auto max-w-7xl px-6 py-16 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Simple, transparent pricing
+          {T.headline}
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">
-          Start free. Upgrade when you need more power. No hidden fees.
-        </p>
+        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">{T.subtext}</p>
       </div>
 
       {/* Plans */}
@@ -92,14 +66,14 @@ export default function PricingPage() {
           <PricingCard
             name={PLANS.FREE.name}
             price={PLANS.FREE.price}
-            description="Perfect for getting started"
+            description={T.freeDescription}
             features={PLANS.FREE.features as unknown as string[]}
             onSelect={() => router.push("/signup")}
           />
           <PricingCard
             name={PLANS.PRO.name}
             price={PLANS.PRO.price}
-            description="For serious job seekers"
+            description={T.proDescription}
             features={PLANS.PRO.features as unknown as string[]}
             highlighted
             priceId={PLANS.PRO.priceId}
@@ -108,10 +82,7 @@ export default function PricingPage() {
           />
         </div>
 
-        {/* Money back guarantee */}
-        <p className="mt-8 text-center text-sm text-gray-500">
-          All plans include a 14-day money-back guarantee. No questions asked.
-        </p>
+        <p className="mt-8 text-center text-sm text-gray-500">{T.moneyBack}</p>
       </div>
 
       {/* FAQ */}
@@ -119,12 +90,10 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl px-6">
           <div className="mb-12 flex items-center gap-3 text-center justify-center">
             <HelpCircle className="h-6 w-6 text-indigo-600" />
-            <h2 className="text-2xl font-bold text-gray-900">
-              Frequently asked questions
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900">{T.faqTitle}</h2>
           </div>
           <div className="space-y-6">
-            {faqs.map((faq) => (
+            {T.faqs.map((faq) => (
               <div
                 key={faq.q}
                 className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100"

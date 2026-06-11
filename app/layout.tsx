@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { LanguageProvider } from "@/components/landing/LanguageContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,8 +48,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full bg-white text-gray-900">
-        {children}
-        <Toaster richColors position="top-right" />
+        <LanguageProvider>
+          {children}
+          <Toaster richColors position="top-right" />
+        </LanguageProvider>
       </body>
     </html>
   );

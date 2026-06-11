@@ -1,23 +1,21 @@
-/**
- * Landing page hero section
- */
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Sparkles, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
-const stats = [
-  { value: "10,000+", label: "CVs created" },
-  { value: "94%", label: "ATS pass rate" },
-  { value: "3×", label: "More interviews" },
-];
-
-const highlights = [
-  "ATS-optimized in one click",
-  "AI bullet point generation",
-  "PDF export included",
+const mockStatColors = [
+  { bg: "bg-indigo-50 border border-indigo-100", valueColor: "text-indigo-700" },
+  { bg: "bg-green-50 border border-green-100",   valueColor: "text-green-700" },
+  { bg: "bg-amber-50 border border-amber-100",   valueColor: "text-amber-700" },
+  { bg: "bg-purple-50 border border-purple-100", valueColor: "text-purple-700" },
 ];
 
 export function Hero() {
+  const { lang } = useLanguage();
+  const T = translations[lang].hero;
+
   return (
     <section className="relative overflow-hidden bg-white">
       {/* Background blobs */}
@@ -30,25 +28,24 @@ export function Hero() {
         {/* Badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-sm font-medium text-indigo-700">
           <Sparkles className="h-3.5 w-3.5" />
-          AI-powered CV builder — free to start
+          {T.badge}
         </div>
 
         {/* Headline */}
         <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
-          Land your dream job{" "}
+          {T.headline1}{" "}
           <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            with AI
+            {T.headline2}
           </span>
         </h1>
 
         <p className="mx-auto mt-4 max-w-xl text-md leading-relaxed text-gray-500 sm:text-xl">
-          Generate ATS-optimized, professionally crafted CVs in minutes. Match
-          your CV to any job description and download beautiful PDFs instantly.
+          {T.subtext}
         </p>
 
         {/* Quick highlights */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-          {highlights.map((h) => (
+          {T.highlights.map((h) => (
             <span key={h} className="flex items-center gap-1.5 text-sm text-gray-500">
               <CheckCircle className="h-4 w-4 text-indigo-500" />
               {h}
@@ -61,24 +58,22 @@ export function Hero() {
           <Link href="/signup">
             <Button size="lg" className="gap-2 px-8">
               <Sparkles className="h-5 w-5" />
-              Build your CV free
+              {T.ctaPrimary}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
           <Link href="/pricing">
             <Button size="lg" variant="secondary">
-              View pricing
+              {T.ctaSecondary}
             </Button>
           </Link>
         </div>
 
-        <p className="mt-4 text-sm text-gray-400">
-          No credit card required · Free plan available
-        </p>
+        <p className="mt-4 text-sm text-gray-400">{T.noCard}</p>
 
         {/* Stats */}
         <div className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-6 sm:mt-16">
-          {stats.map((s) => (
+          {T.stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1">
               <span className="text-2xl font-bold text-gray-900 sm:text-3xl">{s.value}</span>
               <span className="text-xs text-gray-400 sm:text-sm">{s.label}</span>
@@ -88,61 +83,44 @@ export function Hero() {
 
         {/* Browser mockup */}
         <div className="mt-16 sm:mt-20 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:overflow-x-visible sm:px-0">
-          <div className="min-w-[420px] sm:min-w-0">
-          <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
-            <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
+          <div className="min-w-105 sm:min-w-0">
+            <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
+              <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
 
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-3">
-                <div className="h-3 w-3 rounded-full bg-red-400" />
-                <div className="h-3 w-3 rounded-full bg-yellow-400" />
-                <div className="h-3 w-3 rounded-full bg-green-400" />
-                <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-400">
-                  app.cvcraft.io/dashboard 
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-3">
+                  <div className="h-3 w-3 rounded-full bg-red-400" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-400" />
+                  <div className="h-3 w-3 rounded-full bg-green-400" />
+                  <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-400">
+                    app.cvcraft.io/dashboard
+                  </div>
                 </div>
-              </div>
 
-              {/* Dashboard shell */}
-              <div className="grid grid-cols-12" style={{ minHeight: "420px" }}>
+                {/* Dashboard shell */}
+                <div className="grid grid-cols-12" style={{ minHeight: "420px" }}>
 
-                {/* ── Sidebar ── */}
-                {/* ── Sidebar Premium ── */}
-                    <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
-
-                      {/* Logo */}
-                      <div className="mb-8 flex items-center gap-2">
-                        <div className="h-7 w-7 rounded-lg bg-indigo-600" />
-                        <span className="h-3 w-20 rounded bg-gray-300" />
-                      </div>
-
-                      {/* Navigation */}
-                      <div className="space-y-1.5  font-size: 0.45rem text-gray-600">
-                        {[
-                          { label: "Dashboard", active: true },
-                          { label: "My CV", active: false },
-                          { label: "Models", active: false },
-                          { label: "Parameters", active: false },
-                          { label: "Support", active: false },
-                        ].map((item, i) => (
-                          <div
-                            key={i}
-                            className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
-                              item.active
-                                ? "bg-indigo-50 text-indigo-700 shadow-sm"
-                                : "text-gray-500 hover:bg-gray-50"
-                            }`}
-                          >
-                            <div
-                              className={`h-3 w-3 rounded ${
-                                item.active ? "bg-indigo-500" : "bg-gray-300"
-                              }`}
-                            />
-                            <span className="text-xs font-medium">{item.label}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                    {/* Bottom user section */}
+                  {/* Sidebar */}
+                  <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
+                    <div className="mb-8 flex items-center gap-2">
+                      <div className="h-7 w-7 rounded-lg bg-indigo-600" />
+                      <span className="h-3 w-20 rounded bg-gray-300" />
+                    </div>
+                    <div className="space-y-1.5 text-gray-600">
+                      {T.mock.nav.map((label, i) => (
+                        <div
+                          key={i}
+                          className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
+                            i === 0
+                              ? "bg-indigo-50 text-indigo-700 shadow-sm"
+                              : "text-gray-500 hover:bg-gray-50"
+                          }`}
+                        >
+                          <div className={`h-3 w-3 rounded ${i === 0 ? "bg-indigo-500" : "bg-gray-300"}`} />
+                          <span className="text-xs font-medium">{label}</span>
+                        </div>
+                      ))}
+                    </div>
                     <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
                       <div className="h-7 w-7 rounded-full bg-indigo-200" />
                       <div className="space-y-1">
@@ -152,97 +130,93 @@ export function Hero() {
                     </div>
                   </div>
 
-
-                {/* ── Main content ── */}
-                <div className="col-span-10 bg-gray-50/40 p-5">
-
-                  {/* Header row */}
-                  <div className="mb-5 flex items-center justify-between">
-                    <div>
-                      <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
-                      <div className="h-2.5 w-36 rounded bg-gray-300" />
-                    </div>
-                    <div className="flex h-8 items-center gap-1.5 rounded-lg bg-indigo-600 px-3">
-                      <div className="h-2.5 w-2.5 rounded-full bg-white opacity-80" />
-                      <div className="h-2 w-10 rounded bg-white opacity-70" />
-                    </div>
-                  </div>
-
-                  {/* Stats row */}
-                  <div className="mb-5 grid grid-cols-4 gap-3">
-                    {[
-                      { bg: "bg-indigo-50 border border-indigo-100", label: "Total CVs", value: "3", valueColor: "text-indigo-700" },
-                      { bg: "bg-green-50 border border-green-100",   label: "Published", value: "2", valueColor: "text-green-700" },
-                      { bg: "bg-amber-50 border border-amber-100",   label: "Avg ATS",   value: "91%", valueColor: "text-amber-700" },
-                      { bg: "bg-purple-50 border border-purple-100", label: "Plan",      value: "Pro ✨", valueColor: "text-purple-700" },
-                    ].map((s, i) => (
-                      <div key={i} className={`rounded-xl ${s.bg} px-3 py-2.5`}>
-                        <p className="mb-1 text-[10px] text-gray-400">{s.label}</p>
-                        <p className={`text-sm font-bold ${s.valueColor}`}>{s.value}</p>
+                  {/* Main content */}
+                  <div className="col-span-10 bg-gray-50/40 p-5">
+                    <div className="mb-5 flex items-center justify-between">
+                      <div>
+                        <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
+                        <div className="h-2.5 w-36 rounded bg-gray-300" />
                       </div>
-                    ))}
-                  </div>
-
-                  {/* CV cards */}
-                  <p className="mb-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Your CVs</p>
-                  <div className="grid grid-cols-3 gap-3">
-
-                    {/* Card 1 — Software Engineer */}
-                    <div className="overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm">
-                      <div className="h-1.5 w-full bg-linear-to-r from-indigo-500 to-indigo-400" />
-                      <div className="p-3">
-                        <p className="mb-0.5 text-xs font-bold text-gray-800">Software Engineer</p>
-                        <p className="mb-2.5 text-[10px] text-gray-400">Google · Paris</p>
-                        {/* ATS bar */}
-                        <div className="mb-1 flex items-center justify-between">
-                          <span className="text-[9px] text-gray-400">ATS Score</span>
-                          <span className="text-[9px] font-semibold text-green-600">94%</span>
-                        </div>
-                        <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <div className="h-full w-[94%] rounded-full bg-green-400" />
-                        </div>
-                        <div className="flex gap-1.5">
-                          <span className="rounded-md bg-green-100 px-1.5 py-0.5 text-[9px] font-semibold text-green-700">Published</span>
-                          <span className="rounded-md bg-indigo-100 px-1.5 py-0.5 text-[9px] font-semibold text-indigo-700">BASIC</span>
-                        </div>
+                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-indigo-600 px-3">
+                        <div className="h-2.5 w-2.5 rounded-full bg-white opacity-80" />
+                        <div className="h-2 w-10 rounded bg-white opacity-70" />
                       </div>
                     </div>
 
-                    {/* Card 2 — Product Manager */}
-                    <div className="overflow-hidden rounded-xl border border-purple-100 bg-white shadow-sm">
-                      <div className="h-1.5 w-full bg-linear-to-r from-purple-500 to-purple-400" />
-                      <div className="p-3">
-                        <p className="mb-0.5 text-xs font-bold text-gray-800">Product Manager</p>
-                        <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
-                        {/* ATS bar */}
-                        <div className="mb-1 flex items-center justify-between">
-                          <span className="text-[9px] text-gray-400">ATS Score</span>
-                          <span className="text-[9px] font-semibold text-green-600">81%</span>
+                    {/* Stats row */}
+                    <div className="mb-5 grid grid-cols-4 gap-3">
+                      {T.mock.stats.map((s, i) => (
+                        <div key={i} className={`rounded-xl ${mockStatColors[i].bg} px-3 py-2.5`}>
+                          <p className="mb-1 text-[10px] text-gray-400">{s.label}</p>
+                          <p className={`text-sm font-bold ${mockStatColors[i].valueColor}`}>{s.value}</p>
                         </div>
-                        <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <div className="h-full w-[81%] rounded-full bg-green-400" />
-                        </div>
-                        <div className="flex gap-1.5">
-                          <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">Draft</span>
-                          <span className="rounded-md bg-purple-100 px-1.5 py-0.5 text-[9px] font-semibold text-purple-700">MODERN</span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
 
-                    {/* Card 3 — New CV */}
-                    <div className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white transition-colors hover:border-indigo-300 hover:bg-indigo-50/40">
-                      <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100">
-                        <div className="text-indigo-600 text-sm font-bold leading-none">+</div>
-                      </div>
-                      <p className="text-[10px] font-medium text-gray-500">New CV</p>
-                    </div>
+                    {/* CV cards */}
+                    <p className="mb-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
+                      {T.mock.yourCVs}
+                    </p>
+                    <div className="grid grid-cols-3 gap-3">
 
+                      {/* Card 1 */}
+                      <div className="overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm">
+                        <div className="h-1.5 w-full bg-linear-to-r from-indigo-500 to-indigo-400" />
+                        <div className="p-3">
+                          <p className="mb-0.5 text-xs font-bold text-gray-800">Software Engineer</p>
+                          <p className="mb-2.5 text-[10px] text-gray-400">Google · Paris</p>
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-[9px] text-gray-400">{T.mock.atsScore}</span>
+                            <span className="text-[9px] font-semibold text-green-600">94%</span>
+                          </div>
+                          <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+                            <div className="h-full w-[94%] rounded-full bg-green-400" />
+                          </div>
+                          <div className="flex gap-1.5">
+                            <span className="rounded-md bg-green-100 px-1.5 py-0.5 text-[9px] font-semibold text-green-700">
+                              {T.mock.published}
+                            </span>
+                            <span className="rounded-md bg-indigo-100 px-1.5 py-0.5 text-[9px] font-semibold text-indigo-700">BASIC</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 2 */}
+                      <div className="overflow-hidden rounded-xl border border-purple-100 bg-white shadow-sm">
+                        <div className="h-1.5 w-full bg-linear-to-r from-purple-500 to-purple-400" />
+                        <div className="p-3">
+                          <p className="mb-0.5 text-xs font-bold text-gray-800">Product Manager</p>
+                          <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
+                          <div className="mb-1 flex items-center justify-between">
+                            <span className="text-[9px] text-gray-400">{T.mock.atsScore}</span>
+                            <span className="text-[9px] font-semibold text-green-600">81%</span>
+                          </div>
+                          <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+                            <div className="h-full w-[81%] rounded-full bg-green-400" />
+                          </div>
+                          <div className="flex gap-1.5">
+                            <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">
+                              {T.mock.draft}
+                            </span>
+                            <span className="rounded-md bg-purple-100 px-1.5 py-0.5 text-[9px] font-semibold text-purple-700">MODERN</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 3 — New CV */}
+                      <div className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white transition-colors hover:border-indigo-300 hover:bg-indigo-50/40">
+                        <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100">
+                          <div className="text-indigo-600 text-sm font-bold leading-none">+</div>
+                        </div>
+                        <p className="text-[10px] font-medium text-gray-500">{T.mock.newCV}</p>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
 
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>

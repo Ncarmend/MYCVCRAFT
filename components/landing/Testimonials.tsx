@@ -1,81 +1,32 @@
-/**
- * Social proof / testimonials section
- */
-import { Star } from "lucide-react";
+"use client";
 
-const testimonials = [
-  {
-    name: "Sarah Chen",
-    role: "Software Engineer at Google",
-    avatar: "SC",
-    content:
-      "CVCraft helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days.",
-    rating: 5,
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Product Manager at Stripe",
-    avatar: "MJ",
-    content:
-      "I rewrote my CV 4 times before trying CVCraft. The job description matching feature is incredible — it told me exactly which keywords I was missing and helped me tailor each application.",
-    rating: 5,
-  },
-  {
-    name: "Elena Rodriguez",
-    role: "UX Designer at Figma",
-    avatar: "ER",
-    content:
-      "The modern template is stunning. Multiple recruiters mentioned how professional my CV looked. The cover letter generator saved me hours per application.",
-    rating: 5,
-  },
-  {
-    name: "David Park",
-    role: "Data Scientist at OpenAI",
-    avatar: "DP",
-    content:
-      "As someone who hates writing, the AI generation feature was perfect. I just filled in my experience and it turned my bullet points into compelling, professional descriptions.",
-    rating: 5,
-  },
-  {
-    name: "Priya Patel",
-    role: "Marketing Lead at HubSpot",
-    avatar: "PP",
-    content:
-      "Worth every penny of the Pro plan. I upgraded within 10 minutes of trying the free plan — the unlimited CVs and PDF export are essential when you're actively job hunting.",
-    rating: 5,
-  },
-  {
-    name: "James Williams",
-    role: "Backend Engineer at Vercel",
-    avatar: "JW",
-    content:
-      "The ATS score went from 42 to 91 after following CVCraft's suggestions. I had 3 interviews scheduled within a week of updating my CV.",
-    rating: 5,
-  },
-];
+import { Star } from "lucide-react";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function Testimonials() {
+  const { lang } = useLanguage();
+  const T = translations[lang].testimonials;
+
   return (
     <section className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
-            Testimonials
+            {T.sectionLabel}
           </h2>
           <p className="mt-2 text-xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Loved by job seekers worldwide
+            {T.headline}
           </p>
         </div>
 
         <div className="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t) => (
+          {T.items.map((t) => (
             <div
               key={t.name}
               className="flex flex-col rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-100"
             >
-              {/* Stars */}
               <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: t.rating }).map((_, i) => (
+                {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
                 ))}
               </div>
