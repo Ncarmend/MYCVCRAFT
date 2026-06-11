@@ -4,9 +4,11 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { toast } from "sonner";
 import { CVForm } from "@/components/cv/CVForm";
 import { CVPreview } from "@/components/cv/CVPreview";
+import { ResumeImportModal } from "@/components/cv/ResumeImportModal";
 import { Header } from "@/components/dashboard/Header";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, EyeOff, Check, Loader2, AlertCircle } from "lucide-react";
+import { FileDown, Eye, EyeOff, Check, Loader2, AlertCircle, Upload } from "lucide-react";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV, CVFormData } from "@/types";
 
 const AUTOSAVE_MS = 2000;
@@ -14,13 +16,19 @@ const AUTOSAVE_MS = 2000;
 interface Props { cv: CV; isPro: boolean; }
 
 export function CVEditorClient({ cv, isPro }: Props) {
-  const previewRef = useRef<HTMLDivElement | null>(null);
-  const [showPreview, setShowPreview] = useState(true);
-  const [previewData, setPreviewData] = useState<Partial<CVFormData>>(cv as unknown as CVFormData);
-  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const { lang } = useLanguage();
+  const T = translations[lang].cvForm;
 
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pendingRef = useRef<Partial<CVFormData> | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const [showPreview, setShowPreview]   = useState(true);
+  const [importOpen, setImportOpen]     = useState(false);
+  const [formKey, setFormKey]           = useState(0);
+  const [formDefaults, setFormDefaults] = useState<Partial<CVFormData>>(cv as unknown as CVFormData);
+  const [previewData, setPreviewData]   = useState<Partial<CVFormData>>(cv as unknown as CVFormData);
+  const [saveStatus, setSaveStatus]     = useState<"idle" | "saving" | "saved" | "error">("idle");
+
+  const timerRef       = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingRef     = useRef<Partial<CVFormData> | null>(null);
   const statusResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const persist = useCallback(async (data: Partial<CVFormData>) => {
@@ -52,7 +60,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
     }, AUTOSAVE_MS);
   }, [persist]);
 
-  // Flush pending save on unmount so no edits are lost on navigation
+  // Flush pending save on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -66,63 +74,102 @@ export function CVEditorClient({ cv, isPro }: Props) {
     scheduleAutoSave(data);
   }
 
+  function handleImport(data: Partial<CVFormData>) {
+    const merged = { template: "BASIC" as CVFormData["template"], ...data };
+    setFormDefaults(merged);
+    setPreviewData(merged);
+    setFormKey((k) => k + 1);
+    persist(merged);
+    toast.success(lang === "fr" ? "CV importé et amélioré par l'IA !" : "Resume imported and improved by AI!");
+  }
+
   async function handleDownloadPDF() {
-    if (!isPro) toast.info("Free plan includes a watermark. Upgrade to remove it.");
+    if (!isPro) toast.info(lang === "fr" ? "Le plan gratuit inclut un filigrane. Passez à Pro pour le supprimer." : "Free plan includes a watermark. Upgrade to remove it.");
     try {
-      toast.loading("Preparing PDF…", { id: "pdf" });
+      toast.loading(lang === "fr" ? "Préparation du PDF…" : "Preparing PDF…", { id: "pdf" });
       const template = (previewData.template as string) || "BASIC";
       const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}`);
       if (!res.ok) throw new Error("PDF generation failed");
       const html = await res.text();
-      const win = window.open("", "_blank");
-      if (!win) throw new Error("Popup blocked — allow pop-ups for this site.");
-      win.document.write(html);
-      win.document.close();
-      win.onload = () => { win.focus(); win.print(); };
-      toast.success("Use 'Save as PDF' in the print dialog.", { id: "pdf", duration: 5000 });
+
+      // Inject auto-print trigger into the HTML so the print dialog opens automatically
+      const printable = html.replace(
+        "</body>",
+        "<script>window.addEventListener('load',function(){window.focus();window.print();});</script></body>",
+      );
+      const blob = new Blob([printable], { type: "text/html;charset=utf-8" });
+      const url  = URL.createObjectURL(blob);
+      const win  = window.open(url, "_blank");
+      if (!win) {
+        URL.revokeObjectURL(url);
+        throw new Error(lang === "fr" ? "Popup bloqué — autorisez les popups pour ce site." : "Popup blocked — allow pop-ups for this site.");
+      }
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      toast.success(
+        lang === "fr" ? "Utilisez « Enregistrer en PDF » dans la fenêtre d'impression." : "Use 'Save as PDF' in the print dialog.",
+        { id: "pdf", duration: 5000 },
+      );
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to generate PDF", { id: "pdf" });
     }
   }
 
+  const savingLabel  = lang === "fr" ? "Enregistrement…" : "Saving…";
+  const savedLabel   = lang === "fr" ? "Enregistré"       : "Saved";
+  const failedLabel  = lang === "fr" ? "Échec"            : "Save failed";
+  const editingLabel = lang === "fr" ? "Modification"     : "Editing";
+  const previewLabel = lang === "fr" ? "Aperçu en direct" : "Live Preview";
+
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       <Header
         title={cv.title || cv.name}
-        subtitle={`Editing · ${(previewData.template ?? cv.template)} template`}
+        subtitle={`${editingLabel} · ${previewData.template ?? cv.template} template`}
         actions={
           <div className="flex items-center gap-3">
-            {/* Auto-save status indicator */}
+            {/* Auto-save status */}
             {saveStatus === "saving" && (
               <span className="flex items-center gap-1.5 text-xs text-gray-400">
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Saving…
+                {savingLabel}
               </span>
             )}
             {saveStatus === "saved" && (
               <span className="flex items-center gap-1.5 text-xs text-green-600">
                 <Check className="h-3.5 w-3.5" />
-                Saved
+                {savedLabel}
               </span>
             )}
             {saveStatus === "error" && (
               <span className="flex items-center gap-1.5 text-xs text-red-500">
                 <AlertCircle className="h-3.5 w-3.5" />
-                Save failed
+                {failedLabel}
               </span>
             )}
 
             <Button
               variant="ghost"
+              size="sm"
+              className="gap-2"
+              onClick={() => setImportOpen(true)}
+              title={T.import.buttonLabel}
+            >
+              <Upload className="h-4 w-4" />
+              {T.import.buttonLabel}
+            </Button>
+
+            <Button
+              variant="ghost"
               size="icon"
               onClick={() => setShowPreview((v) => !v)}
-              title={showPreview ? "Hide preview" : "Show preview"}
+              title={showPreview ? (lang === "fr" ? "Masquer l'aperçu" : "Hide preview") : (lang === "fr" ? "Afficher l'aperçu" : "Show preview")}
             >
               {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
+
             <Button variant="secondary" size="sm" className="gap-2" onClick={handleDownloadPDF}>
               <FileDown className="h-4 w-4" />
-              Download PDF
+              {lang === "fr" ? "Télécharger PDF" : "Download PDF"}
             </Button>
           </div>
         }
@@ -131,7 +178,8 @@ export function CVEditorClient({ cv, isPro }: Props) {
       <div className="flex flex-1 overflow-hidden">
         <div className={`overflow-y-auto border-r border-gray-100 p-8 ${showPreview ? "flex-1" : "w-full"}`}>
           <CVForm
-            defaultValues={cv as unknown as CVFormData}
+            key={formKey}
+            defaultValues={formDefaults}
             cvId={cv.id}
             onSave={persist as unknown as (data: CVFormData) => Promise<void>}
             onChange={handleChange}
@@ -141,12 +189,20 @@ export function CVEditorClient({ cv, isPro }: Props) {
         </div>
 
         {showPreview && (
-          <div className="hidden w-[480px] overflow-y-auto bg-gray-100 p-8 xl:block">
-            <p className="mb-4 text-xs font-medium uppercase tracking-widest text-gray-400">Live Preview</p>
+          <div className="hidden w-120 overflow-y-auto bg-gray-100 p-8 xl:block">
+            <p className="mb-4 text-xs font-medium uppercase tracking-widest text-gray-400">
+              {previewLabel}
+            </p>
             <CVPreview data={previewData} watermark={!isPro} previewRef={previewRef} />
           </div>
         )}
       </div>
+
+      <ResumeImportModal
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        onImport={handleImport}
+      />
     </div>
   );
 }

@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
     ],
   },
-  serverExternalPackages: ["@prisma/client"],
+  serverExternalPackages: ["@prisma/client", "pdf-parse", "mammoth"],
 };
 
 export default nextConfig;

@@ -121,6 +121,47 @@ Write the professional summary paragraph now.`,
   return text.trim();
 }
 
+export async function parseAndImproveResume(rawText: string): Promise<Partial<CVFormData>> {
+  const result = (await askJSON(
+    "You are an expert CV parser and ATS optimizer. Extract structured data from a resume and return it as clean JSON. Improve all content: rewrite the summary to be compelling (2–3 sentences, strong action verbs, ATS keywords), rewrite bullet points with quantified achievements (action verb + metric), and identify all relevant skills.",
+    `Parse and improve this resume. Return JSON only matching the schema below.
+
+RESUME TEXT:
+${rawText.slice(0, 8000)}
+
+Required JSON schema:
+{
+  "title": "job-based CV title string",
+  "name": "full name",
+  "jobTitle": "current or target job title",
+  "email": "email or empty string",
+  "phone": "phone or empty string",
+  "location": "city, country or empty string",
+  "website": "URL or empty string",
+  "linkedin": "linkedin URL or handle or empty string",
+  "github": "github URL or handle or empty string",
+  "summary": "REWRITTEN: compelling 2-3 sentence summary with ATS keywords and action verbs",
+  "skills": ["up to 15 relevant skills"],
+  "experience": [{"id":"1","company":"","role":"","startDate":"e.g. 2020","endDate":"year or Present","description":"one-line summary","achievements":["IMPROVED bullet: action verb + quantified result"]}],
+  "education": [{"id":"1","institution":"","degree":"","field":"","startDate":"year","endDate":"year","grade":"GPA or empty string"}],
+  "projects": [{"id":"1","name":"","description":"","technologies":[],"url":""}],
+  "languages": [{"id":"1","name":"","proficiency":"Native|Fluent|Advanced|Intermediate|Basic"}],
+  "certifications": [{"id":"1","name":"","issuer":"","date":"year or year-month","url":""}]
+}`,
+    4096,
+  )) as Partial<CVFormData>;
+
+  // Normalise IDs to prevent collisions in react-hook-form fieldArrays
+  return {
+    ...result,
+    experience:     (result.experience     ?? []).map((e, i) => ({ ...e, id: `exp_${i}` })),
+    education:      (result.education      ?? []).map((e, i) => ({ ...e, id: `edu_${i}` })),
+    projects:       (result.projects       ?? []).map((e, i) => ({ ...e, id: `proj_${i}` })),
+    languages:      (result.languages      ?? []).map((e, i) => ({ ...e, id: `lang_${i}` })),
+    certifications: (result.certifications ?? []).map((e, i) => ({ ...e, id: `cert_${i}` })),
+  };
+}
+
 // --- Helpers ---
 
 function buildCVPrompt(data: CVFormData): string {
