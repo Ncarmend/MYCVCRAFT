@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/components/landing/LanguageContext";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -41,6 +42,7 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+  const { lang, setLang } = useLanguage();
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -117,6 +119,24 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
           })}
         </ul>
       </nav>
+
+      {/* Language toggle */}
+      <div className="border-t border-gray-100 px-3 py-2 flex justify-center">
+        <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
+          <button
+            onClick={() => setLang("en")}
+            className={`rounded-md px-3 py-1 transition-colors ${lang === "en" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => setLang("fr")}
+            className={`rounded-md px-3 py-1 transition-colors ${lang === "fr" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
+          >
+            FR
+          </button>
+        </div>
+      </div>
 
       {/* User info + sign out */}
       <div className="border-t border-gray-100 p-3">

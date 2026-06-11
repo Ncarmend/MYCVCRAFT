@@ -1,7 +1,3 @@
-/**
- * CV creation/editing form with all sections
- * Uses react-hook-form + zod for validation
- */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -23,9 +19,10 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2 } from "lucide-react";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CVFormData } from "@/types";
 
-// --- Zod schema ---
+// --- Zod schema (validation messages injected at render time via translateError) ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
   template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP"]),
@@ -90,22 +87,26 @@ const schema = z.object({
   ),
 });
 
-const TEMPLATES: { value: string; label: string; desc: string }[] = [
-  { value: "BASIC",     label: "Basic",     desc: "ATS-friendly" },
-  { value: "MODERN",    label: "Modern",    desc: "Two-column, indigo" },
-  { value: "EXECUTIVE", label: "Executive", desc: "Dark header" },
-  { value: "CREATIVE",  label: "Creative",  desc: "Amber accent" },
-  { value: "MINIMAL",   label: "Minimal",   desc: "Clean & light" },
-  { value: "ELEGANT",   label: "Elegant",   desc: "Serif, refined" },
-  { value: "TECH",      label: "Tech",      desc: "Dark sidebar" },
-  { value: "CORPORATE", label: "Corporate", desc: "Navy & blue" },
-  { value: "SLATE",     label: "Slate",     desc: "Grey sidebar" },
-  { value: "WARM",      label: "Warm",      desc: "Beige & cream" },
-  { value: "SOFT",      label: "Soft",      desc: "Pale lavender" },
-  { value: "PHOTO",     label: "Photo",     desc: "With portrait" },
-  { value: "CLASSIC",   label: "Classic",   desc: "ATS traditional" },
-  { value: "CRISP",     label: "Crisp",     desc: "ATS modern" },
+// Template values are fixed product names; only descs are translated
+const TEMPLATE_KEYS = [
+  { value: "BASIC",     label: "Basic" },
+  { value: "MODERN",    label: "Modern" },
+  { value: "EXECUTIVE", label: "Executive" },
+  { value: "CREATIVE",  label: "Creative" },
+  { value: "MINIMAL",   label: "Minimal" },
+  { value: "ELEGANT",   label: "Elegant" },
+  { value: "TECH",      label: "Tech" },
+  { value: "CORPORATE", label: "Corporate" },
+  { value: "SLATE",     label: "Slate" },
+  { value: "WARM",      label: "Warm" },
+  { value: "SOFT",      label: "Soft" },
+  { value: "PHOTO",     label: "Photo" },
+  { value: "CLASSIC",   label: "Classic" },
+  { value: "CRISP",     label: "Crisp" },
 ];
+
+// Proficiency enum values must stay in English (stored in DB), labels are translated
+const PROFICIENCY_VALUES = ["Native", "Fluent", "Advanced", "Intermediate", "Basic"] as const;
 
 const SAMPLE_CV: Partial<CVFormData> = {
   name: "Sophie Laurent",
@@ -150,11 +151,15 @@ function MiniPreview({ templateKey }: { templateKey: string }) {
 
 function TemplatePicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [preview, setPreview] = useState<string | null>(null);
+  const { lang } = useLanguage();
+  const T = translations[lang].cvForm.templates;
+
+  const templates = TEMPLATE_KEYS.map((t, i) => ({ ...t, desc: T.descs[i] }));
 
   return (
     <>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
-        {TEMPLATES.map((t) => (
+        {templates.map((t) => (
           <div key={t.value} className="relative">
             <button
               type="button"
@@ -185,21 +190,26 @@ function TemplatePicker({ value, onChange }: { value: string; onChange: (v: stri
         ))}
       </div>
 
-      {/* Preview modal */}
       {preview && (
         <Dialog open={!!preview} onOpenChange={(open) => { if (!open) setPreview(null); }}>
           <DialogContent className="max-w-2xl p-0 overflow-hidden">
             <div className="flex items-center justify-between border-b px-5 py-3">
               <div>
-                <DialogTitle className="text-base">{TEMPLATES.find((t) => t.value === preview)?.label} Template</DialogTitle>
-                <DialogDescription className="text-xs">{TEMPLATES.find((t) => t.value === preview)?.desc}</DialogDescription>
+                <DialogTitle className="text-base">
+                  {lang === "fr"
+                    ? `Modèle ${templates.find((t) => t.value === preview)?.label}`
+                    : `${templates.find((t) => t.value === preview)?.label} Template`}
+                </DialogTitle>
+                <DialogDescription className="text-xs">
+                  {templates.find((t) => t.value === preview)?.desc}
+                </DialogDescription>
               </div>
               <button
                 type="button"
                 onClick={() => { onChange(preview); setPreview(null); }}
                 className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700"
               >
-                Use this template
+                {T.useTemplate}
               </button>
             </div>
             <div className="overflow-y-auto" style={{ maxHeight: "70vh" }}>
@@ -233,13 +243,13 @@ export function CVForm({
   saving = false,
   hideSaveButton = false,
 }: CVFormProps) {
+  const { lang } = useLanguage();
+  const T = translations[lang].cvForm;
+
   const [aiLoading, setAiLoading] = useState<string | null>(null);
   const [bulletLoading, setBulletLoading] = useState<number | null>(null);
   const [skillInput, setSkillInput] = useState("");
-  const [atsResult, setAtsResult] = useState<{
-    score: number;
-    suggestions: string[];
-  } | null>(null);
+  const [atsResult, setAtsResult] = useState<{ score: number; suggestions: string[] } | null>(null);
 
   const {
     register,
@@ -274,7 +284,6 @@ export function CVForm({
     },
   });
 
-  // Subscribe to every form change and push to preview
   useEffect(() => {
     const subscription = watch((values) => {
       onChange?.(values as Partial<CVFormData>);
@@ -282,38 +291,13 @@ export function CVForm({
     return () => subscription.unsubscribe();
   }, [watch, onChange]);
 
-  // Skills watched separately for the tag input UI
   const skills = watch("skills") || [];
 
-  const {
-    fields: expFields,
-    append: appendExp,
-    remove: removeExp,
-  } = useFieldArray({ control, name: "experience" });
-
-  const {
-    fields: eduFields,
-    append: appendEdu,
-    remove: removeEdu,
-  } = useFieldArray({ control, name: "education" });
-
-  const {
-    fields: projFields,
-    append: appendProj,
-    remove: removeProj,
-  } = useFieldArray({ control, name: "projects" });
-
-  const {
-    fields: langFields,
-    append: appendLang,
-    remove: removeLang,
-  } = useFieldArray({ control, name: "languages" });
-
-  const {
-    fields: certFields,
-    append: appendCert,
-    remove: removeCert,
-  } = useFieldArray({ control, name: "certifications" });
+  const { fields: expFields,  append: appendExp,  remove: removeExp  } = useFieldArray({ control, name: "experience" });
+  const { fields: eduFields,  append: appendEdu,  remove: removeEdu  } = useFieldArray({ control, name: "education" });
+  const { fields: projFields, append: appendProj, remove: removeProj } = useFieldArray({ control, name: "projects" });
+  const { fields: langFields, append: appendLang, remove: removeLang } = useFieldArray({ control, name: "languages" });
+  const { fields: certFields, append: appendCert, remove: removeCert } = useFieldArray({ control, name: "certifications" });
 
   // --- AI Actions ---
 
@@ -329,10 +313,10 @@ export function CVForm({
       if (!res.ok) throw new Error(await res.text());
       const { summary } = await res.json();
       setValue("summary", summary);
-      toast.success("Summary generated!");
+      toast.success(T.toasts.summaryGenerated);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "";
-      toast.error(msg.includes("quota") ? "OpenAI quota exceeded — check your billing." : "AI generation failed. Please try again.");
+      toast.error(msg.includes("quota") ? T.toasts.quotaExceeded : T.toasts.summaryFailed);
     } finally {
       setAiLoading(null);
     }
@@ -349,9 +333,9 @@ export function CVForm({
       if (!res.ok) throw new Error(await res.text());
       const result = await res.json();
       setAtsResult({ score: result.score, suggestions: result.suggestions });
-      toast.success(`ATS Score: ${result.score}/100`);
+      toast.success(`${T.toasts.atsScorePrefix} ${result.score}/100`);
     } catch {
-      toast.error("ATS check failed. Please try again.");
+      toast.error(T.toasts.atsFailed);
     } finally {
       setAiLoading(null);
     }
@@ -360,7 +344,7 @@ export function CVForm({
   async function handleGenerateBullets(idx: number) {
     const exp = getValues(`experience.${idx}`);
     if (!exp.role) {
-      toast.error("Enter a role title first.");
+      toast.error(T.toasts.enterRole);
       return;
     }
     setBulletLoading(idx);
@@ -373,10 +357,10 @@ export function CVForm({
       if (!res.ok) throw new Error(await res.text());
       const { bullets } = await res.json();
       setValue(`experience.${idx}.achievements`, bullets);
-      toast.success("Bullet points generated!");
+      toast.success(T.toasts.bulletsGenerated);
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Failed to generate bullet points.";
-      toast.error(msg.includes("quota") ? "OpenAI quota exceeded — check your billing." : "Failed to generate bullet points.");
+      const msg = err instanceof Error ? err.message : "";
+      toast.error(msg.includes("quota") ? T.toasts.quotaExceeded : T.toasts.bulletsFailed);
     } finally {
       setBulletLoading(null);
     }
@@ -386,9 +370,7 @@ export function CVForm({
     const trimmed = skillInput.trim();
     if (!trimmed) return;
     const current = getValues("skills") || [];
-    if (!current.includes(trimmed)) {
-      setValue("skills", [...current, trimmed]);
-    }
+    if (!current.includes(trimmed)) setValue("skills", [...current, trimmed]);
     setSkillInput("");
   }
 
@@ -397,84 +379,78 @@ export function CVForm({
     setValue("skills", current.filter((s) => s !== skill));
   }
 
-
   return (
-    <form
-      onSubmit={handleSubmit(onSave)}
-
-      className="space-y-2"
-    >
+    <form onSubmit={handleSubmit(onSave)} className="space-y-2">
       <Tabs defaultValue="personal">
         <TabsList>
-          <TabsTrigger value="personal">Personal</TabsTrigger>
-          <TabsTrigger value="experience">Experience</TabsTrigger>
-          <TabsTrigger value="education">Education</TabsTrigger>
-          <TabsTrigger value="skills">Skills</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="languages">Languages</TabsTrigger>
-          <TabsTrigger value="certifications">Certifications</TabsTrigger>
-          <TabsTrigger value="templates">Templates</TabsTrigger>
-          <TabsTrigger value="ai">AI Tools</TabsTrigger>
+          <TabsTrigger value="personal">{T.tabs.personal}</TabsTrigger>
+          <TabsTrigger value="experience">{T.tabs.experience}</TabsTrigger>
+          <TabsTrigger value="education">{T.tabs.education}</TabsTrigger>
+          <TabsTrigger value="skills">{T.tabs.skills}</TabsTrigger>
+          <TabsTrigger value="projects">{T.tabs.projects}</TabsTrigger>
+          <TabsTrigger value="languages">{T.tabs.languages}</TabsTrigger>
+          <TabsTrigger value="certifications">{T.tabs.certifications}</TabsTrigger>
+          <TabsTrigger value="templates">{T.tabs.templates}</TabsTrigger>
+          <TabsTrigger value="ai">{T.tabs.aiTools}</TabsTrigger>
         </TabsList>
 
-        {/* ─── Personal Tab ─── */}
+        {/* ─── Personal ─── */}
         <TabsContent value="personal" className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="CV Title (internal)"
-              placeholder="e.g. Senior Developer CV"
-              error={errors.title?.message}
+              label={T.personal.cvTitle}
+              placeholder={T.personal.cvTitlePlaceholder}
+              error={errors.title ? T.validation.titleRequired : undefined}
               {...register("title")}
             />
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">Template</label>
+              <label className="text-sm font-medium text-gray-700">{T.personal.template}</label>
               <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm">
                 <span className="font-medium text-gray-800">
-                  {TEMPLATES.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
+                  {TEMPLATE_KEYS.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
                 </span>
-                <span className="text-xs text-gray-400">— change in the Templates tab</span>
+                <span className="text-xs text-gray-400">{T.personal.templateHint}</span>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Full Name *"
-              placeholder="Jane Smith"
-              error={errors.name?.message}
+              label={T.personal.fullName}
+              placeholder={T.personal.fullNamePlaceholder}
+              error={errors.name ? T.validation.nameRequired : undefined}
               {...register("name")}
             />
             <Input
-              label="Job Title *"
-              placeholder="Software Engineer"
-              error={errors.jobTitle?.message}
+              label={T.personal.jobTitle}
+              placeholder={T.personal.jobTitlePlaceholder}
+              error={errors.jobTitle ? T.validation.jobTitleRequired : undefined}
               {...register("jobTitle")}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Email" type="email" placeholder="jane@example.com" {...register("email")} />
-            <Input label="Phone" placeholder="+1 555 000 0000" {...register("phone")} />
+            <Input label={T.personal.email}    type="email" placeholder={T.personal.emailPlaceholder}    {...register("email")} />
+            <Input label={T.personal.phone}             placeholder={T.personal.phonePlaceholder}    {...register("phone")} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Location" placeholder="San Francisco, CA" {...register("location")} />
-            <Input label="Website" placeholder="https://jane.dev" {...register("website")} />
+            <Input label={T.personal.location}  placeholder={T.personal.locationPlaceholder}  {...register("location")} />
+            <Input label={T.personal.website}   placeholder={T.personal.websitePlaceholder}   {...register("website")} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="LinkedIn" placeholder="linkedin.com/in/jane-smith" {...register("linkedin")} />
-            <Input label="GitHub" placeholder="github.com/jane-smith" {...register("github")} />
+            <Input label={T.personal.linkedin}  placeholder={T.personal.linkedinPlaceholder}  {...register("linkedin")} />
+            <Input label={T.personal.github}    placeholder={T.personal.githubPlaceholder}    {...register("github")} />
           </div>
-          <Input label="Portfolio" placeholder="https://jane.dev" {...register("portfolio")} />
-          <PhotoUpload
-            value={watch("photoUrl")}
-            onChange={(url) => setValue("photoUrl", url)}
-          />
+
+          <Input label={T.personal.portfolio} placeholder={T.personal.portfolioPlaceholder} {...register("portfolio")} />
+
+          <PhotoUpload value={watch("photoUrl")} onChange={(url) => setValue("photoUrl", url)} />
 
           <Textarea
-            label="Professional Summary"
-            placeholder="Write a brief summary or click 'AI Generate' below..."
+            label={T.personal.summary}
+            placeholder={T.personal.summaryPlaceholder}
             rows={5}
             {...register("summary")}
           />
@@ -488,41 +464,37 @@ export function CVForm({
             loading={aiLoading === "generate"}
           >
             <Wand2 className="h-4 w-4" />
-            AI Generate Summary
+            {T.personal.aiGenerateSummary}
           </Button>
         </TabsContent>
 
-        {/* ─── Experience Tab ─── */}
+        {/* ─── Experience ─── */}
         <TabsContent value="experience" className="space-y-4">
           {expFields.map((field, idx) => (
             <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">Position {idx + 1}</h4>
-                <button
-                  type="button"
-                  onClick={() => removeExp(idx)}
-                  className="text-red-400 hover:text-red-600"
-                >
+                <h4 className="font-medium text-gray-700">{T.experience.position} {idx + 1}</h4>
+                <button type="button" onClick={() => removeExp(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Company" placeholder="Google" {...register(`experience.${idx}.company`)} />
-                <Input label="Role" placeholder="Senior Engineer" {...register(`experience.${idx}.role`)} />
+                <Input label={T.experience.company} placeholder={T.experience.companyPlaceholder} {...register(`experience.${idx}.company`)} />
+                <Input label={T.experience.role}    placeholder={T.experience.rolePlaceholder}    {...register(`experience.${idx}.role`)} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Start Date" placeholder="Jan 2022" {...register(`experience.${idx}.startDate`)} />
-                <Input label="End Date" placeholder="Present" {...register(`experience.${idx}.endDate`)} />
+                <Input label={T.experience.startDate} placeholder={T.experience.startDatePlaceholder} {...register(`experience.${idx}.startDate`)} />
+                <Input label={T.experience.endDate}   placeholder={T.experience.endDatePlaceholder}   {...register(`experience.${idx}.endDate`)} />
               </div>
               <Textarea
-                label="Description"
-                placeholder="Describe your responsibilities..."
+                label={T.experience.description}
+                placeholder={T.experience.descriptionPlaceholder}
                 rows={3}
                 {...register(`experience.${idx}.description`)}
               />
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-sm font-medium text-gray-700">Achievements (one per line)</label>
+                  <label className="text-sm font-medium text-gray-700">{T.experience.achievements}</label>
                   <button
                     type="button"
                     onClick={() => handleGenerateBullets(idx)}
@@ -530,11 +502,11 @@ export function CVForm({
                     className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
                   >
                     {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
-                    AI Generate
+                    {T.experience.aiGenerate}
                   </button>
                 </div>
                 <Textarea
-                  placeholder="Increased performance by 40%&#10;Led a team of 8 engineers"
+                  placeholder={T.experience.achievementsPlaceholder}
                   rows={3}
                   value={watch(`experience.${idx}.achievements`)?.join("\n") ?? ""}
                   onChange={(e) => {
@@ -551,42 +523,34 @@ export function CVForm({
             size="sm"
             className="gap-2"
             onClick={() =>
-              appendExp({
-                id: crypto.randomUUID(),
-                company: "",
-                role: "",
-                startDate: "",
-                endDate: "Present",
-                description: "",
-                achievements: [],
-              })
+              appendExp({ id: crypto.randomUUID(), company: "", role: "", startDate: "", endDate: T.experience.endDatePlaceholder, description: "", achievements: [] })
             }
           >
             <Plus className="h-4 w-4" />
-            Add Position
+            {T.experience.addPosition}
           </Button>
         </TabsContent>
 
-        {/* ─── Education Tab ─── */}
+        {/* ─── Education ─── */}
         <TabsContent value="education" className="space-y-4">
           {eduFields.map((field, idx) => (
             <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">Education {idx + 1}</h4>
+                <h4 className="font-medium text-gray-700">{T.education.education} {idx + 1}</h4>
                 <button type="button" onClick={() => removeEdu(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Institution" placeholder="MIT" {...register(`education.${idx}.institution`)} />
-                <Input label="Degree" placeholder="B.Sc." {...register(`education.${idx}.degree`)} />
+                <Input label={T.education.institution} placeholder={T.education.institutionPlaceholder} {...register(`education.${idx}.institution`)} />
+                <Input label={T.education.degree}      placeholder={T.education.degreePlaceholder}      {...register(`education.${idx}.degree`)} />
               </div>
               <div className="grid grid-cols-3 gap-3">
-                <Input label="Field" placeholder="Computer Science" {...register(`education.${idx}.field`)} />
-                <Input label="Start Year" placeholder="2018" {...register(`education.${idx}.startDate`)} />
-                <Input label="End Year" placeholder="2022" {...register(`education.${idx}.endDate`)} />
+                <Input label={T.education.field}     placeholder={T.education.fieldPlaceholder}     {...register(`education.${idx}.field`)} />
+                <Input label={T.education.startYear} placeholder={T.education.startYearPlaceholder} {...register(`education.${idx}.startDate`)} />
+                <Input label={T.education.endYear}   placeholder={T.education.endYearPlaceholder}   {...register(`education.${idx}.endDate`)} />
               </div>
-              <Input label="Grade / GPA (optional)" placeholder="3.9 GPA" {...register(`education.${idx}.grade`)} />
+              <Input label={T.education.grade} placeholder={T.education.gradePlaceholder} {...register(`education.${idx}.grade`)} />
             </div>
           ))}
           <Button
@@ -595,22 +559,15 @@ export function CVForm({
             size="sm"
             className="gap-2"
             onClick={() =>
-              appendEdu({
-                id: crypto.randomUUID(),
-                institution: "",
-                degree: "",
-                field: "",
-                startDate: "",
-                endDate: "",
-              })
+              appendEdu({ id: crypto.randomUUID(), institution: "", degree: "", field: "", startDate: "", endDate: "" })
             }
           >
             <Plus className="h-4 w-4" />
-            Add Education
+            {T.education.addEducation}
           </Button>
         </TabsContent>
 
-        {/* ─── Skills Tab ─── */}
+        {/* ─── Skills ─── */}
         <TabsContent value="skills" className="space-y-4">
           <div className="flex gap-2">
             <input
@@ -618,7 +575,7 @@ export function CVForm({
               value={skillInput}
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addSkill(); }}}
-              placeholder="Type a skill and press Enter"
+              placeholder={T.skills.placeholder}
               className="flex-1 rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <Button type="button" onClick={addSkill} size="md" variant="secondary">
@@ -627,7 +584,7 @@ export function CVForm({
           </div>
           <div className="flex flex-wrap gap-2 min-h-[60px] rounded-xl border border-gray-100 bg-gray-50 p-3">
             {skills.length === 0 && (
-              <p className="text-sm text-gray-400">No skills added yet</p>
+              <p className="text-sm text-gray-400">{T.skills.noSkills}</p>
             )}
             {skills.map((skill) => (
               <span
@@ -645,34 +602,32 @@ export function CVForm({
               </span>
             ))}
           </div>
-          <p className="text-xs text-gray-400">
-            Tip: Add 10–15 skills relevant to your target role for best ATS results.
-          </p>
+          <p className="text-xs text-gray-400">{T.skills.tip}</p>
         </TabsContent>
 
-        {/* ─── Projects Tab ─── */}
+        {/* ─── Projects ─── */}
         <TabsContent value="projects" className="space-y-4">
           {projFields.map((field, idx) => (
             <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">Project {idx + 1}</h4>
+                <h4 className="font-medium text-gray-700">{T.projects.project} {idx + 1}</h4>
                 <button type="button" onClick={() => removeProj(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Project Name" placeholder="AI CV Generator" {...register(`projects.${idx}.name`)} />
-                <Input label="URL (optional)" placeholder="https://..." {...register(`projects.${idx}.url`)} />
+                <Input label={T.projects.name} placeholder={T.projects.namePlaceholder} {...register(`projects.${idx}.name`)} />
+                <Input label={T.projects.url}  placeholder={T.projects.urlPlaceholder}  {...register(`projects.${idx}.url`)} />
               </div>
               <Textarea
-                label="Description"
-                placeholder="What did this project do? What was your role?"
+                label={T.projects.description}
+                placeholder={T.projects.descriptionPlaceholder}
                 rows={2}
                 {...register(`projects.${idx}.description`)}
               />
               <Input
-                label="Technologies (comma-separated)"
-                placeholder="React, Node.js, PostgreSQL"
+                label={T.projects.technologies}
+                placeholder={T.projects.technologiesPlaceholder}
                 onChange={(e) => {
                   const techs = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
                   setValue(`projects.${idx}.technologies`, techs);
@@ -686,34 +641,27 @@ export function CVForm({
             variant="secondary"
             size="sm"
             className="gap-2"
-            onClick={() =>
-              appendProj({
-                id: crypto.randomUUID(),
-                name: "",
-                description: "",
-                technologies: [],
-              })
-            }
+            onClick={() => appendProj({ id: crypto.randomUUID(), name: "", description: "", technologies: [] })}
           >
             <Plus className="h-4 w-4" />
-            Add Project
+            {T.projects.addProject}
           </Button>
         </TabsContent>
 
-        {/* ─── Languages Tab ─── */}
+        {/* ─── Languages ─── */}
         <TabsContent value="languages" className="space-y-4">
           {langFields.map((field, idx) => (
             <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">Language {idx + 1}</h4>
+                <h4 className="font-medium text-gray-700">{T.languages.language} {idx + 1}</h4>
                 <button type="button" onClick={() => removeLang(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Language" placeholder="English" {...register(`languages.${idx}.name`)} />
+                <Input label={T.languages.language} placeholder={T.languages.languagePlaceholder} {...register(`languages.${idx}.name`)} />
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-gray-700">Proficiency</label>
+                  <label className="text-sm font-medium text-gray-700">{T.languages.proficiency}</label>
                   <Select
                     defaultValue={field.proficiency}
                     onValueChange={(v) => {
@@ -722,8 +670,8 @@ export function CVForm({
                   >
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      {["Native", "Fluent", "Advanced", "Intermediate", "Basic"].map((p) => (
-                        <SelectItem key={p} value={p}>{p}</SelectItem>
+                      {PROFICIENCY_VALUES.map((p, i) => (
+                        <SelectItem key={p} value={p}>{T.languages.proficiencyOptions[i]}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -739,25 +687,25 @@ export function CVForm({
             onClick={() => appendLang({ id: crypto.randomUUID(), name: "", proficiency: "Fluent" })}
           >
             <Plus className="h-4 w-4" />
-            Add Language
+            {T.languages.addLanguage}
           </Button>
         </TabsContent>
 
-        {/* ─── Certifications Tab ─── */}
+        {/* ─── Certifications ─── */}
         <TabsContent value="certifications" className="space-y-4">
           {certFields.map((field, idx) => (
             <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">Certification {idx + 1}</h4>
+                <h4 className="font-medium text-gray-700">{T.certifications.certification} {idx + 1}</h4>
                 <button type="button" onClick={() => removeCert(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Certification name" placeholder="AWS Solutions Architect" {...register(`certifications.${idx}.name`)} />
-                <Input label="Issuing organization" placeholder="Amazon Web Services" {...register(`certifications.${idx}.issuer`)} />
-                <Input label="Date" placeholder="2024-03" {...register(`certifications.${idx}.date`)} />
-                <Input label="URL (optional)" placeholder="https://credly.com/..." {...register(`certifications.${idx}.url`)} />
+                <Input label={T.certifications.name}   placeholder={T.certifications.namePlaceholder}   {...register(`certifications.${idx}.name`)} />
+                <Input label={T.certifications.issuer} placeholder={T.certifications.issuerPlaceholder} {...register(`certifications.${idx}.issuer`)} />
+                <Input label={T.certifications.date}   placeholder={T.certifications.datePlaceholder}   {...register(`certifications.${idx}.date`)} />
+                <Input label={T.certifications.url}    placeholder={T.certifications.urlPlaceholder}    {...register(`certifications.${idx}.url`)} />
               </div>
             </div>
           ))}
@@ -769,17 +717,15 @@ export function CVForm({
             onClick={() => appendCert({ id: crypto.randomUUID(), name: "", issuer: "", date: "", url: "" })}
           >
             <Plus className="h-4 w-4" />
-            Add Certification
+            {T.certifications.addCertification}
           </Button>
         </TabsContent>
 
-        {/* ─── Templates Tab ─── */}
+        {/* ─── Templates ─── */}
         <TabsContent value="templates" className="space-y-6">
           <div>
-            <h3 className="text-sm font-semibold text-gray-800 mb-1">Choose a template</h3>
-            <p className="text-xs text-gray-500 mb-4">
-              Click a template to apply it instantly. Use the eye icon to preview it full-size before choosing.
-            </p>
+            <h3 className="text-sm font-semibold text-gray-800 mb-1">{T.templates.chooseTemplate}</h3>
+            <p className="text-xs text-gray-500 mb-4">{T.templates.chooseTemplateHint}</p>
             <TemplatePicker
               value={watch("template") || defaultValues?.template || "BASIC"}
               onChange={(v) => setValue("template", v as CVFormData["template"])}
@@ -787,26 +733,22 @@ export function CVForm({
           </div>
 
           <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-            <p className="text-xs font-semibold text-gray-700 mb-2">About the templates</p>
+            <p className="text-xs font-semibold text-gray-700 mb-2">{T.templates.aboutTemplates}</p>
             <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-gray-500">
-              <span><strong className="text-gray-700">Basic / Classic / Crisp</strong> — ATS-optimised, single column</span>
-              <span><strong className="text-gray-700">Modern / Slate / Tech</strong> — Two-column with sidebar</span>
-              <span><strong className="text-gray-700">Executive / Corporate</strong> — Dark header, formal</span>
-              <span><strong className="text-gray-700">Elegant</strong> — Gold accents, serif fonts</span>
-              <span><strong className="text-gray-700">Creative</strong> — Amber colour, bold headings</span>
-              <span><strong className="text-gray-700">Minimal</strong> — Ultra-light, lots of whitespace</span>
-              <span><strong className="text-gray-700">Warm</strong> — Beige & cream tones</span>
-              <span><strong className="text-gray-700">Soft</strong> — Pale lavender & rose</span>
-              <span><strong className="text-gray-700">Photo</strong> — Includes circular profile photo</span>
+              {T.templates.groups.map((g) => (
+                <span key={g.names}>
+                  <strong className="text-gray-700">{g.names}</strong> — {g.desc}
+                </span>
+              ))}
             </div>
           </div>
         </TabsContent>
 
-        {/* ─── AI Tools Tab ─── */}
+        {/* ─── AI Tools ─── */}
         <TabsContent value="ai" className="space-y-6">
           {!isPro && (
             <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-4 text-sm text-indigo-700">
-              <strong>ATS Check is free.</strong> Upgrade to Pro to unlock job matching and cover letter generation.
+              {T.ai.upgradeNotice}
             </div>
           )}
 
@@ -814,11 +756,9 @@ export function CVForm({
           <div className="rounded-xl border border-gray-100 bg-white p-5 space-y-3">
             <div className="flex items-center gap-2">
               <Target className="h-5 w-5 text-indigo-600" />
-              <h3 className="font-semibold text-gray-900">ATS Optimization Check</h3>
+              <h3 className="font-semibold text-gray-900">{T.ai.atsTitle}</h3>
             </div>
-            <p className="text-sm text-gray-500">
-              Analyze your CV against Applicant Tracking Systems and get a score + improvement suggestions.
-            </p>
+            <p className="text-sm text-gray-500">{T.ai.atsDescription}</p>
             <Button
               type="button"
               variant="secondary"
@@ -828,7 +768,7 @@ export function CVForm({
               loading={aiLoading === "ats"}
             >
               <Sparkles className="h-4 w-4" />
-              Run ATS Check
+              {T.ai.runAtsCheck}
             </Button>
             {atsResult && (
               <div className="mt-3 space-y-2">
@@ -867,45 +807,49 @@ export function CVForm({
           <div className="rounded-xl border border-gray-100 bg-white p-5 space-y-3">
             <div className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-indigo-600" />
-              <h3 className="font-semibold text-gray-900">Cover Letter Generator</h3>
-              {!isPro && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">Pro</span>}
+              <h3 className="font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
+              {!isPro && (
+                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                  {T.ai.coverLetterProBadge}
+                </span>
+              )}
             </div>
-            <p className="text-sm text-gray-500">
-              Generate a personalized cover letter for any job application.
-            </p>
+            <p className="text-sm text-gray-500">{T.ai.coverLetterDescription}</p>
             {isPro ? (
               <Button
                 type="button"
                 variant="secondary"
                 size="sm"
                 className="gap-2"
-                onClick={() => toast.info("Paste the job description in the field below and click generate")}
+                onClick={() => toast.info(lang === "fr"
+                  ? "Collez la description du poste ci-dessous et cliquez sur Générer"
+                  : "Paste the job description in the field below and click generate"
+                )}
               >
                 <Wand2 className="h-4 w-4" />
-                Generate Cover Letter
+                {T.ai.generateCoverLetter}
               </Button>
             ) : (
               <Button type="button" variant="outline" size="sm" disabled className="gap-2">
                 <Wand2 className="h-4 w-4" />
-                Upgrade to Pro
+                {T.ai.upgradeToPro}
               </Button>
             )}
           </div>
         </TabsContent>
       </Tabs>
 
-      {/* Save button — hidden when auto-save is active */}
       {!hideSaveButton && (
-      <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-        {Object.keys(errors).length > 0 && (
-          <p className="text-sm text-red-500">
-            Please fill in the required fields: {Object.keys(errors).join(", ")}
-          </p>
-        )}
-        <Button type="submit" size="lg" loading={saving} className="ml-auto gap-2 px-8">
-          Save CV
-        </Button>
-      </div>
+        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+          {Object.keys(errors).length > 0 && (
+            <p className="text-sm text-red-500">
+              {T.form.requiredFields} {Object.keys(errors).join(", ")}
+            </p>
+          )}
+          <Button type="submit" size="lg" loading={saving} className="ml-auto gap-2 px-8">
+            {T.form.saveCV}
+          </Button>
+        </div>
       )}
     </form>
   );
