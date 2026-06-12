@@ -395,8 +395,8 @@ export function CVForm({
         </TabsList>
 
         {/* ─── Personal ─── */}
-        <TabsContent value="personal" className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <TabsContent value="personal" className="space-y-3">
+          <div className="grid grid-cols-2 gap-2">
             <Input
               label={T.personal.cvTitle}
               placeholder={T.personal.cvTitlePlaceholder}
@@ -414,7 +414,7 @@ export function CVForm({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <Input
               label={T.personal.fullName}
               placeholder={T.personal.fullNamePlaceholder}
@@ -429,17 +429,17 @@ export function CVForm({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <Input label={T.personal.email}    type="email" placeholder={T.personal.emailPlaceholder}    {...register("email")} />
             <Input label={T.personal.phone}             placeholder={T.personal.phonePlaceholder}    {...register("phone")} />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <Input label={T.personal.location}  placeholder={T.personal.locationPlaceholder}  {...register("location")} />
             <Input label={T.personal.website}   placeholder={T.personal.websitePlaceholder}   {...register("website")} />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <Input label={T.personal.linkedin}  placeholder={T.personal.linkedinPlaceholder}  {...register("linkedin")} />
             <Input label={T.personal.github}    placeholder={T.personal.githubPlaceholder}    {...register("github")} />
           </div>
@@ -469,20 +469,20 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Experience ─── */}
-        <TabsContent value="experience" className="space-y-4">
+        <TabsContent value="experience" className="space-y-3">
           {expFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">{T.experience.position} {idx + 1}</h4>
+                <h4 className="text-sm font-medium text-gray-700">{T.experience.position} {idx + 1}</h4>
                 <button type="button" onClick={() => removeExp(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.experience.company} placeholder={T.experience.companyPlaceholder} {...register(`experience.${idx}.company`)} />
                 <Input label={T.experience.role}    placeholder={T.experience.rolePlaceholder}    {...register(`experience.${idx}.role`)} />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.experience.startDate} placeholder={T.experience.startDatePlaceholder} {...register(`experience.${idx}.startDate`)} />
                 <Input label={T.experience.endDate}   placeholder={T.experience.endDatePlaceholder}   {...register(`experience.${idx}.endDate`)} />
               </div>
@@ -532,20 +532,20 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Education ─── */}
-        <TabsContent value="education" className="space-y-4">
+        <TabsContent value="education" className="space-y-3">
           {eduFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">{T.education.education} {idx + 1}</h4>
+                <h4 className="text-sm font-medium text-gray-700">{T.education.education} {idx + 1}</h4>
                 <button type="button" onClick={() => removeEdu(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.education.institution} placeholder={T.education.institutionPlaceholder} {...register(`education.${idx}.institution`)} />
                 <Input label={T.education.degree}      placeholder={T.education.degreePlaceholder}      {...register(`education.${idx}.degree`)} />
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-2">
                 <Input label={T.education.field}     placeholder={T.education.fieldPlaceholder}     {...register(`education.${idx}.field`)} />
                 <Input label={T.education.startYear} placeholder={T.education.startYearPlaceholder} {...register(`education.${idx}.startDate`)} />
                 <Input label={T.education.endYear}   placeholder={T.education.endYearPlaceholder}   {...register(`education.${idx}.endDate`)} />
@@ -568,7 +568,7 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Skills ─── */}
-        <TabsContent value="skills" className="space-y-4">
+        <TabsContent value="skills" className="space-y-3">
           <div className="flex gap-2">
             <input
               type="text"
@@ -576,7 +576,7 @@ export function CVForm({
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addSkill(); }}}
               placeholder={T.skills.placeholder}
-              className="flex-1 rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <Button type="button" onClick={addSkill} size="md" variant="secondary">
               <Plus className="h-4 w-4" />
@@ -606,16 +606,16 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Projects ─── */}
-        <TabsContent value="projects" className="space-y-4">
+        <TabsContent value="projects" className="space-y-3">
           {projFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">{T.projects.project} {idx + 1}</h4>
+                <h4 className="text-sm font-medium text-gray-700">{T.projects.project} {idx + 1}</h4>
                 <button type="button" onClick={() => removeProj(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.projects.name} placeholder={T.projects.namePlaceholder} {...register(`projects.${idx}.name`)} />
                 <Input label={T.projects.url}  placeholder={T.projects.urlPlaceholder}  {...register(`projects.${idx}.url`)} />
               </div>
@@ -649,16 +649,16 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Languages ─── */}
-        <TabsContent value="languages" className="space-y-4">
+        <TabsContent value="languages" className="space-y-3">
           {langFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">{T.languages.language} {idx + 1}</h4>
+                <h4 className="text-sm font-medium text-gray-700">{T.languages.language} {idx + 1}</h4>
                 <button type="button" onClick={() => removeLang(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.languages.language} placeholder={T.languages.languagePlaceholder} {...register(`languages.${idx}.name`)} />
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-medium text-gray-700">{T.languages.proficiency}</label>
@@ -692,16 +692,16 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Certifications ─── */}
-        <TabsContent value="certifications" className="space-y-4">
+        <TabsContent value="certifications" className="space-y-3">
           {certFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4 space-y-3">
+            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-gray-700">{T.certifications.certification} {idx + 1}</h4>
+                <h4 className="text-sm font-medium text-gray-700">{T.certifications.certification} {idx + 1}</h4>
                 <button type="button" onClick={() => removeCert(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <Input label={T.certifications.name}   placeholder={T.certifications.namePlaceholder}   {...register(`certifications.${idx}.name`)} />
                 <Input label={T.certifications.issuer} placeholder={T.certifications.issuerPlaceholder} {...register(`certifications.${idx}.issuer`)} />
                 <Input label={T.certifications.date}   placeholder={T.certifications.datePlaceholder}   {...register(`certifications.${idx}.date`)} />
@@ -722,10 +722,10 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── Templates ─── */}
-        <TabsContent value="templates" className="space-y-6">
+        <TabsContent value="templates" className="space-y-4">
           <div>
             <h3 className="text-sm font-semibold text-gray-800 mb-1">{T.templates.chooseTemplate}</h3>
-            <p className="text-xs text-gray-500 mb-4">{T.templates.chooseTemplateHint}</p>
+            <p className="text-xs text-gray-500 mb-3">{T.templates.chooseTemplateHint}</p>
             <TemplatePicker
               value={watch("template") || defaultValues?.template || "BASIC"}
               onChange={(v) => setValue("template", v as CVFormData["template"])}
@@ -745,7 +745,7 @@ export function CVForm({
         </TabsContent>
 
         {/* ─── AI Tools ─── */}
-        <TabsContent value="ai" className="space-y-6">
+        <TabsContent value="ai" className="space-y-4">
           {!isPro && (
             <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-4 text-sm text-indigo-700">
               {T.ai.upgradeNotice}
@@ -753,10 +753,10 @@ export function CVForm({
           )}
 
           {/* ATS Check */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5 space-y-3">
+          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
             <div className="flex items-center gap-2">
               <Target className="h-5 w-5 text-indigo-600" />
-              <h3 className="font-semibold text-gray-900">{T.ai.atsTitle}</h3>
+              <h3 className="text-sm font-semibold text-gray-900">{T.ai.atsTitle}</h3>
             </div>
             <p className="text-sm text-gray-500">{T.ai.atsDescription}</p>
             <Button
@@ -771,10 +771,10 @@ export function CVForm({
               {T.ai.runAtsCheck}
             </Button>
             {atsResult && (
-              <div className="mt-3 space-y-2">
+              <div className="mt-2 space-y-2">
                 <div className="flex items-center gap-3">
                   <div
-                    className={`text-2xl font-bold ${
+                    className={`text-xl font-bold ${
                       atsResult.score >= 80 ? "text-green-600" : atsResult.score >= 60 ? "text-amber-600" : "text-red-600"
                     }`}
                   >
@@ -804,10 +804,10 @@ export function CVForm({
           </div>
 
           {/* Cover Letter */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5 space-y-3">
+          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
             <div className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-indigo-600" />
-              <h3 className="font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
+              <h3 className="text-sm font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
               {!isPro && (
                 <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
                   {T.ai.coverLetterProBadge}
