@@ -56,8 +56,10 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
 
     if (ext === "pdf" || file.type === "application/pdf") {
-      // Dynamic import avoids the test-file read issue in Next.js
-      const pdfParse = (await import("pdf-parse")).default;
+      // pdf-parse ships CJS; cast through unknown so TS doesn't trip on .default
+      const pdfParse = (await import("pdf-parse") as unknown as {
+        default: (buf: Buffer) => Promise<{ text: string }>;
+      }).default;
       const parsed = await pdfParse(buffer);
       text = parsed.text;
     } else if (
