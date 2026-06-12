@@ -27,26 +27,26 @@ export function Features() {
   const T = translations[lang].features;
 
   return (
-    <section className="bg-gray-50 py-24 sm:py-32" id="features">
+    <section className="bg-gray-50 py-14 sm:py-20" id="features">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-xl text-center">
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
             {T.sectionLabel}
           </h2>
-          <p className="mt-2 text-1xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-base font-bold tracking-tight text-gray-900 sm:text-xl">
             {T.headline}
           </p>
           <p className="mt-2 text-xs text-gray-500">{T.subtext}</p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {T.items.map((feature, i) => {
             const Icon = icons[i];
             const color = colors[i];
             return (
               <div
                 key={feature.title}
-                className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100 hover:shadow-md transition-shadow duration-200"
+                className="relative rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 hover:shadow-md transition-shadow duration-200"
               >
                 <div className={`inline-flex rounded-xl p-3 ring-1 ${colorMap[color]}`}>
                   <Icon className="h-6 w-6" />

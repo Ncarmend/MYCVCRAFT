@@ -84,14 +84,14 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4">
       <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
+        <div className="mb-5 text-center">
           <Link href="/" className="inline-flex items-center gap-2 font-bold text-gray-900">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
-              <Sparkles className="h-5 w-5" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
+              <Sparkles className="h-4 w-4" />
             </div>
-            <span className="text-xl">CVCraft</span>
+            <span className="text-base">CVCraft</span>
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-gray-900">
+          <h1 className="mt-4 text-xl font-bold text-gray-900">
             Create your free account
           </h1>
           <p className="mt-1 text-sm text-gray-500">
@@ -99,11 +99,11 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
           </p>
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100">
-          <div className="space-y-3 mb-6">
+        <div className="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-gray-100">
+          <div className="space-y-2 mb-4">
             <Button
               variant="secondary"
-              size="lg"
+              size="md"
               className="w-full gap-3"
               onClick={() => signUpWithOAuth("google")}
               loading={oauthLoading === "google"}
@@ -118,7 +118,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             </Button>
             <Button
               variant="secondary"
-              size="lg"
+              size="md"
               className="w-full gap-3"
               onClick={() => signUpWithOAuth("github")}
               loading={oauthLoading === "github"}
@@ -130,7 +130,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             </Button>
           </div>
 
-          <div className="relative mb-6">
+          <div className="relative mb-4">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-100" />
             </div>
@@ -171,7 +171,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
               error={errors.confirmPassword?.message}
               {...register("confirmPassword")}
             />
-            <Button type="submit" size="lg" className="w-full" loading={loading}>
+            <Button type="submit" size="md" className="w-full" loading={loading}>
               Create account
             </Button>
           </form>

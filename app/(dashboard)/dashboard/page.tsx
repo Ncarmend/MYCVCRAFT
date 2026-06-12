@@ -91,19 +91,19 @@ export default async function DashboardPage() {
         }
       />
 
-      <div className="p-4 sm:p-8">
+      <div className="p-3 sm:p-6">
         {/* Stats grid */}
-        <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100"
+              className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100"
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-500">{stat.label}</p>
                 <stat.icon className="h-4 w-4 text-gray-300" />
               </div>
-              <p className="mt-2 text-2xl font-bold text-gray-900">
+              <p className="mt-1.5 text-xl font-bold text-gray-900">
                 {stat.value}
               </p>
             </div>
@@ -112,7 +112,7 @@ export default async function DashboardPage() {
 
         {/* Free plan banner */}
         {!isPro && (
-          <div className="mb-8 flex flex-col gap-4 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-5 text-white sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-6 flex flex-col gap-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-4 text-white sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-semibold">Unlock unlimited CVs with Pro</p>
               <p className="mt-0.5 text-sm text-indigo-100">
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
             Your CVs
           </h2>
           {cvs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-16 text-center">
+            <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-10 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
                 <FileText className="h-7 w-7" />
               </div>
@@ -149,7 +149,7 @@ export default async function DashboardPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {cvs.map((cv, i) => (
                 <CVCard key={cv.id} cv={cv} index={i} isPro={isPro} />
               ))}

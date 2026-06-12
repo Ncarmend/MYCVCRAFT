@@ -32,7 +32,7 @@ export function PricingCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col rounded-2xl p-8",
+        "relative flex flex-col rounded-2xl p-6",
         highlighted
           ? "bg-indigo-600 text-white shadow-2xl ring-1 ring-indigo-500 scale-105"
           : "bg-white ring-1 ring-gray-200 shadow-sm"
@@ -46,7 +46,7 @@ export function PricingCard({
         </div>
       )}
 
-      <div className="mb-6">
+      <div className="mb-4">
         <h3
           className={cn(
             "text-lg font-semibold",
@@ -66,7 +66,7 @@ export function PricingCard({
         <div className="mt-4 flex items-baseline gap-1">
           <span
             className={cn(
-              "text-4xl font-bold",
+              "text-2xl font-bold",
               highlighted ? "text-white" : "text-gray-900"
             )}
           >
@@ -85,12 +85,12 @@ export function PricingCard({
         </div>
       </div>
 
-      <ul className="mb-8 flex-1 space-y-3">
+      <ul className="mb-5 flex-1 space-y-2">
         {features.map((feature) => (
           <li key={feature} className="flex items-start gap-3">
             <div
               className={cn(
-                "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full",
+                "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
                 highlighted ? "bg-indigo-500" : "bg-indigo-50"
               )}
             >

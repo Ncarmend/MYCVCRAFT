@@ -53,16 +53,16 @@ export default function PricingPage() {
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 py-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+      <div className="mx-auto max-w-7xl px-6 py-10 text-center">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {T.headline}
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">{T.subtext}</p>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-gray-500">{T.subtext}</p>
       </div>
 
       {/* Plans */}
-      <div className="mx-auto max-w-5xl px-6 pb-24">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 items-center">
+      <div className="mx-auto max-w-5xl px-6 pb-14">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
           <PricingCard
             name={PLANS.FREE.name}
             price={PLANS.FREE.price}
@@ -86,17 +86,17 @@ export default function PricingPage() {
       </div>
 
       {/* FAQ */}
-      <div className="bg-gray-50 py-24">
+      <div className="bg-gray-50 py-14">
         <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-12 flex items-center gap-3 text-center justify-center">
-            <HelpCircle className="h-6 w-6 text-indigo-600" />
-            <h2 className="text-2xl font-bold text-gray-900">{T.faqTitle}</h2>
+          <div className="mb-8 flex items-center gap-3 text-center justify-center">
+            <HelpCircle className="h-5 w-5 text-indigo-600" />
+            <h2 className="text-xl font-bold text-gray-900">{T.faqTitle}</h2>
           </div>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {T.faqs.map((faq) => (
               <div
                 key={faq.q}
-                className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100"
+                className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100"
               >
                 <h3 className="font-semibold text-gray-900">{faq.q}</h3>
                 <p className="mt-2 text-sm text-gray-500">{faq.a}</p>

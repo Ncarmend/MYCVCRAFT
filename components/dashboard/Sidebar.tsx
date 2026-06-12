@@ -64,7 +64,7 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
       )}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 border-b border-gray-100 px-5 py-4">
+      <div className="flex items-center gap-2.5 border-b border-gray-100 px-4 py-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
           <Sparkles className="h-4 w-4" />
         </div>
@@ -97,7 +97,7 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
                   href={item.href}
                   onClick={onClose}
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     item.highlight
                       ? "bg-indigo-600 text-white hover:bg-indigo-700"
                       : isActive
@@ -139,8 +139,8 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
       </div>
 
       {/* User info + sign out */}
-      <div className="border-t border-gray-100 p-3">
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2.5">
+      <div className="border-t border-gray-100 p-2">
+        <div className="flex items-center gap-3 rounded-lg px-3 py-2">
           <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">
             {userName
               ? userName

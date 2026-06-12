@@ -8,22 +8,22 @@ export function Testimonials() {
   const T = translations[lang].testimonials;
 
   return (
-    <section className="bg-white py-20 sm:py-24">
+    <section className="bg-white py-12 sm:py-16">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
             {T.sectionLabel}
           </h2>
-          <p className="mt-2 text-xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-base font-bold tracking-tight text-gray-900 sm:text-xl">
             {T.headline}
           </p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {T.items.map((t) => (
             <div
               key={t.name}
-              className="flex flex-col rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-100"
+              className="flex flex-col rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-100"
             >
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: 5 }).map((_, i) => (

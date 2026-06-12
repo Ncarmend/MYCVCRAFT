@@ -10,7 +10,7 @@ export function CTA() {
   const T = translations[lang].cta;
 
   return (
-    <section className="relative overflow-hidden bg-indigo-600 py-24">
+    <section className="relative overflow-hidden bg-indigo-600 py-14">
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -20,11 +20,11 @@ export function CTA() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 text-center">
-        <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+        <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
           {T.headline}
         </h2>
         <p className="mx-auto mt-4 max-w-md text-sm text-indigo-100">{T.subtext}</p>
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button
               size="md"

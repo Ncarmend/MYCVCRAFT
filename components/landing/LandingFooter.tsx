@@ -9,7 +9,7 @@ export function LandingFooter() {
   const T = translations[lang].footer;
 
   return (
-    <footer className="border-t border-gray-100 bg-white py-12">
+    <footer className="border-t border-gray-100 bg-white py-8">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <Link href="/" className="flex items-center gap-2 font-bold text-gray-900">

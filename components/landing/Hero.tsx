@@ -24,7 +24,7 @@ export function Hero() {
         <div className="absolute -bottom-40 -left-40 h-125 w-125 rounded-full bg-purple-50 opacity-50 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-5xl px-6 pb-24 pt-16 text-center lg:pt-28">
+      <div className="mx-auto max-w-5xl px-6 pb-14 pt-10 text-center lg:pt-16">
         {/* Badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-sm font-medium text-indigo-700">
           <Sparkles className="h-3.5 w-3.5" />
@@ -32,14 +32,14 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+        <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
           {T.headline1}{" "}
           <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             {T.headline2}
           </span>
         </h1>
 
-        <p className="mx-auto mt-4 max-w-xl text-md leading-relaxed text-gray-500 sm:text-xl">
+        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-gray-500 sm:text-base">
           {T.subtext}
         </p>
 
@@ -54,7 +54,7 @@ export function Hero() {
         </div>
 
         {/* CTAs */}
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button size="lg" className="gap-2 px-8">
               <Sparkles className="h-5 w-5" />
@@ -72,17 +72,17 @@ export function Hero() {
         <p className="mt-4 text-sm text-gray-400">{T.noCard}</p>
 
         {/* Stats */}
-        <div className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-6 sm:mt-16">
+        <div className="mx-auto mt-8 grid max-w-lg grid-cols-3 gap-4 sm:mt-10">
           {T.stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1">
-              <span className="text-2xl font-bold text-gray-900 sm:text-3xl">{s.value}</span>
-              <span className="text-xs text-gray-400 sm:text-sm">{s.label}</span>
+              <span className="text-xl font-bold text-gray-900 sm:text-2xl">{s.value}</span>
+              <span className="text-xs text-gray-400">{s.label}</span>
             </div>
           ))}
         </div>
 
         {/* Browser mockup */}
-        <div className="mt-16 sm:mt-20 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:overflow-x-visible sm:px-0">
+        <div className="mt-10 sm:mt-12 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:overflow-x-visible sm:px-0">
           <div className="min-w-105 sm:min-w-0">
             <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
               <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
