@@ -308,7 +308,7 @@ export function CVForm({
       const res = await fetch("/api/ai/summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, lang }),
       });
       if (!res.ok) throw new Error(await res.text());
       const { summary } = await res.json();
@@ -328,7 +328,7 @@ export function CVForm({
       const res = await fetch("/api/ai/optimize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cvId, data: getValues() }),
+        body: JSON.stringify({ cvId, data: getValues(), lang }),
       });
       if (!res.ok) throw new Error(await res.text());
       const result = await res.json();
@@ -352,7 +352,7 @@ export function CVForm({
       const res = await fetch("/api/ai/bullets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description }),
+        body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description, lang }),
       });
       if (!res.ok) throw new Error(await res.text());
       const { bullets } = await res.json();

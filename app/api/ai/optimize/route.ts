@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     await checkAIQuota(user.id);
 
-    const { cvId, data } = await request.json();
+    const { cvId, data, lang = "en" } = await request.json();
 
     // Build a plain-text representation of the CV for the AI
     const cvText = [
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       `Projects: ${JSON.stringify(data.projects || [])}`,
     ].join("\n");
 
-    const result = await optimizeCV(cvText);
+    const result = await optimizeCV(cvText, lang);
 
     // Persist ATS score to DB if cvId provided
     if (cvId) {

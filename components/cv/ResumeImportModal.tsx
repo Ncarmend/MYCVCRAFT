@@ -80,6 +80,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
     try {
       const fd = new FormData();
       fd.append("file", file);
+      fd.append("lang", lang);
 
       const res = await fetch("/api/resume/import", { method: "POST", body: fd });
       clearTimers();
@@ -219,7 +220,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
                 const active = i === step;
                 return (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500"
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500"
                       style={{
                         borderColor: done ? "#22c55e" : active ? "#6366f1" : "#e5e7eb",
                         backgroundColor: done ? "#f0fdf4" : active ? "#eef2ff" : "white",
@@ -263,7 +264,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
               <div className="rounded-xl border border-green-100 bg-green-50 p-4 space-y-2">
                 {[T.successBullet1, T.successBullet2, T.successBullet3].map((b) => (
                   <div key={b} className="flex items-center gap-2 text-sm text-green-700">
-                    <CheckCircle className="h-4 w-4 flex-shrink-0 text-green-500" />
+                    <CheckCircle className="h-4 w-4 shrink-0 text-green-500" />
                     {b}
                   </div>
                 ))}
@@ -272,7 +273,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
               {/* Name preview */}
               {result?.name && (
                 <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
-                  <FileText className="h-5 w-5 flex-shrink-0 text-indigo-500" />
+                  <FileText className="h-5 w-5 shrink-0 text-indigo-500" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">{result.name}</p>
                     {result.jobTitle && <p className="text-xs text-gray-500">{result.jobTitle}</p>}

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { cvContent, jobDescription } = await request.json();
+    const { cvContent, jobDescription, lang = "en" } = await request.json();
 
     if (!cvContent || !jobDescription) {
       return NextResponse.json(
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await matchJobDescription(cvContent, jobDescription);
+    const result = await matchJobDescription(cvContent, jobDescription, lang);
 
     return NextResponse.json(result);
   } catch (err) {

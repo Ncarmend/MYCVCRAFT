@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { cvContent, jobDescription, companyName, cvId } = await request.json();
+    const { cvContent, jobDescription, companyName, cvId, lang = "en" } = await request.json();
 
     if (!cvContent || !jobDescription || !companyName) {
       return NextResponse.json(
@@ -37,7 +37,8 @@ export async function POST(request: NextRequest) {
     const coverLetter = await generateCoverLetter(
       cvContent,
       jobDescription,
-      companyName
+      companyName,
+      lang,
     );
 
     // Optionally save cover letter to CV record

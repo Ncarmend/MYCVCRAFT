@@ -82,7 +82,8 @@ export async function POST(req: NextRequest) {
     }
 
     // ── AI parsing + improvement ──────────────────────────────────────────────
-    const data = await parseAndImproveResume(text);
+    const lang = (formData.get("lang") as string) === "fr" ? "fr" : "en";
+    const data = await parseAndImproveResume(text, lang);
 
     return NextResponse.json({ data });
   } catch (err) {

@@ -16,7 +16,9 @@ export async function POST(request: NextRequest) {
 
     await checkAIQuota(user.id);
 
-    const data: CVFormData = await request.json();
+    const body = await request.json();
+    const lang = body.lang === "fr" ? "fr" : "en";
+    const data = body as CVFormData;
 
     if (!data.name || !data.jobTitle) {
       return NextResponse.json(
@@ -25,7 +27,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const summary = await generateSummary(data);
+    const summary = await generateSummary(data, lang);
     return NextResponse.json({ summary });
   } catch (err) {
     console.error("[POST /api/ai/summary]", err);

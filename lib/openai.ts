@@ -4,6 +4,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { CVFormData } from "@/types";
 
+export type Lang = "en" | "fr";
+
 let _client: Anthropic | null = null;
 function getClient(): Anthropic {
   if (!_client) {
@@ -13,6 +15,13 @@ function getClient(): Anthropic {
 }
 
 const MODEL = "claude-haiku-4-5-20251001";
+
+/** Appended to every system prompt when the user chose French. */
+function langInstruction(lang: Lang): string {
+  return lang === "fr"
+    ? " Write ALL text content (summaries, bullet points, descriptions, suggestions, improvements) in French."
+    : "";
+}
 
 async function ask(system: string, user: string, maxTokens = 2000): Promise<string> {
   try {
@@ -39,9 +48,9 @@ async function askJSON(system: string, user: string, maxTokens = 1024): Promise<
   return JSON.parse(match ? match[0] : text);
 }
 
-export async function generateCV(data: CVFormData): Promise<string> {
+export async function generateCV(data: CVFormData, lang: Lang = "en"): Promise<string> {
   return ask(
-    "You are an expert CV writer and career coach. Generate professional, ATS-optimized CV content in clean HTML format. Use strong action verbs, quantify achievements where possible, and ensure the content is tailored to the job title.",
+    `You are an expert CV writer and career coach. Generate professional, ATS-optimized CV content in clean HTML format. Use strong action verbs, quantify achievements where possible, and ensure the content is tailored to the job title.${langInstruction(lang)}`,
     buildCVPrompt(data),
     2000,
   );
@@ -49,9 +58,10 @@ export async function generateCV(data: CVFormData): Promise<string> {
 
 export async function optimizeCV(
   cvContent: string,
+  lang: Lang = "en",
 ): Promise<{ content: string; score: number; suggestions: string[] }> {
   const result = (await askJSON(
-    "You are an ATS optimization expert. Analyze the CV and return a JSON object with: content (improved CV HTML), score (ATS score 0-100), suggestions (array of improvement tips).",
+    `You are an ATS optimization expert. Analyze the CV and return a JSON object with: content (improved CV HTML), score (ATS score 0-100), suggestions (array of improvement tips).${langInstruction(lang)}`,
     `Optimize this CV for ATS systems and return JSON:\n\n${cvContent}`,
     1500,
   )) as { content?: string; score?: number; suggestions?: string[] };
@@ -66,9 +76,10 @@ export async function optimizeCV(
 export async function matchJobDescription(
   cvContent: string,
   jobDescription: string,
+  lang: Lang = "en",
 ): Promise<{ matchScore: number; improvements: string[]; keywords: string[] }> {
   const result = (await askJSON(
-    "You are a career expert. Analyze how well a CV matches a job description. Return JSON with: matchScore (0-100), improvements (array of specific changes), keywords (missing keywords to add).",
+    `You are a career expert. Analyze how well a CV matches a job description. Return JSON with: matchScore (0-100), improvements (array of specific changes), keywords (missing keywords to add).${langInstruction(lang)}`,
     `CV:\n${cvContent}\n\nJob Description:\n${jobDescription}\n\nReturn JSON analysis.`,
   )) as { matchScore?: number; improvements?: string[]; keywords?: string[] };
 
@@ -83,9 +94,10 @@ export async function generateCoverLetter(
   cvContent: string,
   jobDescription: string,
   companyName: string,
+  lang: Lang = "en",
 ): Promise<string> {
   return ask(
-    "You are a professional cover letter writer. Write compelling, personalized cover letters that highlight relevant experience and show enthusiasm for the role.",
+    `You are a professional cover letter writer. Write compelling, personalized cover letters that highlight relevant experience and show enthusiasm for the role.${langInstruction(lang)}`,
     `Write a professional cover letter for ${companyName}.\n\nCV:\n${cvContent}\n\nJob Description:\n${jobDescription}`,
     800,
   );
@@ -95,22 +107,24 @@ export async function getOpenAIBullets({
   role,
   company,
   description,
+  lang = "en",
 }: {
   role: string;
   company?: string;
   description?: string;
+  lang?: Lang;
 }): Promise<string[]> {
   const result = (await askJSON(
-    "You are an expert CV writer. Generate 3-5 concise, impactful achievement bullet points for a job role. Use strong action verbs, quantify achievements where plausible, and keep each bullet under 15 words. Return a JSON object with a 'bullets' array of strings.",
+    `You are an expert CV writer. Generate 3-5 concise, impactful achievement bullet points for a job role. Use strong action verbs, quantify achievements where plausible, and keep each bullet under 15 words. Return a JSON object with a 'bullets' array of strings.${langInstruction(lang)}`,
     `Role: ${role}\nCompany: ${company || "N/A"}\nDescription: ${description || "N/A"}\n\nGenerate bullet points.`,
   )) as { bullets?: string[] };
 
   return Array.isArray(result.bullets) ? result.bullets : [];
 }
 
-export async function generateSummary(data: CVFormData): Promise<string> {
+export async function generateSummary(data: CVFormData, lang: Lang = "en"): Promise<string> {
   const text = await ask(
-    "You are an expert CV writer. Write a concise, compelling professional summary paragraph (3-4 sentences, under 80 words). Rules: plain text only, no HTML tags, no markdown, no bullet points, no headings, do NOT repeat the person's name or job title — jump straight into the description. Return only the paragraph text, nothing else.",
+    `You are an expert CV writer. Write a concise, compelling professional summary paragraph (3-4 sentences, under 80 words). Rules: plain text only, no HTML tags, no markdown, no bullet points, no headings, do NOT repeat the person's name or job title — jump straight into the description. Return only the paragraph text, nothing else.${langInstruction(lang)}`,
     `Job Title: ${data.jobTitle}
 Experience: ${JSON.stringify(data.experience?.slice(0, 2) ?? [])}
 Skills: ${Array.isArray(data.skills) ? data.skills.join(", ") : (data.skills ?? "")}
@@ -121,9 +135,13 @@ Write the professional summary paragraph now.`,
   return text.trim();
 }
 
-export async function parseAndImproveResume(rawText: string): Promise<Partial<CVFormData>> {
+export async function parseAndImproveResume(rawText: string, lang: Lang = "en"): Promise<Partial<CVFormData>> {
+  const langNote = lang === "fr"
+    ? " Write ALL text content (summary, achievements, descriptions, role names, skill names) in French. JSON keys must stay in English. The 'proficiency' field must use only these exact English values: Native, Fluent, Advanced, Intermediate, Basic."
+    : "";
+
   const result = (await askJSON(
-    "You are an expert CV parser and ATS optimizer. Extract structured data from a resume and return it as clean JSON. Improve all content: rewrite the summary to be compelling (2–3 sentences, strong action verbs, ATS keywords), rewrite bullet points with quantified achievements (action verb + metric), and identify all relevant skills.",
+    `You are an expert CV parser and ATS optimizer. Extract structured data from a resume and return it as clean JSON. Improve all content: rewrite the summary to be compelling (2–3 sentences, strong action verbs, ATS keywords), rewrite bullet points with quantified achievements (action verb + metric), and identify all relevant skills.${langNote}`,
     `Parse and improve this resume. Return JSON only matching the schema below.
 
 RESUME TEXT:

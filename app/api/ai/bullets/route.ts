@@ -15,10 +15,10 @@ export async function POST(request: NextRequest) {
 
     await checkAIQuota(user.id);
 
-    const { role, company, description } = await request.json();
+    const { role, company, description, lang = "en" } = await request.json();
     if (!role) return NextResponse.json({ error: "Role is required" }, { status: 400 });
 
-    const bullets = await getOpenAIBullets({ role, company, description });
+    const bullets = await getOpenAIBullets({ role, company, description, lang });
     return NextResponse.json({ bullets });
   } catch (err) {
     console.error("[POST /api/ai/bullets]", err);
