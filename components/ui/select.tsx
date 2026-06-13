@@ -19,14 +19,14 @@ const SelectTrigger = React.forwardRef<
     error?: string;
   }
 >(({ className, children, label, error, ...props }, ref) => (
-  <div className="flex flex-col gap-1.5">
+  <div className="flex flex-col gap-1">
     {label && (
       <label className="text-sm font-medium text-gray-700">{label}</label>
     )}
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex h-10 w-full items-center justify-between rounded-lg border bg-white px-3 py-2.5",
+        "flex h-9 w-full items-center justify-between rounded-lg border bg-white px-3 py-2",
         "text-sm text-gray-900 placeholder:text-gray-400 transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500",
         "disabled:cursor-not-allowed disabled:opacity-50",

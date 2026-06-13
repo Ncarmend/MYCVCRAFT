@@ -75,7 +75,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
             <span className="text-base">CVCraft</span>
           </Link>
           <h1 className="mt-4 text-xl font-bold text-gray-900">Welcome back</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-xs text-gray-500">
             Sign in to your account to continue
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
             </Button>
           </div>
 
-          <div className="relative mb-4">
+          <div className="relative mb-2">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-100" />
             </div>
@@ -120,7 +120,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <Input
               label="Email"
               type="email"
@@ -149,7 +149,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-500">
+          <p className="mt-4 text-center text-xs text-gray-500">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-700">
               Sign up free

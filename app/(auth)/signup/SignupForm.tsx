@@ -94,7 +94,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
           <h1 className="mt-4 text-xl font-bold text-gray-900">
             Create your free account
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-xs text-gray-500">
             Join 10,000+ professionals building better CVs
           </p>
         </div>
@@ -130,7 +130,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             </Button>
           </div>
 
-          <div className="relative mb-4">
+          <div className="relative mb-2">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-100" />
             </div>
@@ -139,7 +139,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <Input
               label="Full name"
               placeholder="Jane Smith"
@@ -176,14 +176,14 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             </Button>
           </form>
 
-          <p className="mt-4 text-center text-xs text-gray-400">
+          <p className="mt-2 text-center text-xs text-gray-400">
             By signing up, you agree to our{" "}
             <Link href="/terms" className="text-indigo-600 hover:underline">Terms</Link>{" "}
             and{" "}
             <Link href="/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link>.
           </p>
 
-          <p className="mt-4 text-center text-sm text-gray-500">
+          <p className="mt-3 text-center text-xs text-gray-500">
             Already have an account?{" "}
             <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-700">
               Sign in

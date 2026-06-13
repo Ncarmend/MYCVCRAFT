@@ -42,7 +42,7 @@ export default function ForgotPasswordPage() {
             <span className="text-xl">CVCraft</span>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-gray-900">Reset your password</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-xs text-gray-500">
             Enter your email and we&apos;ll send you a reset link.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function ForgotPasswordPage() {
               </Link>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-2">
               <Input
                 label="Email"
                 type="email"
@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
               <Button type="submit" size="lg" className="w-full" loading={loading}>
                 Send reset link
               </Button>
-              <p className="text-center text-sm text-gray-500">
+              <p className="text-center text-xs text-gray-500">
                 <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-700">
                   Back to sign in
                 </Link>

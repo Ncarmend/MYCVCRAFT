@@ -189,13 +189,13 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
               }`}
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className={`mb-4 flex h-14 w-14 items-center justify-center rounded-full transition-colors ${
+              <div className={`mb-2 flex h-14 w-14 items-center justify-center rounded-full transition-colors ${
                 isDragging ? "bg-indigo-100" : "bg-gray-100"
               }`}>
                 <Upload className={`h-7 w-7 transition-colors ${isDragging ? "text-indigo-600" : "text-gray-400"}`} />
               </div>
               <p className="text-sm font-medium text-gray-800">{T.dropzoneTitle}</p>
-              <p className="mt-1 text-sm text-gray-400">
+              <p className="mt-1 text-xs text-gray-400">
                 {T.dropzoneOr}{" "}
                 <span className="font-medium text-indigo-600 hover:text-indigo-700">
                   {T.dropzoneBrowse}
@@ -214,12 +214,12 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
 
           {/* ── PROCESSING: 3-step progress ── */}
           {status === "processing" && (
-            <div className="space-y-4">
+            <div className="space-y-2">
               {steps.map((label, i) => {
                 const done = i < step;
                 const active = i === step;
                 return (
-                  <div key={i} className="flex items-center gap-4">
+                  <div key={i} className="flex items-center gap-2">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500"
                       style={{
                         borderColor: done ? "#22c55e" : active ? "#6366f1" : "#e5e7eb",

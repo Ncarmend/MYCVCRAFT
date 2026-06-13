@@ -112,13 +112,13 @@ export default function OnboardingPage() {
           <h1 className="mb-2 text-2xl font-bold text-gray-900">
             {step === 1 ? "Welcome to CVCraft! 👋" : "What are you aiming for?"}
           </h1>
-          <p className="mb-6 text-sm text-gray-500">
+          <p className="mb-4 text-xs text-gray-500">
             {step === 1
               ? "Let's set up your profile in just two quick steps."
               : "This helps us tailor your experience."}
           </p>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             {step === 1 && (
               <>
                 <Input
@@ -161,7 +161,7 @@ export default function OnboardingPage() {
                       type="button"
                       onClick={() => setValue("goal", goal.value)}
                       className={cn(
-                        "flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition-all",
+                        "flex flex-col items-center gap-2 rounded-xl border-2 p-3 text-center transition-all",
                         selectedGoal === goal.value
                           ? "border-indigo-600 bg-indigo-50 text-indigo-700"
                           : "border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200"

@@ -191,12 +191,12 @@ export function SettingsClient({ user }: Props) {
   return (
     <>
       {/* Tab nav */}
-      <div className="flex gap-1 border-b border-gray-200 mb-6">
+      <div className="flex gap-1 border-b border-gray-200 mb-4">
         {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => setActiveTab(t.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-3 py-2 text-xs font-medium rounded-t-lg border-b-2 transition-colors ${
               activeTab === t.id
                 ? "border-indigo-600 text-indigo-600"
                 : "border-transparent text-gray-500 hover:text-gray-700"
@@ -217,7 +217,7 @@ export function SettingsClient({ user }: Props) {
               <User className="h-4 w-4 text-indigo-600" />
               <h2 className="font-semibold text-gray-900">Profile</h2>
             </div>
-            <form onSubmit={handleSaveProfile} className="space-y-4">
+            <form onSubmit={handleSaveProfile} className="space-y-2">
               <Input
                 label="Display name"
                 value={name}
@@ -244,7 +244,7 @@ export function SettingsClient({ user }: Props) {
               <Lock className="h-4 w-4 text-indigo-600" />
               <h2 className="font-semibold text-gray-900">Password</h2>
             </div>
-            <form onSubmit={handleChangePassword} className="space-y-4">
+            <form onSubmit={handleChangePassword} className="space-y-2">
               <Input
                 label="Current password"
                 type="password"
@@ -319,7 +319,7 @@ export function SettingsClient({ user }: Props) {
               <Trash2 className="h-4 w-4 text-red-500" />
               <h2 className="font-semibold text-red-600">Danger zone</h2>
             </div>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-xs text-gray-500 mb-2">
               Permanently delete your account and all CVs. This cannot be undone.
               Type your email <strong>{user.email}</strong> to confirm.
             </p>
@@ -426,7 +426,7 @@ export function SettingsClient({ user }: Props) {
                   ].map(({ key, label }) => (
                     <label
                       key={key}
-                      className="flex items-center gap-3 rounded-xl border border-gray-100 px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-3 rounded-xl border border-gray-100 px-3 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
                     >
                       <input
                         type="checkbox"
@@ -457,7 +457,7 @@ export function SettingsClient({ user }: Props) {
             <p className="text-sm text-gray-400">Loading…</p>
           ) : (
             <>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs text-gray-500">
                 These settings control how the AI generates and rewrites content for your CVs.
               </p>
 
