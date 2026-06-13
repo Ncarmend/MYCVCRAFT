@@ -19,15 +19,15 @@ const SelectTrigger = React.forwardRef<
     error?: string;
   }
 >(({ className, children, label, error, ...props }, ref) => (
-  <div className="flex flex-col gap-1">
+  <div className="flex flex-col gap-0.5">
     {label && (
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      <label className="text-xs font-medium text-gray-700">{label}</label>
     )}
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex h-9 w-full items-center justify-between rounded-lg border bg-white px-3 py-2",
-        "text-sm text-gray-900 placeholder:text-gray-400 transition-colors",
+        "flex h-8 w-full items-center justify-between rounded-lg border bg-white px-3 py-1.5",
+        "text-xs text-gray-900 placeholder:text-gray-400 transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500",
         "disabled:cursor-not-allowed disabled:opacity-50",
         error ? "border-red-400" : "border-gray-200 hover:border-gray-300",
@@ -75,8 +75,8 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-lg px-3 py-2",
-      "text-sm text-gray-900 outline-none transition-colors",
+      "relative flex cursor-default select-none items-center rounded-lg px-3 py-1.5",
+      "text-xs text-gray-900 outline-none transition-colors",
       "focus:bg-indigo-50 focus:text-indigo-700",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className

@@ -403,9 +403,9 @@ export function CVForm({
               error={errors.title ? T.validation.titleRequired : undefined}
               {...register("title")}
             />
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">{T.personal.template}</label>
-              <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm">
+            <div className="flex flex-col gap-0.5">
+              <label className="text-xs font-medium text-gray-700">{T.personal.template}</label>
+              <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs">
                 <span className="font-medium text-gray-800">
                   {TEMPLATE_KEYS.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
                 </span>
@@ -494,7 +494,7 @@ export function CVForm({
               />
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-sm font-medium text-gray-700">{T.experience.achievements}</label>
+                  <label className="text-xs font-medium text-gray-700">{T.experience.achievements}</label>
                   <button
                     type="button"
                     onClick={() => handleGenerateBullets(idx)}
@@ -576,20 +576,20 @@ export function CVForm({
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addSkill(); }}}
               placeholder={T.skills.placeholder}
-              className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <Button type="button" onClick={addSkill} size="md" variant="secondary">
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <div className="flex flex-wrap gap-2 min-h-[60px] rounded-xl border border-gray-100 bg-gray-50 p-3">
+          <div className="flex flex-wrap gap-2 min-h-[40px] rounded-xl border border-gray-100 bg-gray-50 p-2">
             {skills.length === 0 && (
-              <p className="text-sm text-gray-400">{T.skills.noSkills}</p>
+              <p className="text-xs text-gray-400">{T.skills.noSkills}</p>
             )}
             {skills.map((skill) => (
               <span
                 key={skill}
-                className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-sm text-indigo-700"
+                className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs text-indigo-700"
               >
                 {skill}
                 <button
@@ -660,8 +660,8 @@ export function CVForm({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <Input label={T.languages.language} placeholder={T.languages.languagePlaceholder} {...register(`languages.${idx}.name`)} />
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-gray-700">{T.languages.proficiency}</label>
+                <div className="flex flex-col gap-0.5">
+                  <label className="text-xs font-medium text-gray-700">{T.languages.proficiency}</label>
                   <Select
                     defaultValue={field.proficiency}
                     onValueChange={(v) => {

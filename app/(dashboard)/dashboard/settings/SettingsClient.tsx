@@ -354,10 +354,10 @@ export function SettingsClient({ user }: Props) {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Language */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Language</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Language</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvLanguage}
                     onChange={(e) => setSettings({ ...settings, cvLanguage: e.target.value })}
                   >
@@ -370,10 +370,10 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* Font */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Font</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Font</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvFont}
                     onChange={(e) => setSettings({ ...settings, cvFont: e.target.value })}
                   >
@@ -386,10 +386,10 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* Format */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Page format</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Page format</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvFormat}
                     onChange={(e) => setSettings({ ...settings, cvFormat: e.target.value })}
                   >
@@ -400,8 +400,8 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* Color */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Accent color</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Accent color</label>
                   <div className="flex items-center gap-3">
                     <input
                       type="color"
@@ -463,10 +463,10 @@ export function SettingsClient({ user }: Props) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Tone */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Tone</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Tone</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiTone}
                     onChange={(e) => setSettings({ ...settings, aiTone: e.target.value })}
                   >
@@ -479,10 +479,10 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* Length */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Output length</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Output length</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiLength}
                     onChange={(e) => setSettings({ ...settings, aiLength: e.target.value })}
                   >
@@ -493,10 +493,10 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* AI Language */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Output language</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Output language</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiLanguage}
                     onChange={(e) => setSettings({ ...settings, aiLanguage: e.target.value })}
                   >
@@ -509,10 +509,10 @@ export function SettingsClient({ user }: Props) {
                 </div>
 
                 {/* Style */}
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-700">Writing style</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-gray-700">Writing style</label>
                   <select
-                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiStyle}
                     onChange={(e) => setSettings({ ...settings, aiStyle: e.target.value })}
                   >
