@@ -47,7 +47,7 @@ html {
   position: relative;
 }
 .cv-watermark::after {
-  content: "CVCraft Free";
+  content: "Cvixeo Free";
   position: absolute;
   top: 50%;
   left: 50%;

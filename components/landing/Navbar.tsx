@@ -18,7 +18,7 @@ export function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
             <Sparkles className="h-4 w-4" />
           </div>
-          CVCraft
+          Cvixeo
         </Link>
 
         {/* Desktop links */}

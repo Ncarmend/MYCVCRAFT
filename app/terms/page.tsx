@@ -9,7 +9,7 @@ export default function TermsPage() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
             <Sparkles className="h-4 w-4" />
           </div>
-          CVCraft
+          Cvixeo
         </Link>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Service</h1>
@@ -18,11 +18,11 @@ export default function TermsPage() {
         <div className="prose prose-gray max-w-none space-y-6 text-gray-600">
           <section>
             <h2 className="text-lg font-semibold text-gray-900">1. Acceptance of Terms</h2>
-            <p>By using CVCraft, you agree to these Terms of Service. If you do not agree, please do not use the service.</p>
+            <p>By using Cvixeo, you agree to these Terms of Service. If you do not agree, please do not use the service.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">2. Use of Service</h2>
-            <p>CVCraft provides AI-powered CV creation tools. You are responsible for the content you create. You may not use the service for any unlawful purpose.</p>
+            <p>Cvixeo provides AI-powered CV creation tools. You are responsible for the content you create. You may not use the service for any unlawful purpose.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">3. Accounts</h2>
@@ -34,11 +34,11 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">5. Intellectual Property</h2>
-            <p>You retain ownership of the CV content you create. CVCraft retains ownership of the platform, design, and underlying technology.</p>
+            <p>You retain ownership of the CV content you create. Cvixeo retains ownership of the platform, design, and underlying technology.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">6. Limitation of Liability</h2>
-            <p>CVCraft is provided &quot;as is&quot; without warranties. We are not liable for any indirect or consequential damages arising from use of the service.</p>
+            <p>Cvixeo is provided &quot;as is&quot; without warranties. We are not liable for any indirect or consequential damages arising from use of the service.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">7. Contact</h2>

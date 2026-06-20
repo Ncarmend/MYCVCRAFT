@@ -394,7 +394,7 @@ function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
   const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
   const css = getTemplateStyles(template, watermark);
-  const wm = watermark ? `<div class="watermark">CVCraft Free</div>` : "";
+  const wm = watermark ? `<div class="watermark">Cvixeo Free</div>` : "";
 
   // Two-column templates with sidebar
   const twoColumnTemplates = ["MODERN", "TECH", "SLATE", "PHOTO"] as const;

@@ -9,7 +9,7 @@ export default function PrivacyPage() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
             <Sparkles className="h-4 w-4" />
           </div>
-          CVCraft
+          Cvixeo
         </Link>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">2. How We Use Your Information</h2>
-            <p>We use your information to provide and improve the CVCraft service, process payments, and send important service updates. We do not sell your personal data.</p>
+            <p>We use your information to provide and improve the Cvixeo service, process payments, and send important service updates. We do not sell your personal data.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-gray-900">3. Data Storage</h2>

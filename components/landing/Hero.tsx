@@ -93,7 +93,7 @@ export function Hero() {
                   <div className="h-3 w-3 rounded-full bg-yellow-400" />
                   <div className="h-3 w-3 rounded-full bg-green-400" />
                   <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-400">
-                    app.cvcraft.io/dashboard
+                    app.cvixeo.com/dashboard
                   </div>
                 </div>
 

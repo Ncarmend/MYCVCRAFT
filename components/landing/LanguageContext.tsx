@@ -52,7 +52,7 @@ export const translations = {
 
     // ── Hero ─────────────────────────────────────────────────────────────────
     hero: {
-      badge: "AI-powered CV builder — free to start",
+      badge: "Cvixeo — Be seen. Be chosen.",
       headline1: "Land your dream job",
       headline2: "with AI",
       subtext:
@@ -91,7 +91,7 @@ export const translations = {
       sectionLabel: "Features",
       headline: "Everything you need to land the job",
       subtext:
-        "From first draft to final PDF — CVCraft handles the heavy lifting so you can focus on what matters.",
+        "From first draft to final PDF — Cvixeo handles the heavy lifting so you can focus on what matters.",
       items: [
         { title: "AI-Powered Generation",      description: "Describe your experience and let GPT-4 write a compelling, professional CV tailored to your target role." },
         { title: "ATS Optimization",           description: "Score your CV against Applicant Tracking Systems and get specific suggestions to pass automated screening." },
@@ -107,19 +107,19 @@ export const translations = {
       sectionLabel: "Testimonials",
       headline: "Loved by job seekers worldwide",
       items: [
-        { name: "Sarah Chen",      role: "Software Engineer at Google",      avatar: "SC", content: "CVCraft helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days." },
-        { name: "Marcus Johnson",  role: "Product Manager at Stripe",        avatar: "MJ", content: "I rewrote my CV 4 times before trying CVCraft. The job description matching feature is incredible — it told me exactly which keywords I was missing and helped me tailor each application." },
+        { name: "Sarah Chen",      role: "Software Engineer at Google",      avatar: "SC", content: "Cvixeo helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days." },
+        { name: "Marcus Johnson",  role: "Product Manager at Stripe",        avatar: "MJ", content: "I rewrote my CV 4 times before trying Cvixeo. The job description matching feature is incredible — it told me exactly which keywords I was missing and helped me tailor each application." },
         { name: "Elena Rodriguez", role: "UX Designer at Figma",             avatar: "ER", content: "The modern template is stunning. Multiple recruiters mentioned how professional my CV looked. The cover letter generator saved me hours per application." },
         { name: "David Park",      role: "Data Scientist at OpenAI",         avatar: "DP", content: "As someone who hates writing, the AI generation feature was perfect. I just filled in my experience and it turned my bullet points into compelling, professional descriptions." },
         { name: "Priya Patel",     role: "Marketing Lead at HubSpot",        avatar: "PP", content: "Worth every penny of the Pro plan. I upgraded within 10 minutes of trying the free plan — the unlimited CVs and PDF export are essential when you're actively job hunting." },
-        { name: "James Williams",  role: "Backend Engineer at Vercel",       avatar: "JW", content: "The ATS score went from 42 to 91 after following CVCraft's suggestions. I had 3 interviews scheduled within a week of updating my CV." },
+        { name: "James Williams",  role: "Backend Engineer at Vercel",       avatar: "JW", content: "The ATS score went from 42 to 91 after following Cvixeo's suggestions. I had 3 interviews scheduled within a week of updating my CV." },
       ],
     },
 
     // ── CTA ──────────────────────────────────────────────────────────────────
     cta: {
       headline:  "Ready to land your dream job?",
-      subtext:   "Join 10,000+ professionals who have already leveled up their job search with CVCraft. Start free, upgrade when you need.",
+      subtext:   "Join 10,000+ professionals who have already leveled up their job search with Cvixeo. Start free, upgrade when you need.",
       primary:   "Get started for free",
       secondary: "See all plans",
       footnote:  "No credit card required · Cancel anytime · 7-day Pro trial",
@@ -371,7 +371,7 @@ export const translations = {
     },
 
     hero: {
-      badge:     "Créateur de CV IA — gratuit pour démarrer",
+      badge:     "Cvixeo — Sois vu. Sois choisi.",
       headline1: "Décrochez l'emploi de vos rêves",
       headline2: "avec l'IA",
       subtext:
@@ -409,7 +409,7 @@ export const translations = {
       sectionLabel: "Fonctionnalités",
       headline:     "Tout ce qu'il vous faut pour décrocher le poste",
       subtext:
-        "Du premier jet au PDF final — CVCraft s'occupe du plus dur pour que vous puissiez vous concentrer sur ce qui compte.",
+        "Du premier jet au PDF final — Cvixeo s'occupe du plus dur pour que vous puissiez vous concentrer sur ce qui compte.",
       items: [
         { title: "Génération IA",                     description: "Décrivez votre parcours et laissez GPT-4 rédiger un CV convaincant et professionnel adapté à votre cible." },
         { title: "Optimisation ATS",                  description: "Scorez votre CV face aux systèmes de suivi des candidatures et obtenez des suggestions précises pour passer les filtres automatiques." },
@@ -424,18 +424,18 @@ export const translations = {
       sectionLabel: "Témoignages",
       headline:     "Adopté par des chercheurs d'emploi du monde entier",
       items: [
-        { name: "Sarah Chen",      role: "Ingénieure Logiciel chez Google",         avatar: "SC", content: "CVCraft m'a aidée à décrocher mon emploi de rêve chez Google. L'optimisation ATS a tout changé — mon CV était ignoré avant, mais après les suggestions IA j'ai commencé à recevoir des rappels en quelques jours." },
-        { name: "Marcus Johnson",  role: "Product Manager chez Stripe",             avatar: "MJ", content: "J'ai réécrit mon CV 4 fois avant d'essayer CVCraft. Le matching par offre d'emploi est incroyable — il m'a dit exactement quels mots-clés me manquaient et m'a aidé à personnaliser chaque candidature." },
+        { name: "Sarah Chen",      role: "Ingénieure Logiciel chez Google",         avatar: "SC", content: "Cvixeo m'a aidée à décrocher mon emploi de rêve chez Google. L'optimisation ATS a tout changé — mon CV était ignoré avant, mais après les suggestions IA j'ai commencé à recevoir des rappels en quelques jours." },
+        { name: "Marcus Johnson",  role: "Product Manager chez Stripe",             avatar: "MJ", content: "J'ai réécrit mon CV 4 fois avant d'essayer Cvixeo. Le matching par offre d'emploi est incroyable — il m'a dit exactement quels mots-clés me manquaient et m'a aidé à personnaliser chaque candidature." },
         { name: "Elena Rodriguez", role: "UX Designer chez Figma",                  avatar: "ER", content: "Le modèle moderne est superbe. Plusieurs recruteurs ont commenté le professionnalisme de mon CV. Le générateur de lettre de motivation m'a économisé des heures par candidature." },
         { name: "David Park",      role: "Data Scientist chez OpenAI",              avatar: "DP", content: "En tant que personne qui n'aime pas écrire, la génération IA était parfaite. J'ai renseigné mon expérience et elle a transformé mes points en descriptions convaincantes et professionnelles." },
         { name: "Priya Patel",     role: "Responsable Marketing chez HubSpot",     avatar: "PP", content: "Chaque centime du plan Pro en vaut la peine. J'ai upgradé 10 minutes après l'essai gratuit — les CV illimités et l'export PDF sont indispensables en recherche active." },
-        { name: "James Williams",  role: "Ingénieur Backend chez Vercel",          avatar: "JW", content: "Mon score ATS est passé de 42 à 91 après avoir suivi les suggestions de CVCraft. J'avais 3 entretiens planifiés une semaine après avoir mis à jour mon CV." },
+        { name: "James Williams",  role: "Ingénieur Backend chez Vercel",          avatar: "JW", content: "Mon score ATS est passé de 42 à 91 après avoir suivi les suggestions de Cvixeo. J'avais 3 entretiens planifiés une semaine après avoir mis à jour mon CV." },
       ],
     },
 
     cta: {
       headline:  "Prêt à décrocher l'emploi de vos rêves ?",
-      subtext:   "Rejoignez plus de 10 000 professionnels qui ont déjà boosté leur recherche d'emploi avec CVCraft. Commencez gratuitement, évoluez selon vos besoins.",
+      subtext:   "Rejoignez plus de 10 000 professionnels qui ont déjà boosté leur recherche d'emploi avec Cvixeo. Commencez gratuitement, évoluez selon vos besoins.",
       primary:   "Commencer gratuitement",
       secondary: "Voir les offres",
       footnote:  "Sans carte bancaire · Résiliation facile · 7 jours d'essai Pro",

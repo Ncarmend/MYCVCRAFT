@@ -78,7 +78,7 @@ export default function OnboardingPage() {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
             <Sparkles className="h-5 w-5" />
           </div>
-          <span className="text-xl font-bold text-gray-900">CVCraft</span>
+          <span className="text-xl font-bold text-gray-900">Cvixeo</span>
         </div>
 
         {/* Progress steps */}
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
         {/* Card */}
         <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100">
           <h1 className="mb-2 text-2xl font-bold text-gray-900">
-            {step === 1 ? "Welcome to CVCraft! 👋" : "What are you aiming for?"}
+            {step === 1 ? "Welcome to Cvixeo! 👋" : "What are you aiming for?"}
           </h1>
           <p className="mb-4 text-xs text-gray-500">
             {step === 1

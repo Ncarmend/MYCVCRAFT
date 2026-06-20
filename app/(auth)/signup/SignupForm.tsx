@@ -89,7 +89,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
               <Sparkles className="h-4 w-4" />
             </div>
-            <span className="text-base">CVCraft</span>
+            <span className="text-base">Cvixeo</span>
           </Link>
           <h1 className="mt-4 text-xl font-bold text-gray-900">
             Create your free account

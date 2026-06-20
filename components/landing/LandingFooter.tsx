@@ -16,7 +16,7 @@ export function LandingFooter() {
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white">
               <Sparkles className="h-3.5 w-3.5" />
             </div>
-            CVCraft
+            Cvixeo
           </Link>
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <Link href="/pricing" className="hover:text-gray-600 transition-colors">
@@ -30,7 +30,7 @@ export function LandingFooter() {
             </Link>
           </div>
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} CVCraft. {T.rights}
+            © {new Date().getFullYear()} Cvixeo. {T.rights}
           </p>
         </div>
       </div>

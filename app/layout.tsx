@@ -12,25 +12,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "CVCraft — AI-Powered CV Generator",
-    template: "%s | CVCraft",
+    default: "Cvixeo — AI-Powered CV Generator",
+    template: "%s | Cvixeo",
   },
   description:
     "Create professional, ATS-optimized CVs in minutes with AI. Stand out from the crowd with beautiful templates and intelligent career insights.",
   keywords: ["CV generator", "resume builder", "AI CV", "ATS optimization", "job application"],
-  authors: [{ name: "CVCraft" }],
-  creator: "CVCraft",
+  authors: [{ name: "Cvixeo" }],
+  creator: "Cvixeo",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: process.env.NEXT_PUBLIC_APP_URL,
-    siteName: "CVCraft",
-    title: "CVCraft — AI-Powered CV Generator",
+    siteName: "Cvixeo",
+    title: "Cvixeo — AI-Powered CV Generator",
     description: "Create professional, ATS-optimized CVs in minutes with AI.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CVCraft — AI-Powered CV Generator",
+    title: "Cvixeo — AI-Powered CV Generator",
     description: "Create professional, ATS-optimized CVs in minutes with AI.",
   },
   robots: {

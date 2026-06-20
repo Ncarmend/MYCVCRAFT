@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
               <Sparkles className="h-5 w-5" />
             </div>
-            <span className="text-xl">CVCraft</span>
+            <span className="text-xl">Cvixeo</span>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-gray-900">Reset your password</h1>
           <p className="mt-1 text-xs text-gray-500">

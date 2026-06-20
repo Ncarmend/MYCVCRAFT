@@ -47,7 +47,7 @@ export function DashboardShell({ children, userEmail, userName, plan }: Props) {
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white">
               <Sparkles className="h-3.5 w-3.5" />
             </div>
-            CVCraft
+            Cvixeo
           </Link>
         </div>
 

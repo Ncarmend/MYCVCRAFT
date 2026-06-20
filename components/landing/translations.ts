@@ -7,7 +7,7 @@ export const t = {
       getStarted: "Get started",
     },
     hero: {
-      badge: "AI-powered CV builder — free to start",
+      badge: "Cvixeo — Be seen. Be chosen.",
       headline1: "Land your dream job",
       headline2: "with AI",
       subheadline:
@@ -26,7 +26,7 @@ export const t = {
       sectionLabel: "Features",
       sectionTitle: "Everything you need to land the job",
       sectionSub:
-        "From first draft to final PDF — CVCraft handles the heavy lifting so you can focus on what matters.",
+        "From first draft to final PDF — Cvixeo handles the heavy lifting so you can focus on what matters.",
       items: [
         {
           title: "AI-Powered Generation",
@@ -68,13 +68,13 @@ export const t = {
           name: "Sarah Chen",
           role: "Software Engineer at Google",
           content:
-            "CVCraft helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days.",
+            "Cvixeo helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days.",
         },
         {
           name: "Marcus Johnson",
           role: "Product Manager at Stripe",
           content:
-            "I rewrote my CV 4 times before trying CVCraft. The job description matching feature is incredible — it told me exactly which keywords I was missing.",
+            "I rewrote my CV 4 times before trying Cvixeo. The job description matching feature is incredible — it told me exactly which keywords I was missing.",
         },
         {
           name: "Elena Rodriguez",
@@ -98,13 +98,13 @@ export const t = {
           name: "James Williams",
           role: "Backend Engineer at Vercel",
           content:
-            "The ATS score went from 42 to 91 after following CVCraft's suggestions. I had 3 interviews scheduled within a week of updating my CV.",
+            "The ATS score went from 42 to 91 after following Cvixeo's suggestions. I had 3 interviews scheduled within a week of updating my CV.",
         },
       ],
     },
     cta: {
       title: "Ready to land your dream job?",
-      sub: "Join 10,000+ professionals who have already leveled up their job search with CVCraft. Start free, upgrade when you need.",
+      sub: "Join 10,000+ professionals who have already leveled up their job search with Cvixeo. Start free, upgrade when you need.",
       cta: "Get started for free",
       plans: "See all plans",
       note: "No credit card required · Cancel anytime · 7-day Pro trial",
@@ -119,7 +119,7 @@ export const t = {
       getStarted: "Commencer",
     },
     hero: {
-      badge: "Créateur de CV IA — gratuit pour commencer",
+      badge: "Cvixeo — Sois vu. Sois choisi.",
       headline1: "Décrochez le job",
       headline2: "de vos rêves",
       subheadline:
@@ -138,7 +138,7 @@ export const t = {
       sectionLabel: "Fonctionnalités",
       sectionTitle: "Tout ce qu'il vous faut pour décrocher le poste",
       sectionSub:
-        "Du premier brouillon au PDF final — CVCraft fait le travail difficile pour que vous puissiez vous concentrer sur l'essentiel.",
+        "Du premier brouillon au PDF final — Cvixeo fait le travail difficile pour que vous puissiez vous concentrer sur l'essentiel.",
       items: [
         {
           title: "Génération par IA",
@@ -180,13 +180,13 @@ export const t = {
           name: "Sarah Chen",
           role: "Ingénieure logiciel chez Google",
           content:
-            "CVCraft m'a aidée à décrocher mon poste de rêve chez Google. La fonction d'optimisation ATS a tout changé — mon CV était ignoré avant, mais après les suggestions IA j'ai eu des rappels en quelques jours.",
+            "Cvixeo m'a aidée à décrocher mon poste de rêve chez Google. La fonction d'optimisation ATS a tout changé — mon CV était ignoré avant, mais après les suggestions IA j'ai eu des rappels en quelques jours.",
         },
         {
           name: "Marcus Johnson",
           role: "Product Manager chez Stripe",
           content:
-            "J'avais réécrit mon CV 4 fois avant d'essayer CVCraft. La fonction de correspondance avec l'offre est incroyable — elle m'a dit exactement quels mots-clés il me manquait.",
+            "J'avais réécrit mon CV 4 fois avant d'essayer Cvixeo. La fonction de correspondance avec l'offre est incroyable — elle m'a dit exactement quels mots-clés il me manquait.",
         },
         {
           name: "Elena Rodriguez",
@@ -210,13 +210,13 @@ export const t = {
           name: "James Williams",
           role: "Ingénieur backend chez Vercel",
           content:
-            "Le score ATS est passé de 42 à 91 en suivant les suggestions de CVCraft. J'avais 3 entretiens programmés une semaine après avoir mis à jour mon CV.",
+            "Le score ATS est passé de 42 à 91 en suivant les suggestions de Cvixeo. J'avais 3 entretiens programmés une semaine après avoir mis à jour mon CV.",
         },
       ],
     },
     cta: {
       title: "Prêt à décrocher le job de vos rêves ?",
-      sub: "Rejoignez plus de 10 000 professionnels qui ont déjà boosté leur recherche d'emploi avec CVCraft. Commencez gratuitement, upgradez quand vous en avez besoin.",
+      sub: "Rejoignez plus de 10 000 professionnels qui ont déjà boosté leur recherche d'emploi avec Cvixeo. Commencez gratuitement, upgradez quand vous en avez besoin.",
       cta: "Commencer gratuitement",
       plans: "Voir tous les plans",
       note: "Sans carte bancaire · Résiliation à tout moment · 7 jours d'essai Pro",
