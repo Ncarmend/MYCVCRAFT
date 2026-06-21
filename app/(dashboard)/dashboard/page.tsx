@@ -114,14 +114,14 @@ export default async function DashboardPage() {
         {!isPro && (
           <div className="mb-6 flex flex-col gap-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-4 text-white sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-semibold">Unlock unlimited CVs with Pro</p>
+              <p className="font-semibold">Unlock Premium — AI, ATS &amp; unlimited CVs</p>
               <p className="mt-0.5 text-sm text-indigo-100">
-                Get AI optimization, job matching, cover letters + PDF export
+                From €9/month · AI generation, ATS analysis, cover letters &amp; PDF export
               </p>
             </div>
             <Link href="/pricing" className="shrink-0">
               <Button className="w-full bg-white text-indigo-700 hover:bg-indigo-50 sm:w-auto">
-                Upgrade — $12/mo
+                Upgrade — from €9/mo
               </Button>
             </Link>
           </div>

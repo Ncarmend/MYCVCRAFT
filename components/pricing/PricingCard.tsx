@@ -17,6 +17,12 @@ interface PricingCardProps {
   currentPlan?: boolean;
   onSelect: () => void;
   loading?: boolean;
+  billingCycle?: "monthly" | "annual";
+  annualTotal?: number;
+  annualBilledAs?: string;
+  perMonth?: string;
+  mostPopular?: string;
+  ctaLabel?: string;
 }
 
 export function PricingCard({
@@ -28,7 +34,15 @@ export function PricingCard({
   currentPlan = false,
   onSelect,
   loading = false,
+  billingCycle = "monthly",
+  annualTotal,
+  annualBilledAs,
+  perMonth = "/month",
+  mostPopular = "Most Popular",
+  ctaLabel,
 }: PricingCardProps) {
+  const showAnnualNote = billingCycle === "annual" && annualTotal !== undefined;
+
   return (
     <div
       className={cn(
@@ -41,7 +55,7 @@ export function PricingCard({
       {highlighted && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
           <span className="rounded-full bg-amber-400 px-4 py-1 text-xs font-semibold text-amber-900">
-            Most Popular
+            {mostPopular}
           </span>
         </div>
       )}
@@ -63,14 +77,15 @@ export function PricingCard({
         >
           {description}
         </p>
+
         <div className="mt-4 flex items-baseline gap-1">
           <span
             className={cn(
-              "text-2xl font-bold",
+              "text-3xl font-bold",
               highlighted ? "text-white" : "text-gray-900"
             )}
           >
-            ${price}
+            {price === 0 ? "€0" : `€${price}`}
           </span>
           {price > 0 && (
             <span
@@ -79,10 +94,21 @@ export function PricingCard({
                 highlighted ? "text-indigo-200" : "text-gray-400"
               )}
             >
-              /month
+              {perMonth}
             </span>
           )}
         </div>
+
+        {showAnnualNote && price > 0 && (
+          <p
+            className={cn(
+              "mt-1 text-xs",
+              highlighted ? "text-indigo-200" : "text-gray-400"
+            )}
+          >
+            {annualBilledAs ?? `billed as €${annualTotal}/year`}
+          </p>
+        )}
       </div>
 
       <ul className="mb-5 flex-1 space-y-2">
@@ -125,7 +151,9 @@ export function PricingCard({
             "bg-white text-indigo-700 hover:bg-indigo-50 border-0"
         )}
       >
-        {currentPlan ? "Current plan" : price === 0 ? "Get started free" : "Start 7-day trial"}
+        {currentPlan
+          ? "Current plan"
+          : ctaLabel ?? (price === 0 ? "Get started free" : "Start 7-day trial")}
       </Button>
     </div>
   );

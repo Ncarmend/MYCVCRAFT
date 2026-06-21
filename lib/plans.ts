@@ -16,19 +16,26 @@ export const PLANS = {
     ],
   },
   PRO: {
-    name: "Pro",
-    // Read at runtime server-side via the API; safe to be undefined on client
+    name: "Premium",
+    // Monthly Stripe price ID
     priceId: process.env.STRIPE_PRO_PRICE_ID ?? null,
-    price: 12,
+    // Annual Stripe price ID
+    priceIdAnnual: process.env.STRIPE_PRO_ANNUAL_PRICE_ID ?? null,
+    // Displayed prices
+    price: 12,           // backward compat (monthly)
+    priceMonthly: 12,
+    priceAnnual: 9,      // per month, billed annually
+    priceAnnualTotal: 108,
     cvLimit: Infinity,
     features: [
       "Unlimited CVs",
       "All templates",
-      "Advanced AI optimization",
-      "PDF export (no watermark)",
+      "AI summary generation",
+      "AI bullet point generation",
+      "ATS score + suggestions",
       "Job description matching",
       "Cover letter generator",
-      "ATS score + suggestions",
+      "PDF export (no watermark)",
       "Priority support",
     ],
   },

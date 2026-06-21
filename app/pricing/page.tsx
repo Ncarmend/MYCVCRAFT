@@ -11,8 +11,12 @@ import { useLanguage, translations } from "@/components/landing/LanguageContext"
 export default function PricingPage() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
+
+  const proPrice = billingCycle === "monthly" ? PLANS.PRO.priceMonthly : PLANS.PRO.priceAnnual;
+  const proPriceId = billingCycle === "monthly" ? PLANS.PRO.priceId : PLANS.PRO.priceIdAnnual;
 
   async function handleSelectPro() {
     setLoadingPlan("PRO");
@@ -20,7 +24,7 @@ export default function PricingPage() {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId: PLANS.PRO.priceId }),
+        body: JSON.stringify({ priceId: proPriceId }),
       });
 
       if (res.status === 401) {
@@ -58,6 +62,33 @@ export default function PricingPage() {
           {T.headline}
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-gray-500">{T.subtext}</p>
+
+        {/* Billing cycle toggle */}
+        <div className="mt-6 inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 p-1">
+          <button
+            onClick={() => setBillingCycle("monthly")}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              billingCycle === "monthly"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {T.billingMonthly}
+          </button>
+          <button
+            onClick={() => setBillingCycle("annual")}
+            className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              billingCycle === "annual"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {T.billingAnnual}
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
+              {T.saveBadge}
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Plans */}
@@ -68,17 +99,24 @@ export default function PricingPage() {
             price={PLANS.FREE.price}
             description={T.freeDescription}
             features={PLANS.FREE.features as unknown as string[]}
+            perMonth={T.perMonth}
+            mostPopular={T.mostPopular}
             onSelect={() => router.push("/signup")}
           />
           <PricingCard
             name={PLANS.PRO.name}
-            price={PLANS.PRO.price}
+            price={proPrice}
             description={T.proDescription}
             features={PLANS.PRO.features as unknown as string[]}
             highlighted
-            priceId={PLANS.PRO.priceId}
+            priceId={proPriceId}
             onSelect={handleSelectPro}
             loading={loadingPlan === "PRO"}
+            billingCycle={billingCycle}
+            annualTotal={PLANS.PRO.priceAnnualTotal}
+            annualBilledAs={T.annualBilledAs}
+            perMonth={T.perMonth}
+            mostPopular={T.mostPopular}
           />
         </div>
 
