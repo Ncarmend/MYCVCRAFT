@@ -11,20 +11,16 @@ import { useLanguage, translations } from "@/components/landing/LanguageContext"
 export default function PricingPage() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
 
-  const proPrice = billingCycle === "monthly" ? PLANS.PRO.priceMonthly : PLANS.PRO.priceAnnual;
-  const proPriceId = billingCycle === "monthly" ? PLANS.PRO.priceId : PLANS.PRO.priceIdAnnual;
-
-  async function handleSelectPro() {
-    setLoadingPlan("PRO");
+  async function handleCheckout(priceId: string | null, planKey: string) {
+    setLoadingPlan(planKey);
     try {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId: proPriceId }),
+        body: JSON.stringify({ priceId }),
       });
 
       if (res.status === 401) {
@@ -37,7 +33,11 @@ export default function PricingPage() {
       if (error) throw new Error(error);
       if (url) window.location.href = url;
     } catch {
-      toast.error(lang === "fr" ? "Une erreur est survenue. Veuillez réessayer." : "Something went wrong. Please try again.");
+      toast.error(
+        lang === "fr"
+          ? "Une erreur est survenue. Veuillez réessayer."
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setLoadingPlan(null);
     }
@@ -45,7 +45,7 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Back button */}
+      {/* Back */}
       <div className="mx-auto max-w-7xl px-6 pt-6">
         <button
           onClick={() => router.back()}
@@ -57,66 +57,57 @@ export default function PricingPage() {
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 py-10 text-center">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-10 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {T.headline}
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-gray-500">{T.subtext}</p>
-
-        {/* Billing cycle toggle */}
-        <div className="mt-6 inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 p-1">
-          <button
-            onClick={() => setBillingCycle("monthly")}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              billingCycle === "monthly"
-                ? "bg-white text-gray-900 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {T.billingMonthly}
-          </button>
-          <button
-            onClick={() => setBillingCycle("annual")}
-            className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              billingCycle === "annual"
-                ? "bg-white text-gray-900 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {T.billingAnnual}
-            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-              {T.saveBadge}
-            </span>
-          </button>
-        </div>
       </div>
 
-      {/* Plans */}
-      <div className="mx-auto max-w-5xl px-6 pb-14">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
+      {/* ── 3-card grid ── */}
+      <div className="mx-auto max-w-6xl px-6 pb-14">
+        {/* Outer wrapper: equal-height columns */}
+        <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-3">
+
+          {/* ── Card 1 · Free ── */}
           <PricingCard
-            name={PLANS.FREE.name}
-            price={PLANS.FREE.price}
+            name={T.freeName}
+            price={0}
             description={T.freeDescription}
-            features={PLANS.FREE.features as unknown as string[]}
+            features={T.freeFeatures as unknown as string[]}
             perMonth={T.perMonth}
-            mostPopular={T.mostPopular}
+            ctaLabel={T.freeCtaLabel}
             onSelect={() => router.push("/signup")}
           />
+
+          {/* ── Card 2 · Monthly Premium ── */}
           <PricingCard
-            name={PLANS.PRO.name}
-            price={proPrice}
-            description={T.proDescription}
-            features={PLANS.PRO.features as unknown as string[]}
-            highlighted
-            priceId={proPriceId}
-            onSelect={handleSelectPro}
-            loading={loadingPlan === "PRO"}
-            billingCycle={billingCycle}
-            annualTotal={PLANS.PRO.priceAnnualTotal}
-            annualBilledAs={T.annualBilledAs}
+            name={T.monthlyName}
+            price={PLANS.PRO.priceMonthly}
+            description={T.monthlyDescription}
+            features={T.monthlyFeatures as unknown as string[]}
             perMonth={T.perMonth}
-            mostPopular={T.mostPopular}
+            badge={T.mostPopular}
+            badgeVariant="amber"
+            ctaLabel={T.monthlyCtaLabel}
+            onSelect={() => handleCheckout(PLANS.PRO.priceId, "MONTHLY")}
+            loading={loadingPlan === "MONTHLY"}
+          />
+
+          {/* ── Card 3 · Annual Premium ── */}
+          <PricingCard
+            name={T.annualName}
+            price={PLANS.PRO.priceAnnual}
+            description={T.annualDescription}
+            features={T.annualFeatures as unknown as string[]}
+            perMonth={T.perMonth}
+            billingNote={T.annualBilledAs}
+            badge={T.bestValue}
+            badgeVariant="green"
+            highlighted
+            ctaLabel={T.annualCtaLabel}
+            onSelect={() => handleCheckout(PLANS.PRO.priceIdAnnual, "ANNUAL")}
+            loading={loadingPlan === "ANNUAL"}
           />
         </div>
 
@@ -126,7 +117,7 @@ export default function PricingPage() {
       {/* FAQ */}
       <div className="bg-gray-50 py-14">
         <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-8 flex items-center gap-3 text-center justify-center">
+          <div className="mb-8 flex items-center justify-center gap-3">
             <HelpCircle className="h-5 w-5 text-indigo-600" />
             <h2 className="text-xl font-bold text-gray-900">{T.faqTitle}</h2>
           </div>
