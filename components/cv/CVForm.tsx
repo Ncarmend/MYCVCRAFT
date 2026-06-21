@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/modal";
-import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2 } from "lucide-react";
+import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2, Lock } from "lucide-react";
+import Link from "next/link";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
@@ -455,17 +456,27 @@ export function CVForm({
             {...register("summary")}
           />
 
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={handleAIGenerate}
-            loading={aiLoading === "generate"}
-          >
-            <Wand2 className="h-4 w-4" />
-            {T.personal.aiGenerateSummary}
-          </Button>
+          {isPro ? (
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={handleAIGenerate}
+              loading={aiLoading === "generate"}
+            >
+              <Wand2 className="h-4 w-4" />
+              {T.personal.aiGenerateSummary}
+            </Button>
+          ) : (
+            <Link href="/pricing">
+              <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
+                <Lock className="h-4 w-4" />
+                {T.personal.aiGenerateSummary}
+                <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-700">{T.ai.premiumBadge}</span>
+              </Button>
+            </Link>
+          )}
         </TabsContent>
 
         {/* ─── Experience ─── */}
@@ -495,15 +506,22 @@ export function CVForm({
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="text-xs font-medium text-gray-700">{T.experience.achievements}</label>
-                  <button
-                    type="button"
-                    onClick={() => handleGenerateBullets(idx)}
-                    disabled={bulletLoading === idx}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
-                  >
-                    {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
-                    {T.experience.aiGenerate}
-                  </button>
+                  {isPro ? (
+                    <button
+                      type="button"
+                      onClick={() => handleGenerateBullets(idx)}
+                      disabled={bulletLoading === idx}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
+                    >
+                      {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
+                      {T.experience.aiGenerate}
+                    </button>
+                  ) : (
+                    <Link href="/pricing" className="inline-flex items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 hover:bg-amber-100">
+                      <Lock className="h-3 w-3" />
+                      {T.ai.bulletsPremiumLabel}
+                    </Link>
+                  )}
                 </div>
                 <Textarea
                   placeholder={T.experience.achievementsPlaceholder}
@@ -747,58 +765,107 @@ export function CVForm({
         {/* ─── AI Tools ─── */}
         <TabsContent value="ai" className="space-y-4">
           {!isPro && (
-            <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-4 text-sm text-indigo-700">
+            <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm text-amber-800">
               {T.ai.upgradeNotice}
             </div>
           )}
 
           {/* ATS Check */}
-          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
+          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-3">
             <div className="flex items-center gap-2">
               <Target className="h-5 w-5 text-indigo-600" />
               <h3 className="text-sm font-semibold text-gray-900">{T.ai.atsTitle}</h3>
+              {!isPro && (
+                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                  {T.ai.premiumBadge}
+                </span>
+              )}
             </div>
             <p className="text-sm text-gray-500">{T.ai.atsDescription}</p>
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              className="gap-2"
-              onClick={handleATSCheck}
-              loading={aiLoading === "ats"}
-            >
-              <Sparkles className="h-4 w-4" />
-              {T.ai.runAtsCheck}
-            </Button>
-            {atsResult && (
-              <div className="mt-2 space-y-2">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`text-xl font-bold ${
-                      atsResult.score >= 80 ? "text-green-600" : atsResult.score >= 60 ? "text-amber-600" : "text-red-600"
-                    }`}
-                  >
-                    {atsResult.score}/100
+
+            {isPro ? (
+              <>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="gap-2"
+                  onClick={handleATSCheck}
+                  loading={aiLoading === "ats"}
+                >
+                  <Sparkles className="h-4 w-4" />
+                  {T.ai.runAtsCheck}
+                </Button>
+                {atsResult && (
+                  <div className="mt-2 space-y-2">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`text-xl font-bold ${
+                          atsResult.score >= 80 ? "text-green-600" : atsResult.score >= 60 ? "text-amber-600" : "text-red-600"
+                        }`}
+                      >
+                        {atsResult.score}/100
+                      </div>
+                      <div className="flex-1 h-2 rounded-full bg-gray-100">
+                        <div
+                          className={`h-full rounded-full ${
+                            atsResult.score >= 80 ? "bg-green-500" : atsResult.score >= 60 ? "bg-amber-500" : "bg-red-500"
+                          }`}
+                          style={{ width: `${atsResult.score}%` }}
+                        />
+                      </div>
+                    </div>
+                    {atsResult.suggestions.length > 0 && (
+                      <ul className="space-y-1.5">
+                        {atsResult.suggestions.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                            <span className="mt-1 text-amber-500">→</span>
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  <div className="flex-1 h-2 rounded-full bg-gray-100">
-                    <div
-                      className={`h-full rounded-full ${
-                        atsResult.score >= 80 ? "bg-green-500" : atsResult.score >= 60 ? "bg-amber-500" : "bg-red-500"
-                      }`}
-                      style={{ width: `${atsResult.score}%` }}
-                    />
-                  </div>
-                </div>
-                {atsResult.suggestions.length > 0 && (
-                  <ul className="space-y-1.5">
-                    {atsResult.suggestions.map((s, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="mt-1 text-amber-500">→</span>
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
                 )}
+              </>
+            ) : (
+              <div className="relative rounded-lg overflow-hidden">
+                {/* Blurred mock result */}
+                <div className="pointer-events-none select-none space-y-2 p-2 blur-sm">
+                  <div className="flex items-center gap-3">
+                    <div className="text-xl font-bold text-green-600">87/100</div>
+                    <div className="flex-1 h-2 rounded-full bg-gray-100">
+                      <div className="h-full w-[87%] rounded-full bg-green-500" />
+                    </div>
+                  </div>
+                  <ul className="space-y-1.5">
+                    <li className="flex items-start gap-2 text-sm text-gray-600">
+                      <span className="mt-1 text-amber-500">→</span>
+                      {T.ai.atsMockSugg1}
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-gray-600">
+                      <span className="mt-1 text-amber-500">→</span>
+                      {T.ai.atsMockSugg2}
+                    </li>
+                    <li className="flex items-start gap-2 text-sm text-gray-600">
+                      <span className="mt-1 text-amber-500">→</span>
+                      {T.ai.atsMockSugg3}
+                    </li>
+                  </ul>
+                </div>
+                {/* Lock overlay */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-white/75 backdrop-blur-[2px]">
+                  <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-amber-100">
+                    <Lock className="h-4 w-4 text-amber-600" />
+                  </div>
+                  <p className="mb-3 text-xs font-semibold text-gray-700">{T.ai.premiumRequired}</p>
+                  <Link href="/pricing">
+                    <Button type="button" size="sm" className="gap-2">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      {T.ai.upgradePremium}
+                    </Button>
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -809,8 +876,8 @@ export function CVForm({
               <FileText className="h-5 w-5 text-indigo-600" />
               <h3 className="text-sm font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
               {!isPro && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                  {T.ai.coverLetterProBadge}
+                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                  {T.ai.premiumBadge}
                 </span>
               )}
             </div>
@@ -830,10 +897,12 @@ export function CVForm({
                 {T.ai.generateCoverLetter}
               </Button>
             ) : (
-              <Button type="button" variant="outline" size="sm" disabled className="gap-2">
-                <Wand2 className="h-4 w-4" />
-                {T.ai.upgradeToPro}
-              </Button>
+              <Link href="/pricing">
+                <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
+                  <Lock className="h-4 w-4" />
+                  {T.ai.upgradePremium}
+                </Button>
+              </Link>
             )}
           </div>
         </TabsContent>

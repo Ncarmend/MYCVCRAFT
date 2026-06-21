@@ -12,9 +12,7 @@ export const PLANS = {
     features: [
       "1 CV",
       "2 templates",
-      "AI generation",
       "Watermarked PDF",
-      "Basic ATS check",
     ],
   },
   PRO: {

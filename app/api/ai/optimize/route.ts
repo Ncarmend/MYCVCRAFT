@@ -14,6 +14,17 @@ export async function POST(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const dbUser = await prisma.user.findUnique({
+      where: { supabaseId: user.id },
+      include: { subscription: true },
+    });
+    if (dbUser?.subscription?.plan !== "PRO") {
+      return NextResponse.json(
+        { error: "ATS optimization is a Premium feature. Please upgrade." },
+        { status: 403 }
+      );
+    }
+
     await checkAIQuota(user.id);
 
     const { cvId, data, lang = "en" } = await request.json();
@@ -33,7 +44,6 @@ export async function POST(request: NextRequest) {
 
     // Persist ATS score to DB if cvId provided
     if (cvId) {
-      const dbUser = await prisma.user.findUnique({ where: { supabaseId: user.id } });
       if (dbUser) {
         await prisma.cV.updateMany({
           where: { id: cvId, userId: dbUser.id },

@@ -6,12 +6,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOpenAIBullets } from "@/lib/openai";
 import { checkAIQuota, aiErrorResponse, AIQuotaError } from "@/lib/aiGuard";
+import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const dbUser = await prisma.user.findUnique({
+      where: { supabaseId: user.id },
+      include: { subscription: true },
+    });
+    if (dbUser?.subscription?.plan !== "PRO") {
+      return NextResponse.json(
+        { error: "AI bullet generation is a Premium feature. Please upgrade." },
+        { status: 403 }
+      );
+    }
 
     await checkAIQuota(user.id);
 
