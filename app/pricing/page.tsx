@@ -44,32 +44,32 @@ export default function PricingPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-slate-50">
       {/* Back */}
-      <div className="mx-auto max-w-7xl px-6 pt-6">
+      <div className="mx-auto max-w-5xl px-6 pt-5">
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-3.5 w-3.5" />
           {T.back}
         </button>
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-10 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+      <div className="mx-auto max-w-5xl px-6 pb-6 pt-6 text-center">
+        <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
           {T.headline}
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-gray-500">{T.subtext}</p>
+        <p className="mx-auto mt-2 max-w-md text-xs text-slate-500">{T.subtext}</p>
       </div>
 
       {/* ── 3-card grid ── */}
-      <div className="mx-auto max-w-6xl px-6 pb-14">
-        {/* Outer wrapper: equal-height columns */}
-        <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-3">
+      {/* max-w-4xl keeps cards compact (~22% narrower than previous max-w-6xl) */}
+      <div className="mx-auto max-w-4xl px-6 pb-10">
+        <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3">
 
-          {/* ── Card 1 · Free ── */}
+          {/* Card 1 · Free */}
           <PricingCard
             name={T.freeName}
             price={0}
@@ -80,7 +80,7 @@ export default function PricingPage() {
             onSelect={() => router.push("/signup")}
           />
 
-          {/* ── Card 2 · Monthly Premium ── */}
+          {/* Card 2 · Monthly Premium */}
           <PricingCard
             name={T.monthlyName}
             price={PLANS.PRO.priceMonthly}
@@ -94,7 +94,7 @@ export default function PricingPage() {
             loading={loadingPlan === "MONTHLY"}
           />
 
-          {/* ── Card 3 · Annual Premium ── */}
+          {/* Card 3 · Annual Premium */}
           <PricingCard
             name={T.annualName}
             price={PLANS.PRO.priceAnnual}
@@ -111,24 +111,24 @@ export default function PricingPage() {
           />
         </div>
 
-        <p className="mt-8 text-center text-sm text-gray-500">{T.moneyBack}</p>
+        <p className="mt-6 text-center text-xs text-slate-400">{T.moneyBack}</p>
       </div>
 
       {/* FAQ */}
-      <div className="bg-gray-50 py-14">
-        <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-8 flex items-center justify-center gap-3">
-            <HelpCircle className="h-5 w-5 text-indigo-600" />
-            <h2 className="text-xl font-bold text-gray-900">{T.faqTitle}</h2>
+      <div className="border-t border-slate-100 bg-white py-10">
+        <div className="mx-auto max-w-2xl px-6">
+          <div className="mb-6 flex items-center justify-center gap-2">
+            <HelpCircle className="h-4 w-4 text-slate-500" />
+            <h2 className="text-base font-bold text-slate-900">{T.faqTitle}</h2>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-2">
             {T.faqs.map((faq) => (
               <div
                 key={faq.q}
-                className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100"
+                className="rounded-lg bg-slate-50 px-4 py-3 ring-1 ring-slate-100"
               >
-                <h3 className="font-semibold text-gray-900">{faq.q}</h3>
-                <p className="mt-2 text-sm text-gray-500">{faq.a}</p>
+                <h3 className="text-xs font-semibold text-slate-800">{faq.q}</h3>
+                <p className="mt-1 text-xs text-slate-500">{faq.a}</p>
               </div>
             ))}
           </div>

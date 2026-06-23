@@ -7,14 +7,13 @@ import { cn } from "@/lib/utils";
 interface PricingCardProps {
   name: string;
   price: number;
-  priceLabel?: string;       // e.g. "€12" or "€9"
-  perMonth?: string;         // "/month" | "/mois"
-  billingNote?: string;      // "billed as €108/year"
+  perMonth?: string;
+  billingNote?: string;
   description: string;
   features: string[];
-  badge?: string;            // "Most Popular" | "Best Value"
+  badge?: string;
   badgeVariant?: "amber" | "green";
-  highlighted?: boolean;     // indigo background
+  highlighted?: boolean;
   currentPlan?: boolean;
   ctaLabel: string;
   onSelect: () => void;
@@ -36,23 +35,28 @@ export function PricingCard({
   onSelect,
   loading = false,
 }: PricingCardProps) {
+  // Non-highlighted cards with a badge get a slightly stronger border
+  const hasFeaturedBorder = badge && !highlighted;
+
   return (
     <div
       className={cn(
-        "relative flex h-full flex-col rounded-2xl p-6",
+        "relative flex h-full flex-col rounded-xl p-4",
         highlighted
-          ? "bg-indigo-600 text-white shadow-xl ring-1 ring-indigo-500"
-          : "bg-white ring-1 ring-gray-200 shadow-sm"
+          ? "bg-slate-700 text-white shadow-lg ring-1 ring-slate-600"
+          : hasFeaturedBorder
+          ? "bg-white shadow-md ring-2 ring-slate-300"
+          : "bg-white shadow-sm ring-1 ring-slate-200"
       )}
     >
       {/* Badge */}
       {badge && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <span
             className={cn(
-              "rounded-full px-4 py-1 text-xs font-semibold whitespace-nowrap",
+              "whitespace-nowrap rounded-full px-3 py-0.5 text-xs font-semibold",
               badgeVariant === "green"
-                ? "bg-green-100 text-green-800"
+                ? "bg-emerald-100 text-emerald-800"
                 : "bg-amber-400 text-amber-900"
             )}
           >
@@ -62,31 +66,31 @@ export function PricingCard({
       )}
 
       {/* Header */}
-      <div className="mb-5">
+      <div className="mb-3">
         <h3
           className={cn(
-            "text-lg font-bold",
-            highlighted ? "text-white" : "text-gray-900"
+            "text-sm font-semibold tracking-tight",
+            highlighted ? "text-white" : "text-slate-800"
           )}
         >
           {name}
         </h3>
         <p
           className={cn(
-            "mt-1 text-sm",
-            highlighted ? "text-indigo-200" : "text-gray-500"
+            "mt-0.5 text-xs",
+            highlighted ? "text-slate-300" : "text-slate-500"
           )}
         >
           {description}
         </p>
 
         {/* Price */}
-        <div className="mt-4">
+        <div className="mt-3">
           <div className="flex items-baseline gap-1">
             <span
               className={cn(
-                "text-4xl font-extrabold",
-                highlighted ? "text-white" : "text-gray-900"
+                "text-2xl font-bold tracking-tight",
+                highlighted ? "text-white" : "text-slate-800"
               )}
             >
               {price === 0 ? "€0" : `€${price}`}
@@ -94,8 +98,8 @@ export function PricingCard({
             {price > 0 && (
               <span
                 className={cn(
-                  "text-sm font-medium",
-                  highlighted ? "text-indigo-200" : "text-gray-400"
+                  "text-xs",
+                  highlighted ? "text-slate-300" : "text-slate-400"
                 )}
               >
                 {perMonth}
@@ -105,8 +109,8 @@ export function PricingCard({
           {billingNote && (
             <p
               className={cn(
-                "mt-1 text-xs",
-                highlighted ? "text-indigo-200" : "text-gray-400"
+                "mt-0.5 text-xs",
+                highlighted ? "text-slate-300" : "text-slate-400"
               )}
             >
               {billingNote}
@@ -118,32 +122,32 @@ export function PricingCard({
       {/* Divider */}
       <div
         className={cn(
-          "mb-5 border-t",
-          highlighted ? "border-indigo-500" : "border-gray-100"
+          "mb-3 border-t",
+          highlighted ? "border-slate-600" : "border-slate-100"
         )}
       />
 
       {/* Features */}
-      <ul className="mb-6 flex-1 space-y-2.5">
+      <ul className="mb-4 flex-1 space-y-1.5">
         {features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2.5">
+          <li key={feature} className="flex items-start gap-2">
             <div
               className={cn(
-                "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-                highlighted ? "bg-indigo-500" : "bg-indigo-50"
+                "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
+                highlighted ? "bg-slate-600" : "bg-slate-100"
               )}
             >
               <Check
                 className={cn(
-                  "h-3 w-3",
-                  highlighted ? "text-white" : "text-indigo-600"
+                  "h-2.5 w-2.5",
+                  highlighted ? "text-white" : "text-slate-600"
                 )}
               />
             </div>
             <span
               className={cn(
-                "text-sm",
-                highlighted ? "text-indigo-100" : "text-gray-600"
+                "text-xs leading-relaxed",
+                highlighted ? "text-slate-200" : "text-slate-600"
               )}
             >
               {feature}
@@ -157,12 +161,12 @@ export function PricingCard({
         onClick={onSelect}
         loading={loading}
         disabled={currentPlan}
-        size="lg"
+        size="sm"
         className={cn(
-          "mt-auto w-full font-semibold",
+          "mt-auto w-full text-xs font-semibold",
           highlighted
-            ? "bg-white text-indigo-700 hover:bg-indigo-50"
-            : "bg-indigo-600 text-white hover:bg-indigo-700"
+            ? "bg-white text-slate-700 hover:bg-slate-50"
+            : "bg-slate-600 text-white hover:bg-slate-700"
         )}
       >
         {currentPlan ? "Current plan" : ctaLabel}
