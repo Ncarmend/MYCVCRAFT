@@ -1,6 +1,8 @@
 /**
  * Main dashboard page — shows CV grid + stats
  */
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -9,9 +11,16 @@ import { Header } from "@/components/dashboard/Header";
 import { CVCard } from "@/components/dashboard/CVCard";
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, Sparkles, TrendingUp, Target } from "lucide-react";
+import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import type { CV } from "@/types";
 
-export default async function DashboardPage() {
+interface Props {
+  searchParams: Promise<{ success?: string }>;
+}
+
+export default async function DashboardPage({ searchParams }: Props) {
+  const { success } = await searchParams;
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -69,6 +78,9 @@ export default async function DashboardPage() {
 
   return (
     <div>
+      {/* Syncs live Stripe state when returning from checkout, then refreshes the page */}
+      {success === "true" && <SubscriptionSuccessSync />}
+
       <Header
         title="Dashboard"
         subtitle={`Welcome back${dbUser?.name ? `, ${dbUser.name.split(" ")[0]}` : ""}!`}

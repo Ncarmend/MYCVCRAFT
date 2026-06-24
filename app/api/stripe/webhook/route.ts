@@ -12,8 +12,33 @@ import { constructWebhookEvent } from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 import Stripe from "stripe";
 
+// Map Stripe subscription status → DB plan (trialing counts as PRO access)
+function stripePlan(status: string): "PRO" | "FREE" {
+  return status === "active" || status === "trialing" ? "PRO" : "FREE";
+}
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// Map Stripe subscription status → DB SubscriptionStatus enum
+function stripeDbStatus(
+  status: string
+): "ACTIVE" | "CANCELED" | "PAST_DUE" | "INCOMPLETE" {
+  if (status === "active" || status === "trialing") return "ACTIVE";
+  if (status === "canceled") return "CANCELED";
+  if (status === "past_due") return "PAST_DUE";
+  return "INCOMPLETE";
+}
+
+function subFields(sub: Stripe.Subscription) {
+  return {
+    stripeSubscriptionId: sub.id,
+    stripePriceId: sub.items.data[0]?.price.id,
+    stripeCurrentPeriodEnd: new Date(
+      (sub as unknown as { current_period_end: number }).current_period_end * 1000
+    ),
+    status: stripeDbStatus(sub.status),
+    plan: stripePlan(sub.status),
+  };
+}
+
 export async function POST(request: NextRequest) {
   const rawBody = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -32,6 +57,9 @@ export async function POST(request: NextRequest) {
 
   try {
     switch (event.type) {
+      // Checkout completed — create or update the subscription record immediately.
+      // Hardcode PRO/ACTIVE here; subscription.created / subscription.updated
+      // events that follow will refine status via subFields().
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         if (session.mode === "subscription" && session.metadata?.userId) {
@@ -55,21 +83,14 @@ export async function POST(request: NextRequest) {
         break;
       }
 
+      // Fires when a new subscription is created (including trial start).
+      // Must be handled so that a trialing subscription is correctly saved as PRO.
+      case "customer.subscription.created":
       case "customer.subscription.updated": {
         const sub = event.data.object as Stripe.Subscription;
-        const customerId = sub.customer as string;
         await prisma.subscription.updateMany({
-          where: { stripeCustomerId: customerId },
-          data: {
-            stripeSubscriptionId: sub.id,
-            stripePriceId: sub.items.data[0]?.price.id,
-            stripeCurrentPeriodEnd: new Date((sub as unknown as { current_period_end: number }).current_period_end * 1000),
-            status: sub.status === "active" ? "ACTIVE"
-              : sub.status === "canceled" ? "CANCELED"
-              : sub.status === "past_due" ? "PAST_DUE"
-              : "INCOMPLETE",
-            plan: sub.status === "active" ? "PRO" : "FREE",
-          },
+          where: { stripeCustomerId: sub.customer as string },
+          data: subFields(sub),
         });
         break;
       }
@@ -93,7 +114,6 @@ export async function POST(request: NextRequest) {
       }
 
       default:
-        // Ignore unhandled event types
         break;
     }
   } catch (err) {

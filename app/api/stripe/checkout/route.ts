@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createCheckoutSession } from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -19,7 +19,16 @@ export async function POST(_request: NextRequest) {
     });
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    const priceId = process.env.STRIPE_PRO_PRICE_ID;
+    // Accept either the monthly or annual price from the client; fall back to monthly.
+    const body = await request.json().catch(() => ({})) as { priceId?: string };
+    const validPriceIds = [
+      process.env.STRIPE_PRO_PRICE_ID,
+      process.env.STRIPE_PRO_ANNUAL_PRICE_ID,
+    ].filter(Boolean) as string[];
+    const priceId =
+      body.priceId && validPriceIds.includes(body.priceId)
+        ? body.priceId
+        : process.env.STRIPE_PRO_PRICE_ID;
     if (!priceId) return NextResponse.json({ error: "Stripe price not configured" }, { status: 500 });
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL!;
