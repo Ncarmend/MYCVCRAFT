@@ -19,6 +19,12 @@ export async function POST(request: NextRequest) {
       where: { supabaseId: user.id },
       include: { subscription: true },
     });
+    console.log("[ai:summary] plan check", {
+      userId: user.id,
+      plan: dbUser?.subscription?.plan,
+      status: dbUser?.subscription?.status,
+      isPro: dbUser?.subscription?.plan === "PRO",
+    });
     if (dbUser?.subscription?.plan !== "PRO") {
       return NextResponse.json(
         { error: "AI summary generation is a Premium feature. Please upgrade." },

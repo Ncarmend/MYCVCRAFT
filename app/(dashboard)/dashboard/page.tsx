@@ -10,7 +10,8 @@ import prisma from "@/lib/prisma";
 import { Header } from "@/components/dashboard/Header";
 import { CVCard } from "@/components/dashboard/CVCard";
 import { Button } from "@/components/ui/button";
-import { Plus, FileText, Sparkles, TrendingUp, Target } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle } from "lucide-react";
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import type { CV } from "@/types";
 
@@ -39,6 +40,24 @@ export default async function DashboardPage({ searchParams }: Props) {
   const isPro = dbUser?.subscription?.plan === "PRO";
   const canCreateCV = isPro || cvs.length < 1;
 
+  const trialEnd = dbUser?.subscription?.trialEnd ?? null;
+  const isTrialing = isPro && trialEnd !== null && trialEnd > new Date();
+  const trialDaysLeft = isTrialing
+    ? Math.max(1, Math.ceil((trialEnd!.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+    : 0;
+  const trialEndLabel = isTrialing
+    ? trialEnd!.toLocaleDateString("en-GB", { day: "numeric", month: "long" })
+    : null;
+
+  console.log("[dashboard] subscription", {
+    userId: dbUser?.id,
+    plan: dbUser?.subscription?.plan,
+    status: dbUser?.subscription?.status,
+    isPro,
+    isTrialing,
+    trialEnd: dbUser?.subscription?.trialEnd,
+  });
+
   const avgATS =
     cvs.filter((c) => c.atsScore !== null).length > 0
       ? Math.round(
@@ -50,12 +69,7 @@ export default async function DashboardPage({ searchParams }: Props) {
       : null;
 
   const stats = [
-    {
-      label: "Total CVs",
-      value: cvs.length,
-      icon: FileText,
-      color: "indigo",
-    },
+    { label: "Total CVs", value: cvs.length, icon: FileText, color: "indigo" },
     {
       label: "Published",
       value: cvs.filter((c) => c.status === "PUBLISHED").length,
@@ -70,7 +84,7 @@ export default async function DashboardPage({ searchParams }: Props) {
     },
     {
       label: "Plan",
-      value: isPro ? "Pro ✨" : "Free",
+      value: isPro ? "Premium ✨" : "Free",
       icon: Sparkles,
       color: "purple",
     },
@@ -115,14 +129,39 @@ export default async function DashboardPage({ searchParams }: Props) {
                 <p className="text-sm text-gray-500">{stat.label}</p>
                 <stat.icon className="h-4 w-4 text-gray-300" />
               </div>
-              <p className="mt-1.5 text-xl font-bold text-gray-900">
-                {stat.value}
-              </p>
+              <p className="mt-1.5 text-xl font-bold text-gray-900">{stat.value}</p>
             </div>
           ))}
         </div>
 
-        {/* Free plan banner */}
+        {/* Premium Active banner */}
+        {isPro && (
+          <div className="mb-6 flex flex-col gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+              <div>
+                <p className="font-semibold text-emerald-900">
+                  Premium Active — all features unlocked
+                </p>
+                {isTrialing ? (
+                  <p className="mt-0.5 text-sm text-emerald-700">
+                    Trial period · {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""} remaining
+                    {trialEndLabel && ` · ends ${trialEndLabel}`}
+                  </p>
+                ) : (
+                  <p className="mt-0.5 text-sm text-emerald-700">
+                    AI generation, ATS analysis, cover letters &amp; unlimited CVs
+                  </p>
+                )}
+              </div>
+            </div>
+            <Badge variant="success" className="shrink-0 self-start sm:self-auto">
+              Premium
+            </Badge>
+          </div>
+        )}
+
+        {/* Free plan upgrade banner */}
         {!isPro && (
           <div className="mb-6 flex flex-col gap-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-4 text-white sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -141,9 +180,7 @@ export default async function DashboardPage({ searchParams }: Props) {
 
         {/* CV grid */}
         <div>
-          <h2 className="mb-4 text-base font-semibold text-gray-900">
-            Your CVs
-          </h2>
+          <h2 className="mb-4 text-base font-semibold text-gray-900">Your CVs</h2>
           {cvs.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-10 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
@@ -165,16 +202,13 @@ export default async function DashboardPage({ searchParams }: Props) {
               {cvs.map((cv, i) => (
                 <CVCard key={cv.id} cv={cv} index={i} isPro={isPro} />
               ))}
-              {/* Add new CV card */}
               {canCreateCV && (
                 <Link href="/cv/new">
                   <div className="flex h-full min-h-[180px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
                       <Plus className="h-5 w-5" />
                     </div>
-                    <p className="mt-3 text-sm font-medium text-gray-600">
-                      New CV
-                    </p>
+                    <p className="mt-3 text-sm font-medium text-gray-600">New CV</p>
                   </div>
                 </Link>
               )}

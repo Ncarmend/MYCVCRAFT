@@ -86,6 +86,7 @@ model Subscription {
   stripeSubscriptionId   String? @unique
   stripePriceId          String?
   stripeCurrentPeriodEnd DateTime?
+  trialEnd               DateTime?
 
   plan   SubscriptionPlan   @default(FREE)
   status SubscriptionStatus @default(ACTIVE)

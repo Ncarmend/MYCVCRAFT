@@ -15,6 +15,7 @@ import {
   LogOut,
   ChevronRight,
   X,
+  CheckCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -26,7 +27,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/cv/new", label: "New CV", icon: Plus, highlight: true },
   { href: "/dashboard?tab=cvs", label: "My CVs", icon: FileText },
-  { href: "/pricing", label: "Upgrade", icon: CreditCard, badge: "Pro" },
+  { href: "/pricing", label: "Upgrade", icon: CreditCard, badge: "Pro", freeOnly: true },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
@@ -34,15 +35,35 @@ interface SidebarProps {
   userEmail?: string;
   userName?: string;
   plan?: "FREE" | "PRO";
+  trialEnd?: string | null;
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, onClose }: SidebarProps) {
+export function Sidebar({
+  userEmail,
+  userName,
+  plan = "FREE",
+  trialEnd,
+  isOpen = false,
+  onClose,
+}: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
   const { lang, setLang } = useLanguage();
+
+  const isPro = plan === "PRO";
+
+  // Compute trial state from the ISO string passed from the server
+  const trialEndDate = trialEnd ? new Date(trialEnd) : null;
+  const isTrialing = isPro && trialEndDate !== null && trialEndDate > new Date();
+  const trialDaysLeft = isTrialing
+    ? Math.max(1, Math.ceil((trialEndDate!.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+    : 0;
+
+  // Hide "Upgrade" for PRO users — they're already subscribed
+  const visibleNavItems = navItems.filter((item) => !(item.freeOnly && isPro));
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -53,13 +74,9 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
   return (
     <aside
       className={cn(
-        // Base styles
         "flex h-full w-64 shrink-0 flex-col border-r border-gray-100 bg-white",
-        // Mobile: fixed drawer that slides in/out
         "fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out",
-        // Desktop: static in flex flow, always visible
         "lg:static lg:z-auto lg:translate-x-0 lg:transition-none",
-        // Toggle on mobile
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
@@ -69,8 +86,14 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
           <Sparkles className="h-4 w-4" />
         </div>
         <span className="font-bold text-gray-900">Cvixeo</span>
-        {plan === "PRO" && (
-          <Badge variant="info" size="sm">Pro</Badge>
+        {isPro && !isTrialing && (
+          <Badge variant="success" size="sm" className="gap-1">
+            <CheckCircle className="h-3 w-3" />
+            Premium
+          </Badge>
+        )}
+        {isTrialing && (
+          <Badge variant="warning" size="sm">Trial</Badge>
         )}
         {/* Mobile close button */}
         <button
@@ -82,10 +105,19 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
         </button>
       </div>
 
+      {/* Trial countdown */}
+      {isTrialing && (
+        <div className="border-b border-amber-100 bg-amber-50 px-4 py-2 text-xs text-amber-700">
+          <span className="font-medium">Trial active</span>
+          {" · "}
+          {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""} remaining
+        </div>
+      )}
+
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto p-3">
         <ul className="space-y-1">
-          {navItems.map((item) => {
+          {visibleNavItems.map((item) => {
             const isActive =
               item.href === "/dashboard"
                 ? pathname === "/dashboard"
@@ -107,7 +139,7 @@ export function Sidebar({ userEmail, userName, plan = "FREE", isOpen = false, on
                 >
                   <item.icon className="h-4 w-4 flex-shrink-0" />
                   <span className="flex-1">{item.label}</span>
-                  {item.badge && !item.highlight && (
+                  {"badge" in item && item.badge && !item.highlight && (
                     <Badge variant="info" size="sm">{item.badge}</Badge>
                   )}
                   {isActive && !item.highlight && (

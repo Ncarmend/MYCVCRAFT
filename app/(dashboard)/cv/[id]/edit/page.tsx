@@ -37,6 +37,13 @@ export default async function EditCVPage({ params }: Props) {
   if (!cv) notFound();
 
   const isPro = dbUser.subscription?.plan === "PRO";
+  console.log("[edit-page] subscription", {
+    userId: dbUser.id,
+    plan: dbUser.subscription?.plan,
+    status: dbUser.subscription?.status,
+    trialEnd: dbUser.subscription?.trialEnd,
+    isPro,
+  });
 
   // Cast Prisma JSON fields to proper types
   

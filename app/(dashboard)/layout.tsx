@@ -33,12 +33,15 @@ export default async function DashboardLayout({
   });
 
   const plan = dbUser.subscription?.plan ?? "FREE";
+  // Pass as ISO string — client components cannot receive Date objects directly
+  const trialEnd = dbUser.subscription?.trialEnd?.toISOString() ?? null;
 
   return (
     <DashboardShell
       userEmail={user.email}
       userName={dbUser?.name || user.user_metadata?.full_name}
       plan={plan}
+      trialEnd={trialEnd}
     >
       {children}
     </DashboardShell>
