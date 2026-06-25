@@ -1,38 +1,54 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 /**
  * Invisible component rendered on /dashboard?success=true.
- * Calls the sync-subscription endpoint (which reads live Stripe state) then
- * refreshes the server components so Premium features unlock immediately,
- * without waiting for webhooks to be processed.
+ *
+ * Flow:
+ * 1. Call /api/stripe/sync-subscription → fetches live Stripe state → writes to DB
+ * 2. Show feedback toast
+ * 3. Hard-redirect to /dashboard (window.location, not router.replace) so the
+ *    browser loads a completely fresh page — bypasses the Next.js router cache
+ *    and guarantees all server components re-read the updated plan from the DB.
+ *
+ * Why hard redirect instead of router.refresh() + router.replace()?
+ * router.refresh() and router.replace() are both async tasks queued in the same
+ * tick. The navigation can complete before the cache invalidation settles, which
+ * causes the dashboard to render the old "Free" plan for an extra render cycle.
+ * window.location.replace() is a guaranteed full-page reload — no stale cache.
  */
 export function SubscriptionSuccessSync() {
-  const router = useRouter();
-
   useEffect(() => {
     const toastId = toast.loading("Activating your Premium account…");
 
     fetch("/api/stripe/sync-subscription", { method: "POST" })
       .then(async (res) => {
-        const data = await res.json().catch(() => ({}));
+        const data = await res.json().catch(() => ({})) as {
+          synced?: boolean;
+          plan?: string;
+          reason?: string;
+        };
+        console.log("[sync] response", data);
         if (data.synced && data.plan === "PRO") {
-          toast.success("Premium active! All features are now unlocked.", { id: toastId });
+          toast.success("Premium active — all features are now unlocked!", { id: toastId, duration: 3000 });
         } else {
-          toast.dismiss(toastId);
+          // Webhook may not have fired yet; the page reload will re-try on next visit.
+          toast.info("Account updated — setting up your Premium access…", { id: toastId, duration: 2000 });
         }
       })
-      .catch(() => {
-        toast.error("Could not confirm subscription status. Please refresh.", { id: toastId });
+      .catch((err) => {
+        console.error("[sync] failed", err);
+        toast.error("Could not confirm subscription. Please refresh the page.", { id: toastId });
       })
       .finally(() => {
-        router.refresh();
-        router.replace("/dashboard");
+        // Wait for the toast to be visible before redirecting
+        setTimeout(() => {
+          window.location.replace("/dashboard");
+        }, 1600);
       });
-  }, [router]);
+  }, []);
 
   return null;
 }

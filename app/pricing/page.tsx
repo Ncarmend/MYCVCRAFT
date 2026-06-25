@@ -14,13 +14,15 @@ export default function PricingPage() {
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
 
-  async function handleCheckout(priceId: string | null, planKey: string) {
-    setLoadingPlan(planKey);
+  // planType is resolved to a Stripe price ID server-side so we never
+  // expose STRIPE_PRO_PRICE_ID (a non-NEXT_PUBLIC_ var) to the browser.
+  async function handleCheckout(planType: "MONTHLY" | "ANNUAL") {
+    setLoadingPlan(planType);
     try {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId }),
+        body: JSON.stringify({ planType }),
       });
 
       if (res.status === 401) {
@@ -65,7 +67,6 @@ export default function PricingPage() {
       </div>
 
       {/* ── 3-card grid ── */}
-      {/* max-w-4xl keeps cards compact (~22% narrower than previous max-w-6xl) */}
       <div className="mx-auto max-w-4xl px-6 pb-10">
         <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3">
 
@@ -90,7 +91,7 @@ export default function PricingPage() {
             badge={T.mostPopular}
             badgeVariant="amber"
             ctaLabel={T.monthlyCtaLabel}
-            onSelect={() => handleCheckout(PLANS.PRO.priceId, "MONTHLY")}
+            onSelect={() => handleCheckout("MONTHLY")}
             loading={loadingPlan === "MONTHLY"}
           />
 
@@ -106,7 +107,7 @@ export default function PricingPage() {
             badgeVariant="green"
             highlighted
             ctaLabel={T.annualCtaLabel}
-            onSelect={() => handleCheckout(PLANS.PRO.priceIdAnnual, "ANNUAL")}
+            onSelect={() => handleCheckout("ANNUAL")}
             loading={loadingPlan === "ANNUAL"}
           />
         </div>
