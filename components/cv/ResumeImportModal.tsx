@@ -98,7 +98,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
       setError(err instanceof Error ? err.message : "Import failed. Please try again.");
       setStatus("error");
     }
-  }, [T]);
+  }, [T, lang]);
 
   // ── Drag handlers ───────────────────────────────────────────────────────────
   function onDragOver(e: React.DragEvent) {
