@@ -178,7 +178,10 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
 
           {/* ── IDLE: drop zone ── */}
           {status === "idle" && (
-            <div
+            // Using <label htmlFor> instead of onClick+programmatic .click() because
+            // Chrome blocks programmatic file input clicks from inside a Radix Dialog.
+            <label
+              htmlFor="resume-file-input"
               onDragOver={onDragOver}
               onDragLeave={onDragLeave}
               onDrop={onDrop}
@@ -187,7 +190,6 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
                   ? "border-indigo-400 bg-indigo-50"
                   : "border-gray-200 hover:border-indigo-300 hover:bg-gray-50"
               }`}
-              onClick={() => fileInputRef.current?.click()}
             >
               <div className={`mb-2 flex h-14 w-14 items-center justify-center rounded-full transition-colors ${
                 isDragging ? "bg-indigo-100" : "bg-gray-100"
@@ -203,13 +205,14 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
               </p>
               <p className="mt-3 text-xs text-gray-400">{T.dropzoneHint}</p>
               <input
+                id="resume-file-input"
                 ref={fileInputRef}
                 type="file"
                 accept={ACCEPTED}
-                className="hidden"
+                className="sr-only"
                 onChange={onFileChange}
               />
-            </div>
+            </label>
           )}
 
           {/* ── PROCESSING: 3-step progress ── */}
