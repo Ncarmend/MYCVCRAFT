@@ -1,13 +1,16 @@
 /**
  * AI generation helpers — backed by Anthropic Claude
  */
-import Anthropic from "@anthropic-ai/sdk";
+import Anthropic, { APIError, AuthenticationError, PermissionDeniedError, RateLimitError, APIConnectionError } from "@anthropic-ai/sdk";
 import type { CVFormData } from "@/types";
 
 export type Lang = "en" | "fr";
 
 let _client: Anthropic | null = null;
 function getClient(): Anthropic {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error("AI_MISSING_KEY");
+  }
   if (!_client) {
     _client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   }
@@ -34,10 +37,33 @@ async function ask(system: string, user: string, maxTokens = 2000): Promise<stri
     const block = msg.content[0];
     return block.type === "text" ? block.text : "";
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err);
-    if (msg.includes("credit balance") || msg.includes("insufficient_quota")) {
-      throw new Error("AI_NO_CREDITS");
+    // Rethrow our own sentinel errors as-is
+    if (err instanceof Error && (err.message === "AI_MISSING_KEY" || err.message === "AI_NO_CREDITS")) {
+      throw err;
     }
+    // Map Anthropic SDK errors to named sentinels so aiErrorResponse can handle them
+    if (err instanceof AuthenticationError || err instanceof PermissionDeniedError) {
+      console.error("[ai] API key rejected by Anthropic:", err.message);
+      throw new Error("AI_AUTH_ERROR");
+    }
+    if (err instanceof RateLimitError) {
+      console.error("[ai] Anthropic rate limit hit");
+      throw new Error("AI_RATE_LIMIT");
+    }
+    if (err instanceof APIConnectionError) {
+      console.error("[ai] Could not reach Anthropic API:", err.message);
+      throw new Error("AI_CONNECTION_ERROR");
+    }
+    if (err instanceof APIError) {
+      const msg = err.message ?? "";
+      if (msg.includes("credit balance") || msg.includes("insufficient_quota")) {
+        throw new Error("AI_NO_CREDITS");
+      }
+      console.error("[ai] Anthropic API error", err.status, err.message);
+      throw new Error(`AI_API_ERROR:${err.status}`);
+    }
+    // Unknown error — log the full details for debugging
+    console.error("[ai] Unexpected error in ask():", err);
     throw err;
   }
 }
@@ -45,7 +71,12 @@ async function ask(system: string, user: string, maxTokens = 2000): Promise<stri
 async function askJSON(system: string, user: string, maxTokens = 1024): Promise<unknown> {
   const text = await ask(system, user + "\n\nRespond with valid JSON only, no markdown.", maxTokens);
   const match = text.match(/\{[\s\S]*\}/);
-  return JSON.parse(match ? match[0] : text);
+  try {
+    return JSON.parse(match ? match[0] : text);
+  } catch {
+    console.error("[ai] JSON parse failed. Raw response:", text.slice(0, 500));
+    throw new Error("AI_INVALID_JSON");
+  }
 }
 
 export async function generateCV(data: CVFormData, lang: Lang = "en"): Promise<string> {

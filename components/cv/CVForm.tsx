@@ -302,6 +302,16 @@ export function CVForm({
 
   // --- AI Actions ---
 
+  /** Extracts a user-facing message from a failed AI response. */
+  async function aiErrorMessage(res: Response, fallback: string): Promise<string> {
+    try {
+      const body = await res.json();
+      if (body?.code === "QUOTA_EXCEEDED" || body?.code === "RATE_LIMIT") return T.toasts.quotaExceeded;
+      if (body?.error) return body.error;
+    } catch { /* ignore parse errors */ }
+    return fallback;
+  }
+
   async function handleAIGenerate() {
     setAiLoading("generate");
     try {
@@ -311,13 +321,12 @@ export function CVForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, lang }),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.summaryFailed)); return; }
       const { summary } = await res.json();
       setValue("summary", summary);
       toast.success(T.toasts.summaryGenerated);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "";
-      toast.error(msg.includes("quota") ? T.toasts.quotaExceeded : T.toasts.summaryFailed);
+    } catch {
+      toast.error(T.toasts.summaryFailed);
     } finally {
       setAiLoading(null);
     }
@@ -331,7 +340,7 @@ export function CVForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cvId, data: getValues(), lang }),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.atsFailed)); return; }
       const result = await res.json();
       setAtsResult({ score: result.score, suggestions: result.suggestions });
       toast.success(`${T.toasts.atsScorePrefix} ${result.score}/100`);
@@ -355,13 +364,12 @@ export function CVForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description, lang }),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.bulletsFailed)); return; }
       const { bullets } = await res.json();
       setValue(`experience.${idx}.achievements`, bullets);
       toast.success(T.toasts.bulletsGenerated);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "";
-      toast.error(msg.includes("quota") ? T.toasts.quotaExceeded : T.toasts.bulletsFailed);
+    } catch {
+      toast.error(T.toasts.bulletsFailed);
     } finally {
       setBulletLoading(null);
     }

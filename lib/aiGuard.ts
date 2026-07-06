@@ -85,11 +85,23 @@ export function aiErrorResponse(err: unknown): { error: string; code: string } {
     return { error: err.message, code: "QUOTA_EXCEEDED" };
   }
   const msg = err instanceof Error ? err.message : String(err);
-  if (msg === "AI_NO_CREDITS") {
-    return {
-      error: "Le service IA est temporairement indisponible (crédits épuisés). Réessayez dans quelques instants.",
-      code: "NO_CREDITS",
-    };
+  switch (msg) {
+    case "AI_NO_CREDITS":
+      return { error: "AI service is temporarily unavailable (credits exhausted). Please try again later.", code: "NO_CREDITS" };
+    case "AI_MISSING_KEY":
+      return { error: "AI service is not configured. Contact support.", code: "MISSING_KEY" };
+    case "AI_AUTH_ERROR":
+      return { error: "AI service authentication failed. Contact support.", code: "AUTH_ERROR" };
+    case "AI_RATE_LIMIT":
+      return { error: "Too many AI requests. Please wait a moment and try again.", code: "RATE_LIMIT" };
+    case "AI_CONNECTION_ERROR":
+      return { error: "Could not reach the AI service. Check your network connection.", code: "CONNECTION_ERROR" };
+    case "AI_INVALID_JSON":
+      return { error: "AI returned an unexpected response. Please try again.", code: "INVALID_JSON" };
+    default:
+      if (msg.startsWith("AI_API_ERROR:")) {
+        return { error: `AI service error (${msg.slice(13)}). Please try again.`, code: "API_ERROR" };
+      }
+      return { error: "AI generation failed. Please try again.", code: "UNKNOWN" };
   }
-  return { error: "AI generation failed", code: "UNKNOWN" };
 }
