@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { BasicTemplate } from "./templates/BasicTemplate";
 import { ModernTemplate } from "./templates/ModernTemplate";
 import { ExecutiveTemplate } from "./templates/Executivetemplate";
@@ -15,6 +16,9 @@ import { PhotoTemplate } from "./templates/PhotoTemplate";
 import { ClassicTemplate } from "./templates/ClassicTemplate";
 import { CrispTemplate } from "./templates/CrispTemplate";
 import type { CVFormData } from "@/types";
+
+// All templates are designed at this pixel width (US Letter at 96 dpi).
+const TEMPLATE_NATIVE_WIDTH = 816;
 
 interface CVPreviewProps {
   data: Partial<CVFormData>;
@@ -43,13 +47,35 @@ export function TemplateRenderer({ data, watermark = false }: { data: Partial<CV
 }
 
 export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.5);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const compute = () => {
+      const w = el.clientWidth;
+      if (w > 0) setScale(w / TEMPLATE_NATIVE_WIDTH);
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div
-      ref={previewRef as React.RefObject<HTMLDivElement>}
-      className="overflow-hidden rounded-xl shadow-lg ring-1 ring-gray-200"
-      style={{ transform: "scale(0.8)", transformOrigin: "top center", marginBottom: "-20%" }}
+      ref={(el) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        if (previewRef) (previewRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+      }}
+      className="rounded-xl shadow-lg ring-1 ring-gray-200 overflow-hidden"
     >
-      <TemplateRenderer data={data} watermark={watermark} />
+      {/* zoom scales both visual size and layout dimensions, so the full
+          template width is visible without overflow-clipping. */}
+      <div style={{ zoom: scale }}>
+        <TemplateRenderer data={data} watermark={watermark} />
+      </div>
     </div>
   );
 }
