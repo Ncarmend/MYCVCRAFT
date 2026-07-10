@@ -24,7 +24,8 @@ function getStripe(): Stripe {
 }
 
 /**
- * Create a Stripe Checkout session for subscription upgrade
+ * Create a Stripe Checkout session for a recurring subscription (monthly / annual).
+ * No free trial — trial has been replaced by the one-time Premium Pass.
  */
 export async function createCheckoutSession({
   customerId,
@@ -47,10 +48,36 @@ export async function createCheckoutSession({
     success_url: successUrl,
     cancel_url: cancelUrl,
     metadata: { userId },
-    subscription_data: {
-      metadata: { userId },
-      trial_period_days: 7,
-    },
+    subscription_data: { metadata: { userId } },
+    allow_promotion_codes: true,
+  });
+}
+
+/**
+ * Create a Stripe Checkout session for the one-time 7-Day Premium Pass (€3.99).
+ * Uses mode:"payment" — no subscription is created.
+ */
+export async function createPassCheckoutSession({
+  customerId,
+  priceId,
+  successUrl,
+  cancelUrl,
+  userId,
+}: {
+  customerId?: string;
+  priceId: string;
+  successUrl: string;
+  cancelUrl: string;
+  userId: string;
+}): Promise<Stripe.Checkout.Session> {
+  return getStripe().checkout.sessions.create({
+    customer: customerId,
+    mode: "payment",
+    payment_method_types: ["card"],
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+    metadata: { userId, productType: "PREMIUM_PASS" },
     allow_promotion_codes: true,
   });
 }

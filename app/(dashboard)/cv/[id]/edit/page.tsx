@@ -41,7 +41,7 @@ export default async function EditCVPage({ params }: Props) {
     userId: dbUser.id,
     plan: dbUser.subscription?.plan,
     status: dbUser.subscription?.status,
-    trialEnd: dbUser.subscription?.trialEnd,
+    premiumPassEnd: dbUser.subscription?.premiumPassEnd,
     isPro,
   });
 

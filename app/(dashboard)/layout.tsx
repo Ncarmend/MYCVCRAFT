@@ -34,16 +34,18 @@ export default async function DashboardLayout({
     include: { subscription: true },
   });
 
-  const plan = dbUser.subscription?.plan ?? "FREE";
+  const sub = dbUser.subscription;
+  const isPro = sub?.plan === "PRO" || !!(sub?.premiumPassEnd && sub.premiumPassEnd > new Date());
+  const plan = isPro ? "PRO" : "FREE";
   // Pass as ISO string — client components cannot receive Date objects directly
-  const trialEnd = dbUser.subscription?.trialEnd?.toISOString() ?? null;
+  const passEnd = sub?.premiumPassEnd?.toISOString() ?? null;
 
   return (
     <DashboardShell
       userEmail={user.email}
       userName={dbUser?.name || user.user_metadata?.full_name}
       plan={plan}
-      trialEnd={trialEnd}
+      passEnd={passEnd}
     >
       {children}
     </DashboardShell>

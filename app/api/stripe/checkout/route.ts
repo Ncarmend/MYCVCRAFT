@@ -1,14 +1,13 @@
 /**
  * POST /api/stripe/checkout
- * Creates a Stripe Checkout session for Pro subscription.
+ * Creates a Stripe Checkout session.
  *
- * Accepts { planType: "MONTHLY" | "ANNUAL" } in the request body.
- * Price IDs are resolved server-side so they are never exposed to the browser
- * (STRIPE_PRO_PRICE_ID / STRIPE_PRO_ANNUAL_PRICE_ID are not NEXT_PUBLIC_ vars).
+ * Accepts { planType: "MONTHLY" | "ANNUAL" | "PASS" } in the request body.
+ * All price IDs are resolved server-side — never exposed to the browser.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createCheckoutSession } from "@/lib/stripe";
+import { createCheckoutSession, createPassCheckoutSession } from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
@@ -23,20 +22,31 @@ export async function POST(request: NextRequest) {
     });
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    // Resolve planType → Stripe price ID entirely server-side.
-    // Never trust a price ID sent from the client (it would be null anyway since
-    // STRIPE_PRO_PRICE_ID is not exposed as a NEXT_PUBLIC_ variable).
     const body = await request.json().catch(() => ({})) as { planType?: string };
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL!;
+    const customerId = dbUser.subscription?.stripeCustomerId || undefined;
+
+    console.log("[stripe:checkout] Creating session", { userId: dbUser.id, planType: body.planType });
+
+    if (body.planType === "PASS") {
+      const priceId = process.env.STRIPE_PASS_PRICE_ID;
+      if (!priceId) return NextResponse.json({ error: "Pass price not configured" }, { status: 500 });
+      const session = await createPassCheckoutSession({
+        customerId,
+        priceId,
+        successUrl: `${appUrl}/dashboard?success=true`,
+        cancelUrl: `${appUrl}/pricing`,
+        userId: dbUser.id,
+      });
+      console.log("[stripe:checkout] Pass session created", { sessionId: session.id });
+      return NextResponse.json({ url: session.url });
+    }
+
+    // Monthly or Annual subscription
     const isAnnual = body.planType === "ANNUAL";
     const priceId = isAnnual
       ? process.env.STRIPE_PRO_ANNUAL_PRICE_ID
       : process.env.STRIPE_PRO_PRICE_ID;
-
-    console.log("[stripe:checkout] Creating session", {
-      userId: dbUser.id,
-      planType: body.planType ?? "MONTHLY",
-      priceId: priceId ? "set" : "MISSING",
-    });
 
     if (!priceId) {
       return NextResponse.json(
@@ -45,18 +55,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL!;
-
     const session = await createCheckoutSession({
-      customerId: dbUser.subscription?.stripeCustomerId || undefined,
+      customerId,
       priceId,
       successUrl: `${appUrl}/dashboard?success=true`,
       cancelUrl: `${appUrl}/pricing`,
       userId: dbUser.id,
     });
 
-    console.log("[stripe:checkout] Session created", { sessionId: session.id, url: session.url });
-
+    console.log("[stripe:checkout] Subscription session created", { sessionId: session.id });
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.error("[stripe:checkout] Error", err);

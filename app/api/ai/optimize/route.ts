@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { optimizeCV } from "@/lib/openai";
 import { checkAIQuota, aiErrorResponse, AIQuotaError } from "@/lib/aiGuard";
+import { isProUser } from "@/lib/isPro";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
       status: dbUser?.subscription?.status,
       isPro: dbUser?.subscription?.plan === "PRO",
     });
-    if (dbUser?.subscription?.plan !== "PRO") {
+    if (!isProUser(dbUser?.subscription)) {
       return NextResponse.json(
         { error: "ATS optimization is a Premium feature. Please upgrade." },
         { status: 403 }

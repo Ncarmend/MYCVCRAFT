@@ -10,10 +10,10 @@ interface Props {
   userEmail?: string;
   userName?: string;
   plan?: "FREE" | "PRO";
-  trialEnd?: string | null;
+  passEnd?: string | null;
 }
 
-export function DashboardShell({ children, userEmail, userName, plan, trialEnd }: Props) {
+export function DashboardShell({ children, userEmail, userName, plan, passEnd }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -30,7 +30,7 @@ export function DashboardShell({ children, userEmail, userName, plan, trialEnd }
         userEmail={userEmail}
         userName={userName}
         plan={plan}
-        trialEnd={trialEnd}
+        passEnd={passEnd}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />

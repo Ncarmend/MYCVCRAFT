@@ -6,14 +6,15 @@
  * Fields returned:
  *   plan                — "FREE" | "PRO"
  *   subscription_status — "ACTIVE" | "CANCELED" | "PAST_DUE" | "INCOMPLETE"
- *   trial_active        — true when plan=PRO and trial has not yet expired
- *   trial_end           — ISO string | null
+ *   pass_active         — true when premiumPassEnd is in the future
+ *   pass_end            — ISO string | null
  *   customer_id         — Stripe customer ID | null
  *   subscription_id     — Stripe subscription ID | null
  *   current_period_end  — ISO string | null
  */
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { isProUser, getPassState } from "@/lib/isPro";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
@@ -29,18 +30,14 @@ export async function GET() {
   });
 
   const sub = dbUser?.subscription;
-  const now = new Date();
-  const trialActive =
-    sub?.plan === "PRO" &&
-    sub?.trialEnd !== null &&
-    sub?.trialEnd !== undefined &&
-    sub.trialEnd > now;
+  const { active: passActive, end: passEnd } = getPassState(sub);
 
   const payload = {
     plan: sub?.plan ?? "FREE",
     subscription_status: sub?.status ?? "ACTIVE",
-    trial_active: trialActive,
-    trial_end: sub?.trialEnd?.toISOString() ?? null,
+    is_pro: isProUser(sub),
+    pass_active: passActive,
+    pass_end: passEnd?.toISOString() ?? null,
     customer_id: sub?.stripeCustomerId ?? null,
     subscription_id: sub?.stripeSubscriptionId ?? null,
     current_period_end: sub?.stripeCurrentPeriodEnd?.toISOString() ?? null,

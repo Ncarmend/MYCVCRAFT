@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { matchJobDescription } from "@/lib/openai";
+import { isProUser } from "@/lib/isPro";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
       where: { supabaseId: user.id },
       include: { subscription: true },
     });
-    if (dbUser?.subscription?.plan !== "PRO") {
+    if (!isProUser(dbUser?.subscription)) {
       return NextResponse.json(
         { error: "Job description matching is a Pro feature. Please upgrade." },
         { status: 403 }

@@ -15,6 +15,22 @@ export const PLANS = {
       "Watermarked PDF",
     ],
   },
+  PASS: {
+    name: "7-Day Premium Pass",
+    // One-time Stripe price ID — resolved server-side only
+    priceId: null,
+    price: 3.99,
+    durationDays: 7,
+    features: [
+      "PDF export (no watermark)",
+      "All Premium templates",
+      "ATS optimization",
+      "AI suggestions",
+      "Customize for job postings",
+      "Cover letter generation",
+      "Resume import & improvement",
+    ],
+  },
   PRO: {
     name: "Premium",
     // Monthly Stripe price ID

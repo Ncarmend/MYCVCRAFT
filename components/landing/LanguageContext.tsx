@@ -137,16 +137,18 @@ export const translations = {
     pricing: {
       back:             "Back",
       headline:         "Simple, transparent pricing",
-      subtext:          "Start free. Upgrade when you need more power. No hidden fees.",
-      moneyBack:        "All plans include a 14-day money-back guarantee. No questions asked.",
+      subtext:          "Start free. Try 7 days for €3.99, or subscribe for ongoing access.",
+      moneyBack:        "Subscriptions include a 14-day money-back guarantee. No questions asked.",
       faqTitle:         "Frequently asked questions",
       // Card names
       freeName:         "Free",
+      passName:         "7-Day Pass",
       monthlyName:      "Monthly Premium",
       annualName:       "Annual Premium",
       // Card descriptions
       freeDescription:  "Perfect for getting started",
-      monthlyDescription: "For serious job seekers",
+      passDescription:  "Full access for 7 days",
+      monthlyDescription: "For ongoing job seekers",
       annualDescription:  "Best value — save 25%",
       // Card features
       freeFeatures: [
@@ -155,12 +157,23 @@ export const translations = {
         "Basic templates",
         "PDF Export",
       ],
+      passFeatures: [
+        "PDF export (no watermark)",
+        "All Premium templates",
+        "ATS optimization",
+        "AI suggestions",
+        "Customize for job postings",
+        "Cover letter generation",
+        "Resume import & improvement",
+      ],
       monthlyFeatures: [
         "All Free plan features",
         "ATS Optimization",
         "Advanced AI Suggestions",
         "Automatic Experience Enhancement",
         "Customization based on job postings",
+        "Cover letter generation",
+        "Resume import & improvement",
       ],
       annualFeatures: [
         "All Premium features",
@@ -168,24 +181,27 @@ export const translations = {
       ],
       // CTA buttons
       freeCtaLabel:    "Get Started for Free",
+      passCtaLabel:    "Get 7-Day Access — €3.99",
       monthlyCtaLabel: "Subscribe for €12/month",
       annualCtaLabel:  "Subscribe for €108/year",
       // Badges & labels
+      passNew:         "Try it",
       mostPopular:     "Most Popular",
       bestValue:       "Best Value",
       saveBadge:       "Save 25%",
       perMonth:        "/month",
+      passOnce:        "one-time",
       annualBilledAs:  "billed as €108/year",
       // Legacy keys kept for backward compat
       proDescription:  "For serious job seekers",
       billingMonthly:  "Monthly",
       billingAnnual:   "Annual",
       faqs: [
-        { q: "Can I cancel anytime?",                            a: "Yes. Cancel your Premium subscription any time from your account settings. You retain Premium access until the end of your billing period." },
+        { q: "What is the 7-Day Premium Pass?",                  a: "A one-time payment of €3.99 that unlocks all Premium features for 7 days. After 7 days, you automatically revert to the Free plan. Your CVs and data are always kept." },
+        { q: "Can I cancel my subscription anytime?",            a: "Yes. Cancel your Premium subscription any time from your account settings. You retain Premium access until the end of your billing period." },
         { q: "What happens to my CVs if I downgrade?",           a: "Your CVs are always saved. On the Free plan, you can only actively edit 1 CV, but your others remain accessible in read-only mode." },
-        { q: "Is there a free trial?",                           a: "Yes — Premium comes with a 7-day free trial. No credit card required to sign up for the Free plan." },
         { q: "What is the difference between monthly and annual?", a: "Monthly is €12/month. Annual is €9/month billed as €108/year — you save 25% compared to monthly billing." },
-        { q: "What AI model powers the CV generation?",          a: "We use OpenAI's GPT-4o for all AI features — the same model behind ChatGPT's most advanced responses." },
+        { q: "What AI model powers the CV generation?",          a: "We use Claude by Anthropic for all AI features — a state-of-the-art model optimized for professional writing." },
         { q: "Are my CVs private?",                              a: "Absolutely. Your CVs are private by default. You can choose to generate a shareable link, but nothing is public unless you explicitly share it." },
       ],
     },
@@ -498,16 +514,18 @@ export const translations = {
     pricing: {
       back:             "Retour",
       headline:         "Une tarification simple et transparente",
-      subtext:          "Démarrez gratuitement. Évoluez dès que vous avez besoin de plus. Aucun frais caché.",
-      moneyBack:        "Tous les abonnements incluent une garantie satisfait ou remboursé de 14 jours. Sans condition.",
+      subtext:          "Démarrez gratuitement. Essayez 7 jours pour 3,99 €, ou abonnez-vous pour un accès continu.",
+      moneyBack:        "Les abonnements incluent une garantie satisfait ou remboursé de 14 jours. Sans condition.",
       faqTitle:         "Questions fréquentes",
       // Noms des cartes
       freeName:         "Gratuit",
+      passName:         "Pass 7 Jours",
       monthlyName:      "Premium Mensuel",
       annualName:       "Premium Annuel",
       // Descriptions
       freeDescription:  "Idéal pour démarrer",
-      monthlyDescription: "Pour les candidats sérieux",
+      passDescription:  "Accès complet pendant 7 jours",
+      monthlyDescription: "Pour les candidats actifs",
       annualDescription:  "Meilleur rapport qualité-prix — −25 %",
       // Fonctionnalités
       freeFeatures: [
@@ -516,12 +534,23 @@ export const translations = {
         "Modèles de base",
         "Export PDF",
       ],
+      passFeatures: [
+        "Export PDF sans filigrane",
+        "Tous les modèles Premium",
+        "Optimisation ATS",
+        "Suggestions IA",
+        "Personnalisation selon les offres",
+        "Génération de lettre de motivation",
+        "Import et amélioration de CV",
+      ],
       monthlyFeatures: [
         "Toutes les fonctionnalités Gratuites",
         "Optimisation ATS",
         "Suggestions IA avancées",
         "Amélioration automatique de l'expérience",
         "Personnalisation selon les offres d'emploi",
+        "Génération de lettre de motivation",
+        "Import et amélioration de CV",
       ],
       annualFeatures: [
         "Toutes les fonctionnalités Premium",
@@ -529,24 +558,27 @@ export const translations = {
       ],
       // Boutons CTA
       freeCtaLabel:    "Commencer gratuitement",
+      passCtaLabel:    "Accès 7 jours — 3,99 €",
       monthlyCtaLabel: "S'abonner pour 12 €/mois",
       annualCtaLabel:  "S'abonner pour 108 €/an",
       // Badges & labels
+      passNew:         "À essayer",
       mostPopular:     "Le plus populaire",
       bestValue:       "Meilleur prix",
       saveBadge:       "−25 %",
       perMonth:        "/mois",
+      passOnce:        "paiement unique",
       annualBilledAs:  "facturé 108 €/an",
       // Clés conservées pour la compatibilité
       proDescription:  "Pour les candidats sérieux",
       billingMonthly:  "Mensuel",
       billingAnnual:   "Annuel",
       faqs: [
-        { q: "Puis-je annuler à tout moment ?",                           a: "Oui. Annulez votre abonnement Premium à tout moment depuis les paramètres de votre compte. Vous conservez l'accès Premium jusqu'à la fin de votre période de facturation." },
+        { q: "Qu'est-ce que le Pass 7 Jours ?",                          a: "Un paiement unique de 3,99 € qui débloque toutes les fonctionnalités Premium pendant 7 jours. Après 7 jours, vous revenez automatiquement au plan Gratuit. Vos CV et données sont toujours conservés." },
+        { q: "Puis-je annuler mon abonnement à tout moment ?",           a: "Oui. Annulez votre abonnement Premium à tout moment depuis les paramètres de votre compte. Vous conservez l'accès Premium jusqu'à la fin de votre période de facturation." },
         { q: "Que deviennent mes CV si je passe à la version gratuite ?", a: "Vos CV sont toujours sauvegardés. Avec le plan Gratuit, vous ne pouvez modifier activement qu'1 CV, mais les autres restent accessibles en lecture seule." },
-        { q: "Y a-t-il un essai gratuit ?",                              a: "Oui — Premium est fourni avec un essai gratuit de 7 jours. Aucune carte bancaire requise pour s'inscrire au plan Gratuit." },
         { q: "Quelle est la différence entre mensuel et annuel ?",        a: "L'abonnement mensuel est à 12 €/mois. L'abonnement annuel est à 9 €/mois facturé 108 €/an — vous économisez 25 % par rapport à la facturation mensuelle." },
-        { q: "Quel modèle IA alimente la génération de CV ?",             a: "Nous utilisons GPT-4o d'OpenAI pour toutes les fonctionnalités IA — le même modèle qui propulse les réponses les plus avancées de ChatGPT." },
+        { q: "Quel modèle IA alimente la génération de CV ?",             a: "Nous utilisons Claude d'Anthropic pour toutes les fonctionnalités IA — un modèle de pointe optimisé pour l'écriture professionnelle." },
         { q: "Mes CV sont-ils privés ?",                                  a: "Absolument. Vos CV sont privés par défaut. Vous pouvez choisir de générer un lien partageable, mais rien n'est public sauf si vous le partagez explicitement." },
       ],
     },

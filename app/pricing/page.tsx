@@ -14,9 +14,7 @@ export default function PricingPage() {
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
 
-  // planType is resolved to a Stripe price ID server-side so we never
-  // expose STRIPE_PRO_PRICE_ID (a non-NEXT_PUBLIC_ var) to the browser.
-  async function handleCheckout(planType: "MONTHLY" | "ANNUAL") {
+  async function handleCheckout(planType: "MONTHLY" | "ANNUAL" | "PASS") {
     setLoadingPlan(planType);
     try {
       const res = await fetch("/api/stripe/checkout", {
@@ -66,9 +64,9 @@ export default function PricingPage() {
         <p className="mx-auto mt-2 max-w-md text-xs text-slate-500">{T.subtext}</p>
       </div>
 
-      {/* ── 3-card grid ── */}
-      <div className="mx-auto max-w-4xl px-6 pb-10">
-        <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3">
+      {/* ── 4-card grid ── */}
+      <div className="mx-auto max-w-5xl px-6 pb-10">
+        <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Card 1 · Free */}
           <PricingCard
@@ -81,21 +79,33 @@ export default function PricingPage() {
             onSelect={() => router.push("/signup")}
           />
 
-          {/* Card 2 · Monthly Premium */}
+          {/* Card 2 · 7-Day Premium Pass */}
+          <PricingCard
+            name={T.passName}
+            price={PLANS.PASS.price}
+            description={T.passDescription}
+            features={T.passFeatures as unknown as string[]}
+            perMonth={T.passOnce}
+            badge={T.passNew}
+            badgeVariant="amber"
+            ctaLabel={T.passCtaLabel}
+            onSelect={() => handleCheckout("PASS")}
+            loading={loadingPlan === "PASS"}
+          />
+
+          {/* Card 3 · Monthly Premium */}
           <PricingCard
             name={T.monthlyName}
             price={PLANS.PRO.priceMonthly}
             description={T.monthlyDescription}
             features={T.monthlyFeatures as unknown as string[]}
             perMonth={T.perMonth}
-            badge={T.mostPopular}
-            badgeVariant="amber"
             ctaLabel={T.monthlyCtaLabel}
             onSelect={() => handleCheckout("MONTHLY")}
             loading={loadingPlan === "MONTHLY"}
           />
 
-          {/* Card 3 · Annual Premium */}
+          {/* Card 4 · Annual Premium */}
           <PricingCard
             name={T.annualName}
             price={PLANS.PRO.priceAnnual}

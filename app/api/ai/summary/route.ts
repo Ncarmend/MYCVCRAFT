@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateSummary } from "@/lib/openai";
 import { checkAIQuota, aiErrorResponse, AIQuotaError } from "@/lib/aiGuard";
+import { isProUser } from "@/lib/isPro";
 import prisma from "@/lib/prisma";
 import type { CVFormData } from "@/types";
 
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
       status: dbUser?.subscription?.status,
       isPro: dbUser?.subscription?.plan === "PRO",
     });
-    if (dbUser?.subscription?.plan !== "PRO") {
+    if (!isProUser(dbUser?.subscription)) {
       return NextResponse.json(
         { error: "AI summary generation is a Premium feature. Please upgrade." },
         { status: 403 }

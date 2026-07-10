@@ -37,25 +37,26 @@ export default async function DashboardPage({ searchParams }: Props) {
   });
 
   const cvs = (dbUser?.cvs ?? []) as unknown as CV[];
-  const isPro = dbUser?.subscription?.plan === "PRO";
+  const sub = dbUser?.subscription;
+  const isPro = sub?.plan === "PRO" || !!(sub?.premiumPassEnd && sub.premiumPassEnd > new Date());
   const canCreateCV = isPro || cvs.length < 1;
 
-  const trialEnd = dbUser?.subscription?.trialEnd ?? null;
-  const isTrialing = isPro && trialEnd !== null && trialEnd > new Date();
-  const trialDaysLeft = isTrialing
-    ? Math.max(1, Math.ceil((trialEnd!.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+  const passEnd = sub?.premiumPassEnd ?? null;
+  const passActive = isPro && passEnd !== null && passEnd > new Date();
+  const passDaysLeft = passActive
+    ? Math.max(1, Math.ceil((passEnd!.getTime() - Date.now()) / 86_400_000))
     : 0;
-  const trialEndLabel = isTrialing
-    ? trialEnd!.toLocaleDateString("en-GB", { day: "numeric", month: "long" })
+  const passEndLabel = passActive
+    ? passEnd!.toLocaleDateString("en-GB", { day: "numeric", month: "long" })
     : null;
 
   console.log("[dashboard] subscription", {
     userId: dbUser?.id,
-    plan: dbUser?.subscription?.plan,
-    status: dbUser?.subscription?.status,
+    plan: sub?.plan,
+    status: sub?.status,
     isPro,
-    isTrialing,
-    trialEnd: dbUser?.subscription?.trialEnd,
+    passActive,
+    passEnd,
   });
 
   const avgATS =
@@ -143,10 +144,10 @@ export default async function DashboardPage({ searchParams }: Props) {
                 <p className="font-semibold text-emerald-900">
                   Premium Active — all features unlocked
                 </p>
-                {isTrialing ? (
+                {passActive ? (
                   <p className="mt-0.5 text-sm text-emerald-700">
-                    Trial period · {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""} remaining
-                    {trialEndLabel && ` · ends ${trialEndLabel}`}
+                    7-Day Pass · {passDaysLeft} day{passDaysLeft !== 1 ? "s" : ""} remaining
+                    {passEndLabel && ` · expires ${passEndLabel}`}
                   </p>
                 ) : (
                   <p className="mt-0.5 text-sm text-emerald-700">
@@ -167,12 +168,12 @@ export default async function DashboardPage({ searchParams }: Props) {
             <div>
               <p className="font-semibold">Unlock Premium — AI, ATS &amp; unlimited CVs</p>
               <p className="mt-0.5 text-sm text-indigo-100">
-                From €9/month · AI generation, ATS analysis, cover letters &amp; PDF export
+                Try 7 days for €3.99 · or subscribe from €9/month
               </p>
             </div>
             <Link href="/pricing" className="shrink-0">
               <Button className="w-full bg-white text-indigo-700 hover:bg-indigo-50 sm:w-auto">
-                Upgrade — from €9/mo
+                View plans
               </Button>
             </Link>
           </div>

@@ -31,10 +31,9 @@ export function SubscriptionSuccessSync() {
           reason?: string;
         };
         console.log("[sync] response", data);
-        if (data.synced && data.plan === "PRO") {
+        if (data.synced && (data.plan === "PRO" || data.plan === "PASS")) {
           toast.success("Premium active — all features are now unlocked!", { id: toastId, duration: 3000 });
         } else {
-          // Webhook may not have fired yet; the page reload will re-try on next visit.
           toast.info("Account updated — setting up your Premium access…", { id: toastId, duration: 2000 });
         }
       })

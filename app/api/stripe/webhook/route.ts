@@ -14,19 +14,18 @@ import Stripe from "stripe";
 
 interface StripeSubRaw {
   current_period_end: number;
-  trial_end: number | null;
 }
 
-// Map Stripe subscription status → DB plan (trialing counts as PRO access)
+// Map Stripe subscription status → DB plan
 function stripePlan(status: string): "PRO" | "FREE" {
-  return status === "active" || status === "trialing" ? "PRO" : "FREE";
+  return status === "active" ? "PRO" : "FREE";
 }
 
 // Map Stripe subscription status → DB SubscriptionStatus enum
 function stripeDbStatus(
   status: string
 ): "ACTIVE" | "CANCELED" | "PAST_DUE" | "INCOMPLETE" {
-  if (status === "active" || status === "trialing") return "ACTIVE";
+  if (status === "active") return "ACTIVE";
   if (status === "canceled") return "CANCELED";
   if (status === "past_due") return "PAST_DUE";
   return "INCOMPLETE";
@@ -43,14 +42,12 @@ function subFields(sub: Stripe.Subscription) {
     stripeStatus: sub.status,
     plan,
     dbStatus: status,
-    trialEnd: raw.trial_end,
   });
 
   return {
     stripeSubscriptionId: sub.id,
     stripePriceId: sub.items.data[0]?.price.id,
     stripeCurrentPeriodEnd: new Date(raw.current_period_end * 1000),
-    trialEnd: raw.trial_end ? new Date(raw.trial_end * 1000) : null,
     status,
     plan,
   };
@@ -76,22 +73,24 @@ export async function POST(request: NextRequest) {
 
   try {
     switch (event.type) {
-      // Checkout completed — create or update the subscription record immediately.
-      // Hardcode PRO/ACTIVE here; subscription.created / subscription.updated
-      // events that follow will refine status and trialEnd via subFields().
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
+        const userId = session.metadata?.userId;
         console.log("[stripe:webhook:checkout] session.completed", {
-          userId: session.metadata?.userId,
+          userId,
           customer: session.customer,
-          subscription: session.subscription,
           mode: session.mode,
+          productType: session.metadata?.productType,
         });
-        if (session.mode === "subscription" && session.metadata?.userId) {
+
+        if (!userId) break;
+
+        if (session.mode === "subscription") {
+          // Monthly / Annual subscription purchase
           await prisma.subscription.upsert({
-            where: { userId: session.metadata.userId },
+            where: { userId },
             create: {
-              userId: session.metadata.userId,
+              userId,
               stripeCustomerId: session.customer as string,
               stripeSubscriptionId: session.subscription as string,
               plan: "PRO",
@@ -104,7 +103,25 @@ export async function POST(request: NextRequest) {
               status: "ACTIVE",
             },
           });
-          console.log("[stripe:webhook:checkout] DB upserted → plan=PRO status=ACTIVE userId=", session.metadata.userId);
+          console.log("[stripe:webhook:checkout] Subscription → plan=PRO userId=", userId);
+        } else if (session.mode === "payment" && session.metadata?.productType === "PREMIUM_PASS") {
+          // 7-Day Premium Pass one-time purchase
+          const passEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+          await prisma.subscription.upsert({
+            where: { userId },
+            create: {
+              userId,
+              stripeCustomerId: session.customer as string | undefined,
+              premiumPassEnd: passEnd,
+              plan: "FREE",
+              status: "ACTIVE",
+            },
+            update: {
+              stripeCustomerId: session.customer as string | undefined,
+              premiumPassEnd: passEnd,
+            },
+          });
+          console.log("[stripe:webhook:checkout] Pass → premiumPassEnd=", passEnd, "userId=", userId);
         }
         break;
       }
@@ -127,7 +144,7 @@ export async function POST(request: NextRequest) {
         console.log("[stripe:webhook:sub.deleted]", { customer: sub.customer });
         await prisma.subscription.updateMany({
           where: { stripeCustomerId: sub.customer as string },
-          data: { plan: "FREE", status: "CANCELED", trialEnd: null },
+          data: { plan: "FREE", status: "CANCELED", premiumPassEnd: null },
         });
         break;
       }

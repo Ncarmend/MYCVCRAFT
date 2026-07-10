@@ -35,7 +35,7 @@ interface SidebarProps {
   userEmail?: string;
   userName?: string;
   plan?: "FREE" | "PRO";
-  trialEnd?: string | null;
+  passEnd?: string | null;
   isOpen?: boolean;
   onClose?: () => void;
 }
@@ -44,7 +44,7 @@ export function Sidebar({
   userEmail,
   userName,
   plan = "FREE",
-  trialEnd,
+  passEnd,
   isOpen = false,
   onClose,
 }: SidebarProps) {
@@ -55,14 +55,14 @@ export function Sidebar({
 
   const isPro = plan === "PRO";
 
-  // Compute trial state from the ISO string passed from the server
-  const trialEndDate = trialEnd ? new Date(trialEnd) : null;
-  const isTrialing = isPro && trialEndDate !== null && trialEndDate > new Date();
-  const trialDaysLeft = isTrialing
-    ? Math.max(1, Math.ceil((trialEndDate!.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+  // Premium Pass state — passEnd is an ISO string from the server
+  const passEndDate = passEnd ? new Date(passEnd) : null;
+  const passActive = isPro && passEndDate !== null && passEndDate > new Date();
+  const passDaysLeft = passActive
+    ? Math.max(1, Math.ceil((passEndDate!.getTime() - Date.now()) / 86_400_000))
     : 0;
 
-  // Hide "Upgrade" for PRO users — they're already subscribed
+  // Hide "Upgrade" for PRO users — they're already subscribed / have a pass
   const visibleNavItems = navItems.filter((item) => !(item.freeOnly && isPro));
 
   async function handleSignOut() {
@@ -86,14 +86,14 @@ export function Sidebar({
           <Sparkles className="h-4 w-4" />
         </div>
         <span className="font-bold text-gray-900">Cvixeo</span>
-        {isPro && !isTrialing && (
+        {isPro && !passActive && (
           <Badge variant="success" size="sm" className="gap-1">
             <CheckCircle className="h-3 w-3" />
             Premium
           </Badge>
         )}
-        {isTrialing && (
-          <Badge variant="warning" size="sm">Trial</Badge>
+        {passActive && (
+          <Badge variant="warning" size="sm">Pass</Badge>
         )}
         {/* Mobile close button */}
         <button
@@ -105,12 +105,12 @@ export function Sidebar({
         </button>
       </div>
 
-      {/* Trial countdown */}
-      {isTrialing && (
+      {/* Pass countdown */}
+      {passActive && (
         <div className="border-b border-amber-100 bg-amber-50 px-4 py-2 text-xs text-amber-700">
-          <span className="font-medium">Trial active</span>
+          <span className="font-medium">7-Day Pass</span>
           {" · "}
-          {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""} remaining
+          {passDaysLeft} day{passDaysLeft !== 1 ? "s" : ""} remaining
         </div>
       )}
 
