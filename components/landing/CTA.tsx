@@ -27,7 +27,8 @@ export function CTA() {
         <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button
-              size="md"
+              size=
+              "md"
               className="bg-white text-indigo-700 hover:bg-indigo-50 gap-2 px-8 shadow-lg"
             >
               <Sparkles className="h-5 w-5" />

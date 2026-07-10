@@ -192,6 +192,8 @@ export const translations = {
       perMonth:        "/month",
       passOnce:        "one-time",
       annualBilledAs:  "billed as €108/year",
+      previewTitle:    "What you'll build",
+      plansLabel:      "View plans",
       // Legacy keys kept for backward compat
       proDescription:  "For serious job seekers",
       billingMonthly:  "Monthly",
@@ -569,6 +571,8 @@ export const translations = {
       perMonth:        "/mois",
       passOnce:        "paiement unique",
       annualBilledAs:  "facturé 108 €/an",
+      previewTitle:    "Ce que vous allez créer",
+      plansLabel:      "Voir les offres",
       // Clés conservées pour la compatibilité
       proDescription:  "Pour les candidats sérieux",
       billingMonthly:  "Mensuel",
