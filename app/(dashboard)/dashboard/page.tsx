@@ -118,7 +118,7 @@ export default async function DashboardPage({ searchParams }: Props) {
         }
       />
 
-      <div className="p-3 sm:p-6">
+      <div className="mx-auto max-w-4xl p-3 sm:p-6">
         {/* Stats grid */}
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((stat) => (
@@ -164,7 +164,10 @@ export default async function DashboardPage({ searchParams }: Props) {
 
         {/* CV grid — shown before the upgrade prompt so users see value first */}
         <div className="mb-6">
-          <h2 className="mb-4 text-base font-semibold text-gray-900">Your CVs</h2>
+          <div className="mb-6 text-center">
+            <h2 className="text-xl font-bold tracking-tight text-gray-900">Your CVs</h2>
+            <div className="mx-auto mt-2 h-0.5 w-10 rounded-full bg-slate-600" />
+          </div>
           {cvs.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-10 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
