@@ -162,48 +162,45 @@ export default async function DashboardPage({ searchParams }: Props) {
           </div>
         )}
 
-        {/* CV grid — shown before the upgrade prompt so users see value first */}
-        <div className="mb-6">
-          {/* Centered section wrapper — prevents stretching on wide screens */}
-          <div className="mx-auto max-w-3xl">
-            <div className="mb-6 text-center">
-              <h2 className="text-xl font-bold tracking-tight text-gray-900">Your CVs</h2>
-              <div className="mx-auto mt-2 h-0.5 w-10 rounded-full bg-slate-600" />
-            </div>
-            {cvs.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-10 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                  <FileText className="h-7 w-7" />
-                </div>
-                <h3 className="mt-4 font-semibold text-gray-900">No CVs yet</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  Create your first AI-powered CV in minutes
-                </p>
-                <Link href="/cv/new" className="mt-6">
-                  <Button className="gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Create my first CV
-                  </Button>
-                </Link>
-              </div>
-            ) : (
-              <div className="grid gap-3 grid-cols-[repeat(auto-fill,minmax(260px,1fr))]">
-                {cvs.map((cv, i) => (
-                  <CVCard key={cv.id} cv={cv} index={i} isPro={isPro} />
-                ))}
-                {canCreateCV && (
-                  <Link href="/cv/new">
-                    <div className="flex h-full min-h-45 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
-                        <Plus className="h-5 w-5" />
-                      </div>
-                      <p className="mt-3 text-sm font-medium text-gray-600">New CV</p>
-                    </div>
-                  </Link>
-                )}
-              </div>
-            )}
+        {/* CV grid */}
+        <div className="mb-8">
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your CVs</h2>
+            <div className="mx-auto mt-2 h-0.5 w-12 rounded-full bg-slate-600" />
           </div>
+          {cvs.length === 0 ? (
+            <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-14 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+                <FileText className="h-8 w-8" />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-gray-900">No CVs yet</h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Create your first AI-powered CV in minutes
+              </p>
+              <Link href="/cv/new" className="mt-6">
+                <Button className="gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  Create my first CV
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+              {cvs.map((cv, i) => (
+                <CVCard key={cv.id} cv={cv} index={i} isPro={isPro} />
+              ))}
+              {canCreateCV && (
+                <Link href="/cv/new">
+                  <div className="flex h-full min-h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                      <Plus className="h-6 w-6" />
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-gray-600">New CV</p>
+                  </div>
+                </Link>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Free plan upgrade prompt — styled like a pricing card, shown after CVs */}
@@ -211,7 +208,7 @@ export default async function DashboardPage({ searchParams }: Props) {
           <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <span className="mb-2 inline-block rounded-full bg-amber-400 px-3 py-0.5 text-xs font-semibold text-amber-900">
+                <span className="mb-2 inline-block rounded-full bg-amber-200 px-3 py-0.5 text-xs font-semibold text-amber-900">
                   Try it
                 </span>
                 <p className="text-sm font-semibold text-slate-800">
