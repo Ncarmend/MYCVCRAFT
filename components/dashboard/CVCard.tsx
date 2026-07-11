@@ -7,14 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import {
-  MoreHorizontal,
-  Edit,
-  Trash2,
-  FileDown,
-  Eye,
-  Target,
-} from "lucide-react";
+import { Edit, Trash2, FileDown, Eye, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatDate, getGradient } from "@/lib/utils";
 import type { CV } from "@/types";
@@ -36,7 +29,6 @@ interface CVCardProps {
 
 export function CVCard({ cv, index, isPro }: CVCardProps) {
   const router = useRouter();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -83,93 +75,26 @@ export function CVCard({ cv, index, isPro }: CVCardProps) {
     ARCHIVED: "default" as const,
   }[cv.status];
 
+  const iconBtn =
+    "flex h-7 w-7 items-center justify-center rounded-lg transition-colors";
+
   return (
     <>
       <div className="group relative rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
         {/* Color accent header */}
-        <div
-          className={`h-2 rounded-t-2xl bg-linear-to-r ${getGradient(index)}`}
-        />
+        <div className={`h-2 rounded-t-2xl bg-linear-to-r ${getGradient(index)}`} />
 
         <div className="p-5">
           {/* Title row */}
-          <div className="flex items-start justify-between gap-2">
-            <div className="min-w-0 flex-1">
-              <h3 className="truncate font-semibold text-gray-900">
-                {cv.title || cv.name}
-              </h3>
-              <p className="mt-0.5 truncate text-sm text-gray-500">
-                {cv.jobTitle}
-              </p>
-            </div>
-
-            {/* Kebab menu */}
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-              >
-                <MoreHorizontal className="h-4 w-4" />
-              </button>
-              {menuOpen && (
-                <div
-                  className="absolute right-0 z-20 mt-1 w-44 rounded-xl border border-gray-100 bg-white py-1 shadow-lg"
-                  onBlur={() => setMenuOpen(false)}
-                >
-                  {[
-                    {
-                      icon: Edit,
-                      label: "Edit",
-                      onClick: () => router.push(`/cv/${cv.id}/edit`),
-                    },
-                    {
-                      icon: Eye,
-                      label: "Preview",
-                      onClick: () => router.push(`/cv/${cv.id}`),
-                    },
-                    {
-                      icon: FileDown,
-                      label: "Download PDF",
-                      onClick: handleDownloadPDF,
-                    },
-                    {
-                      icon: Target,
-                      label: "ATS Check",
-                      onClick: () => router.push(`/cv/${cv.id}/edit?tab=ai`),
-                    },
-                    {
-                      icon: Trash2,
-                      label: "Delete",
-                      onClick: () => {
-                        setMenuOpen(false);
-                        setDeleteOpen(true);
-                      },
-                      danger: true,
-                    },
-                  ].map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => {
-                        setMenuOpen(false);
-                        item.onClick();
-                      }}
-                      className={`flex w-full items-center gap-3 px-4 py-2 text-sm transition-colors ${
-                        item.danger
-                          ? "text-red-500 hover:bg-red-50"
-                          : "text-gray-700 hover:bg-gray-50"
-                      }`}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold text-gray-900">
+              {cv.title || cv.name}
+            </h3>
+            <p className="mt-0.5 truncate text-sm text-gray-500">{cv.jobTitle}</p>
           </div>
 
-          {/* Stats row */}
-          <div className="mt-4 flex items-center gap-3">
+          {/* Badges row */}
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             <Badge variant={statusVariant} size="sm">
               {cv.status}
             </Badge>
@@ -178,7 +103,13 @@ export function CVCard({ cv, index, isPro }: CVCardProps) {
             </Badge>
             {cv.atsScore !== null && cv.atsScore !== undefined && (
               <Badge
-                variant={cv.atsScore >= 80 ? "success" : cv.atsScore >= 60 ? "warning" : "danger"}
+                variant={
+                  cv.atsScore >= 80
+                    ? "success"
+                    : cv.atsScore >= 60
+                    ? "warning"
+                    : "danger"
+                }
                 size="sm"
               >
                 ATS {cv.atsScore}
@@ -186,17 +117,53 @@ export function CVCard({ cv, index, isPro }: CVCardProps) {
             )}
           </div>
 
-          {/* Footer */}
-          <div className="mt-4 flex items-center justify-between">
-            <span className="text-xs text-gray-400">
-              Updated {formatDate(cv.updatedAt)}
+          {/* Action row */}
+          <div className="mt-4 flex items-center justify-between gap-2 border-t border-gray-100 pt-3">
+            <span className="min-w-0 truncate text-xs text-gray-400">
+              {formatDate(cv.updatedAt)}
             </span>
-            <Link
-              href={`/cv/${cv.id}/edit`}
-              className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600"
-            >
-              Edit
-            </Link>
+
+            <div className="flex shrink-0 items-center gap-0.5">
+              <Link
+                href={`/cv/${cv.id}/edit`}
+                title="Edit"
+                className={`${iconBtn} text-gray-400 hover:bg-gray-100 hover:text-gray-700`}
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Link>
+
+              <Link
+                href={`/cv/${cv.id}`}
+                title="Preview"
+                className={`${iconBtn} text-gray-400 hover:bg-gray-100 hover:text-gray-700`}
+              >
+                <Eye className="h-3.5 w-3.5" />
+              </Link>
+
+              <button
+                onClick={handleDownloadPDF}
+                title="Download PDF"
+                className={`${iconBtn} text-gray-400 hover:bg-gray-100 hover:text-gray-700`}
+              >
+                <FileDown className="h-3.5 w-3.5" />
+              </button>
+
+              <Link
+                href={`/cv/${cv.id}/edit?tab=ai`}
+                title="ATS Check"
+                className={`${iconBtn} text-gray-400 hover:bg-gray-100 hover:text-gray-700`}
+              >
+                <Target className="h-3.5 w-3.5" />
+              </Link>
+
+              <button
+                onClick={() => setDeleteOpen(true)}
+                title="Delete"
+                className={`${iconBtn} text-gray-400 hover:bg-red-50 hover:text-red-500`}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -135,7 +135,7 @@ export default async function DashboardPage({ searchParams }: Props) {
           ))}
         </div>
 
-        {/* Premium Active banner */}
+        {/* Premium Active banner — stays near top as a status indicator */}
         {isPro && (
           <div className="mb-6 flex flex-col gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-3">
@@ -162,25 +162,8 @@ export default async function DashboardPage({ searchParams }: Props) {
           </div>
         )}
 
-        {/* Free plan upgrade banner */}
-        {!isPro && (
-          <div className="mb-6 flex flex-col gap-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 p-4 text-white sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-semibold">Unlock Premium — AI, ATS &amp; unlimited CVs</p>
-              <p className="mt-0.5 text-sm text-indigo-100">
-                Try 7 days for €3.99 · or subscribe from €9/month
-              </p>
-            </div>
-            <Link href="/pricing" className="shrink-0">
-              <Button className="w-full bg-white text-indigo-700 hover:bg-indigo-50 sm:w-auto">
-                View plans
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {/* CV grid */}
-        <div>
+        {/* CV grid — shown before the upgrade prompt so users see value first */}
+        <div className="mb-6">
           <h2 className="mb-4 text-base font-semibold text-gray-900">Your CVs</h2>
           {cvs.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-10 text-center">
@@ -205,7 +188,7 @@ export default async function DashboardPage({ searchParams }: Props) {
               ))}
               {canCreateCV && (
                 <Link href="/cv/new">
-                  <div className="flex h-full min-h-[180px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
+                  <div className="flex h-full min-h-45 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
                       <Plus className="h-5 w-5" />
                     </div>
@@ -216,6 +199,33 @@ export default async function DashboardPage({ searchParams }: Props) {
             </div>
           )}
         </div>
+
+        {/* Free plan upgrade prompt — styled like a pricing card, shown after CVs */}
+        {!isPro && (
+          <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="mb-2 inline-block rounded-full bg-amber-400 px-3 py-0.5 text-xs font-semibold text-amber-900">
+                  Try it
+                </span>
+                <p className="text-sm font-semibold text-slate-800">
+                  Unlock Premium — AI, ATS &amp; unlimited CVs
+                </p>
+                <p className="mt-0.5 text-xs text-slate-500">
+                  Try 7 days for €3.99 · or subscribe from €9/month
+                </p>
+              </div>
+              <Link href="/pricing" className="shrink-0">
+                <Button
+                  size="sm"
+                  className="w-full bg-slate-600 text-white hover:bg-slate-700 sm:w-auto"
+                >
+                  View plans
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
