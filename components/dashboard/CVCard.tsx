@@ -77,7 +77,8 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
   }[cv.status];
 
   const actionBase =
-    "flex flex-col items-center gap-1 rounded-lg px-1 py-2 transition-colors";
+    "flex flex-col items-center gap-1 rounded-lg px-1 py-2 transition-colors duration-200";
+  const actionDefault = `${actionBase} text-slate-600 hover:bg-green-50 hover:text-green-600 active:bg-green-100 active:text-green-700`;
 
   const actions = [
     {
@@ -86,7 +87,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       label: "Edit",
       as: "link" as const,
       href: `/cv/${cv.id}/edit`,
-      className: `${actionBase} text-gray-400 hover:bg-slate-50 hover:text-slate-700`,
+      className: actionDefault,
     },
     {
       key: "preview",
@@ -94,7 +95,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       label: "Preview",
       as: "link" as const,
       href: `/cv/${cv.id}`,
-      className: `${actionBase} text-gray-400 hover:bg-slate-50 hover:text-slate-700`,
+      className: actionDefault,
     },
     {
       key: "pdf",
@@ -102,7 +103,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       label: "PDF",
       as: "button" as const,
       onClick: handleDownloadPDF,
-      className: `${actionBase} text-gray-400 hover:bg-slate-50 hover:text-slate-700`,
+      className: actionDefault,
     },
     {
       key: "ats",
@@ -110,7 +111,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       label: "ATS",
       as: "link" as const,
       href: `/cv/${cv.id}/edit?tab=ai`,
-      className: `${actionBase} text-gray-400 hover:bg-slate-50 hover:text-slate-700`,
+      className: actionDefault,
     },
     {
       key: "delete",
@@ -118,7 +119,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       label: "Delete",
       as: "button" as const,
       onClick: () => setDeleteOpen(true),
-      className: `${actionBase} text-gray-400 hover:bg-red-50 hover:text-red-500`,
+      className: actionDefault,
     },
   ] as const;
 

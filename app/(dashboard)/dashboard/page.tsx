@@ -221,7 +221,7 @@ export default async function DashboardPage({ searchParams }: Props) {
               <Link href="/pricing" className="shrink-0">
                 <Button
                   size="sm"
-                  className="w-full bg-slate-600 text-white hover:bg-slate-700 sm:w-auto"
+                  className="w-full bg-slate-600 text-white hover:bg-green-600 active:bg-green-700 sm:w-auto"
                 >
                   View plans
                 </Button>

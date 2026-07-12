@@ -82,7 +82,7 @@ export function Sidebar({
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 border-b border-gray-100 px-4 py-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-600 text-white">
           <Sparkles className="h-4 w-4" />
         </div>
         <span className="font-bold text-gray-900">Cvixeo</span>
@@ -131,9 +131,9 @@ export function Sidebar({
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     item.highlight
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                      ? "bg-slate-600 text-white hover:bg-green-600 active:bg-green-700"
                       : isActive
-                      ? "bg-indigo-50 text-indigo-700"
+                      ? "bg-slate-100 text-slate-700"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
@@ -157,13 +157,13 @@ export function Sidebar({
         <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
           <button
             onClick={() => setLang("en")}
-            className={`rounded-md px-3 py-1 transition-colors ${lang === "en" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
+            className={`rounded-md px-3 py-1 transition-colors ${lang === "en" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
           >
             EN
           </button>
           <button
             onClick={() => setLang("fr")}
-            className={`rounded-md px-3 py-1 transition-colors ${lang === "fr" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
+            className={`rounded-md px-3 py-1 transition-colors ${lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
           >
             FR
           </button>
