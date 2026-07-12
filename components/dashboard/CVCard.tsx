@@ -124,7 +124,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
 
   return (
     <>
-      <div className="group relative rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      <div className="w-full flex justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
         {/* Slate-600 accent bar */}
         <div className="h-1.5 rounded-t-2xl bg-slate-600" />
 
