@@ -134,7 +134,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
             <h3 className="truncate text-base font-bold text-gray-900">
               {cv.title || cv.name}
             </h3>
-            <p className="mt-0.5 truncate text-sm text-gray-500">{cv.jobTitle}</p>
+             {/*<p className="mt-0.5 truncate text-sm text-gray-500">{cv.jobTitle}</p>*/}
           </div>
 
           {/* Badges */}

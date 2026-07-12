@@ -185,7 +185,7 @@ export default async function DashboardPage({ searchParams }: Props) {
               </Link>
             </div>
           ) : (
-            <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+            <div className="grid justify-center gap-4 grid-cols-[repeat(auto-fill,380px)]">
               {cvs.map((cv, i) => (
                 <CVCard key={cv.id} cv={cv} index={i} isPro={isPro} />
               ))}
