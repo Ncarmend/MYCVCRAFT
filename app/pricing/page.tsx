@@ -236,8 +236,8 @@ export default function PricingPage() {
           </p>
         </div>
 
-        {/* Card-styled wrapper — same look as PricingCard (non-highlighted) */}
-        <div className="rounded-xl bg-white px-4 pb-4 pt-8 shadow-sm ring-1 ring-slate-200">
+        {/* Unified dark wrapper — matches card bg */}
+        <div className="rounded-xl bg-slate-700 px-4 pb-6 pt-8 shadow-lg ring-1 ring-slate-600">
           <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
             {/* Free */}
@@ -287,7 +287,6 @@ export default function PricingPage() {
               billingNote={T.annualBilledAs}
               badge={T.bestValue}
               badgeVariant="green"
-              highlighted
               ctaLabel={T.annualCtaLabel}
               onSelect={() => handleCheckout("ANNUAL")}
               loading={loadingPlan === "ANNUAL"}
