@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function Navbar() {
@@ -14,11 +14,13 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-gray-900">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          Cvixeo
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="Cvixeo"
+            className="h-9 w-auto"
+            style={{ mixBlendMode: "multiply" }}
+          />
         </Link>
 
         {/* Desktop links */}
