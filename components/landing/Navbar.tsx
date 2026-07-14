@@ -48,7 +48,7 @@ export function Navbar() {
             <button
               onClick={() => setLang("fr")}
               className={`rounded-md px-2.5 py-1 transition-colors ${
-                lang === "fr" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"
+                lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"
               }`}
             >
               FR
@@ -72,7 +72,7 @@ export function Navbar() {
             <button
               onClick={() => setLang("en")}
               className={`rounded-md px-2 py-1 transition-colors ${
-                lang === "en" ? "bg-indigo-600 text-white" : "text-gray-500"
+                lang === "en" ? "bg-slate-600 text-white" : "text-gray-500"
               }`}
             >
               EN
@@ -80,7 +80,7 @@ export function Navbar() {
             <button
               onClick={() => setLang("fr")}
               className={`rounded-md px-2 py-1 transition-colors ${
-                lang === "fr" ? "bg-indigo-600 text-white" : "text-gray-500"
+                lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500"
               }`}
             >
               FR
@@ -88,7 +88,7 @@ export function Navbar() {
           </div>
           <Link
             href="/signup"
-            className="inline-flex h-8 items-center justify-center rounded-lg bg-indigo-600 px-3 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+            className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-600 px-3 text-sm font-medium text-white hover:bg-slate-700 transition-colors"
           >
             {T.getStarted}
           </Link>
@@ -120,7 +120,7 @@ export function Navbar() {
             >
               {T.pricing}
             </Link>
-            <div className="my-2 border-t border-gray-100" />
+            <div className="my-2 border-t border-gray-300" />
             <Link
               href="/login"
               onClick={() => setMobileOpen(false)}
