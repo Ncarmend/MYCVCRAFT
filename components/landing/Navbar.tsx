@@ -5,6 +5,14 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
+const langActive = "bg-emerald-950 text-white";
+const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
+const langBase = "rounded-md px-2.5 py-1 transition-all duration-200 ease-in-out";
+
+const langActiveMobile = "bg-emerald-950 text-white";
+const langInactiveMobile = "text-slate-600 hover:bg-green-700 hover:text-white";
+const langBaseMobile = "rounded-md px-2 py-1 transition-all duration-200 ease-in-out";
+
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, setLang } = useLanguage();
@@ -23,44 +31,49 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop nav links */}
         <div className="hidden items-center gap-8 sm:flex">
-          <Link href="#features" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+          <Link
+            href="#features"
+            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
+          >
             {T.features}
           </Link>
-          <Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+          <Link
+            href="/pricing"
+            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
+          >
             {T.pricing}
           </Link>
         </div>
 
-        {/* Desktop right side: lang toggle + auth */}
+        {/* Desktop right: lang toggle + auth */}
         <div className="hidden items-center gap-3 sm:flex">
           {/* Language toggle */}
           <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
             <button
               onClick={() => setLang("en")}
-              className={`rounded-md px-2.5 py-1 transition-colors ${
-                lang === "en" ? "bg-indigo-600 text-white" : "text-gray-500 hover:text-gray-900"
-              }`}
+              className={`${langBase} ${lang === "en" ? langActive : langInactive}`}
             >
               EN
             </button>
             <button
               onClick={() => setLang("fr")}
-              className={`rounded-md px-2.5 py-1 transition-colors ${
-                lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"
-              }`}
+              className={`${langBase} ${lang === "fr" ? langActive : langInactive}`}
             >
               FR
             </button>
           </div>
 
-          <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+          <Link
+            href="/login"
+            className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
+          >
             {T.signIn}
           </Link>
           <Link
             href="/signup"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 transition-colors"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-slate-800 px-4 text-sm font-medium text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
           >
             {T.getStarted}
           </Link>
@@ -71,30 +84,26 @@ export function Navbar() {
           <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
             <button
               onClick={() => setLang("en")}
-              className={`rounded-md px-2 py-1 transition-colors ${
-                lang === "en" ? "bg-slate-600 text-white" : "text-gray-500"
-              }`}
+              className={`${langBaseMobile} ${lang === "en" ? langActiveMobile : langInactiveMobile}`}
             >
               EN
             </button>
             <button
               onClick={() => setLang("fr")}
-              className={`rounded-md px-2 py-1 transition-colors ${
-                lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500"
-              }`}
+              className={`${langBaseMobile} ${lang === "fr" ? langActiveMobile : langInactiveMobile}`}
             >
               FR
             </button>
           </div>
           <Link
             href="/signup"
-            className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-600 px-3 text-sm font-medium text-white hover:bg-slate-700 transition-colors"
+            className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-800 px-3 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
           >
             {T.getStarted}
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 transition-colors"
+            className="rounded-lg p-2 text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-100"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -109,22 +118,22 @@ export function Navbar() {
             <Link
               href="#features"
               onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
             >
               {T.features}
             </Link>
             <Link
               href="/pricing"
               onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
             >
               {T.pricing}
             </Link>
-            <div className="my-2 border-t border-gray-300" />
+            <div className="my-2 border-t border-gray-200" />
             <Link
               href="/login"
               onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
             >
               {T.signIn}
             </Link>
