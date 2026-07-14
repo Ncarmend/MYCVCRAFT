@@ -10,7 +10,7 @@ export function CTA() {
   const T = translations[lang].cta;
 
   return (
-    <section className="relative overflow-hidden bg-indigo-600 py-14">
+    <section className="relative overflow-hidden bg-slate-700 py-14">
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -23,13 +23,12 @@ export function CTA() {
         <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
           {T.headline}
         </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm text-indigo-100">{T.subtext}</p>
+        <p className="mx-auto mt-4 max-w-md text-sm text-slate-300">{T.subtext}</p>
         <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link href="/signup">
             <Button
-              size=
-              "md"
-              className="bg-white text-indigo-700 hover:bg-indigo-50 gap-2 px-8 shadow-lg"
+              size="md"
+              className="bg-white text-slate-700 hover:bg-green-600 hover:text-white active:bg-green-700 active:text-white gap-2 px-8 shadow-lg transition-colors duration-200"
             >
               <Sparkles className="h-5 w-5" />
               {T.primary}
@@ -46,7 +45,7 @@ export function CTA() {
             </Button>
           </Link>
         </div>
-        <p className="mt-4 text-sm text-indigo-200">{T.footnote}</p>
+        <p className="mt-4 text-sm text-slate-400">{T.footnote}</p>
       </div>
     </section>
   );
