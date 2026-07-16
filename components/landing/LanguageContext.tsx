@@ -46,6 +46,7 @@ export const translations = {
     nav: {
       features: "Features",
       pricing: "Pricing",
+      contact: "Contact",
       signIn: "Sign in",
       getStarted: "Get started",
     },
@@ -206,6 +207,46 @@ export const translations = {
         { q: "What AI model powers the CV generation?",          a: "We use Claude by Anthropic for all AI features — a state-of-the-art model optimized for professional writing." },
         { q: "Are my CVs private?",                              a: "Absolutely. Your CVs are private by default. You can choose to generate a shareable link, but nothing is public unless you explicitly share it." },
       ],
+    },
+
+    // ── Contact page ────────────────────────────────────────────────────────
+    contact: {
+      title:    "Contact us",
+      subtitle: "Have a question or need help? We're here for you.",
+      form: {
+        name:               "Your name",
+        namePlaceholder:    "Jane Smith",
+        email:              "Your email",
+        emailPlaceholder:   "jane@example.com",
+        subject:            "Subject",
+        subjectPlaceholder: "How can we help you?",
+        message:            "Message",
+        messagePlaceholder: "Describe your question or issue in detail...",
+        submit:             "Send message",
+        submitting:         "Sending…",
+        successTitle:       "Message sent!",
+        successText:        "We'll get back to you within 24 hours.",
+        errorText:          "Something went wrong. Please try again.",
+      },
+      support: {
+        heading:       "We're here for you",
+        subheading:    "Our team is dedicated to helping you succeed in your job search.",
+        emailLabel:    "Support email",
+        email:         "support@cvixeo.com",
+        responseLabel: "Response time",
+        responseTime:  "Within 24 hours",
+        responseNote:  "Mon–Fri, 9 am–6 pm CET",
+        reassurance:   "We read every message personally and respond as quickly as possible. No bots, no auto-replies — a real person will always get back to you.",
+      },
+      faq: {
+        title: "Quick answers",
+        items: [
+          { q: "How do I cancel my subscription?",      a: "Go to Settings → Subscription in your dashboard and click Cancel. You keep Premium access until the end of your billing period." },
+          { q: "My PDF export isn't working.",          a: "Make sure pop-ups are allowed for this site. The PDF opens in a new tab — save it via Ctrl+P → Save as PDF." },
+          { q: "Can I get a refund?",                   a: "Yes. Subscriptions include a 14-day money-back guarantee. Contact us within 14 days of purchase and we'll refund you in full." },
+          { q: "Is my data safe?",                      a: "Absolutely. Your CVs are private by default and stored securely. We never share your data with third parties." },
+        ],
+      },
     },
 
     // ── CV Form ──────────────────────────────────────────────────────────────
@@ -431,6 +472,7 @@ export const translations = {
     nav: {
       features:   "Fonctionnalités",
       pricing:    "Tarifs",
+      contact:    "Contact",
       signIn:     "Connexion",
       getStarted: "Commencer",
     },
@@ -585,6 +627,45 @@ export const translations = {
         { q: "Quel modèle IA alimente la génération de CV ?",             a: "Nous utilisons Claude d'Anthropic pour toutes les fonctionnalités IA — un modèle de pointe optimisé pour l'écriture professionnelle." },
         { q: "Mes CV sont-ils privés ?",                                  a: "Absolument. Vos CV sont privés par défaut. Vous pouvez choisir de générer un lien partageable, mais rien n'est public sauf si vous le partagez explicitement." },
       ],
+    },
+
+    contact: {
+      title:    "Contactez-nous",
+      subtitle: "Une question ou besoin d'aide ? Nous sommes là pour vous.",
+      form: {
+        name:               "Votre nom",
+        namePlaceholder:    "Marie Dupont",
+        email:              "Votre e-mail",
+        emailPlaceholder:   "marie@exemple.com",
+        subject:            "Sujet",
+        subjectPlaceholder: "Comment pouvons-nous vous aider ?",
+        message:            "Message",
+        messagePlaceholder: "Décrivez votre question ou problème en détail...",
+        submit:             "Envoyer le message",
+        submitting:         "Envoi en cours…",
+        successTitle:       "Message envoyé !",
+        successText:        "Nous vous répondrons dans les 24 heures.",
+        errorText:          "Une erreur est survenue. Veuillez réessayer.",
+      },
+      support: {
+        heading:       "Nous sommes à votre écoute",
+        subheading:    "Notre équipe est dédiée à vous aider à réussir dans votre recherche d'emploi.",
+        emailLabel:    "E-mail de support",
+        email:         "support@cvixeo.com",
+        responseLabel: "Délai de réponse",
+        responseTime:  "Sous 24 heures",
+        responseNote:  "Lun–Ven, 9h–18h CET",
+        reassurance:   "Nous lisons chaque message personnellement et répondons aussi vite que possible. Pas de robots, pas de réponses automatiques — une vraie personne vous répondra toujours.",
+      },
+      faq: {
+        title: "Réponses rapides",
+        items: [
+          { q: "Comment annuler mon abonnement ?",          a: "Rendez-vous dans Paramètres → Abonnement de votre tableau de bord et cliquez sur Annuler. Vous conservez l'accès Premium jusqu'à la fin de votre période de facturation." },
+          { q: "Mon export PDF ne fonctionne pas.",         a: "Assurez-vous que les pop-ups sont autorisés pour ce site. Le PDF s'ouvre dans un nouvel onglet — sauvegardez-le via Ctrl+P → Enregistrer en PDF." },
+          { q: "Puis-je obtenir un remboursement ?",        a: "Oui. Les abonnements incluent une garantie satisfait ou remboursé de 14 jours. Contactez-nous dans les 14 jours suivant votre achat et nous vous rembourserons intégralement." },
+          { q: "Mes données sont-elles en sécurité ?",      a: "Absolument. Vos CV sont privés par défaut et stockés en toute sécurité. Nous ne partageons jamais vos données avec des tiers." },
+        ],
+      },
     },
 
     cvForm: {

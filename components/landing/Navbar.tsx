@@ -66,6 +66,12 @@ export function Navbar() {
           </div>
 
           <Link
+            href="/contact"
+            className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
+          >
+            {T.contact}
+          </Link>
+          <Link
             href="/login"
             className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
           >
@@ -130,6 +136,13 @@ export function Navbar() {
               {T.pricing}
             </Link>
             <div className="my-2 border-t border-gray-200" />
+            <Link
+              href="/contact"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
+            >
+              {T.contact}
+            </Link>
             <Link
               href="/login"
               onClick={() => setMobileOpen(false)}
