@@ -23,19 +23,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article) return {};
+  if (!article) return { title: "Article not found" };
 
   const title = `${article.title} | Cvixeo Career Resources`;
-  const description = article.description;
   const url = `https://cvixeo.com/careers/${article.slug}`;
 
   return {
     title,
-    description,
+    description: article.description,
     keywords: article.tags.join(", "),
     openGraph: {
       title,
-      description,
+      description: article.description,
       url,
       type: "article",
       publishedTime: article.publishedAt,
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title,
-      description,
+      description: article.description,
     },
     alternates: { canonical: url },
   };
@@ -61,7 +60,10 @@ function formatDate(iso: string) {
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article) notFound();
+
+  if (!article) {
+    notFound();
+  }
 
   const related = getRelatedArticles(article, 3);
   const style = categoryStyle[article.category];
@@ -73,18 +75,13 @@ export default async function ArticlePage({ params }: Props) {
     description: article.description,
     datePublished: article.publishedAt,
     author: { "@type": "Organization", name: "Cvixeo" },
-    publisher: {
-      "@type": "Organization",
-      name: "Cvixeo",
-      url: "https://cvixeo.com",
-    },
+    publisher: { "@type": "Organization", name: "Cvixeo", url: "https://cvixeo.com" },
     keywords: article.tags.join(", "),
     url: `https://cvixeo.com/careers/${article.slug}`,
   };
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -93,37 +90,35 @@ export default async function ArticlePage({ params }: Props) {
       <Navbar />
 
       <main className="flex-1">
-        {/* ── Article header ── */}
+        {/* ── Hero header ── */}
         <div className={`relative overflow-hidden bg-linear-to-br ${style.gradient}`}>
-          {/* Dot-pattern overlay */}
           <div
             className="absolute inset-0 opacity-10"
             style={{
-              backgroundImage:
-                "radial-gradient(circle, white 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
               backgroundSize: "22px 22px",
             }}
           />
           <div className="relative mx-auto max-w-3xl px-6 py-16 text-white">
             <Link
               href="/careers"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-white/70 transition-colors hover:text-white mb-6"
+              className="mb-6 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 transition-colors hover:text-white"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Career resources
             </Link>
 
-            <span
-              className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${style.badge} mb-4`}
-            >
-              {article.category}
-            </span>
+            <div className="mb-4">
+              <span className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${style.badge}`}>
+                {article.category}
+              </span>
+            </div>
 
             <h1 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
               {article.title}
             </h1>
 
-            <p className="mt-3 text-sm leading-relaxed text-white/80">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80">
               {article.description}
             </p>
 
@@ -142,24 +137,53 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* ── Article body ── */}
         <div className="mx-auto max-w-3xl px-6 py-12">
-          <article className="prose prose-slate prose-sm max-w-none
-            prose-headings:font-bold prose-headings:text-slate-900 prose-headings:tracking-tight
-            prose-h2:text-lg prose-h2:mt-10 prose-h2:mb-4
-            prose-p:text-slate-600 prose-p:leading-relaxed
-            prose-li:text-slate-600
-            prose-strong:text-slate-800
-            prose-a:text-green-700 prose-a:no-underline hover:prose-a:underline
-          ">
+
+          {/* Introduction */}
+          <div className="mb-10 rounded-xl bg-slate-50 px-6 py-5 ring-1 ring-slate-100">
+            {article.intro.split("\n\n").map((para, i) => (
+              <p key={i} className={`text-sm leading-7 text-slate-600 ${i > 0 ? "mt-4" : ""}`}>
+                {para}
+              </p>
+            ))}
+          </div>
+
+          {/* Sections */}
+          <div className="space-y-10">
             {article.sections.map((section, i) => (
               <section key={i}>
-                <h2>{section.heading}</h2>
-                <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                <h2 className="mb-4 text-lg font-bold tracking-tight text-slate-900">
+                  {section.heading}
+                </h2>
+                <div
+                  className="
+                    text-sm leading-7 text-slate-600
+                    [&_p]:mb-4
+                    [&_ul]:mb-4 [&_ul]:ml-5 [&_ul]:list-disc [&_ul]:space-y-2
+                    [&_ol]:mb-4 [&_ol]:ml-5 [&_ol]:list-decimal [&_ol]:space-y-2
+                    [&_li]:leading-relaxed [&_li]:text-slate-600
+                    [&_strong]:font-semibold [&_strong]:text-slate-800
+                    [&_em]:italic
+                    [&_blockquote]:border-l-4 [&_blockquote]:border-green-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-500
+                    [&_a]:text-green-700 [&_a]:underline
+                  "
+                  dangerouslySetInnerHTML={{ __html: section.body }}
+                />
               </section>
             ))}
-          </article>
+          </div>
+
+          {/* Conclusion */}
+          <div className="mt-10 border-t border-gray-100 pt-8">
+            <h2 className="mb-4 text-lg font-bold tracking-tight text-slate-900">Conclusion</h2>
+            {article.conclusion.split("\n\n").map((para, i) => (
+              <p key={i} className={`text-sm leading-7 text-slate-600 ${i > 0 ? "mt-4" : ""}`}>
+                {para}
+              </p>
+            ))}
+          </div>
 
           {/* Tags */}
-          <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-6">
+          <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-6">
             <Tag className="h-3.5 w-3.5 text-slate-400" />
             {article.tags.map((tag) => (
               <span
