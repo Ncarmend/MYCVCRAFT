@@ -129,11 +129,18 @@ export const translations = {
 
     // ── Footer ───────────────────────────────────────────────────────────────
     footer: {
-      pricing:  "Pricing",
-      features: "Features",
-      careers:  "Careers",
-      signIn:   "Sign in",
-      rights:   "All rights reserved.",
+      pricing:     "Pricing",
+      features:    "Features",
+      careers:     "Careers",
+      signIn:      "Sign in",
+      rights:      "All rights reserved.",
+      product:     "Product",
+      legal:       "Legal",
+      about:       "About",
+      privacy:     "Privacy Policy",
+      terms:       "Terms of Use",
+      cookies:     "Cookie Policy",
+      legalNotice: "Legal Notice",
     },
 
     // ── Pricing page ─────────────────────────────────────────────────────────
@@ -552,11 +559,18 @@ export const translations = {
     },
 
     footer: {
-      pricing:  "Tarifs",
-      features: "Fonctionnalités",
-      careers:  "Carrières",
-      signIn:   "Connexion",
-      rights:   "Tous droits réservés.",
+      pricing:     "Tarifs",
+      features:    "Fonctionnalités",
+      careers:     "Carrières",
+      signIn:      "Connexion",
+      rights:      "Tous droits réservés.",
+      product:     "Produit",
+      legal:       "Légal",
+      about:       "À propos",
+      privacy:     "Politique de confidentialité",
+      terms:       "Conditions d'utilisation",
+      cookies:     "Politique de cookies",
+      legalNotice: "Mentions légales",
     },
 
     pricing: {
