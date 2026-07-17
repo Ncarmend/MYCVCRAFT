@@ -46,6 +46,7 @@ export const translations = {
     nav: {
       features: "Features",
       pricing: "Pricing",
+      careers: "Careers",
       contact: "Contact",
       signIn: "Sign in",
       getStarted: "Get started",
@@ -130,6 +131,7 @@ export const translations = {
     footer: {
       pricing:  "Pricing",
       features: "Features",
+      careers:  "Careers",
       signIn:   "Sign in",
       rights:   "All rights reserved.",
     },
@@ -472,6 +474,7 @@ export const translations = {
     nav: {
       features:   "Fonctionnalités",
       pricing:    "Tarifs",
+      careers:    "Carrières",
       contact:    "Contact",
       signIn:     "Connexion",
       getStarted: "Commencer",
@@ -551,6 +554,7 @@ export const translations = {
     footer: {
       pricing:  "Tarifs",
       features: "Fonctionnalités",
+      careers:  "Carrières",
       signIn:   "Connexion",
       rights:   "Tous droits réservés.",
     },

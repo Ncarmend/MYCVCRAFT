@@ -29,6 +29,9 @@ export function LandingFooter() {
             <Link href="#features" className="transition-colors duration-200 hover:text-white">
               {T.features}
             </Link>
+            <Link href="/careers" className="transition-colors duration-200 hover:text-white">
+              {T.careers}
+            </Link>
             <Link href="/login" className="transition-colors duration-200 hover:text-white">
               {T.signIn}
             </Link>

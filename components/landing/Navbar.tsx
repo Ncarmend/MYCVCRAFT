@@ -45,6 +45,12 @@ export function Navbar() {
           >
             {T.pricing}
           </Link>
+          <Link
+            href="/careers"
+            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
+          >
+            {T.careers}
+          </Link>
         </div>
 
         {/* Desktop right: lang toggle + auth */}
@@ -134,6 +140,13 @@ export function Navbar() {
               className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
             >
               {T.pricing}
+            </Link>
+            <Link
+              href="/careers"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
+            >
+              {T.careers}
             </Link>
             <div className="my-2 border-t border-gray-200" />
             <Link
