@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
 
     // ── Notify the support inbox ─────────────────────────────────────────────
     const { error: sendError } = await resend.emails.send({
-      from: "Cvixeo Contact <onboarding@resend.dev>",
+      //from: "Cvixeo Contact <onboarding@resend.dev>",
+      from: "Cvixeo Contact <noreply@cvixeo.com>",
       to: toAddress,
       replyTo: email,
       subject: `[Contact] ${subject}`,
@@ -59,7 +60,9 @@ export async function POST(request: NextRequest) {
 
     // ── Send confirmation to the user ────────────────────────────────────────
     await resend.emails.send({
-      from: "Cvixeo Support <onboarding@resend.dev>",
+      //from: "Cvixeo Support <onboarding@resend.dev>",
+      from: "Cvixeo Support <noreply@cvixeo.com>",
+      
       to: email,
       subject: "We received your message — Cvixeo",
       html: `
