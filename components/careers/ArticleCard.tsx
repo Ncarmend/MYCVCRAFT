@@ -20,7 +20,7 @@ export function ArticleCard({ article }: { article: Article }) {
     >
       {/* Gradient cover */}
       <div
-        className={`relative h-36 bg-gradient-to-br ${style.gradient} flex-shrink-0`}
+        className={`relative h-36 bg-linear-to-br ${style.gradient} shrink-0`}
       >
         {/* Dot-pattern overlay */}
         <div

@@ -13,7 +13,7 @@ import {
 } from "@/lib/articles";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -21,7 +21,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug);
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
   if (!article) return {};
 
   const title = `${article.title} | Cvixeo Career Resources`;
@@ -57,8 +58,9 @@ function formatDate(iso: string) {
   });
 }
 
-export default function ArticlePage({ params }: Props) {
-  const article = getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
   if (!article) notFound();
 
   const related = getRelatedArticles(article, 3);
@@ -92,7 +94,7 @@ export default function ArticlePage({ params }: Props) {
 
       <main className="flex-1">
         {/* ── Article header ── */}
-        <div className={`relative overflow-hidden bg-gradient-to-br ${style.gradient}`}>
+        <div className={`relative overflow-hidden bg-linear-to-br ${style.gradient}`}>
           {/* Dot-pattern overlay */}
           <div
             className="absolute inset-0 opacity-10"
