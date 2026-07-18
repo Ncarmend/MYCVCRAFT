@@ -11,12 +11,12 @@ import {
   Plus,
   CreditCard,
   Settings,
-  Sparkles,
   LogOut,
   ChevronRight,
   X,
   CheckCircle,
 } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -82,10 +82,9 @@ export function Sidebar({
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 border-b border-gray-100 px-4 py-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-600 text-white">
-          <Sparkles className="h-4 w-4" />
-        </div>
-        <span className="font-bold text-gray-900">Cvixeo</span>
+        <Link href="/dashboard" className="flex items-center">
+          <Logo height={28} />
+        </Link>
         {isPro && !passActive && (
           <Badge variant="success" size="sm" className="gap-1">
             <CheckCircle className="h-3 w-3" />

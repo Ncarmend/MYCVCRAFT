@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { Logo } from "@/components/ui/Logo";
 
 const langActive = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
@@ -23,12 +24,7 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <img
-            src="/logo.png"
-            alt="Cvixeo"
-            className="h-9 w-auto"
-            style={{ mixBlendMode: "multiply" }}
-          />
+          <Logo height={36} />
         </Link>
 
         {/* Desktop nav links */}

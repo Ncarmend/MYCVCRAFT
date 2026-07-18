@@ -10,7 +10,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
-import { Sparkles, Mail, Lock } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 const schema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -68,11 +69,8 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4">
       <div className="w-full max-w-md">
         <div className="mb-5 text-center">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-gray-900">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <span className="text-base">Cvixeo</span>
+          <Link href="/" className="inline-flex items-center">
+            <Logo height={32} />
           </Link>
           <h1 className="mt-4 text-xl font-bold text-gray-900">Welcome back</h1>
           <p className="mt-1 text-xs text-gray-500">

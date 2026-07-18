@@ -5,6 +5,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +14,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sparkles, ChevronRight, Briefcase, User } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 
 const schema = z.object({
@@ -74,11 +76,10 @@ export default function OnboardingPage() {
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="mb-8 flex items-center justify-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-bold text-gray-900">Cvixeo</span>
+        <div className="mb-8 flex justify-center">
+          <Link href="/">
+            <Logo height={36} />
+          </Link>
         </div>
 
         {/* Progress steps */}

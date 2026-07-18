@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -35,11 +36,8 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-gray-900">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <span className="text-xl">Cvixeo</span>
+          <Link href="/" className="inline-flex items-center">
+            <Logo height={36} />
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-gray-900">Reset your password</h1>
           <p className="mt-1 text-xs text-gray-500">

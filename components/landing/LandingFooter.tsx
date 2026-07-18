@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { Logo } from "@/components/ui/Logo";
 
 export function LandingFooter() {
   const { lang } = useLanguage();
@@ -16,11 +16,8 @@ export function LandingFooter() {
 
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-2 font-bold text-white">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-500">
-                <Sparkles className="h-3.5 w-3.5 text-white" />
-              </div>
-              Cvixeo
+            <Link href="/" className="flex items-center">
+              <Logo variant="dark" height={22} />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-400">
               AI-powered CV builder for ambitious professionals. Create ATS-optimised resumes in minutes.

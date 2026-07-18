@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
-import { Menu, Sparkles } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/ui/Logo";
 
 interface Props {
   children: React.ReactNode;
@@ -45,11 +46,8 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
           >
             <Menu className="h-5 w-5" />
           </button>
-          <Link href="/dashboard" className="flex items-center gap-2 font-bold text-gray-900">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white">
-              <Sparkles className="h-3.5 w-3.5" />
-            </div>
-            Cvixeo
+          <Link href="/dashboard" className="flex items-center">
+            <Logo height={28} />
           </Link>
         </div>
 
