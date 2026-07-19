@@ -489,8 +489,8 @@ export const translations = {
 
     hero: {
       badge:     "Cvixeo — Sois vu. Sois choisi.",
-      headline1: "Décrochez l'emploi de vos rêves",
-      headline2: "avec CVIXEO",
+      headline1: "Décrochez l'emploi de vos rêves avec",
+      headline2: "CVIXEO",
       subtext:
         "Générez des CV optimisés ATS et professionnels en quelques minutes. Adaptez votre CV à n'importe quelle offre et téléchargez de beaux PDF instantanément.",
       highlights: [
