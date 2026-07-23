@@ -176,7 +176,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
       />
 
       <div className="flex flex-1 overflow-hidden">
-        <div className={`overflow-y-auto border-r border-gray-100 p-8 ${showPreview ? "flex-1" : "w-full"}`}>
+        <div className={`flex flex-col overflow-hidden border-r border-gray-100 ${showPreview ? "flex-1" : "w-full"}`}>
           <CVForm
             key={formKey}
             defaultValues={formDefaults}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,16 +14,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/modal";
 import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2, Lock } from "lucide-react";
 import Link from "next/link";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { cn } from "@/lib/utils";
 import type { CVFormData } from "@/types";
 
-// --- Zod schema (validation messages injected at render time via translateError) ---
+// --- Zod schema ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
   template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP"]),
@@ -88,7 +88,6 @@ const schema = z.object({
   ),
 });
 
-// Template values are fixed product names; only descs are translated
 const TEMPLATE_KEYS = [
   { value: "BASIC",     label: "Basic" },
   { value: "MODERN",    label: "Modern" },
@@ -106,7 +105,6 @@ const TEMPLATE_KEYS = [
   { value: "CRISP",     label: "Crisp" },
 ];
 
-// Proficiency enum values must stay in English (stored in DB), labels are translated
 const PROFICIENCY_VALUES = ["Native", "Fluent", "Advanced", "Intermediate", "Basic"] as const;
 
 const SAMPLE_CV: Partial<CVFormData> = {
@@ -225,6 +223,24 @@ function TemplatePicker({ value, onChange }: { value: string; onChange: (v: stri
   );
 }
 
+// ── Section navigation ──────────────────────────────────────────────────────
+
+const SECTION_IDS = [
+  "personal",
+  "experience",
+  "education",
+  "skills",
+  "projects",
+  "languages",
+  "certifications",
+  "templates",
+  "ai",
+] as const;
+
+type SectionId = typeof SECTION_IDS[number];
+
+// ── CVForm ───────────────────────────────────────────────────────────────────
+
 interface CVFormProps {
   defaultValues?: Partial<CVFormData>;
   onSave: (data: CVFormData) => Promise<void>;
@@ -302,13 +318,12 @@ export function CVForm({
 
   // --- AI Actions ---
 
-  /** Extracts a user-facing message from a failed AI response. */
   async function aiErrorMessage(res: Response, fallback: string): Promise<string> {
     try {
       const body = await res.json();
       if (body?.code === "QUOTA_EXCEEDED" || body?.code === "RATE_LIMIT") return T.toasts.quotaExceeded;
       if (body?.error) return body.error;
-    } catch { /* ignore parse errors */ }
+    } catch { /* ignore */ }
     return fallback;
   }
 
@@ -388,536 +403,649 @@ export function CVForm({
     setValue("skills", current.filter((s) => s !== skill));
   }
 
+  // ── Section navigation ───────────────────────────────────────────────────
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const navRef    = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState<SectionId>("personal");
+
+  // Scrollspy: update active section as the user scrolls
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    function handleScroll() {
+      const containerTop = container!.getBoundingClientRect().top;
+      let current: SectionId = SECTION_IDS[0];
+      for (const id of SECTION_IDS) {
+        const el = container!.querySelector<HTMLElement>(`#section-${id}`);
+        if (!el) continue;
+        // If the section's top is within 80 px of the container's top edge, it's "active"
+        if (el.getBoundingClientRect().top - containerTop <= 80) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    }
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Keep the active nav button scrolled into view (horizontal nav on mobile)
+  useEffect(() => {
+    const btn = navRef.current?.querySelector<HTMLElement>(`[data-section="${activeSection}"]`);
+    btn?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+  }, [activeSection]);
+
+  function scrollToSection(id: SectionId) {
+    const el = scrollRef.current?.querySelector<HTMLElement>(`#section-${id}`);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveSection(id);
+  }
+
+  const sectionLabels: Record<SectionId, string> = {
+    personal:       T.tabs.personal,
+    experience:     T.tabs.experience,
+    education:      T.tabs.education,
+    skills:         T.tabs.skills,
+    projects:       T.tabs.projects,
+    languages:      T.tabs.languages,
+    certifications: T.tabs.certifications,
+    templates:      T.tabs.templates,
+    ai:             T.tabs.aiTools,
+  };
+
+  // ── Render ───────────────────────────────────────────────────────────────
+
   return (
-    <form onSubmit={handleSubmit(onSave)} className="space-y-2">
-      <Tabs defaultValue="personal">
-        <TabsList>
-          <TabsTrigger value="personal">{T.tabs.personal}</TabsTrigger>
-          <TabsTrigger value="experience">{T.tabs.experience}</TabsTrigger>
-          <TabsTrigger value="education">{T.tabs.education}</TabsTrigger>
-          <TabsTrigger value="skills">{T.tabs.skills}</TabsTrigger>
-          <TabsTrigger value="projects">{T.tabs.projects}</TabsTrigger>
-          <TabsTrigger value="languages">{T.tabs.languages}</TabsTrigger>
-          <TabsTrigger value="certifications">{T.tabs.certifications}</TabsTrigger>
-          <TabsTrigger value="templates">{T.tabs.templates}</TabsTrigger>
-          <TabsTrigger value="ai">{T.tabs.aiTools}</TabsTrigger>
-        </TabsList>
+    <form onSubmit={handleSubmit(onSave)} className="flex flex-col flex-1 min-h-0">
 
-        {/* ─── Personal ─── */}
-        <TabsContent value="personal" className="space-y-3">
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              label={T.personal.cvTitle}
-              placeholder={T.personal.cvTitlePlaceholder}
-              error={errors.title ? T.validation.titleRequired : undefined}
-              {...register("title")}
-            />
-            <div className="flex flex-col gap-0.5">
-              <label className="text-xs font-medium text-gray-700">{T.personal.template}</label>
-              <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs">
-                <span className="font-medium text-gray-800">
-                  {TEMPLATE_KEYS.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
-                </span>
-                <span className="text-xs text-gray-400">{T.personal.templateHint}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              label={T.personal.fullName}
-              placeholder={T.personal.fullNamePlaceholder}
-              error={errors.name ? T.validation.nameRequired : undefined}
-              {...register("name")}
-            />
-            <Input
-              label={T.personal.jobTitle}
-              placeholder={T.personal.jobTitlePlaceholder}
-              error={errors.jobTitle ? T.validation.jobTitleRequired : undefined}
-              {...register("jobTitle")}
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Input label={T.personal.email}    type="email" placeholder={T.personal.emailPlaceholder}    {...register("email")} />
-            <Input label={T.personal.phone}             placeholder={T.personal.phonePlaceholder}    {...register("phone")} />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Input label={T.personal.location}  placeholder={T.personal.locationPlaceholder}  {...register("location")} />
-            <Input label={T.personal.website}   placeholder={T.personal.websitePlaceholder}   {...register("website")} />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Input label={T.personal.linkedin}  placeholder={T.personal.linkedinPlaceholder}  {...register("linkedin")} />
-            <Input label={T.personal.github}    placeholder={T.personal.githubPlaceholder}    {...register("github")} />
-          </div>
-
-          <Input label={T.personal.portfolio} placeholder={T.personal.portfolioPlaceholder} {...register("portfolio")} />
-
-          <PhotoUpload value={watch("photoUrl")} onChange={(url) => setValue("photoUrl", url)} />
-
-          <Textarea
-            label={T.personal.summary}
-            placeholder={T.personal.summaryPlaceholder}
-            rows={5}
-            {...register("summary")}
-          />
-
-          {isPro ? (
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              className="gap-2"
-              onClick={handleAIGenerate}
-              loading={aiLoading === "generate"}
-            >
-              <Wand2 className="h-4 w-4" />
-              {T.personal.aiGenerateSummary}
-            </Button>
-          ) : (
-            <Link href="/pricing">
-              <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
-                <Lock className="h-4 w-4" />
-                {T.personal.aiGenerateSummary}
-                <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-700">{T.ai.premiumBadge}</span>
-              </Button>
-            </Link>
-          )}
-        </TabsContent>
-
-        {/* ─── Experience ─── */}
-        <TabsContent value="experience" className="space-y-3">
-          {expFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-700">{T.experience.position} {idx + 1}</h4>
-                <button type="button" onClick={() => removeExp(idx)} className="text-red-400 hover:text-red-600">
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.experience.company} placeholder={T.experience.companyPlaceholder} {...register(`experience.${idx}.company`)} />
-                <Input label={T.experience.role}    placeholder={T.experience.rolePlaceholder}    {...register(`experience.${idx}.role`)} />
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.experience.startDate} placeholder={T.experience.startDatePlaceholder} {...register(`experience.${idx}.startDate`)} />
-                <Input label={T.experience.endDate}   placeholder={T.experience.endDatePlaceholder}   {...register(`experience.${idx}.endDate`)} />
-              </div>
-              <Textarea
-                label={T.experience.description}
-                placeholder={T.experience.descriptionPlaceholder}
-                rows={3}
-                {...register(`experience.${idx}.description`)}
-              />
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-gray-700">{T.experience.achievements}</label>
-                  {isPro ? (
-                    <button
-                      type="button"
-                      onClick={() => handleGenerateBullets(idx)}
-                      disabled={bulletLoading === idx}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
-                    >
-                      {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
-                      {T.experience.aiGenerate}
-                    </button>
-                  ) : (
-                    <Link href="/pricing" className="inline-flex items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 hover:bg-amber-100">
-                      <Lock className="h-3 w-3" />
-                      {T.ai.bulletsPremiumLabel}
-                    </Link>
-                  )}
-                </div>
-                <Textarea
-                  placeholder={T.experience.achievementsPlaceholder}
-                  rows={3}
-                  value={watch(`experience.${idx}.achievements`)?.join("\n") ?? ""}
-                  onChange={(e) => {
-                    const lines = e.target.value.split("\n").filter(Boolean);
-                    setValue(`experience.${idx}.achievements`, lines);
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={() =>
-              appendExp({ id: crypto.randomUUID(), company: "", role: "", startDate: "", endDate: T.experience.endDatePlaceholder, description: "", achievements: [] })
-            }
-          >
-            <Plus className="h-4 w-4" />
-            {T.experience.addPosition}
-          </Button>
-        </TabsContent>
-
-        {/* ─── Education ─── */}
-        <TabsContent value="education" className="space-y-3">
-          {eduFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-700">{T.education.education} {idx + 1}</h4>
-                <button type="button" onClick={() => removeEdu(idx)} className="text-red-400 hover:text-red-600">
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.education.institution} placeholder={T.education.institutionPlaceholder} {...register(`education.${idx}.institution`)} />
-                <Input label={T.education.degree}      placeholder={T.education.degreePlaceholder}      {...register(`education.${idx}.degree`)} />
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                <Input label={T.education.field}     placeholder={T.education.fieldPlaceholder}     {...register(`education.${idx}.field`)} />
-                <Input label={T.education.startYear} placeholder={T.education.startYearPlaceholder} {...register(`education.${idx}.startDate`)} />
-                <Input label={T.education.endYear}   placeholder={T.education.endYearPlaceholder}   {...register(`education.${idx}.endDate`)} />
-              </div>
-              <Input label={T.education.grade} placeholder={T.education.gradePlaceholder} {...register(`education.${idx}.grade`)} />
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={() =>
-              appendEdu({ id: crypto.randomUUID(), institution: "", degree: "", field: "", startDate: "", endDate: "" })
-            }
-          >
-            <Plus className="h-4 w-4" />
-            {T.education.addEducation}
-          </Button>
-        </TabsContent>
-
-        {/* ─── Skills ─── */}
-        <TabsContent value="skills" className="space-y-3">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={skillInput}
-              onChange={(e) => setSkillInput(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addSkill(); }}}
-              placeholder={T.skills.placeholder}
-              className="flex-1 rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <Button type="button" onClick={addSkill} size="md" variant="secondary">
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2 min-h-[40px] rounded-xl border border-gray-100 bg-gray-50 p-2">
-            {skills.length === 0 && (
-              <p className="text-xs text-gray-400">{T.skills.noSkills}</p>
-            )}
-            {skills.map((skill) => (
-              <span
-                key={skill}
-                className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs text-indigo-700"
+      {/* ── Sticky section navigator ── */}
+      <div className="shrink-0 border-b border-gray-100 bg-white">
+        <div
+          ref={navRef}
+          className="overflow-x-auto py-2 px-4"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          <div className="inline-flex items-center rounded-xl bg-gray-100 p-0.5 gap-0.5">
+            {SECTION_IDS.map((id) => (
+              <button
+                key={id}
+                type="button"
+                data-section={id}
+                onClick={() => scrollToSection(id)}
+                className={cn(
+                  "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+                  "transition-all duration-200",
+                  activeSection === id
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800 hover:bg-white/60"
+                )}
               >
-                {skill}
-                <button
-                  type="button"
-                  onClick={() => removeSkill(skill)}
-                  className="rounded-full text-indigo-400 hover:text-indigo-600"
-                >
-                  ×
-                </button>
-              </span>
+                {sectionLabels[id]}
+              </button>
             ))}
           </div>
-          <p className="text-xs text-gray-400">{T.skills.tip}</p>
-        </TabsContent>
+        </div>
+      </div>
 
-        {/* ─── Projects ─── */}
-        <TabsContent value="projects" className="space-y-3">
-          {projFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-700">{T.projects.project} {idx + 1}</h4>
-                <button type="button" onClick={() => removeProj(idx)} className="text-red-400 hover:text-red-600">
-                  <Trash2 className="h-4 w-4" />
-                </button>
+      {/* ── Scrollable content ── */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
+        <div className="px-6 py-5 space-y-10">
+
+          {/* ─── Personal ─── */}
+          <section id="section-personal" className="space-y-3">
+            <SectionHeading>{T.tabs.personal}</SectionHeading>
+
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                label={T.personal.cvTitle}
+                placeholder={T.personal.cvTitlePlaceholder}
+                error={errors.title ? T.validation.titleRequired : undefined}
+                {...register("title")}
+              />
+              <div className="flex flex-col gap-0.5">
+                <label className="text-xs font-medium text-gray-700">{T.personal.template}</label>
+                <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs">
+                  <span className="font-medium text-gray-800">
+                    {TEMPLATE_KEYS.find((t) => t.value === (watch("template") || "BASIC"))?.label ?? "Basic"}
+                  </span>
+                  <span className="text-xs text-gray-400">{T.personal.templateHint}</span>
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.projects.name} placeholder={T.projects.namePlaceholder} {...register(`projects.${idx}.name`)} />
-                <Input label={T.projects.url}  placeholder={T.projects.urlPlaceholder}  {...register(`projects.${idx}.url`)} />
-              </div>
-              <Textarea
-                label={T.projects.description}
-                placeholder={T.projects.descriptionPlaceholder}
-                rows={2}
-                {...register(`projects.${idx}.description`)}
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                label={T.personal.fullName}
+                placeholder={T.personal.fullNamePlaceholder}
+                error={errors.name ? T.validation.nameRequired : undefined}
+                {...register("name")}
               />
               <Input
-                label={T.projects.technologies}
-                placeholder={T.projects.technologiesPlaceholder}
-                onChange={(e) => {
-                  const techs = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
-                  setValue(`projects.${idx}.technologies`, techs);
-                }}
-                defaultValue={field.technologies?.join(", ")}
+                label={T.personal.jobTitle}
+                placeholder={T.personal.jobTitlePlaceholder}
+                error={errors.jobTitle ? T.validation.jobTitleRequired : undefined}
+                {...register("jobTitle")}
               />
             </div>
-          ))}
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={() => appendProj({ id: crypto.randomUUID(), name: "", description: "", technologies: [] })}
-          >
-            <Plus className="h-4 w-4" />
-            {T.projects.addProject}
-          </Button>
-        </TabsContent>
 
-        {/* ─── Languages ─── */}
-        <TabsContent value="languages" className="space-y-3">
-          {langFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-700">{T.languages.language} {idx + 1}</h4>
-                <button type="button" onClick={() => removeLang(idx)} className="text-red-400 hover:text-red-600">
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.languages.language} placeholder={T.languages.languagePlaceholder} {...register(`languages.${idx}.name`)} />
-                <div className="flex flex-col gap-0.5">
-                  <label className="text-xs font-medium text-gray-700">{T.languages.proficiency}</label>
-                  <Select
-                    defaultValue={field.proficiency}
-                    onValueChange={(v) => {
-                      setValue(`languages.${idx}.proficiency`, v as "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic");
-                    }}
-                  >
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {PROFICIENCY_VALUES.map((p, i) => (
-                        <SelectItem key={p} value={p}>{T.languages.proficiencyOptions[i]}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Input label={T.personal.email}    type="email" placeholder={T.personal.emailPlaceholder}    {...register("email")} />
+              <Input label={T.personal.phone}             placeholder={T.personal.phonePlaceholder}    {...register("phone")} />
             </div>
-          ))}
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={() => appendLang({ id: crypto.randomUUID(), name: "", proficiency: "Fluent" })}
-          >
-            <Plus className="h-4 w-4" />
-            {T.languages.addLanguage}
-          </Button>
-        </TabsContent>
 
-        {/* ─── Certifications ─── */}
-        <TabsContent value="certifications" className="space-y-3">
-          {certFields.map((field, idx) => (
-            <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-700">{T.certifications.certification} {idx + 1}</h4>
-                <button type="button" onClick={() => removeCert(idx)} className="text-red-400 hover:text-red-600">
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Input label={T.certifications.name}   placeholder={T.certifications.namePlaceholder}   {...register(`certifications.${idx}.name`)} />
-                <Input label={T.certifications.issuer} placeholder={T.certifications.issuerPlaceholder} {...register(`certifications.${idx}.issuer`)} />
-                <Input label={T.certifications.date}   placeholder={T.certifications.datePlaceholder}   {...register(`certifications.${idx}.date`)} />
-                <Input label={T.certifications.url}    placeholder={T.certifications.urlPlaceholder}    {...register(`certifications.${idx}.url`)} />
-              </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Input label={T.personal.location}  placeholder={T.personal.locationPlaceholder}  {...register("location")} />
+              <Input label={T.personal.website}   placeholder={T.personal.websitePlaceholder}   {...register("website")} />
             </div>
-          ))}
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="gap-2"
-            onClick={() => appendCert({ id: crypto.randomUUID(), name: "", issuer: "", date: "", url: "" })}
-          >
-            <Plus className="h-4 w-4" />
-            {T.certifications.addCertification}
-          </Button>
-        </TabsContent>
 
-        {/* ─── Templates ─── */}
-        <TabsContent value="templates" className="space-y-4">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-800 mb-1">{T.templates.chooseTemplate}</h3>
-            <p className="text-xs text-gray-500 mb-3">{T.templates.chooseTemplateHint}</p>
-            <TemplatePicker
-              value={watch("template") || defaultValues?.template || "BASIC"}
-              onChange={(v) => setValue("template", v as CVFormData["template"])}
+            <div className="grid grid-cols-2 gap-2">
+              <Input label={T.personal.linkedin}  placeholder={T.personal.linkedinPlaceholder}  {...register("linkedin")} />
+              <Input label={T.personal.github}    placeholder={T.personal.githubPlaceholder}    {...register("github")} />
+            </div>
+
+            <Input label={T.personal.portfolio} placeholder={T.personal.portfolioPlaceholder} {...register("portfolio")} />
+
+            <PhotoUpload value={watch("photoUrl")} onChange={(url) => setValue("photoUrl", url)} />
+
+            <Textarea
+              label={T.personal.summary}
+              placeholder={T.personal.summaryPlaceholder}
+              rows={5}
+              {...register("summary")}
             />
-          </div>
 
-          <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-            <p className="text-xs font-semibold text-gray-700 mb-2">{T.templates.aboutTemplates}</p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-gray-500">
-              {T.templates.groups.map((g) => (
-                <span key={g.names}>
-                  <strong className="text-gray-700">{g.names}</strong> — {g.desc}
-                </span>
-              ))}
-            </div>
-          </div>
-        </TabsContent>
-
-        {/* ─── AI Tools ─── */}
-        <TabsContent value="ai" className="space-y-4">
-          {!isPro && (
-            <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm text-amber-800">
-              {T.ai.upgradeNotice}
-            </div>
-          )}
-
-          {/* ATS Check */}
-          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-3">
-            <div className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-indigo-600" />
-              <h3 className="text-sm font-semibold text-gray-900">{T.ai.atsTitle}</h3>
-              {!isPro && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-                  {T.ai.premiumBadge}
-                </span>
-              )}
-            </div>
-            <p className="text-sm text-gray-500">{T.ai.atsDescription}</p>
-
-            {isPro ? (
-              <>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  className="gap-2"
-                  onClick={handleATSCheck}
-                  loading={aiLoading === "ats"}
-                >
-                  <Sparkles className="h-4 w-4" />
-                  {T.ai.runAtsCheck}
-                </Button>
-                {atsResult && (
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`text-xl font-bold ${
-                          atsResult.score >= 80 ? "text-green-600" : atsResult.score >= 60 ? "text-amber-600" : "text-red-600"
-                        }`}
-                      >
-                        {atsResult.score}/100
-                      </div>
-                      <div className="flex-1 h-2 rounded-full bg-gray-100">
-                        <div
-                          className={`h-full rounded-full ${
-                            atsResult.score >= 80 ? "bg-green-500" : atsResult.score >= 60 ? "bg-amber-500" : "bg-red-500"
-                          }`}
-                          style={{ width: `${atsResult.score}%` }}
-                        />
-                      </div>
-                    </div>
-                    {atsResult.suggestions.length > 0 && (
-                      <ul className="space-y-1.5">
-                        {atsResult.suggestions.map((s, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                            <span className="mt-1 text-amber-500">→</span>
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="relative rounded-lg overflow-hidden">
-                {/* Blurred mock result */}
-                <div className="pointer-events-none select-none space-y-2 p-2 blur-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="text-xl font-bold text-green-600">87/100</div>
-                    <div className="flex-1 h-2 rounded-full bg-gray-100">
-                      <div className="h-full w-[87%] rounded-full bg-green-500" />
-                    </div>
-                  </div>
-                  <ul className="space-y-1.5">
-                    <li className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1 text-amber-500">→</span>
-                      {T.ai.atsMockSugg1}
-                    </li>
-                    <li className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1 text-amber-500">→</span>
-                      {T.ai.atsMockSugg2}
-                    </li>
-                    <li className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1 text-amber-500">→</span>
-                      {T.ai.atsMockSugg3}
-                    </li>
-                  </ul>
-                </div>
-                {/* Lock overlay */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-white/75 backdrop-blur-[2px]">
-                  <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-amber-100">
-                    <Lock className="h-4 w-4 text-amber-600" />
-                  </div>
-                  <p className="mb-3 text-xs font-semibold text-gray-700">{T.ai.premiumRequired}</p>
-                  <Link href="/pricing">
-                    <Button type="button" size="sm" className="gap-2">
-                      <Sparkles className="h-3.5 w-3.5" />
-                      {T.ai.upgradePremium}
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Cover Letter */}
-          <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
-            <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-indigo-600" />
-              <h3 className="text-sm font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
-              {!isPro && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-                  {T.ai.premiumBadge}
-                </span>
-              )}
-            </div>
-            <p className="text-sm text-gray-500">{T.ai.coverLetterDescription}</p>
             {isPro ? (
               <Button
                 type="button"
                 variant="secondary"
                 size="sm"
                 className="gap-2"
-                onClick={() => toast.info(lang === "fr"
-                  ? "Collez la description du poste ci-dessous et cliquez sur Générer"
-                  : "Paste the job description in the field below and click generate"
-                )}
+                onClick={handleAIGenerate}
+                loading={aiLoading === "generate"}
               >
                 <Wand2 className="h-4 w-4" />
-                {T.ai.generateCoverLetter}
+                {T.personal.aiGenerateSummary}
               </Button>
             ) : (
               <Link href="/pricing">
                 <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
                   <Lock className="h-4 w-4" />
-                  {T.ai.upgradePremium}
+                  {T.personal.aiGenerateSummary}
+                  <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-700">{T.ai.premiumBadge}</span>
                 </Button>
               </Link>
             )}
-          </div>
-        </TabsContent>
-      </Tabs>
+          </section>
 
+          <Divider />
+
+          {/* ─── Experience ─── */}
+          <section id="section-experience" className="space-y-3">
+            <SectionHeading>{T.tabs.experience}</SectionHeading>
+
+            {expFields.map((field, idx) => (
+              <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700">{T.experience.position} {idx + 1}</h4>
+                  <button type="button" onClick={() => removeExp(idx)} className="text-red-400 hover:text-red-600">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.experience.company} placeholder={T.experience.companyPlaceholder} {...register(`experience.${idx}.company`)} />
+                  <Input label={T.experience.role}    placeholder={T.experience.rolePlaceholder}    {...register(`experience.${idx}.role`)} />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.experience.startDate} placeholder={T.experience.startDatePlaceholder} {...register(`experience.${idx}.startDate`)} />
+                  <Input label={T.experience.endDate}   placeholder={T.experience.endDatePlaceholder}   {...register(`experience.${idx}.endDate`)} />
+                </div>
+                <Textarea
+                  label={T.experience.description}
+                  placeholder={T.experience.descriptionPlaceholder}
+                  rows={3}
+                  {...register(`experience.${idx}.description`)}
+                />
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-medium text-gray-700">{T.experience.achievements}</label>
+                    {isPro ? (
+                      <button
+                        type="button"
+                        onClick={() => handleGenerateBullets(idx)}
+                        disabled={bulletLoading === idx}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
+                      >
+                        {bulletLoading === idx ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
+                        {T.experience.aiGenerate}
+                      </button>
+                    ) : (
+                      <Link href="/pricing" className="inline-flex items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 hover:bg-amber-100">
+                        <Lock className="h-3 w-3" />
+                        {T.ai.bulletsPremiumLabel}
+                      </Link>
+                    )}
+                  </div>
+                  <Textarea
+                    placeholder={T.experience.achievementsPlaceholder}
+                    rows={3}
+                    value={watch(`experience.${idx}.achievements`)?.join("\n") ?? ""}
+                    onChange={(e) => {
+                      const lines = e.target.value.split("\n").filter(Boolean);
+                      setValue(`experience.${idx}.achievements`, lines);
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={() =>
+                appendExp({ id: crypto.randomUUID(), company: "", role: "", startDate: "", endDate: T.experience.endDatePlaceholder, description: "", achievements: [] })
+              }
+            >
+              <Plus className="h-4 w-4" />
+              {T.experience.addPosition}
+            </Button>
+          </section>
+
+          <Divider />
+
+          {/* ─── Education ─── */}
+          <section id="section-education" className="space-y-3">
+            <SectionHeading>{T.tabs.education}</SectionHeading>
+
+            {eduFields.map((field, idx) => (
+              <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700">{T.education.education} {idx + 1}</h4>
+                  <button type="button" onClick={() => removeEdu(idx)} className="text-red-400 hover:text-red-600">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.education.institution} placeholder={T.education.institutionPlaceholder} {...register(`education.${idx}.institution`)} />
+                  <Input label={T.education.degree}      placeholder={T.education.degreePlaceholder}      {...register(`education.${idx}.degree`)} />
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <Input label={T.education.field}     placeholder={T.education.fieldPlaceholder}     {...register(`education.${idx}.field`)} />
+                  <Input label={T.education.startYear} placeholder={T.education.startYearPlaceholder} {...register(`education.${idx}.startDate`)} />
+                  <Input label={T.education.endYear}   placeholder={T.education.endYearPlaceholder}   {...register(`education.${idx}.endDate`)} />
+                </div>
+                <Input label={T.education.grade} placeholder={T.education.gradePlaceholder} {...register(`education.${idx}.grade`)} />
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={() =>
+                appendEdu({ id: crypto.randomUUID(), institution: "", degree: "", field: "", startDate: "", endDate: "" })
+              }
+            >
+              <Plus className="h-4 w-4" />
+              {T.education.addEducation}
+            </Button>
+          </section>
+
+          <Divider />
+
+          {/* ─── Skills ─── */}
+          <section id="section-skills" className="space-y-3">
+            <SectionHeading>{T.tabs.skills}</SectionHeading>
+
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={skillInput}
+                onChange={(e) => setSkillInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addSkill(); }}}
+                placeholder={T.skills.placeholder}
+                className="flex-1 rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <Button type="button" onClick={addSkill} size="md" variant="secondary">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2 min-h-10 rounded-xl border border-gray-100 bg-gray-50 p-2">
+              {skills.length === 0 && (
+                <p className="text-xs text-gray-400">{T.skills.noSkills}</p>
+              )}
+              {skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs text-indigo-700"
+                >
+                  {skill}
+                  <button
+                    type="button"
+                    onClick={() => removeSkill(skill)}
+                    className="rounded-full text-indigo-400 hover:text-indigo-600"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400">{T.skills.tip}</p>
+          </section>
+
+          <Divider />
+
+          {/* ─── Projects ─── */}
+          <section id="section-projects" className="space-y-3">
+            <SectionHeading>{T.tabs.projects}</SectionHeading>
+
+            {projFields.map((field, idx) => (
+              <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700">{T.projects.project} {idx + 1}</h4>
+                  <button type="button" onClick={() => removeProj(idx)} className="text-red-400 hover:text-red-600">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.projects.name} placeholder={T.projects.namePlaceholder} {...register(`projects.${idx}.name`)} />
+                  <Input label={T.projects.url}  placeholder={T.projects.urlPlaceholder}  {...register(`projects.${idx}.url`)} />
+                </div>
+                <Textarea
+                  label={T.projects.description}
+                  placeholder={T.projects.descriptionPlaceholder}
+                  rows={2}
+                  {...register(`projects.${idx}.description`)}
+                />
+                <Input
+                  label={T.projects.technologies}
+                  placeholder={T.projects.technologiesPlaceholder}
+                  onChange={(e) => {
+                    const techs = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
+                    setValue(`projects.${idx}.technologies`, techs);
+                  }}
+                  defaultValue={field.technologies?.join(", ")}
+                />
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={() => appendProj({ id: crypto.randomUUID(), name: "", description: "", technologies: [] })}
+            >
+              <Plus className="h-4 w-4" />
+              {T.projects.addProject}
+            </Button>
+          </section>
+
+          <Divider />
+
+          {/* ─── Languages ─── */}
+          <section id="section-languages" className="space-y-3">
+            <SectionHeading>{T.tabs.languages}</SectionHeading>
+
+            {langFields.map((field, idx) => (
+              <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700">{T.languages.language} {idx + 1}</h4>
+                  <button type="button" onClick={() => removeLang(idx)} className="text-red-400 hover:text-red-600">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.languages.language} placeholder={T.languages.languagePlaceholder} {...register(`languages.${idx}.name`)} />
+                  <div className="flex flex-col gap-0.5">
+                    <label className="text-xs font-medium text-gray-700">{T.languages.proficiency}</label>
+                    <Select
+                      defaultValue={field.proficiency}
+                      onValueChange={(v) => {
+                        setValue(`languages.${idx}.proficiency`, v as "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic");
+                      }}
+                    >
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        {PROFICIENCY_VALUES.map((p, i) => (
+                          <SelectItem key={p} value={p}>{T.languages.proficiencyOptions[i]}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={() => appendLang({ id: crypto.randomUUID(), name: "", proficiency: "Fluent" })}
+            >
+              <Plus className="h-4 w-4" />
+              {T.languages.addLanguage}
+            </Button>
+          </section>
+
+          <Divider />
+
+          {/* ─── Certifications ─── */}
+          <section id="section-certifications" className="space-y-3">
+            <SectionHeading>{T.tabs.certifications}</SectionHeading>
+
+            {certFields.map((field, idx) => (
+              <div key={field.id} className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700">{T.certifications.certification} {idx + 1}</h4>
+                  <button type="button" onClick={() => removeCert(idx)} className="text-red-400 hover:text-red-600">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input label={T.certifications.name}   placeholder={T.certifications.namePlaceholder}   {...register(`certifications.${idx}.name`)} />
+                  <Input label={T.certifications.issuer} placeholder={T.certifications.issuerPlaceholder} {...register(`certifications.${idx}.issuer`)} />
+                  <Input label={T.certifications.date}   placeholder={T.certifications.datePlaceholder}   {...register(`certifications.${idx}.date`)} />
+                  <Input label={T.certifications.url}    placeholder={T.certifications.urlPlaceholder}    {...register(`certifications.${idx}.url`)} />
+                </div>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="gap-2"
+              onClick={() => appendCert({ id: crypto.randomUUID(), name: "", issuer: "", date: "", url: "" })}
+            >
+              <Plus className="h-4 w-4" />
+              {T.certifications.addCertification}
+            </Button>
+          </section>
+
+          <Divider />
+
+          {/* ─── Templates ─── */}
+          <section id="section-templates" className="space-y-4">
+            <SectionHeading>{T.tabs.templates}</SectionHeading>
+
+            <div>
+              <h3 className="text-sm font-semibold text-gray-800 mb-1">{T.templates.chooseTemplate}</h3>
+              <p className="text-xs text-gray-500 mb-3">{T.templates.chooseTemplateHint}</p>
+              <TemplatePicker
+                value={watch("template") || defaultValues?.template || "BASIC"}
+                onChange={(v) => setValue("template", v as CVFormData["template"])}
+              />
+            </div>
+
+            <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+              <p className="text-xs font-semibold text-gray-700 mb-2">{T.templates.aboutTemplates}</p>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-gray-500">
+                {T.templates.groups.map((g) => (
+                  <span key={g.names}>
+                    <strong className="text-gray-700">{g.names}</strong> — {g.desc}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <Divider />
+
+          {/* ─── AI Tools ─── */}
+          <section id="section-ai" className="space-y-4 pb-4">
+            <SectionHeading>{T.tabs.aiTools}</SectionHeading>
+
+            {!isPro && (
+              <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm text-amber-800">
+                {T.ai.upgradeNotice}
+              </div>
+            )}
+
+            {/* ATS Check */}
+            <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Target className="h-5 w-5 text-indigo-600" />
+                <h3 className="text-sm font-semibold text-gray-900">{T.ai.atsTitle}</h3>
+                {!isPro && (
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                    {T.ai.premiumBadge}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-gray-500">{T.ai.atsDescription}</p>
+
+              {isPro ? (
+                <>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="gap-2"
+                    onClick={handleATSCheck}
+                    loading={aiLoading === "ats"}
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    {T.ai.runAtsCheck}
+                  </Button>
+                  {atsResult && (
+                    <div className="mt-2 space-y-2">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`text-xl font-bold ${
+                            atsResult.score >= 80 ? "text-green-600" : atsResult.score >= 60 ? "text-amber-600" : "text-red-600"
+                          }`}
+                        >
+                          {atsResult.score}/100
+                        </div>
+                        <div className="flex-1 h-2 rounded-full bg-gray-100">
+                          <div
+                            className={`h-full rounded-full ${
+                              atsResult.score >= 80 ? "bg-green-500" : atsResult.score >= 60 ? "bg-amber-500" : "bg-red-500"
+                            }`}
+                            style={{ width: `${atsResult.score}%` }}
+                          />
+                        </div>
+                      </div>
+                      {atsResult.suggestions.length > 0 && (
+                        <ul className="space-y-1.5">
+                          {atsResult.suggestions.map((s, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                              <span className="mt-1 text-amber-500">→</span>
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="relative rounded-lg overflow-hidden">
+                  <div className="pointer-events-none select-none space-y-2 p-2 blur-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="text-xl font-bold text-green-600">87/100</div>
+                      <div className="flex-1 h-2 rounded-full bg-gray-100">
+                        <div className="h-full w-[87%] rounded-full bg-green-500" />
+                      </div>
+                    </div>
+                    <ul className="space-y-1.5">
+                      <li className="flex items-start gap-2 text-sm text-gray-600">
+                        <span className="mt-1 text-amber-500">→</span>
+                        {T.ai.atsMockSugg1}
+                      </li>
+                      <li className="flex items-start gap-2 text-sm text-gray-600">
+                        <span className="mt-1 text-amber-500">→</span>
+                        {T.ai.atsMockSugg2}
+                      </li>
+                      <li className="flex items-start gap-2 text-sm text-gray-600">
+                        <span className="mt-1 text-amber-500">→</span>
+                        {T.ai.atsMockSugg3}
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-white/75 backdrop-blur-[2px]">
+                    <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-amber-100">
+                      <Lock className="h-4 w-4 text-amber-600" />
+                    </div>
+                    <p className="mb-3 text-xs font-semibold text-gray-700">{T.ai.premiumRequired}</p>
+                    <Link href="/pricing">
+                      <Button type="button" size="sm" className="gap-2">
+                        <Sparkles className="h-3.5 w-3.5" />
+                        {T.ai.upgradePremium}
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Cover Letter */}
+            <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-indigo-600" />
+                <h3 className="text-sm font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
+                {!isPro && (
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                    {T.ai.premiumBadge}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-gray-500">{T.ai.coverLetterDescription}</p>
+              {isPro ? (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="gap-2"
+                  onClick={() => toast.info(lang === "fr"
+                    ? "Collez la description du poste ci-dessous et cliquez sur Générer"
+                    : "Paste the job description in the field below and click generate"
+                  )}
+                >
+                  <Wand2 className="h-4 w-4" />
+                  {T.ai.generateCoverLetter}
+                </Button>
+              ) : (
+                <Link href="/pricing">
+                  <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
+                    <Lock className="h-4 w-4" />
+                    {T.ai.upgradePremium}
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      {/* ── Save button (when not auto-saving) ── */}
       {!hideSaveButton && (
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+        <div className="shrink-0 flex items-center justify-between border-t border-gray-100 px-6 py-4">
           {Object.keys(errors).length > 0 && (
             <p className="text-sm text-red-500">
               {T.form.requiredFields} {Object.keys(errors).join(", ")}
@@ -930,4 +1058,19 @@ export function CVForm({
       )}
     </form>
   );
+}
+
+// ── Internal sub-components ──────────────────────────────────────────────────
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3">
+      <h2 className="text-sm font-semibold text-gray-800 shrink-0">{children}</h2>
+      <div className="flex-1 h-px bg-gray-100" />
+    </div>
+  );
+}
+
+function Divider() {
+  return <div className="h-px bg-gray-100" aria-hidden="true" />;
 }
