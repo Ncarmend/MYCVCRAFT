@@ -58,7 +58,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-5xl px-6 pt-5">
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-700 hover:text-slate-900 transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           {T.back}
@@ -79,7 +79,7 @@ export default function PricingPage() {
           <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
             {TM.yourCVs}
           </p>
-          <p className="mt-1 text-sm font-semibold text-slate-700">{T.previewTitle}</p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{T.previewTitle}</p>
         </div>
 
         {/* Browser mockup */}
@@ -93,7 +93,7 @@ export default function PricingPage() {
                   <div className="h-3 w-3 rounded-full bg-red-400" />
                   <div className="h-3 w-3 rounded-full bg-yellow-400" />
                   <div className="h-3 w-3 rounded-full bg-green-400" />
-                  <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-400">
+                  <div className="mx-auto max-w-xs flex-1 rounded-md border border-gray-200 bg-white px-3 py-1 text-center text-xs text-gray-600">
                     app.cvixeo.com/dashboard
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export default function PricingPage() {
                   {/* Sidebar */}
                   <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 p-4">
                     <div className="mb-8 flex items-center gap-2">
-                      <div className="h-7 w-7 rounded-lg bg-indigo-600" />
+                      <div className="h-7 w-7 rounded-lg bg-emerald-900" />
                       <span className="h-3 w-20 rounded bg-gray-300" />
                     </div>
                     <div className="space-y-1.5 text-gray-600">
@@ -113,17 +113,17 @@ export default function PricingPage() {
                           key={i}
                           className={`flex items-center gap-2 rounded-md px-3 py-2 ${
                             i === 0
-                              ? "bg-indigo-50 text-indigo-700 shadow-sm"
+                              ? "bg-emerald-100 text-emerald-700 shadow-sm"
                               : "text-gray-500"
                           }`}
                         >
-                          <div className={`h-3 w-3 rounded ${i === 0 ? "bg-indigo-500" : "bg-gray-300"}`} />
+                          <div className={`h-3 w-3 rounded ${i === 0 ? "bg-emerald-500" : "bg-gray-300"}`} />
                           <span className="text-xs font-medium">{label}</span>
                         </div>
                       ))}
                     </div>
                     <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
-                      <div className="h-7 w-7 rounded-full bg-indigo-200" />
+                      <div className="h-7 w-7 rounded-full bg-emerald-200" />
                       <div className="space-y-1">
                         <div className="h-2.5 w-16 rounded bg-gray-300" />
                         <div className="h-2 w-12 rounded bg-gray-200" />
@@ -138,7 +138,7 @@ export default function PricingPage() {
                         <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
                         <div className="h-2.5 w-36 rounded bg-gray-300" />
                       </div>
-                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-indigo-600 px-3">
+                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-emerald-600 px-3">
                         <div className="h-2.5 w-2.5 rounded-full bg-white opacity-80" />
                         <div className="h-2 w-10 rounded bg-white opacity-70" />
                       </div>
@@ -210,8 +210,8 @@ export default function PricingPage() {
 
                       {/* New CV slot */}
                       <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white">
-                        <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100">
-                          <span className="text-sm font-bold leading-none text-indigo-600">+</span>
+                        <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100">
+                          <span className="text-sm font-bold leading-none text-emerald-900">+</span>
                         </div>
                         <p className="text-[10px] font-medium text-gray-500">{TM.newCV}</p>
                       </div>
