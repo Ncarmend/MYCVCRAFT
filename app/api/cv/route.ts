@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
+import { isProUser } from "@/lib/isPro";
 
 export async function GET() {
   try {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
     // Free plan limit: 1 CV
-    const isPro = dbUser.subscription?.plan === "PRO";
+    const isPro = isProUser(dbUser.subscription);
     if (!isPro && dbUser._count.cvs >= 1) {
       return NextResponse.json(
         { error: "Free plan is limited to 1 CV. Upgrade to Pro for unlimited CVs." },

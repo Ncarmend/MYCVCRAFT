@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
+import { isProUser } from "@/lib/isPro";
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
     const cv = await prisma.cV.findFirst({ where: { id: cvId, userId: dbUser.id } });
     if (!cv) return NextResponse.json({ error: "CV not found" }, { status: 404 });
 
-    const isPro = dbUser.subscription?.plan === "PRO";
+    const isPro = isProUser(dbUser.subscription);
 
     // Allow client to pass the currently selected (possibly unsaved) template
     const templateOverride = request.nextUrl.searchParams.get("template");

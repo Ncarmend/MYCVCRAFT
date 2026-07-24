@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle } from "lucide-react";
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
+import { PassCountdown } from "@/components/dashboard/PassCountdown";
 import type { CV } from "@/types";
 
 interface Props {
@@ -41,23 +42,16 @@ export default async function DashboardPage({ searchParams }: Props) {
   const isPro = sub?.plan === "PRO" || !!(sub?.premiumPassEnd && sub.premiumPassEnd > new Date());
   const canCreateCV = isPro || cvs.length < 1;
 
-  const passEnd = sub?.premiumPassEnd ?? null;
+  const passEnd    = sub?.premiumPassEnd ?? null;
   const passActive = isPro && passEnd !== null && passEnd > new Date();
-  const passDaysLeft = passActive
-    ? Math.max(1, Math.ceil((passEnd!.getTime() - Date.now()) / 86_400_000))
-    : 0;
-  const passEndLabel = passActive
-    ? passEnd!.toLocaleDateString("en-GB", { day: "numeric", month: "long" })
-    : null;
 
-  console.log("[dashboard] subscription", {
-    userId: dbUser?.id,
-    plan: sub?.plan,
-    status: sub?.status,
-    isPro,
-    passActive,
-    passEnd,
-  });
+  // Determine plan display name (compare price ID to env to distinguish Monthly vs Annual)
+  const annualPriceId = process.env.STRIPE_PRO_ANNUAL_PRICE_ID;
+  const planName = passActive
+    ? "7-Day Premium Pass"
+    : sub?.stripePriceId === annualPriceId
+      ? "Annual Premium"
+      : isPro ? "Monthly Premium" : null;
 
   const avgATS =
     cvs.filter((c) => c.atsScore !== null).length > 0
@@ -137,18 +131,18 @@ export default async function DashboardPage({ searchParams }: Props) {
 
         {/* Premium Active banner — stays near top as a status indicator */}
         {isPro && (
-          <div className="mb-6 flex flex-col gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-6 flex flex-col gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-3">
               <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
               <div>
                 <p className="font-semibold text-emerald-900">
                   Premium Active — all features unlocked
                 </p>
-                {passActive ? (
-                  <p className="mt-0.5 text-sm text-emerald-700">
-                    7-Day Pass · {passDaysLeft} day{passDaysLeft !== 1 ? "s" : ""} remaining
-                    {passEndLabel && ` · expires ${passEndLabel}`}
-                  </p>
+                {planName && (
+                  <p className="text-xs font-medium text-emerald-700">{planName}</p>
+                )}
+                {passActive && passEnd ? (
+                  <PassCountdown passEnd={passEnd.toISOString()} />
                 ) : (
                   <p className="mt-0.5 text-sm text-emerald-700">
                     AI generation, ATS analysis, cover letters &amp; unlimited CVs
@@ -156,7 +150,7 @@ export default async function DashboardPage({ searchParams }: Props) {
                 )}
               </div>
             </div>
-            <Badge variant="success" className="shrink-0 self-start sm:self-auto">
+            <Badge variant="success" className="shrink-0 self-start">
               Premium
             </Badge>
           </div>

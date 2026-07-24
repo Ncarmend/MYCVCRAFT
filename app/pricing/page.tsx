@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
-import { HelpCircle, ArrowLeft } from "lucide-react";
+import { HelpCircle, ArrowLeft, CheckCircle } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 const mockStatColors = [
@@ -15,12 +15,31 @@ const mockStatColors = [
   { bg: "bg-purple-50 border border-purple-100", valueColor: "text-purple-700" },
 ];
 
+interface SubscriptionStatus {
+  plan_type: "FREE" | "PASS" | "MONTHLY" | "ANNUAL";
+  is_pro: boolean;
+  pass_active: boolean;
+  pass_end: string | null;
+  current_period_end: string | null;
+}
+
 export default function PricingPage() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [subStatus, setSubStatus] = useState<SubscriptionStatus | null>(null);
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
   const TM = translations[lang].hero.mock;
+
+  // Fetch current subscription status for logged-in users
+  useEffect(() => {
+    fetch("/api/subscription/status")
+      .then((r) => r.json())
+      .then((d: SubscriptionStatus) => {
+        if (d.plan_type) setSubStatus(d);
+      })
+      .catch(() => {}); // not logged in or error — stay as null
+  }, []);
 
   async function handleCheckout(planType: "MONTHLY" | "ANNUAL" | "PASS") {
     setLoadingPlan(planType);
@@ -51,6 +70,24 @@ export default function PricingPage() {
     }
   }
 
+  const isPro    = subStatus?.is_pro ?? false;
+  const planType = subStatus?.plan_type ?? "FREE";
+
+  // Format expiry date for the active plan banner
+  const expiryLabel = (() => {
+    const d = planType === "PASS" ? subStatus?.pass_end : subStatus?.current_period_end;
+    if (!d) return null;
+    return new Date(d).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-GB", {
+      day: "numeric", month: "long", year: "numeric",
+    });
+  })();
+
+  const planName: Record<string, string> = {
+    PASS:    lang === "fr" ? "Pass 7 jours"   : "7-Day Premium Pass",
+    MONTHLY: lang === "fr" ? "Premium mensuel" : "Monthly Premium",
+    ANNUAL:  lang === "fr" ? "Premium annuel"  : "Annual Premium",
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
 
@@ -64,6 +101,28 @@ export default function PricingPage() {
           {T.back}
         </button>
       </div>
+
+      {/* ── Active premium banner ── */}
+      {isPro && (
+        <div className="mx-auto max-w-5xl px-6 pt-4">
+          <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
+            <CheckCircle className="h-5 w-5 shrink-0 text-emerald-600" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-emerald-900">
+                {lang === "fr" ? "Votre abonnement est actif" : "Your subscription is active"}
+                {planType !== "FREE" && ` — ${planName[planType]}`}
+              </p>
+              {expiryLabel && (
+                <p className="text-xs text-emerald-700">
+                  {planType === "PASS"
+                    ? (lang === "fr" ? `Expire le ${expiryLabel}` : `Expires ${expiryLabel}`)
+                    : (lang === "fr" ? `Prochain renouvellement : ${expiryLabel}` : `Next renewal: ${expiryLabel}`)}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── 1. Product overview ── */}
       <div className="mx-auto max-w-5xl px-6 pb-6 pt-6 text-center">
@@ -236,7 +295,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        {/* Unified dark wrapper — matches card bg */}
+        {/* Unified dark wrapper */}
         <div className="rounded-xl bg-slate-700 px-4 pb-6 pt-8 shadow-lg ring-1 ring-slate-600">
           <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -248,6 +307,7 @@ export default function PricingPage() {
               features={T.freeFeatures as unknown as string[]}
               perMonth={T.perMonth}
               ctaLabel={T.freeCtaLabel}
+              currentPlan={planType === "FREE"}
               onSelect={() => router.push("/signup")}
             />
 
@@ -258,9 +318,10 @@ export default function PricingPage() {
               description={T.passDescription}
               features={T.passFeatures as unknown as string[]}
               perMonth={T.passOnce}
-              badge={T.passNew}
+              badge={planType !== "PASS" ? T.passNew : undefined}
               badgeVariant="amber"
               ctaLabel={T.passCtaLabel}
+              currentPlan={planType === "PASS"}
               onSelect={() => handleCheckout("PASS")}
               loading={loadingPlan === "PASS"}
             />
@@ -273,6 +334,7 @@ export default function PricingPage() {
               features={T.monthlyFeatures as unknown as string[]}
               perMonth={T.perMonth}
               ctaLabel={T.monthlyCtaLabel}
+              currentPlan={planType === "MONTHLY"}
               onSelect={() => handleCheckout("MONTHLY")}
               loading={loadingPlan === "MONTHLY"}
             />
@@ -285,9 +347,10 @@ export default function PricingPage() {
               features={T.annualFeatures as unknown as string[]}
               perMonth={T.perMonth}
               billingNote={T.annualBilledAs}
-              badge={T.bestValue}
+              badge={planType !== "ANNUAL" ? T.bestValue : undefined}
               badgeVariant="green"
               ctaLabel={T.annualCtaLabel}
+              currentPlan={planType === "ANNUAL"}
               onSelect={() => handleCheckout("ANNUAL")}
               loading={loadingPlan === "ANNUAL"}
             />

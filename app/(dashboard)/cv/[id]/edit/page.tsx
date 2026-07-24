@@ -6,6 +6,7 @@ import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { CVEditorClient } from "./CVEditorClient";
+import { isProUser } from "@/lib/isPro";
 import type { CV } from "@/types";
 
 interface Props {
@@ -36,14 +37,7 @@ export default async function EditCVPage({ params }: Props) {
   });
   if (!cv) notFound();
 
-  const isPro = dbUser.subscription?.plan === "PRO";
-  console.log("[edit-page] subscription", {
-    userId: dbUser.id,
-    plan: dbUser.subscription?.plan,
-    status: dbUser.subscription?.status,
-    premiumPassEnd: dbUser.subscription?.premiumPassEnd,
-    isPro,
-  });
+  const isPro = isProUser(dbUser.subscription);
 
   // Cast Prisma JSON fields to proper types
   

@@ -32,8 +32,20 @@ export async function GET() {
   const sub = dbUser?.subscription;
   const { active: passActive, end: passEnd } = getPassState(sub);
 
+  // Determine which specific plan tier is active for UI display
+  const monthlyPriceId = process.env.STRIPE_PRO_PRICE_ID;
+  const annualPriceId  = process.env.STRIPE_PRO_ANNUAL_PRICE_ID;
+  let planType: "FREE" | "PASS" | "MONTHLY" | "ANNUAL" = "FREE";
+  if (passActive) {
+    planType = "PASS";
+  } else if (sub?.plan === "PRO") {
+    if (sub.stripePriceId === annualPriceId) planType = "ANNUAL";
+    else planType = "MONTHLY"; // default for PRO without a known annual price ID
+  }
+
   const payload = {
     plan: sub?.plan ?? "FREE",
+    plan_type: planType,
     subscription_status: sub?.status ?? "ACTIVE",
     is_pro: isProUser(sub),
     pass_active: passActive,

@@ -34,21 +34,37 @@ export function PricingCard({
   loading = false,
 }: PricingCardProps) {
   return (
-    <div className="relative flex h-full flex-col rounded-xl bg-slate-600 p-5 shadow-lg ring-1 ring-slate-500">
+    <div
+      className={cn(
+        "relative flex h-full flex-col rounded-xl bg-slate-600 p-5 shadow-lg ring-1 transition-all",
+        currentPlan ? "ring-2 ring-emerald-400" : "ring-slate-500"
+      )}
+    >
+      {/* Active plan glow */}
+      {currentPlan && (
+        <div className="absolute inset-0 rounded-xl bg-emerald-400/5 pointer-events-none" />
+      )}
 
       {/* Badge */}
-      {badge && (
+      {(badge || currentPlan) && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span
-            className={cn(
-              "whitespace-nowrap rounded-full px-3 py-0.5 text-xs font-semibold",
-              badgeVariant === "green"
-                ? "bg-emerald-400 text-emerald-900"
-                : "bg-amber-400 text-amber-900"
-            )}
-          >
-            {badge}
-          </span>
+          {currentPlan ? (
+            <span className="whitespace-nowrap rounded-full bg-emerald-400 px-3 py-0.5 text-xs font-semibold text-emerald-900 flex items-center gap-1">
+              <Check className="h-3 w-3" />
+              Active
+            </span>
+          ) : badge ? (
+            <span
+              className={cn(
+                "whitespace-nowrap rounded-full px-3 py-0.5 text-xs font-semibold",
+                badgeVariant === "green"
+                  ? "bg-emerald-400 text-emerald-900"
+                  : "bg-amber-400 text-amber-900"
+              )}
+            >
+              {badge}
+            </span>
+          ) : null}
         </div>
       )}
 
@@ -80,7 +96,12 @@ export function PricingCard({
       <ul className="mb-5 flex-1 space-y-2">
         {features.map((feature) => (
           <li key={feature} className="flex items-start gap-2">
-            <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-slate-500">
+            <div
+              className={cn(
+                "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
+                currentPlan ? "bg-emerald-500" : "bg-slate-500"
+              )}
+            >
               <Check className="h-2.5 w-2.5 text-white" />
             </div>
             <span className="text-xs leading-relaxed text-slate-200">{feature}</span>
@@ -88,15 +109,25 @@ export function PricingCard({
         ))}
       </ul>
 
-      {/* CTA — white on dark card, turns green on hover */}
+      {/* CTA */}
       <Button
-        onClick={onSelect}
+        onClick={currentPlan ? undefined : onSelect}
         loading={loading}
         disabled={currentPlan}
         size="sm"
-        className="mt-auto w-full bg-white text-xs font-semibold text-slate-700 hover:bg-green-600 hover:text-white active:bg-green-700 active:text-white transition-colors duration-200"
+        className={cn(
+          "mt-auto w-full text-xs font-semibold transition-colors duration-200",
+          currentPlan
+            ? "bg-emerald-600 text-white cursor-default hover:bg-emerald-600"
+            : "bg-white text-slate-700 hover:bg-green-600 hover:text-white active:bg-green-700 active:text-white"
+        )}
       >
-        {currentPlan ? "Current plan" : ctaLabel}
+        {currentPlan ? (
+          <span className="flex items-center justify-center gap-1.5">
+            <Check className="h-3.5 w-3.5" />
+            Current plan
+          </span>
+        ) : ctaLabel}
       </Button>
     </div>
   );

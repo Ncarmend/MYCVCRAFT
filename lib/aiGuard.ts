@@ -10,6 +10,7 @@
  */
 
 import prisma from "@/lib/prisma";
+import { isProUser } from "@/lib/isPro";
 
 const FREE_DAILY_LIMIT = 5;
 
@@ -45,8 +46,8 @@ export async function checkAIQuota(supabaseUserId: string): Promise<void> {
     include: { subscription: true },
   });
 
-  // Pro users are unlimited
-  if (dbUser?.subscription?.plan === "PRO") return;
+  // Pro users (subscription OR active pass) are unlimited
+  if (isProUser(dbUser?.subscription)) return;
 
   const today = todayUTC();
   const entry = usageMap.get(supabaseUserId);
