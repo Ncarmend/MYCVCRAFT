@@ -102,9 +102,9 @@ export default function PricingPage() {
                 <div className="grid grid-cols-12" style={{ minHeight: "380px" }}>
 
                   {/* Sidebar */}
-                  <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 p-4">
-                    <div className="mb-8 flex items-center gap-2">
-                      <div className="h-7 w-7 rounded-lg bg-emerald-900" />
+                  <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 p-2">
+                    <div className="mb-6 flex items-center gap-2">
+                      <div className="h-5 w-5 rounded-lg bg-emerald-900" />
                       <span className="h-3 w-20 rounded bg-gray-300" />
                     </div>
                     <div className="space-y-1.5 text-gray-600">
@@ -123,7 +123,7 @@ export default function PricingPage() {
                       ))}
                     </div>
                     <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
-                      <div className="h-7 w-7 rounded-full bg-emerald-200" />
+                      <div className="h-5 w-5 rounded-full bg-emerald-200" />
                       <div className="space-y-1">
                         <div className="h-2.5 w-16 rounded bg-gray-300" />
                         <div className="h-2 w-12 rounded bg-gray-200" />
@@ -138,9 +138,9 @@ export default function PricingPage() {
                         <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
                         <div className="h-2.5 w-36 rounded bg-gray-300" />
                       </div>
-                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-emerald-600 px-3">
-                        <div className="h-2.5 w-2.5 rounded-full bg-white opacity-80" />
-                        <div className="h-2 w-10 rounded bg-white opacity-70" />
+                      <div className="flex h-6 items-center gap-1.5 rounded-lg bg-emerald-600 px-2">
+                        <div className="h-2 w-2 rounded-full bg-white opacity-80" />
+                        <div className="h-2 w-8 rounded bg-white opacity-70" />
                       </div>
                     </div>
 
@@ -148,7 +148,7 @@ export default function PricingPage() {
                     <div className="mb-5 grid grid-cols-4 gap-3">
                       {TM.stats.map((s, i) => (
                         <div key={i} className={`rounded-xl ${mockStatColors[i].bg} px-3 py-2.5`}>
-                          <p className="mb-1 text-[10px] text-gray-400">{s.label}</p>
+                          <p className="mb-1 text-[8px] text-gray-400">{s.label}</p>
                           <p className={`text-sm font-bold ${mockStatColors[i].valueColor}`}>{s.value}</p>
                         </div>
                       ))}
