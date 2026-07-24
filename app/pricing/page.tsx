@@ -74,7 +74,7 @@ export default function PricingPage() {
       </div>
 
       {/* ── 2. "Your CVs" product preview ── */}
-      <div className="mx-auto max-w-5xl px-6 pb-8">
+      <div className="mx-auto max-w-4xl px-4 pb-6">
         <div className="mb-4 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
             {TM.yourCVs}
@@ -155,14 +155,14 @@ export default function PricingPage() {
                     </div>
 
                     {/* CV cards */}
-                    <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+                    <p className="mb-2 text-[9px] font-semibold uppercase tracking-wide text-gray-500">
                       {TM.yourCVs}
                     </p>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2">
 
                       {/* CV 1 */}
                       <div className="overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm">
-                        <div className="h-1.5 w-full bg-linear-to-r from-indigo-500 to-indigo-400" />
+                        <div className="h-1 w-full bg-linear-to-r from-indigo-500 to-indigo-400" />
                         <div className="p-3">
                           <p className="mb-0.5 text-xs font-bold text-gray-800">Software Engineer</p>
                           <p className="mb-2.5 text-[10px] text-gray-400">Google · Paris</p>
@@ -186,10 +186,10 @@ export default function PricingPage() {
 
                       {/* CV 2 */}
                       <div className="overflow-hidden rounded-xl border border-purple-100 bg-white shadow-sm">
-                        <div className="h-1.5 w-full bg-linear-to-r from-purple-500 to-purple-400" />
-                        <div className="p-3">
-                          <p className="mb-0.5 text-xs font-bold text-gray-800">Product Manager</p>
-                          <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
+                        <div className="h-1 w-full bg-linear-to-r from-purple-500 to-purple-400" />
+                        <div className="p-2">
+                          <p className="mb-0.5 text-[9px] font-bold text-gray-800">Product Manager</p>
+                          <p className="mb-2 text-[8px] text-gray-400">Meta · London</p>
                           <div className="mb-1 flex items-center justify-between">
                             <span className="text-[9px] text-gray-400">{TM.atsScore}</span>
                             <span className="text-[9px] font-semibold text-green-600">81%</span>
