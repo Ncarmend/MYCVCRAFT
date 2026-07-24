@@ -76,7 +76,7 @@ export default function PricingPage() {
       {/* ── 2. "Your CVs" product preview ── */}
       <div className="mx-auto max-w-4xl px-4 pb-6">
         <div className="mb-4 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+          <p className="text-[8px] font-semibold uppercase tracking-widest text-slate-400">
             {TM.yourCVs}
           </p>
           <p className="mt-1 text-sm font-semibold text-slate-900">{T.previewTitle}</p>
@@ -89,7 +89,7 @@ export default function PricingPage() {
               <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
 
                 {/* Browser chrome */}
-                <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-3">
+                <div className="flex items-center gap-1 border-b border-gray-100 bg-gray-50 px-4 py-3">
                   <div className="h-3 w-3 rounded-full bg-red-400" />
                   <div className="h-3 w-3 rounded-full bg-yellow-400" />
                   <div className="h-3 w-3 rounded-full bg-green-400" />
