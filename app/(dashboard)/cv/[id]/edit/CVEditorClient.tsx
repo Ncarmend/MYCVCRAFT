@@ -121,7 +121,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
   const previewLabel = lang === "fr" ? "Aperçu en direct" : "Live Preview";
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden">
       <Header
         title={cv.title || cv.name}
         subtitle={`${editingLabel} · ${previewData.template ?? cv.template} template`}

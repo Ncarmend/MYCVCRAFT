@@ -2,115 +2,150 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, User } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Logo } from "@/components/ui/Logo";
+import { cn } from "@/lib/utils";
 
-const langActive = "bg-emerald-950 text-white";
+const langActive   = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
-const langBase = "rounded-md px-2.5 py-1 transition-all duration-200 ease-in-out";
+const langBase     = "rounded-md px-2.5 py-1 transition-all duration-200 ease-in-out text-xs font-semibold";
 
-const langActiveMobile = "bg-emerald-950 text-white";
-const langInactiveMobile = "text-slate-600 hover:bg-green-700 hover:text-white";
-const langBaseMobile = "rounded-md px-2 py-1 transition-all duration-200 ease-in-out";
+interface NavbarProps {
+  isLoggedIn?: boolean;
+  userName?: string;
+}
 
-export function Navbar() {
+export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, setLang } = useLanguage();
   const T = translations[lang].nav;
+  const pathname = usePathname();
+
+  function isActive(href: string): boolean {
+    if (!href || href.startsWith("#") || href.startsWith("/#")) return false;
+    if (href === "/") return pathname === "/";
+    if (href === "/dashboard") return pathname === "/dashboard";
+    return pathname === href || pathname.startsWith(href + "/");
+  }
+
+  const desktopLink = (href: string) =>
+    cn(
+      "text-sm font-semibold transition-all duration-200 ease-in-out",
+      isActive(href) ? "text-green-800" : "text-slate-900 hover:text-green-800",
+    );
+
+  const mobileLink = (href: string) =>
+    cn(
+      "rounded-lg px-3 py-2.5 text-sm font-semibold transition-all duration-200 ease-in-out",
+      isActive(href) ? "bg-green-50 text-green-800" : "text-slate-900 hover:text-green-800",
+    );
+
+  const featuresHref = pathname === "/" ? "#features" : "/#features";
+
+  const LangToggle = ({ mobile }: { mobile?: boolean }) => (
+    <div className="flex items-center rounded-lg border border-gray-200 p-0.5">
+      {(["en", "fr"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          className={cn(
+            mobile ? "rounded-md px-2 py-1" : langBase,
+            lang === l ? langActive : langInactive,
+          )}
+        >
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Logo height={36} />
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop center links */}
         <div className="hidden items-center gap-8 sm:flex">
-          <Link
-            href="#features"
-            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-          >
+          <Link href={featuresHref} className={desktopLink(featuresHref)}>
             {T.features}
           </Link>
-          <Link
-            href="/pricing"
-            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-          >
+          <Link href="/pricing" className={desktopLink("/pricing")}>
             {T.pricing}
           </Link>
-          <Link
-            href="/careers"
-            className="text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-          >
+          <Link href="/careers" className={desktopLink("/careers")}>
             {T.careers}
           </Link>
-        </div>
-
-        {/* Desktop right: lang toggle + auth */}
-        <div className="hidden items-center gap-3 sm:flex">
-          {/* Language toggle */}
-          <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
-            <button
-              onClick={() => setLang("en")}
-              className={`${langBase} ${lang === "en" ? langActive : langInactive}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("fr")}
-              className={`${langBase} ${lang === "fr" ? langActive : langInactive}`}
-            >
-              FR
-            </button>
-          </div>
-
-          <Link
-            href="/contact"
-            className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
-          >
+          <Link href="/contact" className={desktopLink("/contact")}>
             {T.contact}
           </Link>
-          <Link
-            href="/login"
-            className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
-          >
-            {T.signIn}
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-slate-800 px-4 text-sm font-medium text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
-          >
-            {T.getStarted}
-          </Link>
+          {isLoggedIn && (
+            <Link href="/dashboard" className={desktopLink("/dashboard")}>
+              {T.myResumes}
+            </Link>
+          )}
         </div>
 
-        {/* Mobile: lang toggle + get started + hamburger */}
+        {/* Desktop right */}
+        <div className="hidden items-center gap-3 sm:flex">
+          <LangToggle />
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard/settings"
+              className={cn(
+                "inline-flex h-9 items-center gap-1.5 rounded-lg px-4 text-sm font-medium transition-all duration-200 ease-in-out",
+                isActive("/dashboard/settings")
+                  ? "bg-green-700 text-white"
+                  : "bg-slate-800 text-white hover:bg-green-700",
+              )}
+            >
+              <User className="h-4 w-4" />
+              {userName ? userName.split(" ")[0] : T.myAccount}
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
+              >
+                {T.signIn}
+              </Link>
+              <Link
+                href="/signup"
+                className="inline-flex h-9 items-center justify-center rounded-lg bg-slate-800 px-4 text-sm font-medium text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
+              >
+                {T.getStarted}
+              </Link>
+            </>
+          )}
+        </div>
+
+        {/* Mobile right cluster */}
         <div className="flex items-center gap-2 sm:hidden">
-          <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
-            <button
-              onClick={() => setLang("en")}
-              className={`${langBaseMobile} ${lang === "en" ? langActiveMobile : langInactiveMobile}`}
+          <LangToggle mobile />
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard/settings"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800 text-white transition-all duration-200 ease-in-out hover:bg-green-700"
+              aria-label={T.myAccount}
             >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("fr")}
-              className={`${langBaseMobile} ${lang === "fr" ? langActiveMobile : langInactiveMobile}`}
+              <User className="h-4 w-4" />
+            </Link>
+          ) : (
+            <Link
+              href="/signup"
+              className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-800 px-3 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700"
             >
-              FR
-            </button>
-          </div>
-          <Link
-            href="/signup"
-            className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-800 px-3 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
-          >
-            {T.getStarted}
-          </Link>
+              {T.getStarted}
+            </Link>
+          )}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((v) => !v)}
             className="rounded-lg p-2 text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-100"
             aria-label="Toggle menu"
           >
@@ -123,42 +158,35 @@ export function Navbar() {
       {mobileOpen && (
         <div className="border-t border-gray-100 bg-white px-6 py-4 sm:hidden">
           <nav className="flex flex-col gap-1">
-            <Link
-              href="#features"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-            >
+            <Link href={featuresHref} onClick={() => setMobileOpen(false)} className={mobileLink(featuresHref)}>
               {T.features}
             </Link>
-            <Link
-              href="/pricing"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-            >
+            <Link href="/pricing" onClick={() => setMobileOpen(false)} className={mobileLink("/pricing")}>
               {T.pricing}
             </Link>
-            <Link
-              href="/careers"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-in-out hover:text-green-800"
-            >
+            <Link href="/careers" onClick={() => setMobileOpen(false)} className={mobileLink("/careers")}>
               {T.careers}
             </Link>
-            <div className="my-2 border-t border-gray-200" />
-            <Link
-              href="/contact"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
-            >
+            <Link href="/contact" onClick={() => setMobileOpen(false)} className={mobileLink("/contact")}>
               {T.contact}
             </Link>
-            <Link
-              href="/login"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
-            >
-              {T.signIn}
-            </Link>
+
+            <div className="my-2 border-t border-gray-200" />
+
+            {isLoggedIn ? (
+              <>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)} className={mobileLink("/dashboard")}>
+                  {T.myResumes}
+                </Link>
+                <Link href="/dashboard/settings" onClick={() => setMobileOpen(false)} className={mobileLink("/dashboard/settings")}>
+                  {T.myAccount}
+                </Link>
+              </>
+            ) : (
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700">
+                {T.signIn}
+              </Link>
+            )}
           </nav>
         </div>
       )}

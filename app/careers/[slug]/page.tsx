@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
-import { Navbar } from "@/components/landing/Navbar";
+import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
 import {
@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Navbar />
+      <NavbarServer />
 
       <main className="flex-1">
         {/* ── Hero header ── */}

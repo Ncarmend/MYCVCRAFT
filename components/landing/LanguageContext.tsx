@@ -50,6 +50,8 @@ export const translations = {
       contact: "Contact",
       signIn: "Sign in",
       getStarted: "Get started",
+      myAccount: "My Account",
+      myResumes: "My Resumes",
     },
 
     // ── Hero ─────────────────────────────────────────────────────────────────
@@ -485,6 +487,8 @@ export const translations = {
       contact:    "Contact",
       signIn:     "Connexion",
       getStarted: "Commencer",
+      myAccount:  "Mon compte",
+      myResumes:  "Mes CVs",
     },
 
     hero: {

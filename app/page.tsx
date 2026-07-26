@@ -2,13 +2,13 @@ import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { CTA } from "@/components/landing/CTA";
-import { Navbar } from "@/components/landing/Navbar";
+import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+      <NavbarServer />
       <main className="flex-1">
         <Hero />
         <Features />

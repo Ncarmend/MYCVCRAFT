@@ -51,7 +51,7 @@ export default async function CVPreviewPage({ params }: Props) {
   };
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-gray-100">
+    <div className="flex h-full flex-col overflow-hidden bg-gray-100">
 
       {/* Toolbar */}
       <div className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-white px-4 py-3">

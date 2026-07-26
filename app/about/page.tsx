@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles, Target, Eye, Zap, Shield, Layers, TrendingUp } from "lucide-react";
-import { Navbar } from "@/components/landing/Navbar";
+import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+      <NavbarServer />
 
       <main className="flex-1">
         {/* ── Hero ── */}

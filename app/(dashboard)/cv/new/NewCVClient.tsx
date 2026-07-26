@@ -65,7 +65,7 @@ export function NewCVClient({ isPro }: Props) {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden">
       <Header
         title={lang === "fr" ? "Nouveau CV" : "New CV"}
         subtitle={lang === "fr" ? "Remplissez vos informations et regardez votre CV prendre vie" : "Fill in your details and watch your CV come to life"}

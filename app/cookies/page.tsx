@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Cookie } from "lucide-react";
-import { Navbar } from "@/components/landing/Navbar";
+import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
 export default function CookiesPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+      <NavbarServer />
 
       <main className="flex-1 bg-slate-50">
         {/* Header */}

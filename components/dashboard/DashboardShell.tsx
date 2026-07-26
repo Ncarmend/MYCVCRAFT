@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
-import Link from "next/link";
-import { Logo } from "@/components/ui/Logo";
 
 interface Props {
   children: React.ReactNode;
@@ -18,7 +16,7 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex flex-1 overflow-hidden bg-gray-50">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -37,18 +35,16 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
       />
 
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        {/* Mobile top bar */}
-        <div className="flex flex-shrink-0 items-center gap-3 border-b border-gray-100 bg-white px-4 py-3 lg:hidden">
+        {/* Mobile sidebar toggle — sits below the global Navbar */}
+        <div className="flex shrink-0 items-center gap-2 border-b border-gray-100 bg-white px-3 py-2 lg:hidden">
           <button
             onClick={() => setSidebarOpen(true)}
             className="rounded-lg p-1.5 text-gray-600 hover:bg-gray-100"
-            aria-label="Open menu"
+            aria-label="Open sidebar"
           >
             <Menu className="h-5 w-5" />
           </button>
-          <Link href="/dashboard" className="flex items-center">
-            <Logo height={28} />
-          </Link>
+          <span className="text-xs font-medium text-gray-500">Menu</span>
         </div>
 
         <main className="flex-1 overflow-y-auto">
