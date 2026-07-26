@@ -34,7 +34,7 @@ export function Hero() {
         {/* Headline */}
         <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
           {T.headline1}{" "}
-          <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-emerald-500 to-emerald-900 bg-clip-text text-transparent">
             {T.headline2}
           </span>
         </h1>
