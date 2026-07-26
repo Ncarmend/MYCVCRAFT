@@ -58,7 +58,7 @@ export const translations = {
     hero: {
       badge: "Cvixeo — Be seen. Be chosen.",
       headline1: "Land your dream job",
-      headline2: "with AI",
+      headline2: "CVixeo",
       subtext:
         "Generate ATS-optimized, professionally crafted CVs in minutes. Match your CV to any job description and download beautiful PDFs instantly.",
       highlights: [

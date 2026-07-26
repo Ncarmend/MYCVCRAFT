@@ -26,7 +26,7 @@ export function Hero() {
 
       <div className="mx-auto max-w-5xl px-6 pb-14 pt-10 text-center lg:pt-16">
         {/* Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-sm font-medium text-indigo-700">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-900">
           <Sparkles className="h-3.5 w-3.5" />
           {T.badge}
         </div>
