@@ -95,7 +95,7 @@ export const translations = {
       sectionLabel: "Features",
       headline: "Everything you need to land the job, Create a professional resume with AI, optimize it for ATS, and land more interviews",
       subtext:
-        "From first draft to final PDF — Cvixeo handles the heavy lifting so you can focus on what matters. CVIXEO is an AI-powered resume-building platform. Import your old resume, automatically enhance your work experience, tailor your application to each job posting, and download a professional resume that s ready to impress recruiters.",
+        "From first draft to final PDF — Cvixeo handles the heavy lifting so you can focus on what matters. CVIXEO is an AI-powered resume-building platform. Import your old resume, automatically enhance your work experience, tailor your application to each job posting, and download a professional resume thats ready to impress recruiters.",
       items: [
         { title: "AI-Powered Generation",      description: "Describe your experience and let GPT-4 write a compelling, professional CV tailored to your target role." },
         { title: "ATS Optimization",           description: "Score your CV against Applicant Tracking Systems and get specific suggestions to pass automated screening." },
