@@ -185,8 +185,8 @@ export default async function DashboardPage({ searchParams }: Props) {
               ))}
               {canCreateCV && (
                 <Link href="/cv/new">
-                  <div className="flex h-full min-h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-emerald-300 hover:bg-emerald-50">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                  <div className="flex h-full min-h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-emerald-200 hover:bg-emerald-50">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-800">
                       <Plus className="h-6 w-6" />
                     </div>
                     <p className="mt-3 text-sm font-medium text-gray-600">New curriculum vitae</p>
