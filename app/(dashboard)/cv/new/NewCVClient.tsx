@@ -95,10 +95,10 @@ export function NewCVClient({ isPro }: Props) {
 
       {/* Import banner — shown until user imports */}
       {formKey === 0 && (
-        <div className="mx-6 mt-4 flex shrink-0 items-center justify-between gap-4 rounded-xl border border-indigo-100 bg-indigo-50 px-5 py-4">
+        <div className="mx-6 mt-4 flex shrink-0 items-center justify-between gap-4 rounded-xl border border-green-100 bg-green-50 px-5 py-4">
           <div>
-            <p className="text-sm font-semibold text-indigo-900">{T.import.bannerTitle}</p>
-            <p className="text-xs text-indigo-600">{T.import.bannerSubtitle}</p>
+            <p className="text-sm font-semibold text-green-900">{T.import.bannerTitle}</p>
+            <p className="text-xs text-green-600">{T.import.bannerSubtitle}</p>
           </div>
           <Button
             size="sm"

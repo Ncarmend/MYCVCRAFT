@@ -44,7 +44,7 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="text-xs font-medium text-gray-500">Menu</span>
+          <span className="text-xs font-medium text-green-900">Menu</span>
         </div>
 
         <main className="flex-1 overflow-y-auto">

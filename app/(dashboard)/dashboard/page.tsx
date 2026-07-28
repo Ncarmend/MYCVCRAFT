@@ -158,8 +158,8 @@ export default async function DashboardPage({ searchParams }: Props) {
 
         {/* CV grid */}
         <div className="mb-8">
-          <div className="mb-6 text-center">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your CVs</h2>
+          <div className="mb-6 text-left">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your curriculum vitae</h2>
             <div className="mx-auto mt-2 h-0.5 w-12 rounded-full bg-slate-600" />
           </div>
           {cvs.length === 0 ? (
@@ -189,7 +189,7 @@ export default async function DashboardPage({ searchParams }: Props) {
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
                       <Plus className="h-6 w-6" />
                     </div>
-                    <p className="mt-3 text-sm font-medium text-gray-600">New CV</p>
+                    <p className="mt-3 text-sm font-medium text-gray-600">New curriculum vitae</p>
                   </div>
                 </Link>
               )}
