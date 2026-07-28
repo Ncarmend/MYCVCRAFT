@@ -90,17 +90,16 @@ export async function generateCV(data: CVFormData, lang: Lang = "en"): Promise<s
 export async function optimizeCV(
   cvContent: string,
   lang: Lang = "en",
-): Promise<{ content: string; score: number; suggestions: string[] }> {
+): Promise<{ score: number; suggestions: string[] }> {
   const result = (await askJSON(
-    `You are an ATS optimization expert. Analyze the CV and return a JSON object with: content (improved CV HTML), score (ATS score 0-100), suggestions (array of improvement tips).${langInstruction(lang)}`,
-    `Optimize this CV for ATS systems and return JSON:\n\n${cvContent}`,
-    1500,
-  )) as { content?: string; score?: number; suggestions?: string[] };
+    `You are an ATS optimization expert. Analyze the CV and return a JSON object with exactly two fields: score (integer 0-100 representing ATS compatibility), suggestions (array of 3-5 concise improvement tips as strings).${langInstruction(lang)}`,
+    `Analyze this CV for ATS compatibility and return JSON with score and suggestions:\n\n${cvContent}`,
+    512,
+  )) as { score?: number; suggestions?: string[] };
 
   return {
-    content: result.content ?? cvContent,
-    score: result.score ?? 70,
-    suggestions: result.suggestions ?? [],
+    score: typeof result.score === "number" ? result.score : 70,
+    suggestions: Array.isArray(result.suggestions) ? result.suggestions : [],
   };
 }
 

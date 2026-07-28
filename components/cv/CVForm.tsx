@@ -267,6 +267,9 @@ export function CVForm({
   const [bulletLoading, setBulletLoading] = useState<number | null>(null);
   const [skillInput, setSkillInput] = useState("");
   const [atsResult, setAtsResult] = useState<{ score: number; suggestions: string[] } | null>(null);
+  const [coverLetterCompany, setCoverLetterCompany] = useState("");
+  const [coverLetterJob, setCoverLetterJob] = useState("");
+  const [coverLetterResult, setCoverLetterResult] = useState<string | null>(null);
 
   const {
     register,
@@ -361,6 +364,33 @@ export function CVForm({
       toast.success(`${T.toasts.atsScorePrefix} ${result.score}/100`);
     } catch {
       toast.error(T.toasts.atsFailed);
+    } finally {
+      setAiLoading(null);
+    }
+  }
+
+  async function handleCoverLetter() {
+    setAiLoading("cover-letter");
+    try {
+      const data = getValues();
+      const cvContent = [
+        `${data.name} — ${data.jobTitle}`,
+        data.summary || "",
+        `Skills: ${(data.skills || []).join(", ")}`,
+        `Experience: ${(data.experience || []).map((e) => `${e.role} at ${e.company}`).join("; ")}`,
+        `Education: ${(data.education || []).map((e) => `${e.degree} at ${e.institution}`).join("; ")}`,
+      ].join("\n");
+      const res = await fetch("/api/ai/cover-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cvContent, jobDescription: coverLetterJob, companyName: coverLetterCompany, cvId, lang }),
+      });
+      if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.coverLetterFailed)); return; }
+      const { coverLetter } = await res.json();
+      setCoverLetterResult(coverLetter);
+      toast.success(T.toasts.coverLetterGenerated);
+    } catch {
+      toast.error(T.toasts.coverLetterFailed);
     } finally {
       setAiLoading(null);
     }
@@ -1004,7 +1034,7 @@ export function CVForm({
             </div>
 
             {/* Cover Letter */}
-            <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-2">
+            <div className="rounded-xl border border-gray-100 bg-white p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <FileText className="h-5 w-5 text-indigo-600" />
                 <h3 className="text-sm font-semibold text-gray-900">{T.ai.coverLetterTitle}</h3>
@@ -1016,19 +1046,66 @@ export function CVForm({
               </div>
               <p className="text-sm text-gray-500">{T.ai.coverLetterDescription}</p>
               {isPro ? (
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  className="gap-2"
-                  onClick={() => toast.info(lang === "fr"
-                    ? "Collez la description du poste ci-dessous et cliquez sur Générer"
-                    : "Paste the job description in the field below and click generate"
+                <div className="space-y-3">
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+                      {T.ai.coverLetterCompanyLabel}
+                    </label>
+                    <Input
+                      value={coverLetterCompany}
+                      onChange={(e) => setCoverLetterCompany(e.target.value)}
+                      placeholder={T.ai.coverLetterCompanyPlaceholder}
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+                      {T.ai.coverLetterJobLabel}
+                    </label>
+                    <Textarea
+                      value={coverLetterJob}
+                      onChange={(e) => setCoverLetterJob(e.target.value)}
+                      placeholder={T.ai.coverLetterJobPlaceholder}
+                      rows={4}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="gap-2"
+                    onClick={handleCoverLetter}
+                    loading={aiLoading === "cover-letter"}
+                    disabled={!coverLetterJob.trim() || !coverLetterCompany.trim()}
+                  >
+                    <Wand2 className="h-4 w-4" />
+                    {T.ai.generateCoverLetter}
+                  </Button>
+                  {coverLetterResult && (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-semibold text-gray-700">
+                          {T.ai.coverLetterResultLabel}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(coverLetterResult);
+                            toast.success(lang === "fr" ? "Copié !" : "Copied!");
+                          }}
+                          className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
+                        >
+                          {T.ai.coverLetterCopy}
+                        </button>
+                      </div>
+                      <Textarea
+                        readOnly
+                        value={coverLetterResult}
+                        rows={12}
+                        className="text-xs leading-relaxed text-gray-700 bg-gray-50"
+                      />
+                    </div>
                   )}
-                >
-                  <Wand2 className="h-4 w-4" />
-                  {T.ai.generateCoverLetter}
-                </Button>
+                </div>
               ) : (
                 <Link href="/pricing">
                   <Button type="button" variant="outline" size="sm" className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
