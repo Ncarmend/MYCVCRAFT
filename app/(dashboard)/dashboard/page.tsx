@@ -158,7 +158,7 @@ export default async function DashboardPage({ searchParams }: Props) {
 
         {/* CV grid */}
         <div className="mb-8">
-          <div className="mb-6 text-left">
+          <div className="mb-6 text-right">
             <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your curriculum vitae</h2>
             <div className="mx-auto mt-2 h-0.5 w-12 rounded-full bg-slate-600" />
           </div>
