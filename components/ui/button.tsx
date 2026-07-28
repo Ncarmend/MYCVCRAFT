@@ -26,8 +26,8 @@ const variantStyles = {
 
 const sizeStyles = {
   sm: "h-7 px-3 text-xs rounded-md",
-  md: "h-9 px-4 text-sm rounded-lg",
-  lg: "h-9 px-5 text-sm rounded-lg",
+  md: "h-9 px-4 text-xs rounded-lg",
+  lg: "h-9 px-5 text-xs rounded-lg",
   icon: "h-9 w-9 rounded-lg",
 };
 
