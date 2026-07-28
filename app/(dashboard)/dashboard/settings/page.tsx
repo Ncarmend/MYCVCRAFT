@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { Header } from "@/components/dashboard/Header";
 import { SettingsClient } from "./SettingsClient";
-import { translations } from "@/components/landing/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default async function SettingsPage() {
   const cookieStore = await cookies();

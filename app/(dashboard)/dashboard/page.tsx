@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle } from "lucide-react";
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import { PassCountdown } from "@/components/dashboard/PassCountdown";
-import { translations } from "@/components/landing/LanguageContext";
+import { translations } from "@/lib/translations";
 import type { CV } from "@/types";
 
 interface Props {
