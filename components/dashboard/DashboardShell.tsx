@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 interface Props {
   children: React.ReactNode;
@@ -14,6 +15,8 @@ interface Props {
 
 export function DashboardShell({ children, userEmail, userName, plan, passEnd }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { lang } = useLanguage();
+  const T = translations[lang].sidebar;
 
   return (
     <div className="flex flex-1 overflow-hidden bg-gray-50">
@@ -44,7 +47,7 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="text-xs font-medium text-green-900">Menu</span>
+          <span className="text-xs font-medium text-green-900">{T.menu}</span>
         </div>
 
         <main className="flex-1 overflow-y-auto">

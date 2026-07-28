@@ -21,14 +21,14 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { useLanguage } from "@/components/landing/LanguageContext";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/cv/new", label: "New CV", icon: Plus, highlight: true },
-  { href: "/dashboard?tab=cvs", label: "My CVs", icon: FileText },
-  { href: "/pricing", label: "Upgrade", icon: CreditCard, badge: "Pro", freeOnly: true },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+const NAV_CONFIGS = [
+  { href: "/dashboard",         key: "dashboard" as const, icon: LayoutDashboard },
+  { href: "/cv/new",            key: "newCV"     as const, icon: Plus, highlight: true },
+  { href: "/dashboard?tab=cvs", key: "myCVs"     as const, icon: FileText },
+  { href: "/pricing",           key: "upgrade"   as const, icon: CreditCard, badge: "Pro", freeOnly: true },
+  { href: "/dashboard/settings",key: "settings"  as const, icon: Settings },
 ];
 
 interface SidebarProps {
@@ -52,6 +52,7 @@ export function Sidebar({
   const router = useRouter();
   const supabase = createClient();
   const { lang, setLang } = useLanguage();
+  const T = translations[lang].sidebar;
 
   const isPro = plan === "PRO";
 
@@ -62,8 +63,8 @@ export function Sidebar({
     ? Math.max(1, Math.ceil((passEndDate!.getTime() - Date.now()) / 86_400_000))
     : 0;
 
-  // Hide "Upgrade" for PRO users — they're already subscribed / have a pass
-  const visibleNavItems = navItems.filter((item) => !(item.freeOnly && isPro));
+  const navItems = NAV_CONFIGS.map((item) => ({ ...item, label: T[item.key] }));
+  const visibleNavItems = navItems.filter((item) => !("freeOnly" in item && item.freeOnly && isPro));
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -107,9 +108,9 @@ export function Sidebar({
       {/* Pass countdown */}
       {passActive && (
         <div className="border-b border-amber-100 bg-amber-50 px-4 py-2 text-xs text-amber-700">
-          <span className="font-medium">7-Day Pass</span>
+          <span className="font-medium">{T.pass7Day}</span>
           {" · "}
-          {passDaysLeft} day{passDaysLeft !== 1 ? "s" : ""} remaining
+          {passDaysLeft} {passDaysLeft !== 1 ? T.daysRemaining : T.dayRemaining}
         </div>
       )}
 
@@ -136,7 +137,7 @@ export function Sidebar({
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
-                  <item.icon className="h-4 w-4 flex-shrink-0" />
+                  <item.icon className="h-4 w-4 shrink-0" />
                   <span className="flex-1">{item.label}</span>
                   {"badge" in item && item.badge && !item.highlight && (
                     <Badge variant="info" size="sm">{item.badge}</Badge>

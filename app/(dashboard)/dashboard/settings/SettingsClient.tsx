@@ -11,6 +11,7 @@ import {
   FileText, Bot,
 } from "lucide-react";
 import Link from "next/link";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 type Tab = "account" | "cv" | "ai";
 
@@ -57,6 +58,8 @@ interface Props {
 export function SettingsClient({ user }: Props) {
   const router = useRouter();
   const supabase = createClient();
+  const { lang } = useLanguage();
+  const T = translations[lang].settings;
 
   const [activeTab, setActiveTab] = useState<Tab>("account");
 
@@ -103,10 +106,10 @@ export function SettingsClient({ user }: Props) {
         body: JSON.stringify({ name }),
       });
       if (!res.ok) throw new Error("Failed to save");
-      toast.success("Profile updated.");
+      toast.success(T.toasts.profileUpdated);
       router.refresh();
     } catch {
-      toast.error("Failed to update profile.");
+      toast.error(T.toasts.profileFailed);
     } finally {
       setSavingProfile(false);
     }
@@ -115,18 +118,18 @@ export function SettingsClient({ user }: Props) {
   async function handleChangePassword(e: { preventDefault(): void }) {
     e.preventDefault();
     if (newPassword.length < 8) {
-      toast.error("New password must be at least 8 characters.");
+      toast.error(T.toasts.passwordTooShort);
       return;
     }
     setSavingPassword(true);
     try {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) throw error;
-      toast.success("Password updated.");
+      toast.success(T.toasts.passwordUpdated);
       setCurrentPassword("");
       setNewPassword("");
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Failed to update password.");
+      toast.error(err instanceof Error ? err.message : T.toasts.passwordFailed);
     } finally {
       setSavingPassword(false);
     }
@@ -141,7 +144,7 @@ export function SettingsClient({ user }: Props) {
       if (error) throw new Error(error);
       if (url) window.location.href = url;
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Failed to open billing portal.");
+      toast.error(err instanceof Error ? err.message : T.toasts.portalFailed);
     } finally {
       setPortalLoading(false);
     }
@@ -149,7 +152,7 @@ export function SettingsClient({ user }: Props) {
 
   async function handleDeleteAccount() {
     if (deleteConfirm !== user.email) {
-      toast.error("Email doesn't match.");
+      toast.error(T.toasts.emailMismatch);
       return;
     }
     setDeleting(true);
@@ -159,7 +162,7 @@ export function SettingsClient({ user }: Props) {
       await supabase.auth.signOut();
       router.push("/");
     } catch {
-      toast.error("Failed to delete account. Please try again.");
+      toast.error(T.toasts.deleteFailed);
     } finally {
       setDeleting(false);
     }
@@ -174,18 +177,18 @@ export function SettingsClient({ user }: Props) {
         body: JSON.stringify(settings),
       });
       if (!res.ok) throw new Error("Failed to save");
-      toast.success("Settings saved.");
+      toast.success(T.toasts.settingsSaved);
     } catch {
-      toast.error("Failed to save settings.");
+      toast.error(T.toasts.settingsFailed);
     } finally {
       setSavingSettings(false);
     }
   }
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: "account", label: "Account", icon: <User className="h-4 w-4" /> },
-    { id: "cv", label: "CV Preferences", icon: <FileText className="h-4 w-4" /> },
-    { id: "ai", label: "AI Preferences", icon: <Bot className="h-4 w-4" /> },
+    { id: "account", label: T.tabs.account, icon: <User className="h-4 w-4" /> },
+    { id: "cv",      label: T.tabs.cv,      icon: <FileText className="h-4 w-4" /> },
+    { id: "ai",      label: T.tabs.ai,      icon: <Bot className="h-4 w-4" /> },
   ];
 
   return (
@@ -215,24 +218,24 @@ export function SettingsClient({ user }: Props) {
           <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
             <div className="flex items-center gap-2 mb-5">
               <User className="h-4 w-4 text-indigo-600" />
-              <h2 className="font-semibold text-gray-900">Profile</h2>
+              <h2 className="font-semibold text-gray-900">{T.profile.title}</h2>
             </div>
             <form onSubmit={handleSaveProfile} className="space-y-2">
               <Input
-                label="Display name"
+                label={T.profile.displayName}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
+                placeholder={T.profile.displayNamePlaceholder}
               />
               <Input
-                label="Email"
+                label={T.profile.email}
                 value={user.email}
                 disabled
                 className="opacity-60 cursor-not-allowed"
               />
               <div className="flex justify-end">
                 <Button type="submit" size="sm" loading={savingProfile}>
-                  Save changes
+                  {T.profile.saveChanges}
                 </Button>
               </div>
             </form>
@@ -242,26 +245,26 @@ export function SettingsClient({ user }: Props) {
           <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
             <div className="flex items-center gap-2 mb-5">
               <Lock className="h-4 w-4 text-indigo-600" />
-              <h2 className="font-semibold text-gray-900">Password</h2>
+              <h2 className="font-semibold text-gray-900">{T.password.title}</h2>
             </div>
             <form onSubmit={handleChangePassword} className="space-y-2">
               <Input
-                label="Current password"
+                label={T.password.currentPwd}
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="••••••••"
               />
               <Input
-                label="New password"
+                label={T.password.newPwd}
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Min. 8 characters"
+                placeholder={T.password.newPwdPlaceholder}
               />
               <div className="flex justify-end">
                 <Button type="submit" size="sm" loading={savingPassword}>
-                  Update password
+                  {T.password.update}
                 </Button>
               </div>
             </form>
@@ -271,23 +274,23 @@ export function SettingsClient({ user }: Props) {
           <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
             <div className="flex items-center gap-2 mb-5">
               <CreditCard className="h-4 w-4 text-indigo-600" />
-              <h2 className="font-semibold text-gray-900">Subscription</h2>
+              <h2 className="font-semibold text-gray-900">{T.subscription.title}</h2>
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900">
-                    {user.plan === "PRO" ? "Pro" : "Free"} plan
+                    {user.plan === "PRO" ? T.subscription.proPlan : T.subscription.freePlan} plan
                   </span>
                   {user.plan === "PRO" && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700">
-                      <Sparkles className="h-3 w-3" /> Active
+                      <Sparkles className="h-3 w-3" /> {T.subscription.active}
                     </span>
                   )}
                 </div>
                 {user.currentPeriodEnd && (
                   <p className="mt-0.5 text-xs text-gray-400">
-                    Renews {new Date(user.currentPeriodEnd).toLocaleDateString()}
+                    {T.subscription.renews} {new Date(user.currentPeriodEnd).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}
                   </p>
                 )}
               </div>
@@ -300,13 +303,13 @@ export function SettingsClient({ user }: Props) {
                   loading={portalLoading}
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
-                  Manage billing
+                  {T.subscription.manageBilling}
                 </Button>
               ) : (
                 <Link href="/pricing">
                   <Button size="sm" className="gap-2">
                     <Sparkles className="h-3.5 w-3.5" />
-                    Upgrade to Pro
+                    {T.subscription.upgradeToPro}
                   </Button>
                 </Link>
               )}
@@ -317,11 +320,10 @@ export function SettingsClient({ user }: Props) {
           <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-red-100">
             <div className="flex items-center gap-2 mb-5">
               <Trash2 className="h-4 w-4 text-red-500" />
-              <h2 className="font-semibold text-red-600">Danger zone</h2>
+              <h2 className="font-semibold text-red-600">{T.danger.title}</h2>
             </div>
             <p className="text-xs text-gray-500 mb-2">
-              Permanently delete your account and all CVs. This cannot be undone.
-              Type your email <strong>{user.email}</strong> to confirm.
+              {T.danger.description} <strong>{user.email}</strong> {T.danger.descriptionEnd}
             </p>
             <div className="space-y-3">
               <Input
@@ -338,7 +340,7 @@ export function SettingsClient({ user }: Props) {
                 disabled={deleteConfirm !== user.email}
               >
                 <Trash2 className="h-3.5 w-3.5" />
-                Delete my account
+                {T.danger.deleteBtn}
               </Button>
             </div>
           </section>
@@ -349,13 +351,12 @@ export function SettingsClient({ user }: Props) {
       {activeTab === "cv" && (
         <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 space-y-6">
           {loadingSettings ? (
-            <p className="text-sm text-gray-400">Loading…</p>
+            <p className="text-sm text-gray-400">{T.cv.loading}</p>
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Language */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Language</label>
+                  <label className="text-xs font-medium text-gray-700">{T.cv.language}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvLanguage}
@@ -369,9 +370,8 @@ export function SettingsClient({ user }: Props) {
                   </select>
                 </div>
 
-                {/* Font */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Font</label>
+                  <label className="text-xs font-medium text-gray-700">{T.cv.font}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvFont}
@@ -385,9 +385,8 @@ export function SettingsClient({ user }: Props) {
                   </select>
                 </div>
 
-                {/* Format */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Page format</label>
+                  <label className="text-xs font-medium text-gray-700">{T.cv.pageFormat}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.cvFormat}
@@ -399,9 +398,8 @@ export function SettingsClient({ user }: Props) {
                   </select>
                 </div>
 
-                {/* Color */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Accent color</label>
+                  <label className="text-xs font-medium text-gray-700">{T.cv.accentColor}</label>
                   <div className="flex items-center gap-3">
                     <input
                       type="color"
@@ -414,16 +412,15 @@ export function SettingsClient({ user }: Props) {
                 </div>
               </div>
 
-              {/* Section toggles */}
               <div className="space-y-3">
-                <p className="text-sm font-medium text-gray-700">Visible sections</p>
+                <p className="text-sm font-medium text-gray-700">{T.cv.visibleSections}</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[
-                    { key: "showSummary" as const, label: "Summary" },
-                    { key: "showProjects" as const, label: "Projects" },
-                    { key: "showSkills" as const, label: "Skills" },
-                    { key: "showInterests" as const, label: "Interests" },
-                  ].map(({ key, label }) => (
+                  {([
+                    { key: "showSummary"   as const, label: T.cv.summary   },
+                    { key: "showProjects"  as const, label: T.cv.projects  },
+                    { key: "showSkills"    as const, label: T.cv.skills    },
+                    { key: "showInterests" as const, label: T.cv.interests },
+                  ] as const).map(({ key, label }) => (
                     <label
                       key={key}
                       className="flex items-center gap-3 rounded-xl border border-gray-100 px-3 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
@@ -442,7 +439,7 @@ export function SettingsClient({ user }: Props) {
 
               <div className="flex justify-end">
                 <Button size="sm" onClick={handleSaveSettings} loading={savingSettings}>
-                  Save CV preferences
+                  {T.cv.save}
                 </Button>
               </div>
             </>
@@ -454,47 +451,42 @@ export function SettingsClient({ user }: Props) {
       {activeTab === "ai" && (
         <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 space-y-6">
           {loadingSettings ? (
-            <p className="text-sm text-gray-400">Loading…</p>
+            <p className="text-sm text-gray-400">{T.cv.loading}</p>
           ) : (
             <>
-              <p className="text-xs text-gray-500">
-                These settings control how the AI generates and rewrites content for your CVs.
-              </p>
+              <p className="text-xs text-gray-500">{T.ai.hint}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Tone */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Tone</label>
+                  <label className="text-xs font-medium text-gray-700">{T.ai.tone}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiTone}
                     onChange={(e) => setSettings({ ...settings, aiTone: e.target.value })}
                   >
-                    <option value="professional">Professional</option>
-                    <option value="friendly">Friendly</option>
-                    <option value="formal">Formal</option>
-                    <option value="creative">Creative</option>
-                    <option value="concise">Concise</option>
+                    <option value="professional">{T.ai.tones.professional}</option>
+                    <option value="friendly">{T.ai.tones.friendly}</option>
+                    <option value="formal">{T.ai.tones.formal}</option>
+                    <option value="creative">{T.ai.tones.creative}</option>
+                    <option value="concise">{T.ai.tones.concise}</option>
                   </select>
                 </div>
 
-                {/* Length */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Output length</label>
+                  <label className="text-xs font-medium text-gray-700">{T.ai.outputLength}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiLength}
                     onChange={(e) => setSettings({ ...settings, aiLength: e.target.value })}
                   >
-                    <option value="short">Short</option>
-                    <option value="medium">Medium</option>
-                    <option value="long">Long</option>
+                    <option value="short">{T.ai.lengths.short}</option>
+                    <option value="medium">{T.ai.lengths.medium}</option>
+                    <option value="long">{T.ai.lengths.long}</option>
                   </select>
                 </div>
 
-                {/* AI Language */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Output language</label>
+                  <label className="text-xs font-medium text-gray-700">{T.ai.outputLanguage}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiLanguage}
@@ -508,26 +500,25 @@ export function SettingsClient({ user }: Props) {
                   </select>
                 </div>
 
-                {/* Style */}
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">Writing style</label>
+                  <label className="text-xs font-medium text-gray-700">{T.ai.writingStyle}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={settings.aiStyle}
                     onChange={(e) => setSettings({ ...settings, aiStyle: e.target.value })}
                   >
-                    <option value="corporate">Corporate</option>
-                    <option value="startup">Startup</option>
-                    <option value="academic">Academic</option>
-                    <option value="creative">Creative</option>
-                    <option value="tech">Tech</option>
+                    <option value="corporate">{T.ai.styles.corporate}</option>
+                    <option value="startup">{T.ai.styles.startup}</option>
+                    <option value="academic">{T.ai.styles.academic}</option>
+                    <option value="creative">{T.ai.styles.creative}</option>
+                    <option value="tech">{T.ai.styles.tech}</option>
                   </select>
                 </div>
               </div>
 
               <div className="flex justify-end">
                 <Button size="sm" onClick={handleSaveSettings} loading={savingSettings}>
-                  Save AI preferences
+                  {T.ai.save}
                 </Button>
               </div>
             </>
