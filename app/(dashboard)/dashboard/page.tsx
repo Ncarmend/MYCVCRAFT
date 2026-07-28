@@ -164,7 +164,7 @@ export default async function DashboardPage({ searchParams }: Props) {
           </div>
           {cvs.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white py-14 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-950">
                 <FileText className="h-8 w-8" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-gray-900">No CVs yet</h3>
@@ -185,8 +185,8 @@ export default async function DashboardPage({ searchParams }: Props) {
               ))}
               {canCreateCV && (
                 <Link href="/cv/new">
-                  <div className="flex h-full min-h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-indigo-300 hover:bg-indigo-50">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                  <div className="flex h-full min-h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-white transition-all hover:border-emerald-300 hover:bg-emerald-50">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
                       <Plus className="h-6 w-6" />
                     </div>
                     <p className="mt-3 text-sm font-medium text-gray-600">New curriculum vitae</p>
