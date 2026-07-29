@@ -122,7 +122,7 @@ export function Hero() {
                       ))}
                     </div>
                     <div className="mt-auto flex items-center gap-2 border-t border-gray-200 pt-4">
-                      <div className="h-7 w-7 rounded-full bg-indigo-200" />
+                      <div className="h-7 w-7 rounded-full bg-emerald-200" />
                       <div className="space-y-1">
                         <div className="h-2.5 w-16 rounded bg-gray-300" />
                         <div className="h-2 w-12 rounded bg-gray-200" />
@@ -137,7 +137,7 @@ export function Hero() {
                         <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
                         <div className="h-2.5 w-36 rounded bg-gray-300" />
                       </div>
-                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-indigo-600 px-3">
+                      <div className="flex h-8 items-center gap-1.5 rounded-lg bg-emerald-900 px-3">
                         <div className="h-2.5 w-2.5 rounded-full bg-white opacity-80" />
                         <div className="h-2 w-10 rounded bg-white opacity-70" />
                       </div>
