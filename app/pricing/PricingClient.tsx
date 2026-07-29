@@ -106,6 +106,66 @@ export function PricingClient() {
         <p className="mx-auto mt-2 max-w-md text-xs text-slate-500">{T.subtext}</p>
       </div>
 
+      {/* Pricing table */}
+      <div className="mx-auto max-w-5xl px-6 pb-10">
+        <div className="mb-5 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">{T.plansLabel}</p>
+        </div>
+        <div className="rounded-xl bg-slate-700 px-4 pb-6 pt-8 shadow-lg ring-1 ring-slate-600">
+          <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <PricingCard
+              name={T.freeName}
+              price={0}
+              description={T.freeDescription}
+              features={T.freeFeatures as unknown as string[]}
+              perMonth={T.perMonth}
+              ctaLabel={T.freeCtaLabel}
+              currentPlan={planType === "FREE"}
+              onSelect={() => router.push("/signup")}
+            />
+            <PricingCard
+              name={T.passName}
+              price={PLANS.PASS.price}
+              description={T.passDescription}
+              features={T.passFeatures as unknown as string[]}
+              perMonth={T.passOnce}
+              badge={planType !== "PASS" ? T.passNew : undefined}
+              badgeVariant="amber"
+              ctaLabel={T.passCtaLabel}
+              currentPlan={planType === "PASS"}
+              onSelect={() => handleCheckout("PASS")}
+              loading={loadingPlan === "PASS"}
+            />
+            <PricingCard
+              name={T.monthlyName}
+              price={PLANS.PRO.priceMonthly}
+              description={T.monthlyDescription}
+              features={T.monthlyFeatures as unknown as string[]}
+              perMonth={T.perMonth}
+              ctaLabel={T.monthlyCtaLabel}
+              currentPlan={planType === "MONTHLY"}
+              onSelect={() => handleCheckout("MONTHLY")}
+              loading={loadingPlan === "MONTHLY"}
+            />
+            <PricingCard
+              name={T.annualName}
+              price={PLANS.PRO.priceAnnual}
+              description={T.annualDescription}
+              features={T.annualFeatures as unknown as string[]}
+              perMonth={T.perMonth}
+              billingNote={T.annualBilledAs}
+              badge={planType !== "ANNUAL" ? T.bestValue : undefined}
+              badgeVariant="green"
+              ctaLabel={T.annualCtaLabel}
+              currentPlan={planType === "ANNUAL"}
+              onSelect={() => handleCheckout("ANNUAL")}
+              loading={loadingPlan === "ANNUAL"}
+            />
+          </div>
+          <p className="mt-6 text-center text-xs text-slate-400">{T.moneyBack}</p>
+        </div>
+      </div>
+
       {/* Product preview */}
       <div className="mx-auto max-w-4xl px-4 pb-6">
         <div className="mb-4 text-center">
@@ -219,66 +279,6 @@ export function PricingClient() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Pricing table */}
-      <div className="mx-auto max-w-5xl px-6 pb-10">
-        <div className="mb-5 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">{T.plansLabel}</p>
-        </div>
-        <div className="rounded-xl bg-slate-700 px-4 pb-6 pt-8 shadow-lg ring-1 ring-slate-600">
-          <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <PricingCard
-              name={T.freeName}
-              price={0}
-              description={T.freeDescription}
-              features={T.freeFeatures as unknown as string[]}
-              perMonth={T.perMonth}
-              ctaLabel={T.freeCtaLabel}
-              currentPlan={planType === "FREE"}
-              onSelect={() => router.push("/signup")}
-            />
-            <PricingCard
-              name={T.passName}
-              price={PLANS.PASS.price}
-              description={T.passDescription}
-              features={T.passFeatures as unknown as string[]}
-              perMonth={T.passOnce}
-              badge={planType !== "PASS" ? T.passNew : undefined}
-              badgeVariant="amber"
-              ctaLabel={T.passCtaLabel}
-              currentPlan={planType === "PASS"}
-              onSelect={() => handleCheckout("PASS")}
-              loading={loadingPlan === "PASS"}
-            />
-            <PricingCard
-              name={T.monthlyName}
-              price={PLANS.PRO.priceMonthly}
-              description={T.monthlyDescription}
-              features={T.monthlyFeatures as unknown as string[]}
-              perMonth={T.perMonth}
-              ctaLabel={T.monthlyCtaLabel}
-              currentPlan={planType === "MONTHLY"}
-              onSelect={() => handleCheckout("MONTHLY")}
-              loading={loadingPlan === "MONTHLY"}
-            />
-            <PricingCard
-              name={T.annualName}
-              price={PLANS.PRO.priceAnnual}
-              description={T.annualDescription}
-              features={T.annualFeatures as unknown as string[]}
-              perMonth={T.perMonth}
-              billingNote={T.annualBilledAs}
-              badge={planType !== "ANNUAL" ? T.bestValue : undefined}
-              badgeVariant="green"
-              ctaLabel={T.annualCtaLabel}
-              currentPlan={planType === "ANNUAL"}
-              onSelect={() => handleCheckout("ANNUAL")}
-              loading={loadingPlan === "ANNUAL"}
-            />
-          </div>
-          <p className="mt-6 text-center text-xs text-slate-400">{T.moneyBack}</p>
         </div>
       </div>
 
