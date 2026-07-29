@@ -216,7 +216,7 @@ export function PricingClient() {
                         <div className="mb-1 h-4 w-24 rounded-md bg-gray-800 opacity-70" />
                         <div className="h-2.5 w-36 rounded bg-gray-300" />
                       </div>
-                      <div className="flex h-6 items-center gap-1.5 rounded-lg bg-emerald-600 px-2">
+                      <div className="flex h-6 items-center gap-1.5 rounded-lg bg-emerald-900 px-2">
                         <div className="h-2 w-2 rounded-full bg-white opacity-80" />
                         <div className="h-2 w-8 rounded bg-white opacity-70" />
                       </div>
