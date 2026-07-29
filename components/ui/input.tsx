@@ -40,7 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               "block w-full rounded-lg border bg-white px-3 py-1.5 text-xs text-gray-900",
               "placeholder:text-gray-400 transition-colors duration-150",
-              "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500",
+              "focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:border-emerald-800",
               "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50",
               error
                 ? "border-red-400 focus:ring-red-400"
