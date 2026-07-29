@@ -30,7 +30,7 @@ export function Features() {
     <section className="bg-gray-50 py-14 sm:py-20" id="features">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="text-base font-semibold text-indigo-600 uppercase tracking-widest">
+          <h2 className="text-base font-semibold text-emerald-900 uppercase tracking-widest">
             {T.sectionLabel}
           </h2>
           <p className="mt-2 text-base font-bold tracking-tight text-gray-900 sm:text-xl">

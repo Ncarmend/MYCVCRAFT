@@ -103,7 +103,7 @@ export function Hero() {
                   {/* Sidebar */}
                   <div className="col-span-2 flex flex-col border-r border-gray-100 bg-white/70 backdrop-blur-sm p-4">
                     <div className="mb-8 flex items-center gap-2">
-                      <div className="h-7 w-7 rounded-lg bg-indigo-600" />
+                      <div className="h-7 w-7 rounded-lg bg-emerald-900" />
                       <span className="h-3 w-20 rounded bg-gray-300" />
                     </div>
                     <div className="space-y-1.5 text-gray-600">
@@ -112,11 +112,11 @@ export function Hero() {
                           key={i}
                           className={`flex items-center gap-2 rounded-md px-3 py-2 transition-all ${
                             i === 0
-                              ? "bg-indigo-50 text-indigo-700 shadow-sm"
+                              ? "bg-emerald-50 text-emerald-900 shadow-sm"
                               : "text-gray-500 hover:bg-gray-50"
                           }`}
                         >
-                          <div className={`h-3 w-3 rounded ${i === 0 ? "bg-indigo-500" : "bg-gray-300"}`} />
+                          <div className={`h-3 w-3 rounded ${i === 0 ? "bg-emerald-800" : "bg-gray-300"}`} />
                           <span className="text-xs font-medium">{label}</span>
                         </div>
                       ))}
@@ -189,10 +189,10 @@ export function Hero() {
                           <p className="mb-2.5 text-[10px] text-gray-400">Meta · London</p>
                           <div className="mb-1 flex items-center justify-between">
                             <span className="text-[9px] text-gray-400">{T.mock.atsScore}</span>
-                            <span className="text-[9px] font-semibold text-green-600">81%</span>
+                            <span className="text-[9px] font-semibold text-green-800">81%</span>
                           </div>
                           <div className="mb-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                            <div className="h-full w-[81%] rounded-full bg-green-400" />
+                            <div className="h-full w-[81%] rounded-full bg-green-600" />
                           </div>
                           <div className="flex gap-1.5">
                             <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">
@@ -204,9 +204,9 @@ export function Hero() {
                       </div>
 
                       {/* Card 3 — New CV */}
-                      <div className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white transition-colors hover:border-indigo-300 hover:bg-indigo-50/40">
-                        <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100">
-                          <div className="text-indigo-600 text-sm font-bold leading-none">+</div>
+                      <div className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white transition-colors hover:border-emerald-300 hover:bg-emerald-50/40">
+                        <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100">
+                          <div className="text-green-800 text-sm font-bold leading-none">+</div>
                         </div>
                         <p className="text-[10px] font-medium text-gray-500">{T.mock.newCV}</p>
                       </div>
