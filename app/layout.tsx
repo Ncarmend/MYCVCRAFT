@@ -11,6 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cvixeo.com"),
   title: {
     default: "Cvixeo — AI-Powered CV Generator",
     template: "%s | Cvixeo",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_APP_URL,
+    url: "https://cvixeo.com",
     siteName: "Cvixeo",
     title: "Cvixeo — AI-Powered CV Generator",
     description: "Create professional, ATS-optimized CVs in minutes with AI.",
@@ -45,8 +46,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Cvixeo",
+    url: "https://cvixeo.com",
+    description: "Create professional, ATS-optimized CVs in minutes with AI.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://cvixeo.com/careers?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full bg-white text-gray-900">
         <LanguageProvider>
           {children}
