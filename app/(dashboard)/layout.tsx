@@ -42,7 +42,7 @@ export default async function DashboardLayout({
   const passEnd = sub?.premiumPassEnd?.toISOString() ?? null;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <NavbarServer />
       <DashboardShell
         userEmail={user.email}

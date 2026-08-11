@@ -446,12 +446,12 @@ export function CVForm({
 
     function handleScroll() {
       const containerTop = container!.getBoundingClientRect().top;
+      const navHeight = navRef.current?.offsetHeight ?? 52;
       let current: SectionId = SECTION_IDS[0];
       for (const id of SECTION_IDS) {
         const el = container!.querySelector<HTMLElement>(`#section-${id}`);
         if (!el) continue;
-        // If the section's top is within 80 px of the container's top edge, it's "active"
-        if (el.getBoundingClientRect().top - containerTop <= 80) {
+        if (el.getBoundingClientRect().top - containerTop <= navHeight + 16) {
           current = id;
         }
       }
@@ -470,8 +470,14 @@ export function CVForm({
 
   function scrollToSection(id: SectionId) {
     const el = scrollRef.current?.querySelector<HTMLElement>(`#section-${id}`);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el || !scrollRef.current) return;
+    const navHeight = navRef.current?.offsetHeight ?? 52;
+    const relativeTop =
+      el.getBoundingClientRect().top - scrollRef.current.getBoundingClientRect().top;
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollTop + relativeTop - navHeight,
+      behavior: "smooth",
+    });
     setActiveSection(id);
   }
 
@@ -492,38 +498,39 @@ export function CVForm({
   return (
     <form onSubmit={handleSubmit(onSave)} className="flex flex-col flex-1 min-h-0">
 
-      {/* ── Sticky section navigator ── */}
-      <div className="shrink-0 border-b border-gray-100 bg-white">
-        <div
-          ref={navRef}
-          className="overflow-x-auto py-2 px-4"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          <div className="inline-flex items-center rounded-xl bg-gray-100 p-0.5 gap-0.5">
-            {SECTION_IDS.map((id) => (
-              <button
-                key={id}
-                type="button"
-                data-section={id}
-                onClick={() => scrollToSection(id)}
-                className={cn(
-                  "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
-                  "transition-all duration-200",
-                  activeSection === id
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-600 hover:text-gray-800 hover:bg-white/60"
-                )}
-              >
-                {sectionLabels[id]}
-              </button>
-            ))}
+      {/* ── Scrollable content with sticky navigator ── */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
+
+        {/* ── Sticky section navigator ── */}
+        <div className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+          <div
+            ref={navRef}
+            className="overflow-x-auto py-2 px-4"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            <div className="inline-flex items-center rounded-xl bg-gray-100 p-0.5 gap-0.5">
+              {SECTION_IDS.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  data-section={id}
+                  onClick={() => scrollToSection(id)}
+                  className={cn(
+                    "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+                    "transition-all duration-200",
+                    activeSection === id
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-800 hover:bg-white/60"
+                  )}
+                >
+                  {sectionLabels[id]}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Scrollable content ── */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
         <div className="px-6 py-5 space-y-10">
 
           {/* ─── Personal ─── */}
