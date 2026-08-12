@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/modal";
-import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2, Lock } from "lucide-react";
+import { Plus, Trash2, Sparkles, Wand2, Target, FileText, Loader2, Lock, User, Briefcase, GraduationCap, Zap, FolderOpen, Globe, Award, LayoutTemplate } from "lucide-react";
 import Link from "next/link";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
@@ -446,12 +446,11 @@ export function CVForm({
 
     function handleScroll() {
       const containerTop = container!.getBoundingClientRect().top;
-      const navHeight = navRef.current?.offsetHeight ?? 52;
       let current: SectionId = SECTION_IDS[0];
       for (const id of SECTION_IDS) {
         const el = container!.querySelector<HTMLElement>(`#section-${id}`);
         if (!el) continue;
-        if (el.getBoundingClientRect().top - containerTop <= navHeight + 16) {
+        if (el.getBoundingClientRect().top - containerTop <= 80) {
           current = id;
         }
       }
@@ -471,11 +470,10 @@ export function CVForm({
   function scrollToSection(id: SectionId) {
     const el = scrollRef.current?.querySelector<HTMLElement>(`#section-${id}`);
     if (!el || !scrollRef.current) return;
-    const navHeight = navRef.current?.offsetHeight ?? 52;
     const relativeTop =
       el.getBoundingClientRect().top - scrollRef.current.getBoundingClientRect().top;
     scrollRef.current.scrollTo({
-      top: scrollRef.current.scrollTop + relativeTop - navHeight,
+      top: scrollRef.current.scrollTop + relativeTop - 20,
       behavior: "smooth",
     });
     setActiveSection(id);
@@ -493,45 +491,91 @@ export function CVForm({
     ai:             T.tabs.aiTools,
   };
 
+  const sectionIcons = {
+    personal:       User,
+    experience:     Briefcase,
+    education:      GraduationCap,
+    skills:         Zap,
+    projects:       FolderOpen,
+    languages:      Globe,
+    certifications: Award,
+    templates:      LayoutTemplate,
+    ai:             Sparkles,
+  } satisfies Record<SectionId, unknown>;
+
   // ── Render ───────────────────────────────────────────────────────────────
 
   return (
     <form onSubmit={handleSubmit(onSave)} className="flex flex-col flex-1 min-h-0">
 
-      {/* ── Scrollable content with sticky navigator ── */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
+      {/* ── Mobile: horizontal pill nav (visible below md) ── */}
+      <div className="md:hidden shrink-0 border-b border-gray-100 bg-white">
+        <div
+          ref={navRef}
+          className="overflow-x-auto py-2 px-3"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          <div className="inline-flex items-center rounded-xl bg-gray-100 p-0.5 gap-0.5">
+            {SECTION_IDS.map((id) => (
+              <button
+                key={id}
+                type="button"
+                data-section={id}
+                onClick={() => scrollToSection(id)}
+                className={cn(
+                  "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium",
+                  "focus-visible:outline-none focus-visible:ring-2",
+                  "transition-all duration-200",
+                  activeSection === id
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800 hover:bg-white/60"
+                )}
+              >
+                {sectionLabels[id]}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-        {/* ── Sticky section navigator ── */}
-        <div className="sticky top-0 z-50 border-b border-gray-100 bg-white">
-          <div
-            ref={navRef}
-            className="overflow-x-auto py-2 px-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            <div className="inline-flex items-center rounded-xl bg-gray-100 p-0.5 gap-0.5">
-              {SECTION_IDS.map((id) => (
+      {/* ── Main area: left sidebar + scrollable content ── */}
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+
+        {/* ── Desktop left sidebar (hidden on mobile) ── */}
+        <aside className="hidden md:flex md:w-56 shrink-0 flex-col overflow-y-auto border-r border-gray-100 bg-white">
+          <nav className="py-4 px-2">
+            {SECTION_IDS.map((id) => {
+              const Icon = sectionIcons[id];
+              return (
                 <button
                   key={id}
                   type="button"
                   data-section={id}
                   onClick={() => scrollToSection(id)}
                   className={cn(
-                    "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
-                    "transition-all duration-200",
+                    "mb-0.5 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium",
+                    "transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500",
                     activeSection === id
-                      ? "bg-white text-gray-900 shadow-sm"
-                      : "text-gray-600 hover:text-gray-800 hover:bg-white/60"
+                      ? "bg-green-50 text-green-800"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-800"
                   )}
                 >
+                  <Icon
+                    className={cn(
+                      "h-4 w-4 shrink-0 transition-colors duration-200",
+                      activeSection === id ? "text-green-700" : "text-slate-400"
+                    )}
+                  />
                   {sectionLabels[id]}
                 </button>
-              ))}
-            </div>
-          </div>
-        </div>
+              );
+            })}
+          </nav>
+        </aside>
 
-        <div className="px-6 py-5 space-y-10">
+        {/* ── Scrollable content ── */}
+        <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
+          <div className="px-6 py-5 space-y-10">
 
           {/* ─── Personal ─── */}
           <section id="section-personal" className="space-y-3">
@@ -1124,6 +1168,7 @@ export function CVForm({
             </div>
           </section>
 
+        </div>
         </div>
       </div>
 
