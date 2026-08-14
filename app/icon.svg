@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
    version="1.1"
    id="svg1"
-   width="777"
-   height="903"
-   viewBox="0 0 777 903"
+   width="48"
+   height="48"
+   viewBox="0 63 777 777"
    sodipodi:docname="newdesignnew.svg"
    inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -39,6 +39,7 @@
      inkscape:groupmode="layer"
      inkscape:label="Image"
      id="g1">
+    <rect x="0" y="63" width="777" height="777" fill="green"/>
     <image
        width="797"
        height="933"
