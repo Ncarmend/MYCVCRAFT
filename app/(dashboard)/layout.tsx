@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
-import { NavbarServer } from "@/components/landing/NavbarServer";
 
 export default async function DashboardLayout({
   children,
@@ -43,7 +42,6 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex h-screen flex-col">
-      <NavbarServer />
       <DashboardShell
         userEmail={user.email}
         userName={dbUser?.name || user.user_metadata?.full_name}

@@ -75,16 +75,16 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "flex h-full w-64 shrink-0 flex-col border-r border-gray-100 bg-white",
+        "flex h-full w-52 shrink-0 flex-col border-r border-gray-100 bg-white",
         "fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out",
         "lg:static lg:z-auto lg:translate-x-0 lg:transition-none",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 border-b border-gray-100 px-4 py-3">
+      <div className="flex items-center gap-2 border-b border-gray-100 px-3 py-2.5">
         <Link href="/dashboard" className="flex items-center">
-          <Logo height={28} />
+          <Logo height={24} />
         </Link>
         {isPro && !passActive && (
           <Badge variant="success" size="sm" className="gap-1">
@@ -107,7 +107,7 @@ export function Sidebar({
 
       {/* Pass countdown */}
       {passActive && (
-        <div className="border-b border-amber-100 bg-amber-50 px-4 py-2 text-xs text-amber-700">
+        <div className="border-b border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-700">
           <span className="font-medium">{T.pass7Day}</span>
           {" · "}
           {passDaysLeft} {passDaysLeft !== 1 ? T.daysRemaining : T.dayRemaining}
@@ -115,8 +115,8 @@ export function Sidebar({
       )}
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto p-3">
-        <ul className="space-y-1">
+      <nav className="flex-1 overflow-y-auto px-3 py-2">
+        <ul className="space-y-0.5">
           {visibleNavItems.map((item) => {
             const isActive =
               item.href === "/dashboard"
@@ -129,7 +129,7 @@ export function Sidebar({
                   href={item.href}
                   onClick={onClose}
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                    "flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors",
                     item.highlight
                       ? "bg-slate-600 text-white hover:bg-green-600 active:bg-green-700"
                       : isActive
@@ -137,13 +137,13 @@ export function Sidebar({
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
-                  <item.icon className="h-4 w-4 shrink-0" />
+                  <item.icon className="h-3.5 w-3.5 shrink-0" />
                   <span className="flex-1">{item.label}</span>
                   {"badge" in item && item.badge && !item.highlight && (
                     <Badge variant="info" size="sm">{item.badge}</Badge>
                   )}
                   {isActive && !item.highlight && (
-                    <ChevronRight className="h-3.5 w-3.5 text-indigo-400" />
+                    <ChevronRight className="h-3 w-3 text-indigo-400" />
                   )}
                 </Link>
               </li>
@@ -171,9 +171,9 @@ export function Sidebar({
       </div>
 
       {/* User info + sign out */}
-      <div className="border-t border-gray-100 p-2">
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">
+      <div className="border-t border-gray-100 px-3 py-2">
+        <div className="flex items-center gap-2.5 rounded-lg px-0 py-1">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
             {userName
               ? userName
                   .split(" ")
@@ -184,17 +184,17 @@ export function Sidebar({
               : "U"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-gray-900">
+            <p className="truncate text-xs font-medium text-gray-900">
               {userName || "User"}
             </p>
-            <p className="truncate text-xs text-gray-400">{userEmail}</p>
+            <p className="truncate text-[11px] text-gray-400">{userEmail}</p>
           </div>
           <button
             onClick={handleSignOut}
             className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500"
             title="Sign out"
           >
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
