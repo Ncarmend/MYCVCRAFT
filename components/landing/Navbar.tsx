@@ -12,6 +12,23 @@ const langActive   = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
 const langBase     = "rounded-md px-2.5 py-1 transition-all duration-200 ease-in-out text-xs font-semibold";
 
+// Routes that exist in both languages at /x (English) and /fr/x (French).
+// Anything else (e.g. /careers/[slug] articles, which have no French version)
+// falls back to the nearest supported ancestor.
+const LOCALIZED_ROUTES = ["/", "/pricing", "/careers", "/about", "/contact", "/privacy", "/terms", "/cookies", "/legal"];
+
+function localizedHref(pathname: string, target: "en" | "fr"): string {
+  const isFrenchPath = pathname === "/fr" || pathname.startsWith("/fr/");
+  const unprefixed = isFrenchPath ? (pathname === "/fr" ? "/" : pathname.slice(3)) : pathname;
+
+  const supported = LOCALIZED_ROUTES.includes(unprefixed)
+    ? unprefixed
+    : LOCALIZED_ROUTES.find((r) => r !== "/" && unprefixed.startsWith(r + "/")) ?? "/";
+
+  if (target === "en") return supported;
+  return supported === "/" ? "/fr" : `/fr${supported}`;
+}
+
 interface NavbarProps {
   isLoggedIn?: boolean;
   userName?: string;
@@ -47,8 +64,9 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
   const LangToggle = ({ mobile }: { mobile?: boolean }) => (
     <div className="flex items-center rounded-lg border border-gray-200 p-0.5">
       {(["en", "fr"] as const).map((l) => (
-        <button
+        <Link
           key={l}
+          href={localizedHref(pathname, l)}
           onClick={() => setLang(l)}
           className={cn(
             mobile ? "rounded-md px-2 py-1" : langBase,
@@ -56,7 +74,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           )}
         >
           {l.toUpperCase()}
-        </button>
+        </Link>
       ))}
     </div>
   );

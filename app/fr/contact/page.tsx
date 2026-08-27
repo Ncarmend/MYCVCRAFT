@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
-import { ContactClient } from "./ContactClient";
+import { ContactClient } from "../../contact/ContactClient";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with the Cvixeo team. We're here to help with any questions about our AI-powered CV builder.",
+    "Contactez l'équipe Cvixeo. Nous sommes là pour répondre à toutes vos questions sur notre générateur de CV propulsé par l'IA.",
   alternates: {
-    canonical: "https://cvixeo.com/contact",
+    canonical: "https://cvixeo.com/fr/contact",
     languages: {
       en: "https://cvixeo.com/contact",
       fr: "https://cvixeo.com/fr/contact",
@@ -17,12 +17,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Contact | Cvixeo",
-    description: "Reach out to the Cvixeo team — we'd love to hear from you.",
-    url: "https://cvixeo.com/contact",
+    description: "Contactez l'équipe Cvixeo — nous serions ravis de vous entendre.",
+    url: "https://cvixeo.com/fr/contact",
+    locale: "fr_FR",
   },
 };
 
-export default function ContactPage() {
+export default function ContactPageFr() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

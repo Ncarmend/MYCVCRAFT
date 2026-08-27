@@ -11,6 +11,12 @@ const PROTECTED_ROUTES = ["/dashboard", "/cv", "/onboarding", "/account"];
 const AUTH_ROUTES = ["/login", "/signup"];
 
 export async function proxy(request: NextRequest) {
+  // Tag the request with the URL-derived locale so the root layout can set
+  // <html lang> correctly. Read-only signal — never redirects or rewrites.
+  const { pathname } = request.nextUrl;
+  const isFrench = pathname === "/fr" || pathname.startsWith("/fr/");
+  request.headers.set("x-locale", isFrench ? "fr" : "en");
+
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -38,8 +44,6 @@ export async function proxy(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const { pathname } = request.nextUrl;
 
   // Redirect unauthenticated users away from protected routes
   if (PROTECTED_ROUTES.some((route) => pathname.startsWith(route)) && !user) {

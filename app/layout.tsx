@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/landing/LanguageContext";
 import "./globals.css";
@@ -41,11 +42,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = (await headers()).get("x-locale") ?? "en";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -61,7 +64,7 @@ export default function RootLayout({
 
   
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang={locale} className={`${inter.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"

@@ -7,11 +7,11 @@ import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 export const metadata: Metadata = {
-  title: "Cvixeo — AI-Powered CV Generator",
+  title: "Cvixeo — Générateur de CV propulsé par l'IA",
   description:
-    "Create professional, ATS-optimized CVs in minutes with AI. Stand out from the crowd with beautiful templates and intelligent career insights.",
+    "Créez des CV professionnels et optimisés ATS en quelques minutes grâce à l'IA. Démarquez-vous avec de beaux modèles et des recommandations de carrière intelligentes.",
   alternates: {
-    canonical: "https://cvixeo.com",
+    canonical: "https://cvixeo.com/fr",
     languages: {
       en: "https://cvixeo.com",
       fr: "https://cvixeo.com/fr",
@@ -19,13 +19,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Cvixeo — AI-Powered CV Generator",
-    description: "Create professional, ATS-optimized CVs in minutes with AI.",
-    url: "https://cvixeo.com",
+    title: "Cvixeo — Générateur de CV propulsé par l'IA",
+    description: "Créez des CV professionnels et optimisés ATS en quelques minutes grâce à l'IA.",
+    url: "https://cvixeo.com/fr",
+    locale: "fr_FR",
   },
 };
 
-export default function LandingPage() {
+export default function LandingPageFr() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

@@ -576,6 +576,76 @@ export const translations = {
         Career: "Career",
       },
     },
+
+    // ── About page ───────────────────────────────────────────────────────────
+    about: {
+      hero: {
+        heading: "Built for the job seekers who deserve more interviews",
+        subtext:
+          "Cvixeo was founded on a simple belief: the only barrier to landing your dream job should be your qualifications — not your ability to articulate them on paper.",
+      },
+      mission: {
+        badge: "Our Mission",
+        heading: "Democratise access to professional career tools",
+        p1: "For decades, crafting a compelling resume required either expensive career coaches, design software expertise, or hours of painful writing. The result was a system where job-search success correlated too strongly with resources rather than talent.",
+        p2: "Cvixeo's mission is to level the playing field. We combine AI, professional templates, and an ATS-optimisation engine to give every candidate — whether they are a recent graduate, a mid-career professional, or someone changing direction — the same quality of career tools that were previously available only to the few.",
+        quote:
+          "\"Every qualified candidate who doesn't get an interview because of a poorly formatted or keyword-missing resume represents a failure of the system — not a failure of the person. We exist to fix that.\"",
+        attribution: "— Cvixeo Founding Team",
+      },
+      vision: {
+        stats: [
+          { stat: "10,000+", label: "CVs created on the platform" },
+          { stat: "94%", label: "ATS pass rate for optimised resumes" },
+          { stat: "3×", label: "More interview callbacks vs. unoptimised" },
+          { stat: "< 5 min", label: "Average time to a complete, polished CV" },
+        ],
+        badge: "Our Vision",
+        heading: "A world where the best candidate always gets the interview",
+        p1: "We envision a future where Applicant Tracking Systems filter for genuine fit rather than formatting accidents. Where every professional can present their best self to employers clearly and confidently. Where the first interview is about the person — not the paper.",
+        p2: "Getting there requires continuously improving the AI, the templates, and the guidance that candidates receive — so that Cvixeo users are always among the best-prepared applicants in any pool.",
+      },
+      goal: {
+        heading: "One clear goal",
+        subtext: "Help candidates land more interviews using AI.",
+        p1Before: "Every feature we build is evaluated against a single question: ",
+        p1Bold: "does this help a candidate get an interview they would not have gotten otherwise?",
+        p1After: " If yes, we build it and refine it. If no, it does not belong in Cvixeo.",
+        p2: "This means ATS optimisation is not a bolt-on feature — it is the backbone of everything. It means AI suggestions are not cosmetic — they are trained on what actually moves applications forward. And it means we obsess over the PDF export, the templates, and every word of guidance we provide, because the candidate's result depends on all of it.",
+      },
+      values: {
+        heading: "Our values",
+        subtext: "Four principles that guide every decision we make.",
+        items: [
+          {
+            title: "Simplicity",
+            description:
+              "Complexity is the enemy of action. We strip every feature down to its essential value so you can focus on your job search, not on learning a tool.",
+          },
+          {
+            title: "Efficiency",
+            description:
+              "Your time is precious. We help you produce a professional, ATS-optimised resume in minutes — not hours — without compromising quality.",
+          },
+          {
+            title: "Professionalism",
+            description:
+              "Every template, AI suggestion, and exported document is crafted to make you look your professional best in front of any recruiter or hiring manager.",
+          },
+          {
+            title: "Innovation",
+            description:
+              "We stay at the frontier of AI so you always have access to the most effective tools available. Standing still is not an option in a market that moves this fast.",
+          },
+        ],
+      },
+      cta: {
+        heading: "Ready to land more interviews?",
+        subtext: "Build a professional, ATS-optimised resume in minutes — free to start.",
+        btnPrimary: "Build your CV free",
+        btnSecondary: "Contact us",
+      },
+    },
   },
 
   // ════════════════════════════════════════════════════════════════════════════
@@ -1147,6 +1217,76 @@ export const translations = {
         Interview: "Entretien",
         LinkedIn: "LinkedIn",
         Career: "Carrière",
+      },
+    },
+
+    // ── About page ───────────────────────────────────────────────────────────
+    about: {
+      hero: {
+        heading: "Conçu pour les candidats qui méritent plus d'entretiens",
+        subtext:
+          "Cvixeo a été fondé sur une conviction simple : le seul obstacle à l'obtention de l'emploi de vos rêves devrait être vos qualifications — pas votre capacité à les mettre en valeur sur papier.",
+      },
+      mission: {
+        badge: "Notre mission",
+        heading: "Démocratiser l'accès à des outils de carrière professionnels",
+        p1: "Pendant des décennies, rédiger un CV convaincant nécessitait soit des coachs de carrière coûteux, soit une expertise en logiciels de design, soit des heures d'écriture pénible. Le résultat était un système où la réussite de la recherche d'emploi dépendait trop des ressources plutôt que du talent.",
+        p2: "La mission de Cvixeo est d'égaliser les chances. Nous combinons l'IA, des modèles professionnels et un moteur d'optimisation ATS pour offrir à chaque candidat — jeune diplômé, professionnel en milieu de carrière ou en reconversion — la même qualité d'outils de carrière auparavant réservée à quelques privilégiés.",
+        quote:
+          "« Chaque candidat qualifié qui n'obtient pas d'entretien à cause d'un CV mal formaté ou dépourvu des bons mots-clés représente un échec du système — pas un échec de la personne. Nous existons pour corriger cela. »",
+        attribution: "— L'équipe fondatrice de Cvixeo",
+      },
+      vision: {
+        stats: [
+          { stat: "10 000+", label: "CV créés sur la plateforme" },
+          { stat: "94 %", label: "Taux de réussite ATS pour les CV optimisés" },
+          { stat: "3×", label: "Plus de retours d'entretien qu'un CV non optimisé" },
+          { stat: "< 5 min", label: "Temps moyen pour un CV complet et soigné" },
+        ],
+        badge: "Notre vision",
+        heading: "Un monde où le meilleur candidat obtient toujours l'entretien",
+        p1: "Nous envisageons un avenir où les systèmes de suivi des candidatures filtrent en fonction de l'adéquation réelle plutôt que d'accidents de mise en forme. Où chaque professionnel peut se présenter clairement et avec confiance aux employeurs. Où le premier entretien porte sur la personne — pas sur le papier.",
+        p2: "Y parvenir nécessite d'améliorer continuellement l'IA, les modèles et les conseils fournis aux candidats — afin que les utilisateurs de Cvixeo soient toujours parmi les mieux préparés de tout le vivier de candidats.",
+      },
+      goal: {
+        heading: "Un objectif clair",
+        subtext: "Aider les candidats à décrocher plus d'entretiens grâce à l'IA.",
+        p1Before: "Chaque fonctionnalité que nous développons est évaluée selon une seule question : ",
+        p1Bold: "cela aide-t-il un candidat à obtenir un entretien qu'il n'aurait pas obtenu autrement ?",
+        p1After: " Si oui, nous la construisons et l'affinons. Si non, elle n'a pas sa place dans Cvixeo.",
+        p2: "Cela signifie que l'optimisation ATS n'est pas une fonctionnalité accessoire — c'est l'épine dorsale de tout. Cela signifie que les suggestions de l'IA ne sont pas cosmétiques — elles sont entraînées sur ce qui fait réellement avancer les candidatures. Et cela signifie que nous soignons obsessionnellement l'export PDF, les modèles et chaque mot de conseil que nous fournissons, car le résultat du candidat en dépend entièrement.",
+      },
+      values: {
+        heading: "Nos valeurs",
+        subtext: "Quatre principes qui guident chacune de nos décisions.",
+        items: [
+          {
+            title: "Simplicité",
+            description:
+              "La complexité est l'ennemie de l'action. Nous réduisons chaque fonctionnalité à sa valeur essentielle pour que vous puissiez vous concentrer sur votre recherche d'emploi, pas sur l'apprentissage d'un outil.",
+          },
+          {
+            title: "Efficacité",
+            description:
+              "Votre temps est précieux. Nous vous aidons à produire un CV professionnel optimisé ATS en quelques minutes — pas en heures — sans compromis sur la qualité.",
+          },
+          {
+            title: "Professionnalisme",
+            description:
+              "Chaque modèle, suggestion de l'IA et document exporté est conçu pour vous présenter sous votre meilleur jour professionnel devant tout recruteur ou responsable du recrutement.",
+          },
+          {
+            title: "Innovation",
+            description:
+              "Nous restons à la pointe de l'IA pour que vous ayez toujours accès aux outils les plus efficaces. Rester immobile n'est pas une option dans un marché qui évolue aussi vite.",
+          },
+        ],
+      },
+      cta: {
+        heading: "Prêt à décrocher plus d'entretiens ?",
+        subtext: "Créez un CV professionnel optimisé ATS en quelques minutes — gratuit pour commencer.",
+        btnPrimary: "Créer mon CV gratuitement",
+        btnSecondary: "Contactez-nous",
       },
     },
   },

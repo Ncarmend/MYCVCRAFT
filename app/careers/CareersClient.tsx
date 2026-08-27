@@ -4,8 +4,11 @@ import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { ArticleCard } from "@/components/careers/ArticleCard";
 import { articles, CATEGORIES, type Category } from "@/lib/articles";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function CareersClient() {
+  const { lang } = useLanguage();
+  const T = translations[lang].careers;
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
 
@@ -31,13 +34,13 @@ export function CareersClient() {
       <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50">
         <div className="mx-auto max-w-5xl px-6 py-14 text-center">
           <span className="inline-block rounded-full bg-green-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-green-700 ring-1 ring-green-200">
-            Career Resources
+            {T.badge}
           </span>
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            Land your next job with confidence
+            {T.heading}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-500">
-            Practical, expert-written guides on resumes, ATS optimisation, interviews, and more — everything you need for a successful job search.
+            {T.subtext}
           </p>
 
           <div className="relative mx-auto mt-7 max-w-md">
@@ -46,7 +49,7 @@ export function CareersClient() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search articles…"
+              placeholder={T.searchPlaceholder}
               className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors duration-150"
             />
           </div>
@@ -60,7 +63,7 @@ export function CareersClient() {
                   : "bg-white text-slate-600 ring-1 ring-gray-200 hover:ring-green-300 hover:text-green-700"
               }`}
             >
-              All topics
+              {T.allTopics}
             </button>
             {CATEGORIES.map((cat) => (
               <button
@@ -72,7 +75,7 @@ export function CareersClient() {
                     : "bg-white text-slate-600 ring-1 ring-gray-200 hover:ring-green-300 hover:text-green-700"
                 }`}
               >
-                {cat}
+                {T.categories[cat]}
               </button>
             ))}
           </div>
@@ -85,7 +88,7 @@ export function CareersClient() {
           <section>
             <div className="mb-6 flex items-center gap-3">
               <span className="h-px flex-1 bg-gray-100" />
-              <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">Featured articles</h2>
+              <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">{T.featuredLabel}</h2>
               <span className="h-px flex-1 bg-gray-100" />
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -98,15 +101,15 @@ export function CareersClient() {
           {showFeatured && (
             <div className="mb-6 flex items-center gap-3">
               <span className="h-px flex-1 bg-gray-100" />
-              <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">All articles</h2>
+              <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">{T.allLabel}</h2>
               <span className="h-px flex-1 bg-gray-100" />
             </div>
           )}
           {filtered.length === 0 ? (
             <div className="py-20 text-center">
-              <p className="text-sm text-slate-400">No articles found for <span className="font-semibold text-slate-600">"{query}"</span>.</p>
+              <p className="text-sm text-slate-400">{T.noResults} <span className="font-semibold text-slate-600">"{query}"</span>.</p>
               <button onClick={() => { setQuery(""); setActiveCategory("All"); }} className="mt-3 text-xs font-medium text-green-700 hover:underline">
-                Clear filters
+                {T.clearFilters}
               </button>
             </div>
           ) : (
@@ -117,15 +120,15 @@ export function CareersClient() {
         </section>
 
         <section className="rounded-2xl bg-slate-800 px-8 py-10 text-center text-white">
-          <h2 className="text-lg font-bold">Ready to put these tips into action?</h2>
+          <h2 className="text-lg font-bold">{T.ctaHeading}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-slate-300">
-            Build a professional, ATS-optimised resume in minutes with Cvixeo — and start getting more interviews.
+            {T.ctaSubtext}
           </p>
           <a
             href="/signup"
             className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
           >
-            Build your CV free
+            {T.ctaBtn}
           </a>
         </section>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { translations } from "@/lib/translations";
 export { translations };
 
@@ -15,8 +16,14 @@ const LanguageContext = createContext<LanguageContextValue>({ lang: "en", setLan
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
+  const pathname = usePathname();
+  const isFrenchRoute = pathname === "/fr" || pathname.startsWith("/fr/");
 
   useEffect(() => {
+    // French marketing routes (/fr/...) are locked to French for SEO — the URL
+    // is the source of truth there, not the stored preference.
+    if (isFrenchRoute) return;
+
     const stored = localStorage.getItem("cv-lang") as Lang | null;
     if (stored === "fr" || stored === "en") {
       setLangState(stored);
@@ -24,7 +31,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const browserFr = navigator.language.startsWith("fr");
       setLangState(browserFr ? "fr" : "en");
     }
-  }, []);
+  }, [isFrenchRoute]);
 
   function setLang(l: Lang) {
     setLangState(l);
@@ -33,7 +40,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang }}>
+    <LanguageContext.Provider value={{ lang: isFrenchRoute ? "fr" : lang, setLang }}>
       {children}
     </LanguageContext.Provider>
   );
