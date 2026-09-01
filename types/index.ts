@@ -106,16 +106,24 @@ export type CV = {
 // --- Subscription Types ---
 
 export type SubscriptionPlan = "FREE" | "PRO";
-export type SubscriptionStatus = "ACTIVE" | "CANCELED" | "PAST_DUE" | "INCOMPLETE";
+export type SubscriptionStatus = "ACTIVE" | "CANCELED" | "PAST_DUE" | "INCOMPLETE" | "PAUSED";
 
 export interface Subscription {
   id: string;
   userId: string;
   plan: SubscriptionPlan;
   status: SubscriptionStatus;
+  // Legacy Stripe fields — retained for historical data, no longer written to.
   stripeCustomerId?: string | null;
   stripeSubscriptionId?: string | null;
+  stripePriceId?: string | null;
   stripeCurrentPeriodEnd?: Date | null;
+  // Paddle fields — current billing provider.
+  paddleCustomerId?: string | null;
+  paddleSubscriptionId?: string | null;
+  paddlePriceId?: string | null;
+  paddleCurrentPeriodEnd?: Date | null;
+  premiumPassEnd?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }

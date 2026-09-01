@@ -18,7 +18,7 @@ export async function GET() {
   checks.SUPABASE_SERVICE_ROLE_KEY = serviceKey ? maskKey(serviceKey) : "MISSING";
   checks.DATABASE_URL = process.env.DATABASE_URL ? "set" : "MISSING";
   checks.OPENAI_API_KEY = process.env.OPENAI_API_KEY ? "set" : "MISSING";
-  checks.STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY ? "set" : "MISSING";
+  checks.PADDLE_API_KEY = process.env.PADDLE_API_KEY ? "set" : "MISSING";
   checks.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || "MISSING";
 
   // Test Supabase auth endpoint connectivity

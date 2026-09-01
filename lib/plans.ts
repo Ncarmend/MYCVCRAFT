@@ -1,6 +1,6 @@
 /**
  * Subscription plan definitions — safe to import in Client Components.
- * Does NOT import the Stripe SDK or any server-only modules.
+ * Does NOT import the Paddle SDK or any server-only modules.
  */
 
 export const PLANS = {
@@ -17,7 +17,7 @@ export const PLANS = {
   },
   PASS: {
     name: "7-Day Premium Pass",
-    // One-time Stripe price ID — resolved server-side only
+    // One-time Paddle price ID — resolved server-side only
     priceId: null,
     price: 3.99,
     durationDays: 7,
@@ -33,10 +33,10 @@ export const PLANS = {
   },
   PRO: {
     name: "Premium",
-    // Monthly Stripe price ID
-    priceId: process.env.STRIPE_PRO_PRICE_ID ?? null,
-    // Annual Stripe price ID
-    priceIdAnnual: process.env.STRIPE_PRO_ANNUAL_PRICE_ID ?? null,
+    // Monthly Paddle price ID
+    priceId: process.env.PADDLE_MONTHLY_PRICE_ID ?? null,
+    // Annual Paddle price ID
+    priceIdAnnual: process.env.PADDLE_YEARLY_PRICE_ID ?? null,
     // Displayed prices
     price: 12,           // backward compat (monthly)
     priceMonthly: 12,
@@ -56,3 +56,17 @@ export const PLANS = {
     ],
   },
 } as const;
+
+/**
+ * Resolve which UI plan tier a stored Paddle price ID corresponds to.
+ * Centralizes the MONTHLY-vs-ANNUAL inference so it isn't duplicated
+ * across API routes and server components.
+ */
+export function getPlanTypeFromPriceId(
+  priceId: string | null | undefined
+): "MONTHLY" | "ANNUAL" | null {
+  if (!priceId) return null;
+  if (priceId === process.env.PADDLE_YEARLY_PRICE_ID) return "ANNUAL";
+  if (priceId === process.env.PADDLE_MONTHLY_PRICE_ID) return "MONTHLY";
+  return null;
+}

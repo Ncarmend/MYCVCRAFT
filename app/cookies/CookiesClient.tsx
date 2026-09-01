@@ -100,13 +100,13 @@ function CookiesEN() {
         </Section>
 
         <Section id="third-party" title="3. Third-Party Cookies">
-          <p>We use Stripe for payment processing. When you visit the payment flow (subscription checkout), Stripe may set cookies on your device for fraud prevention and payment security purposes. These cookies are governed by <a href="https://stripe.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Stripe's Privacy Policy</a>.</p>
-          <p>Stripe's fraud prevention cookies are considered strictly necessary for the payment service to function and do not require separate consent.</p>
+          <p>We use Paddle as our payment provider and Merchant of Record. When you open the checkout (subscription or Pass purchase), Paddle may set cookies on your device for fraud prevention and payment security purposes. These cookies are governed by <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Paddle's Privacy Policy</a>.</p>
+          <p>Paddle's fraud prevention cookies are considered strictly necessary for the payment service to function and do not require separate consent.</p>
           <p>We do not load Google Analytics, Facebook Pixel, TikTok Pixel, LinkedIn Insight Tag, Hotjar, or any other third-party tracking or analytics script.</p>
         </Section>
 
         <Section id="legal-basis" title="4. Legal Basis Under the GDPR and ePrivacy Directive">
-          <p>Under the EU's ePrivacy Directive (implemented nationally as the "Cookie Law") and the GDPR, cookies that are strictly necessary for the operation of the service do not require consent. This covers our authentication session cookies and fraud-prevention cookies from Stripe.</p>
+          <p>Under the EU's ePrivacy Directive (implemented nationally as the "Cookie Law") and the GDPR, cookies that are strictly necessary for the operation of the service do not require consent. This covers our authentication session cookies and fraud-prevention cookies from Paddle.</p>
           <p>Because we do not use any non-essential cookies, we do not display a cookie consent banner. If we ever introduce optional analytics or marketing cookies in the future, we will update this policy, add an appropriate consent mechanism, and notify existing users.</p>
         </Section>
 
@@ -188,13 +188,13 @@ function CookiesFR() {
         </Section>
 
         <Section id="third-party" title="3. Cookies tiers">
-          <p>Nous utilisons Stripe pour le traitement des paiements. Lorsque vous accédez au parcours de paiement (souscription d'abonnement), Stripe peut déposer des cookies sur votre appareil à des fins de prévention de la fraude et de sécurité des paiements. Ces cookies sont régis par la <a href="https://stripe.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité de Stripe</a>.</p>
-          <p>Les cookies anti-fraude de Stripe sont considérés comme strictement nécessaires au fonctionnement du service de paiement et ne nécessitent pas de consentement distinct.</p>
+          <p>Nous utilisons Paddle comme prestataire de paiement et « Merchant of Record ». Lorsque vous accédez au parcours de paiement (abonnement ou achat du Pass), Paddle peut déposer des cookies sur votre appareil à des fins de prévention de la fraude et de sécurité des paiements. Ces cookies sont régis par la <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité de Paddle</a>.</p>
+          <p>Les cookies anti-fraude de Paddle sont considérés comme strictement nécessaires au fonctionnement du service de paiement et ne nécessitent pas de consentement distinct.</p>
           <p>Nous ne chargeons ni Google Analytics, ni Facebook Pixel, ni TikTok Pixel, ni LinkedIn Insight Tag, ni Hotjar, ni aucun autre script de suivi ou d'analyse tiers.</p>
         </Section>
 
         <Section id="legal-basis" title="4. Base juridique en vertu du RGPD et de la directive ePrivacy">
-          <p>En vertu de la directive européenne ePrivacy (transposée nationalement sous le nom de « loi Cookies ») et du RGPD, les cookies strictement nécessaires au fonctionnement du service ne requièrent pas de consentement. Cela couvre nos cookies de session d'authentification et les cookies anti-fraude de Stripe.</p>
+          <p>En vertu de la directive européenne ePrivacy (transposée nationalement sous le nom de « loi Cookies ») et du RGPD, les cookies strictement nécessaires au fonctionnement du service ne requièrent pas de consentement. Cela couvre nos cookies de session d'authentification et les cookies anti-fraude de Paddle.</p>
           <p>Comme nous n'utilisons aucun cookie non essentiel, nous n'affichons pas de bannière de consentement aux cookies. Si nous introduisons un jour des cookies d'analyse ou marketing optionnels, nous mettrons à jour cette politique, ajouterons un mécanisme de consentement approprié et informerons les utilisateurs existants.</p>
         </Section>
 

@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { isProUser } from "@/lib/isPro";
 
 export default async function DashboardLayout({
   children,
@@ -35,7 +36,7 @@ export default async function DashboardLayout({
   });
 
   const sub = dbUser.subscription;
-  const isPro = sub?.plan === "PRO" || !!(sub?.premiumPassEnd && sub.premiumPassEnd > new Date());
+  const isPro = isProUser(sub);
   const plan = isPro ? "PRO" : "FREE";
   // Pass as ISO string — client components cannot receive Date objects directly
   const passEnd = sub?.premiumPassEnd?.toISOString() ?? null;

@@ -1,6 +1,6 @@
 # CVCraft — AI-Powered CV Generator SaaS
 
-A production-ready SaaS built with **Next.js 15**, **Tailwind CSS**, **Prisma**, **Supabase**, **OpenAI GPT-4o**, and **Stripe**.
+A production-ready SaaS built with **Next.js 15**, **Tailwind CSS**, **Prisma**, **Supabase**, **OpenAI GPT-4o**, and **Paddle**.
 
 ---
 
@@ -14,7 +14,7 @@ A production-ready SaaS built with **Next.js 15**, **Tailwind CSS**, **Prisma**,
 - **Job Description Matching** — Match score + keywords to tailor your CV (Pro)
 - **Cover Letter Generator** — AI-generated tailored cover letters (Pro)
 - **PDF Export** — Download your CV as a PDF (watermarked on free plan)
-- **Subscription System** — Free plan (1 CV) + Pro plan ($12/mo via Stripe)
+- **Subscription System** — Free plan (1 CV) + Pro plan ($12/mo via Paddle)
 - **Onboarding flow** — Two-step welcome screen after sign-up
 - **Pricing page** — With FAQ and feature comparison
 - **SEO-optimized** landing page
@@ -31,7 +31,7 @@ A production-ready SaaS built with **Next.js 15**, **Tailwind CSS**, **Prisma**,
 | ORM | Prisma |
 | Auth | Supabase Auth |
 | AI | OpenAI GPT-4o |
-| Payments | Stripe |
+| Payments | Paddle |
 | UI Components | Radix UI + custom components |
 | Forms | React Hook Form + Zod |
 | Toasts | Sonner |
@@ -59,9 +59,9 @@ cvcraft/
 │   │   ├── ai/optimize/route.ts    # ATS optimization
 │   │   ├── ai/match/route.ts       # Job description matching (Pro)
 │   │   ├── ai/cover-letter/route.ts# Cover letter generator (Pro)
-│   │   ├── stripe/checkout/route.ts# Stripe checkout
-│   │   ├── stripe/portal/route.ts  # Stripe billing portal
-│   │   ├── stripe/webhook/route.ts # Stripe webhook handler
+│   │   ├── paddle/checkout/route.ts# Paddle checkout transaction
+│   │   ├── paddle/portal/route.ts  # Paddle customer portal
+│   │   ├── paddle/webhook/route.ts # Paddle webhook handler
 │   │   ├── pdf/route.ts            # PDF generation
 │   │   └── user/profile/route.ts   # Profile update
 │   ├── auth/callback/route.ts      # OAuth callback handler
@@ -89,17 +89,16 @@ cvcraft/
 │   └── pricing/PricingCard.tsx
 ├── hooks/
 │   ├── useAuth.ts
-│   ├── useCV.ts
-│   └── useSubscription.ts
+│   └── useCV.ts
 ├── lib/
 │   ├── supabase/client.ts          # Browser Supabase client
 │   ├── supabase/server.ts          # Server Supabase client
 │   ├── prisma.ts                   # Prisma singleton
 │   ├── openai.ts                   # OpenAI helpers
-│   ├── stripe.ts                   # Stripe client + helpers
+│   ├── paddle.ts                   # Paddle client + helpers
 │   └── utils.ts                    # Shared utilities
 ├── types/index.ts                  # TypeScript types
-├── middleware.ts                   # Route protection
+├── proxy.ts                        # Route protection (Next.js Proxy, formerly Middleware)
 ├── prisma/schema.prisma            # Database schema
 └── .env.example                    # Environment variables template
 ```
@@ -142,20 +141,21 @@ npm run db:migrate   # Create and apply a migration
 npm run db:generate  # Regenerate Prisma client
 ```
 
-### 5. Set up Stripe
+### 5. Set up Paddle
 
-1. Create a product + monthly price in [Stripe Dashboard](https://dashboard.stripe.com)
-2. Copy the Price ID to `STRIPE_PRO_PRICE_ID` in `.env.local`
-3. Copy your API keys to `.env.local`
-4. Set up webhook (see below)
+1. Create a [Paddle](https://www.paddle.com) account and switch to **sandbox** mode for development
+2. Create 3 prices under Catalog → Prices: a recurring monthly price (€12), a recurring annual price (€108/yr), and a one-time price for the 7-Day Pass (€3.99)
+3. Copy the price IDs to `PADDLE_MONTHLY_PRICE_ID`, `PADDLE_YEARLY_PRICE_ID`, `PADDLE_PASS_PRICE_ID` in `.env.local`
+4. Copy your API key (Developer Tools → Authentication) to `PADDLE_API_KEY`, and your client-side token to `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`
+5. Set up the webhook (see below)
 
-#### Stripe webhook (local dev)
+#### Paddle webhook (local dev)
 
-```bash
-# Install Stripe CLI
-stripe listen --forward-to localhost:3000/api/stripe/webhook
-# Copy the webhook signing secret to STRIPE_WEBHOOK_SECRET
-```
+Paddle delivers webhooks over HTTPS, so local testing needs a tunnel (e.g. `ngrok http 3000`) or Paddle's dashboard **webhook simulator** (Developer Tools → Notifications → your destination → Simulate).
+
+1. Developer Tools → Notifications → Add destination → URL: `https://<your-tunnel>/api/paddle/webhook`
+2. Subscribe to: `transaction.completed`, `transaction.payment_failed`, `subscription.created`, `subscription.activated`, `subscription.updated`, `subscription.canceled`, `subscription.past_due`, `subscription.paused`, `subscription.resumed`
+3. Copy the destination's secret key to `PADDLE_NOTIFICATION_WEBHOOK_SECRET`
 
 ### 6. Run locally
 
@@ -186,12 +186,12 @@ git push -u origin main
 3. Add all environment variables from `.env.example` in the Vercel project settings
 4. Set `NEXT_PUBLIC_APP_URL` to your Vercel domain (e.g. `https://cvcraft.vercel.app`)
 
-### 3. Stripe webhook (production)
+### 3. Paddle webhook (production)
 
-1. In Stripe Dashboard → Webhooks → Add endpoint
-2. URL: `https://your-domain.vercel.app/api/stripe/webhook`
-3. Events to listen: `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_failed`
-4. Copy the signing secret to `STRIPE_WEBHOOK_SECRET` in Vercel env vars
+1. In Paddle Dashboard (switch to **live** mode) → Developer Tools → Notifications → Add destination
+2. URL: `https://your-domain.vercel.app/api/paddle/webhook`
+3. Events to listen: `transaction.completed`, `transaction.payment_failed`, `subscription.created`, `subscription.activated`, `subscription.updated`, `subscription.canceled`, `subscription.past_due`, `subscription.paused`, `subscription.resumed`
+4. Copy the destination's secret key to `PADDLE_NOTIFICATION_WEBHOOK_SECRET` in Vercel env vars, and set `NEXT_PUBLIC_PADDLE_ENV=production`
 
 ### 4. Supabase Auth callback URL
 

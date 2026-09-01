@@ -50,7 +50,7 @@ interface Props {
     name: string;
     email: string;
     plan: "FREE" | "PRO";
-    stripeCustomerId: string | null;
+    paddleCustomerId: string | null;
     currentPeriodEnd: string | null;
   };
 }
@@ -138,7 +138,7 @@ export function SettingsClient({ user }: Props) {
   async function handleOpenPortal() {
     setPortalLoading(true);
     try {
-      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const res = await fetch("/api/paddle/portal", { method: "POST" });
       if (!res.ok) throw new Error(await res.text());
       const { url, error } = await res.json();
       if (error) throw new Error(error);

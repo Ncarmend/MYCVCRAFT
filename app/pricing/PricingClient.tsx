@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { initializePaddle, type Paddle } from "@paddle/paddle-js";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
 import { HelpCircle, CheckCircle } from "lucide-react";
@@ -27,6 +28,7 @@ export function PricingClient() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [subStatus, setSubStatus] = useState<SubscriptionStatus | null>(null);
+  const paddleRef = useRef<Paddle | null>(null);
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
   const TM = translations[lang].hero.mock;
@@ -38,19 +40,35 @@ export function PricingClient() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    initializePaddle({
+      environment: process.env.NEXT_PUBLIC_PADDLE_ENV === "production" ? "production" : "sandbox",
+      token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN!,
+      eventCallback: (event) => {
+        // Paddle checkout is an in-page overlay — on success, redirect the whole
+        // page carrying the transaction ID so the dashboard can reconcile it.
+        if (event.name === "checkout.completed" && event.data?.transaction_id) {
+          window.location.href = `/dashboard?success=true&transaction_id=${event.data.transaction_id}`;
+        }
+      },
+    }).then((p) => { paddleRef.current = p ?? null; });
+  }, []);
+
   async function handleCheckout(planType: "MONTHLY" | "ANNUAL" | "PASS") {
     setLoadingPlan(planType);
     try {
-      const res = await fetch("/api/stripe/checkout", {
+      const res = await fetch("/api/paddle/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ planType }),
       });
       if (res.status === 401) { router.push("/signup?returnTo=/pricing"); return; }
       if (!res.ok) throw new Error(await res.text());
-      const { url, error } = await res.json();
+      const { transactionId, error } = await res.json();
       if (error) throw new Error(error);
-      if (url) window.location.href = url;
+      if (transactionId) {
+        paddleRef.current?.Checkout.open({ transactionId });
+      }
     } catch {
       toast.error(lang === "fr" ? "Une erreur est survenue. Veuillez réessayer." : "Something went wrong. Please try again.");
     } finally {

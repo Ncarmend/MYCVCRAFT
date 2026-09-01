@@ -82,10 +82,18 @@ model Subscription {
   userId String @unique
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  // Legacy Stripe fields — retained for historical data, no longer written to.
   stripeCustomerId       String? @unique
   stripeSubscriptionId   String? @unique
   stripePriceId          String?
   stripeCurrentPeriodEnd DateTime?
+
+  // Paddle fields — current billing provider.
+  paddleCustomerId       String? @unique
+  paddleSubscriptionId   String? @unique
+  paddlePriceId          String?
+  paddleCurrentPeriodEnd DateTime?
+
   premiumPassEnd         DateTime?
 
   plan   SubscriptionPlan   @default(FREE)
@@ -159,4 +167,5 @@ enum SubscriptionStatus {
   CANCELED
   PAST_DUE
   INCOMPLETE
+  PAUSED
 }

@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import { Header } from "@/components/dashboard/Header";
 import { SettingsClient } from "./SettingsClient";
 import { translations } from "@/lib/translations";
+import { isProUser } from "@/lib/isPro";
 
 export default async function SettingsPage() {
   const cookieStore = await cookies();
@@ -32,9 +33,11 @@ export default async function SettingsPage() {
           user={{
             name: dbUser.name ?? "",
             email: dbUser.email,
-            plan: dbUser.subscription?.plan ?? "FREE",
-            stripeCustomerId: dbUser.subscription?.stripeCustomerId ?? null,
-            currentPeriodEnd: dbUser.subscription?.stripeCurrentPeriodEnd?.toISOString() ?? null,
+            // isProUser() also covers an active 7-Day Pass, not just a paid subscription —
+            // otherwise Pass users would incorrectly see "Free / Upgrade" here.
+            plan: isProUser(dbUser.subscription) ? "PRO" : "FREE",
+            paddleCustomerId: dbUser.subscription?.paddleCustomerId ?? null,
+            currentPeriodEnd: dbUser.subscription?.paddleCurrentPeriodEnd?.toISOString() ?? null,
           }}
         />
       </div>

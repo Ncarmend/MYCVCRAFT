@@ -4,10 +4,13 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 /**
- * Invisible component rendered on /dashboard?success=true.
+ * Invisible component rendered on /dashboard?success=true&transaction_id=...
  *
  * Flow:
- * 1. Call /api/stripe/sync-subscription → fetches live Stripe state → writes to DB
+ * 1. Call /api/paddle/sync-subscription with the transaction ID from the Paddle.js
+ *    checkout.completed event → fetches the live Paddle transaction/subscription
+ *    state → writes to DB. This is a fast-path reconciliation; the webhook is the
+ *    source of truth and will also process the same purchase independently.
  * 2. Show feedback toast
  * 3. Hard-redirect to /dashboard (window.location, not router.replace) so the
  *    browser loads a completely fresh page — bypasses the Next.js router cache
@@ -19,11 +22,15 @@ import { toast } from "sonner";
  * causes the dashboard to render the old "Free" plan for an extra render cycle.
  * window.location.replace() is a guaranteed full-page reload — no stale cache.
  */
-export function SubscriptionSuccessSync() {
+export function SubscriptionSuccessSync({ transactionId }: { transactionId?: string }) {
   useEffect(() => {
     const toastId = toast.loading("Activating your Premium account…");
 
-    fetch("/api/stripe/sync-subscription", { method: "POST" })
+    fetch("/api/paddle/sync-subscription", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ transactionId }),
+    })
       .then(async (res) => {
         const data = await res.json().catch(() => ({})) as {
           synced?: boolean;
@@ -47,7 +54,7 @@ export function SubscriptionSuccessSync() {
           window.location.replace("/dashboard");
         }, 1600);
       });
-  }, []);
+  }, [transactionId]);
 
   return null;
 }

@@ -16,14 +16,16 @@ import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle } from "lucid
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import { PassCountdown } from "@/components/dashboard/PassCountdown";
 import { translations } from "@/lib/translations";
+import { isProUser, getPassState } from "@/lib/isPro";
+import { getPlanTypeFromPriceId } from "@/lib/plans";
 import type { CV } from "@/types";
 
 interface Props {
-  searchParams: Promise<{ success?: string }>;
+  searchParams: Promise<{ success?: string; transaction_id?: string }>;
 }
 
 export default async function DashboardPage({ searchParams }: Props) {
-  const { success } = await searchParams;
+  const { success, transaction_id } = await searchParams;
 
   const cookieStore = await cookies();
   const lang = cookieStore.get("cv-lang")?.value === "fr" ? "fr" : "en";
@@ -45,18 +47,19 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   const cvs = (dbUser?.cvs ?? []) as unknown as CV[];
   const sub = dbUser?.subscription;
-  const isPro = sub?.plan === "PRO" || !!(sub?.premiumPassEnd && sub.premiumPassEnd > new Date());
+  const isPro = isProUser(sub);
   const canCreateCV = isPro || cvs.length < 1;
 
-  const passEnd    = sub?.premiumPassEnd ?? null;
-  const passActive = isPro && passEnd !== null && passEnd > new Date();
+  const { active: passActive, end: passEnd } = getPassState(sub);
 
-  const annualPriceId = process.env.STRIPE_PRO_ANNUAL_PRICE_ID;
+  const planTier = getPlanTypeFromPriceId(sub?.paddlePriceId) ?? "MONTHLY";
   const planName = passActive
     ? lang === "fr" ? "Pass Premium 7 jours" : "7-Day Premium Pass"
-    : sub?.stripePriceId === annualPriceId
-      ? lang === "fr" ? "Premium Annuel" : "Annual Premium"
-      : isPro ? lang === "fr" ? "Premium Mensuel" : "Monthly Premium" : null;
+    : isPro
+      ? planTier === "ANNUAL"
+        ? lang === "fr" ? "Premium Annuel" : "Annual Premium"
+        : lang === "fr" ? "Premium Mensuel" : "Monthly Premium"
+      : null;
 
   const avgATS =
     cvs.filter((c) => c.atsScore !== null).length > 0
@@ -77,7 +80,7 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   return (
     <div>
-      {success === "true" && <SubscriptionSuccessSync />}
+      {success === "true" && <SubscriptionSuccessSync transactionId={transaction_id} />}
 
       <Header
         title={T.title}
