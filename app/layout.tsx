@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/landing/LanguageContext";
 import "./globals.css";
+
+const GTM_ID = "GTM-NHGQGDP7";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -71,7 +74,17 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body className="min-h-full bg-white text-gray-900">
+        {/* Google Tag Manager (noscript) — must be immediately after <body> */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <LanguageProvider>
           {children}
           <Toaster richColors position="top-right" />
