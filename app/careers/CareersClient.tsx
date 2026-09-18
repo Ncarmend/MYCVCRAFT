@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { ArticleCard } from "@/components/careers/ArticleCard";
-import { articles, CATEGORIES, type Category } from "@/lib/articles";
+import { articles, CATEGORIES, CATEGORIES_BE, type Category } from "@/lib/articles";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function CareersClient() {
@@ -12,10 +12,16 @@ export function CareersClient() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
 
-  const featured = useMemo(() => articles.filter((a) => a.featured), []);
+  const localeArticles = useMemo(
+    () => articles.filter((a) => (a.lang ?? "en") === lang),
+    [lang]
+  );
+  const visibleCategories = lang === "fr" ? CATEGORIES_BE : CATEGORIES;
+
+  const featured = useMemo(() => localeArticles.filter((a) => a.featured), [localeArticles]);
 
   const filtered = useMemo(() => {
-    return articles.filter((a) => {
+    return localeArticles.filter((a) => {
       const matchesCategory = activeCategory === "All" || a.category === activeCategory;
       const matchesQuery =
         query.trim() === "" ||
@@ -24,7 +30,7 @@ export function CareersClient() {
         a.tags.some((t) => t.toLowerCase().includes(query.toLowerCase()));
       return matchesCategory && matchesQuery;
     });
-  }, [query, activeCategory]);
+  }, [localeArticles, query, activeCategory]);
 
   const showFeatured = query.trim() === "" && activeCategory === "All";
 
@@ -65,7 +71,7 @@ export function CareersClient() {
             >
               {T.allTopics}
             </button>
-            {CATEGORIES.map((cat) => (
+            {visibleCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}

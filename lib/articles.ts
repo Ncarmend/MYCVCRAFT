@@ -1,6 +1,11 @@
-export type Category = "Resume" | "ATS" | "Cover Letter" | "Interview" | "LinkedIn" | "Career";
+export type Category =
+  | "Resume" | "ATS" | "Cover Letter" | "Interview" | "LinkedIn" | "Career"
+  | "CVBelgique" | "EmploiBruxelles" | "OrganismesEmploi" | "ChomageBelgique";
 
 export const CATEGORIES: Category[] = ["Resume", "ATS", "Cover Letter", "Interview", "LinkedIn", "Career"];
+
+// Belgian French-language categories, shown only on /fr/careers (filtered by article.lang === "fr").
+export const CATEGORIES_BE: Category[] = ["CVBelgique", "EmploiBruxelles", "OrganismesEmploi", "ChomageBelgique"];
 
 export const categoryStyle: Record<Category, { gradient: string; badge: string }> = {
   "Resume":       { gradient: "from-slate-600 to-slate-900",   badge: "bg-slate-100 text-slate-700"   },
@@ -9,6 +14,10 @@ export const categoryStyle: Record<Category, { gradient: string; badge: string }
   "Interview":    { gradient: "from-amber-500 to-orange-800",  badge: "bg-amber-100 text-amber-700"   },
   "LinkedIn":     { gradient: "from-sky-500 to-blue-800",      badge: "bg-sky-100 text-sky-700"       },
   "Career":       { gradient: "from-violet-600 to-purple-900", badge: "bg-violet-100 text-violet-700" },
+  "CVBelgique":       { gradient: "from-teal-600 to-cyan-900",    badge: "bg-teal-100 text-teal-700"     },
+  "EmploiBruxelles":  { gradient: "from-rose-600 to-pink-900",    badge: "bg-rose-100 text-rose-700"     },
+  "OrganismesEmploi": { gradient: "from-indigo-600 to-slate-900", badge: "bg-indigo-100 text-indigo-700" },
+  "ChomageBelgique":  { gradient: "from-red-700 to-rose-950",     badge: "bg-red-100 text-red-700"       },
 };
 
 export interface ArticleSection {
@@ -22,9 +31,12 @@ export interface Article {
   description: string;
   category: Category;
   publishedAt: string;
+  updatedAt?: string;
   readingTime: number;
   tags: string[];
   featured?: boolean;
+  /** Content language. Defaults to "en" when omitted — existing articles are English-only. */
+  lang?: "en" | "fr";
   intro: string;
   sections: ArticleSection[];
   conclusion: string;
@@ -620,6 +632,738 @@ export const articles: Article[] = [
     ],
     conclusion: "A career change is a significant undertaking that requires strategic thinking, patient relationship-building, and a willingness to temporarily occupy a more junior position in exchange for access to a more rewarding direction. The professionals who complete these transitions successfully are not the ones with the most impressive credentials in either field. They are the ones who did the honest self-assessment, invested in building credibility in the new domain, built their network before they needed it, and applied strategically. The transition is difficult but finite. Most successful career changers describe the adjustment period as lasting 12 to 24 months before their trajectory in the new field equals or exceeds what it was in the old one.",
   },
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIQUE FRANCOPHONE — CV & Candidature
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "cv-professionnel-belgique-guide-2026",
+    title: "Comment Créer un CV Professionnel en Belgique en 2026 : le Guide Complet",
+    description: "Structure, longueur, photo, langues, ATS : découvrez comment rédiger un CV professionnel efficace en Belgique en 2026 et décrocher plus d'entretiens.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-10",
+    readingTime: 9,
+    featured: true,
+    tags: ["CV professionnel Belgique", "rédiger un CV", "CV Belgique 2026", "recherche d'emploi Belgique", "CV ATS"],
+    intro: "En résumé : un CV belge efficace en 2026 tient sur une à deux pages, présente vos expériences en ordre antichronologique, indique clairement votre niveau dans chaque langue selon le cadre européen (A1 à C2), et reste sobre dans sa mise en forme — surtout s'il doit passer par un logiciel de tri automatique (ATS) avant d'atteindre un recruteur.\n\nLe marché de l'emploi belge a ses codes propres, à mi-chemin entre les usages français et anglo-saxons. Un CV qui fonctionne à Paris ou à Londres ne convainc pas toujours un recruteur à Bruxelles, à Liège ou à Charleroi — et inversement. Ce guide rassemble les règles concrètes à connaître pour construire un CV qui correspond aux attentes des employeurs belges, qu'il s'agisse d'une PME wallonne, d'une administration publique ou d'une multinationale installée à Bruxelles.",
+    sections: [
+      {
+        heading: "La structure attendue par les recruteurs belges",
+        body: `<p>La grande majorité des recruteurs belges attendent un CV structuré en ordre antichronologique : votre expérience la plus récente en premier. L'ordre de lecture privilégié est le suivant : coordonnées, profil ou accroche professionnelle, expériences professionnelles, formation, compétences (linguistiques, techniques, numériques), et éventuellement centres d'intérêt ou informations complémentaires (permis de conduire, mobilité).</p>
+<p>Contrairement à certains CV nord-américains, il n'est pas nécessaire — ni même bien vu — d'ouvrir sur un long "objectif de carrière" abstrait. Les recruteurs belges préfèrent une accroche courte (deux à quatre lignes) qui résume qui vous êtes professionnellement, votre spécialisation, et ce que vous recherchez concrètement. Cette section joue le même rôle qu'un résumé professionnel : elle doit donner envie de lire la suite en quinze secondes.</p>
+<p>Pour la longueur : un profil junior ou avec moins de sept à huit ans d'expérience tient sur une page. Au-delà, une deuxième page devient acceptable, à condition qu'elle ne soit pas remplie de contenu superflu. Un CV de trois pages reste rare, sauf pour des profils très seniors ou des CV académiques.</p>`,
+      },
+      {
+        heading: "Les langues : l'élément le plus scruté d'un CV belge",
+        body: `<p>La Belgique est un pays à trois langues officielles (néerlandais, français, allemand), et la maîtrise des langues est souvent le premier filtre appliqué par les recruteurs — avant même les compétences techniques. Un candidat bilingue français-néerlandais dispose d'un avantage concret sur le marché bruxellois, où de nombreuses offres exigent explicitement une connaissance fonctionnelle des deux langues nationales principales.</p>
+<p>Indiquez votre niveau selon le Cadre européen commun de référence pour les langues (CECRL), de A1 (débutant) à C2 (maîtrise proche de la langue maternelle). Cette échelle est immédiatement reconnue par les recruteurs belges et évite les formulations vagues comme "notions" ou "courant", dont l'interprétation varie d'une personne à l'autre. Si vous ne maîtrisez pas le néerlandais, ne le cachez pas : indiquez honnêtement votre niveau (même A1 ou A2) plutôt que de l'omettre, ce qui peut être perçu comme une tentative de dissimulation lors de l'entretien.</p>
+<p>Pour les postes à Bruxelles en particulier, consultez notre guide pour <a href="/fr/careers/trouver-emploi-bruxelles-guide-2026">trouver un emploi à Bruxelles</a>, qui détaille l'impact réel du bilinguisme sur vos chances d'être convoqué en entretien.</p>`,
+      },
+      {
+        heading: "Faut-il une photo, et quelles autres informations personnelles inclure ?",
+        body: `<p>La question de la photo revient systématiquement en Belgique — la pratique y est plus répandue qu'au Royaume-Uni ou aux Pays-Bas, sans être obligatoire. Elle reste courante dans les secteurs en contact avec la clientèle (vente, hôtellerie, accueil) et moins systématique dans l'IT ou les fonctions publiques. Nous consacrons un article entier à cette question : <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a></p>
+<p>Concernant les autres informations personnelles : indiquez votre nom, une adresse e-mail professionnelle, un numéro de téléphone et votre commune de résidence (le numéro de rue complet n'est pas indispensable). La mention du permis de conduire ("Permis B") est un standard belge très apprécié dès lors qu'il est pertinent pour le poste ou la mobilité. La date de naissance et la nationalité peuvent être incluses, mais restent facultatives — de plus en plus de candidats les omettent volontairement pour limiter les biais inconscients à la lecture.</p>`,
+      },
+      {
+        heading: "Le CV doit-il passer un ATS ? Ce qui change en pratique",
+        body: `<p>Les grandes entreprises belges et les filiales de groupes internationaux installés à Bruxelles utilisent de plus en plus des logiciels de gestion des candidatures (ATS) pour trier les CV avant leur lecture humaine. Les PME et administrations locales restent en général plus traditionnelles, avec une lecture humaine directe. Dans le doute, mieux vaut toujours produire un CV "ATS-friendly" : structure simple en une colonne, intitulés de rubriques standards, format PDF texte (jamais une image scannée), et vocabulaire aligné sur celui de l'offre d'emploi.</p>
+<p>Cvixeo génère automatiquement des CV structurés pour passer les filtres ATS tout en restant lisibles et soignés pour un recruteur humain — un équilibre particulièrement utile sur un marché belge où les deux modes de sélection coexistent selon la taille de l'entreprise.</p>`,
+      },
+      {
+        heading: "Adapter son CV à chaque candidature",
+        body: `<p>Envoyer le même CV à toutes les offres reste l'erreur la plus répandue, et la plus coûteuse en callbacks. Un CV générique dilue les compétences réellement recherchées par l'employeur au milieu d'informations moins pertinentes. La bonne pratique consiste à conserver un CV "maître" complet, puis à en extraire une version resserrée et reformulée pour chaque candidature, en reprenant le vocabulaire exact de l'offre.</p>
+<p>Ce travail d'adaptation prend dix à vingt minutes une fois que la structure de base est solide — et démultiplie le taux de réponse. Nous détaillons la méthode complète dans <a href="/fr/careers/adapter-cv-offre-emploi-belgique">comment adapter votre CV à une offre d'emploi en Belgique</a>.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Un CV belge doit-il obligatoirement tenir sur une page ?</strong><br/>Non. Une page est recommandée pour un profil junior ou avec moins de sept à huit ans d'expérience ; au-delà, deux pages restent acceptables si le contenu le justifie.</p>
+<p><strong>Faut-il indiquer un niveau de néerlandais si on ne le maîtrise pas ?</strong><br/>Oui, même un niveau A1 ou A2 honnêtement indiqué vaut mieux qu'une omission, surtout pour les postes à Bruxelles.</p>
+<p><strong>Le CV doit-il être différent selon la région belge visée ?</strong><br/>Les règles de base restent identiques ; seule l'importance relative du bilinguisme et de l'anglais professionnel varie selon la région et le secteur.</p>
+<p><strong>Un CV rédigé pour la France fonctionne-t-il tel quel en Belgique ?</strong><br/>En grande partie, mais il gagne à intégrer la présentation des langues selon le CECRL et la mention du permis de conduire, deux usages plus systématiques en Belgique.</p>`,
+      },
+    ],
+    conclusion: "Un CV professionnel réussi en Belgique combine une structure claire, une déclaration honnête et précise de vos compétences linguistiques, une longueur maîtrisée, et une adaptation systématique à chaque offre. Ces règles varient peu entre Bruxelles, la Wallonie et la Flandre francophone, mais leur poids relatif change selon la région et le secteur visé. Avant d'envoyer votre prochaine candidature, relisez votre CV à la lumière de ces cinq points — puis consultez nos guides sur <a href=\"/fr/careers/15-erreurs-a-eviter-cv-professionnel\">les 15 erreurs à éviter sur un CV professionnel</a>, la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation</a> et <a href=\"/fr/careers/mettre-en-valeur-competences-cv\">la mise en valeur de vos compétences</a> pour compléter votre dossier de candidature. Créez votre CV professionnel avec Cvixeo : la structure, le format ATS et la mise en page sont pris en charge automatiquement, vous vous concentrez sur le contenu.",
+  },
+
+  {
+    slug: "regles-cv-belge",
+    title: "CV Belge : les Règles à Connaître pour Décrocher un Emploi",
+    description: "Longueur, langues, permis, photo, mise en page : les règles concrètes et les usages du CV belge que les recruteurs attendent, région par région.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-12",
+    readingTime: 7,
+    tags: ["CV belge", "règles CV Belgique", "usages CV", "candidature Belgique", "recruteur"],
+    intro: "En résumé : le CV belge suit des règles proches du CV français, avec trois différences marquantes — l'importance donnée aux langues (français, néerlandais, allemand, anglais), l'usage fréquent de la mention du permis de conduire, et une tolérance plus grande à la photo selon les secteurs. Les usages varient aussi légèrement entre Bruxelles, la Wallonie et la Flandre.\n\nSi vous avez déjà rédigé un CV pour le marché français ou pour un poste à l'étranger, la plupart des principes de base restent valables en Belgique. Mais quelques règles locales, souvent ignorées par les candidats venant d'un autre pays ou changeant de région, peuvent faire la différence entre un CV ignoré et un CV qui obtient un appel.",
+    sections: [
+      {
+        heading: "Règle n°1 — La présentation des langues doit être précise",
+        body: `<p>C'est la règle la plus spécifiquement belge : n'écrivez jamais simplement "néerlandais" ou "anglais" sans préciser de niveau. Utilisez systématiquement l'échelle du Cadre européen commun de référence pour les langues (CECRL) : A1, A2 (utilisateur élémentaire), B1, B2 (utilisateur indépendant), C1, C2 (utilisateur expérimenté). Un recruteur bruxellois qui lit "néerlandais : B2" sait immédiatement à quoi s'attendre en entretien ; "néerlandais : bon niveau" ne veut rien dire de vérifiable.</p>`,
+      },
+      {
+        heading: "Règle n°2 — Le format antichronologique est la norme absolue",
+        body: `<p>Le CV fonctionnel (organisé par compétences plutôt que par dates) est rarement bien perçu en Belgique, sauf pour des reconversions très marquées. Les recruteurs veulent voir votre parcours dans l'ordre, du poste le plus récent au plus ancien, avec les dates de début et de fin clairement indiquées (mois et année). Une expérience sans date précise, ou un CV qui semble vouloir dissimuler une période, est immédiatement perçu comme un signal négatif.</p>`,
+      },
+      {
+        heading: "Règle n°3 — Une page pour les profils juniors, deux maximum au-delà",
+        body: `<p>Un jeune diplômé ou un profil avec moins de sept ans d'expérience doit viser une seule page. Un profil confirmé ou senior peut légitimement occuper deux pages, mais jamais trois. La discipline d'édition — choisir ce qui reste et ce qui disparaît — est elle-même perçue positivement par les recruteurs, qui y voient un signe de capacité de synthèse.</p>`,
+      },
+      {
+        heading: "Règle n°4 — Le permis de conduire, une mention plus importante qu'ailleurs",
+        body: `<p>En France ou dans d'autres pays francophones, mentionner son permis de conduire est optionnel et souvent secondaire. En Belgique, la mention "Permis B" est un standard largement répandu sur les CV, y compris pour des postes qui ne semblent pas directement liés à la conduite — car elle est aussi lue comme un indicateur général de mobilité et d'autonomie, particulièrement utile dans un pays où de nombreuses zones d'activité économique sont mal desservies par les transports en commun.</p>`,
+      },
+      {
+        heading: "Règle n°5 — La photo dépend fortement du secteur et de la région",
+        body: `<p>La photo professionnelle reste courante en Belgique francophone, notamment dans la vente, l'hôtellerie-restauration et l'accueil, mais elle recule dans l'IT, la finance et les grandes entreprises internationales installées à Bruxelles, qui adoptent des pratiques de recrutement plus proches des standards anglo-saxons pour limiter les biais de sélection. Le sujet mérite un traitement à part entière : consultez notre article <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a> pour trancher selon votre situation.</p>`,
+      },
+      {
+        heading: "Règle n°6 — Les nuances régionales existent, mais restent limitées",
+        body: `<p>À Bruxelles, le bilinguisme français-néerlandais est un critère de sélection fréquent, même pour des postes qui ne le mentionnent pas explicitement dans l'offre — notre guide pour <a href="/fr/careers/trouver-emploi-bruxelles-guide-2026">trouver un emploi à Bruxelles</a> détaille cet aspect. En Wallonie, l'anglais professionnel prend une importance croissante dans l'industrie, la logistique et les fonctions à vocation internationale. Dans tous les cas, le CV doit rester factuel et vérifiable : n'indiquez jamais un niveau de langue ou une compétence que vous ne pourriez pas démontrer en situation réelle lors d'un entretien.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Le CV avec photo est-il obligatoire en Belgique ?</strong><br/>Non, jamais. Elle reste courante dans certains secteurs relationnels, mais de nombreuses entreprises, notamment internationales, ne l'attendent pas.</p>
+<p><strong>Le CECRL est-il vraiment utilisé par les recruteurs belges ?</strong><br/>Oui, c'est devenu un standard largement reconnu, en particulier à Bruxelles où le bilinguisme est fréquemment évalué.</p>
+<p><strong>Un CV fonctionnel (par compétences) est-il accepté en Belgique ?</strong><br/>Il reste rare et mal perçu, sauf pour des reconversions professionnelles marquées ; le format antichronologique demeure la norme.</p>`,
+      },
+    ],
+    conclusion: "Le CV belge n'est pas un exercice radicalement différent du CV français ou international — mais ignorer ces six règles locales revient à se priver d'un avantage compétitif simple à obtenir. Précision sur les langues, format antichronologique, longueur maîtrisée, mention du permis, photo réfléchie selon le secteur, et honnêteté vérifiable : appliquez ces principes systématiquement, puis adaptez le contenu à chaque offre pour maximiser vos chances. Créez votre CV avec Cvixeo et laissez la mise en forme professionnelle et le format ATS se charger automatiquement pendant que vous vous concentrez sur votre parcours.",
+  },
+
+  {
+    slug: "adapter-cv-offre-emploi-belgique",
+    title: "Comment Adapter votre CV à une Offre d'Emploi en Belgique ?",
+    description: "Une méthode en cinq étapes pour adapter votre CV à chaque offre d'emploi belge et augmenter vos chances d'être convoqué en entretien.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-14",
+    readingTime: 6,
+    tags: ["adapter CV", "offre d'emploi Belgique", "candidature ciblée", "mots-clés CV", "recherche d'emploi"],
+    intro: "En résumé : adapter un CV à une offre consiste à reprendre le vocabulaire exact de l'annonce, réordonner vos expériences et compétences selon leur pertinence pour ce poste précis, et réécrire votre accroche professionnelle en fonction de l'entreprise ciblée. Ce travail prend quinze à vingt minutes une fois que votre CV de base est solide, et augmente sensiblement le taux de réponse des recruteurs.\n\nEnvoyer le même CV à cinquante offres différentes est une stratégie qui fonctionnait peut-être il y a dix ans, quand la concurrence était moins forte. Aujourd'hui, en Belgique comme ailleurs, les offres attractives reçoivent des dizaines, parfois des centaines de candidatures. Un CV générique se noie dans la masse ; un CV visiblement pensé pour ce poste précis se distingue immédiatement.",
+    sections: [
+      {
+        heading: "Étape 1 — Décortiquer l'offre d'emploi",
+        body: `<p>Lisez l'annonce trois fois. La première lecture identifie les critères éliminatoires ("requis", "indispensable", "impératif"). La deuxième repère les termes qui reviennent plusieurs fois — souvent un signal de ce que le recruteur considère comme central. La troisième lecture cherche le contexte implicite : quel problème cette entreprise cherche-t-elle à résoudre en recrutant ce poste ?</p>
+<p>Notez sur une feuille séparée les compétences techniques, les logiciels, les certifications et les qualités humaines explicitement mentionnées. Cette liste devient votre grille de correspondance avec votre propre CV.</p>`,
+      },
+      {
+        heading: "Étape 2 — Faire correspondre votre expérience au vocabulaire de l'offre",
+        body: `<p>Pour chaque terme de votre liste, vérifiez s'il apparaît déjà dans votre CV, sous une forme reconnaissable. Si l'offre mentionne "gestion de projet en méthodologie agile" et que votre CV indique "coordination d'équipes en sprints", reformulez pour faire apparaître les termes exacts de l'offre — à condition, bien sûr, que l'expérience corresponde réellement. N'inventez jamais une compétence que vous ne possédez pas : un mensonge sur un CV se découvre presque toujours en entretien ou après l'embauche.</p>`,
+      },
+      {
+        heading: "Étape 3 — Réordonner, pas réécrire entièrement",
+        body: `<p>Adapter un CV ne signifie pas le récrire de zéro à chaque candidature. Il s'agit surtout de réordonner : placez en premier, dans chaque expérience, les réalisations les plus pertinentes pour le poste visé. Une expérience de cinq ans peut contenir huit réalisations possibles — n'en gardez que les trois ou quatre qui parlent directement au recruteur de cette offre précise.</p>`,
+      },
+      {
+        heading: "Étape 4 — Réécrire l'accroche professionnelle",
+        body: `<p>Votre accroche (les deux à quatre lignes en haut du CV) est l'élément à personnaliser le plus systématiquement. Une accroche générique du type "professionnel expérimenté cherchant à évoluer" ne dit rien à personne. Une accroche ciblée nomme le poste ou le secteur visé, votre spécialisation principale, et une réalisation chiffrée qui illustre votre valeur pour ce type de poste précis.</p>`,
+      },
+      {
+        heading: "Étape 5 — Vérifier avant d'envoyer",
+        body: `<p>Avant d'envoyer votre candidature, comparez une dernière fois votre CV adapté avec la liste de critères établie à l'étape 1. Chaque critère important de l'offre a-t-il une réponse visible dans votre CV ? Si un critère central reste sans réponse et que vous possédez réellement la compétence correspondante ailleurs dans votre parcours, c'est le signe qu'il manque encore une mention quelque part.</p>
+<p>Cvixeo permet de comparer directement votre CV à une offre d'emploi et de repérer les mots-clés manquants avant l'envoi — un moyen rapide de fiabiliser cette dernière vérification.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Combien de temps prend l'adaptation d'un CV à une offre ?</strong><br/>Quinze à vingt minutes en moyenne, une fois que votre CV de base est bien structuré.</p>
+<p><strong>Faut-il réécrire tout le CV pour chaque candidature ?</strong><br/>Non : réordonner les réalisations et ajuster l'accroche suffit généralement, sans réécrire l'ensemble du document.</p>
+<p><strong>Est-il risqué de trop répéter les mots-clés de l'offre ?</strong><br/>Oui si cela devient artificiel. L'objectif est d'utiliser le même vocabulaire que l'offre uniquement pour des compétences que vous possédez réellement.</p>`,
+      },
+    ],
+    conclusion: "Adapter son CV à chaque offre n'est pas une option réservée aux candidatures les plus importantes : c'est une discipline à appliquer systématiquement, dès lors que le poste vous intéresse réellement. La méthode en cinq étapes décrite ici — décortiquer l'offre, faire correspondre le vocabulaire, réordonner les réalisations, réécrire l'accroche, vérifier avant l'envoi — devient rapide une fois que l'habitude est prise. Complétez ce travail avec une lettre de motivation tout aussi ciblée : notre guide sur la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation pour un emploi en Belgique</a> détaille la méthode. Adaptez votre CV à votre prochaine offre d'emploi avec Cvixeo, en quelques minutes.",
+  },
+
+  {
+    slug: "15-erreurs-a-eviter-cv-professionnel",
+    title: "Les 15 Erreurs à Éviter sur un CV Professionnel",
+    description: "Fautes d'orthographe, photo inadaptée, dates manquantes, CV non adapté : les 15 erreurs les plus fréquentes qui coûtent des entretiens, et comment les corriger.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-16",
+    readingTime: 8,
+    tags: ["erreurs CV", "CV professionnel", "conseils CV", "recherche d'emploi Belgique", "recruteur"],
+    intro: "En résumé : les erreurs qui coûtent le plus d'entretiens sont rarement liées au manque de qualifications — elles concernent la forme : fautes d'orthographe, mise en page incohérente, dates manquantes ou floues, CV trop long ou trop générique, et absence de résultats chiffrés. La bonne nouvelle : ce sont aussi les erreurs les plus faciles à corriger.\n\nUn recruteur passe en moyenne moins d'une minute sur un premier CV. Dans ce laps de temps très court, certains signaux suffisent à faire écarter une candidature, indépendamment des compétences réelles du candidat. Voici les quinze erreurs les plus fréquemment observées sur les CV envoyés en Belgique — et comment les éviter.",
+    sections: [
+      {
+        heading: "Erreurs de contenu (1 à 6)",
+        body: `<ul>
+<li><strong>1. Lister des tâches plutôt que des résultats.</strong> "Responsable de la gestion des stocks" ne dit rien de votre impact réel. Préférez : "Réduction de 18% des ruptures de stock en douze mois grâce à la mise en place d'un nouveau système de suivi."</li>
+<li><strong>2. Omettre les résultats chiffrés.</strong> Chaque expérience professionnelle contient au moins un résultat mesurable — pourcentage, montant, nombre de personnes, délai. Cherchez-le systématiquement, même approximatif.</li>
+<li><strong>3. Une accroche professionnelle vague ou absente.</strong> "À la recherche d'un poste stimulant" n'apporte aucune information. Remplacez par une accroche qui nomme votre spécialisation et votre valeur ajoutée concrète.</li>
+<li><strong>4. Un niveau de langue imprécis.</strong> "Néerlandais : bon niveau" doit devenir "Néerlandais : B2 (CECRL)" — voir notre guide sur les <a href="/fr/careers/regles-cv-belge">règles du CV belge</a>.</li>
+<li><strong>5. Des informations non pertinentes qui diluent l'essentiel.</strong> Une expérience vieille de vingt ans sans lien avec le poste visé prend de la place sans apporter de valeur.</li>
+<li><strong>6. Un CV non adapté à l'offre.</strong> Voir notre méthode complète pour <a href="/fr/careers/adapter-cv-offre-emploi-belgique">adapter votre CV à une offre d'emploi</a>.</li>
+</ul>`,
+      },
+      {
+        heading: "Erreurs de forme (7 à 11)",
+        body: `<ul>
+<li><strong>7. Fautes d'orthographe et de grammaire.</strong> C'est l'erreur la plus disqualifiante et la plus évitable. Faites relire votre CV par une tierce personne — l'œil qui a rédigé le texte ne voit plus ses propres fautes.</li>
+<li><strong>8. Une mise en page incohérente.</strong> Polices différentes, espacements irréguliers, dates formatées différemment d'une expérience à l'autre : ces détails signalent un manque de rigueur avant même la lecture du contenu.</li>
+<li><strong>9. Des dates manquantes ou peu claires.</strong> Chaque expérience doit indiquer mois et année de début et de fin. Une période non datée est immédiatement perçue comme suspecte.</li>
+<li><strong>10. Un CV au format image ou mal exporté.</strong> Un CV conçu dans un outil de design graphique peut s'exporter en image, illisible par les logiciels de tri automatique (ATS). Testez toujours votre CV en copiant son contenu dans un éditeur de texte simple : s'il reste lisible et dans l'ordre, le format est correct.</li>
+<li><strong>11. Une longueur excessive.</strong> Trois pages ou plus est rarement justifié, sauf pour un CV académique. Une page suffit pour un profil junior ; deux pages maximum au-delà de sept à huit ans d'expérience — voir nos <a href="/fr/careers/regles-cv-belge">règles du CV belge</a>.</li>
+</ul>`,
+      },
+      {
+        heading: "Erreurs stratégiques (12 à 15)",
+        body: `<ul>
+<li><strong>12. Une adresse e-mail peu professionnelle.</strong> Utilisez une adresse simple basée sur votre nom, pas un pseudonyme datant du lycée.</li>
+<li><strong>13. Une photo inadaptée au secteur.</strong> Une photo décontractée pour un poste dans la finance, ou l'absence totale de photo pour un poste d'accueil dans un secteur où elle est attendue, envoient un mauvais signal. Voir <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a></li>
+<li><strong>14. Ne pas mentionner le permis de conduire quand il est pertinent.</strong> En Belgique, cette mention est un standard largement attendu — voir nos <a href="/fr/careers/regles-cv-belge">règles du CV belge</a>.</li>
+<li><strong>15. Exagérer ou inventer une compétence.</strong> Un mensonge sur un CV se découvre presque systématiquement en entretien technique ou après l'embauche, et compromet définitivement la confiance du recruteur.</li>
+</ul>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Quelle est l'erreur la plus disqualifiante sur un CV ?</strong><br/>Les fautes d'orthographe et de grammaire, car elles sont perçues comme un manque de rigueur avant même l'évaluation des compétences.</p>
+<p><strong>Un CV de deux pages est-il toujours une erreur ?</strong><br/>Non, il devient acceptable au-delà de sept à huit ans d'expérience, à condition que chaque ligne reste pertinente.</p>
+<p><strong>Comment vérifier qu'un CV est compatible avec un ATS ?</strong><br/>Copiez son contenu dans un éditeur de texte simple : s'il reste lisible et dans l'ordre logique, le format est correct.</p>`,
+      },
+    ],
+    conclusion: "Aucune de ces quinze erreurs n'est complexe à corriger individuellement — mais leur accumulation explique la majorité des candidatures qui n'obtiennent jamais de réponse. Reprenez votre CV actuel et confrontez-le méthodiquement à cette liste. Corrigez chaque erreur identifiée, adaptez le contenu à votre prochaine offre, puis faites relire le résultat par une personne de confiance avant l'envoi. Créez un CV professionnel avec Cvixeo : la mise en page cohérente et le format compatible ATS sont gérés automatiquement, ce qui élimine d'emblée plusieurs des erreurs les plus fréquentes.",
+  },
+
+  {
+    slug: "cv-belge-avec-ou-sans-photo",
+    title: "CV Belge : Avec ou Sans Photo ?",
+    description: "La photo sur un CV belge : quand elle aide, quand elle dessert votre candidature, et comment trancher selon votre secteur et votre région.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-18",
+    readingTime: 5,
+    tags: ["CV avec photo", "CV sans photo", "CV belge", "photo professionnelle", "candidature"],
+    intro: "En résumé : la photo n'est pas obligatoire sur un CV en Belgique, mais elle reste courante et souvent appréciée dans les métiers en contact avec le public (vente, hôtellerie, accueil, événementiel). Elle est plus rare dans l'IT, la finance et les grandes entreprises internationales, où l'usage se rapproche des standards anglo-saxons. Dans le doute, une photo professionnelle de bonne qualité ne nuit généralement pas — une photo de mauvaise qualité, en revanche, nuit toujours.\n\nCette question revient dans presque toutes les recherches d'emploi en Belgique, et la réponse honnête est : cela dépend. Contrairement à la France, où la photo recule nettement depuis plusieurs années, et contrairement aux Pays-Bas ou au Royaume-Uni, où elle est quasiment absente, la Belgique occupe une position intermédiaire où l'usage varie fortement selon le secteur et la culture de l'entreprise.",
+    sections: [
+      {
+        heading: "Quand la photo est encore attendue",
+        body: `<p>Dans les secteurs à forte dimension relationnelle — vente au détail, hôtellerie-restauration, tourisme, accueil, certains postes commerciaux — la photo reste une convention largement respectée. Son absence peut, dans ces contextes précis, surprendre le recruteur sans nécessairement disqualifier la candidature, mais elle rompt avec l'attente implicite du secteur.</p>
+<p>Les PME familiales et les structures locales, plus nombreuses en Wallonie et dans certaines communes bruxelloises, ont également tendance à conserver cet usage plus longtemps que les grandes structures internationales.</p>`,
+      },
+      {
+        heading: "Quand l'omettre est preferable, voire la norme",
+        body: `<p>Les grandes entreprises technologiques, les cabinets de conseil internationaux, le secteur financier et les institutions européennes installées à Bruxelles s'alignent de plus en plus sur des pratiques de recrutement qui excluent délibérément la photo, précisément pour limiter les biais inconscients liés à l'apparence, à l'âge ou à l'origine perçue. Dans ces environnements, l'absence de photo est neutre, voire perçue positivement comme un signe de professionnalisme aligné sur les standards internationaux.</p>
+<p>Si vous postulez auprès d'une organisation dont la culture ou la communication affiche des valeurs fortes de diversité et d'inclusion, l'absence de photo est presque toujours le choix le plus sûr.</p>`,
+      },
+      {
+        heading: "Si vous choisissez d'inclure une photo, les règles de qualité",
+        body: `<p>Une mauvaise photo nuit davantage qu'aucune photo. Les critères d'une photo professionnelle acceptable : un fond neutre et uni, un cadrage buste ou visage-épaules, une tenue adaptée au secteur visé, un éclairage naturel et net, et une photo récente (moins de deux à trois ans). Évitez systématiquement les selfies, les photos de vacances recadrées, ou les photos de groupe découpées — ces choix sont immédiatement identifiables et donnent une impression négative disproportionnée par rapport à leur importance réelle.</p>`,
+      },
+      {
+        heading: "Comment trancher pour votre candidature",
+        body: `<p>Trois questions permettent de trancher rapidement : Quel est le secteur visé — relationnel ou technique/international ? Quelle est la culture affichée de l'entreprise — traditionnelle ou alignée sur des standards internationaux de recrutement inclusif ? Disposez-vous d'une photo réellement professionnelle, ou seulement d'images de qualité inégale ? Si le secteur est relationnel, la culture traditionnelle et la photo de bonne qualité : incluez-la. Dans tous les autres cas, l'absence de photo reste le choix le plus sûr.</p>
+<p>Avec Cvixeo, vous pouvez générer deux versions de votre CV — avec et sans photo — en quelques clics, et choisir la version adaptée à chaque candidature.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Un employeur peut-il refuser ma candidature parce qu'elle n'a pas de photo ?</strong><br/>Non, ce n'est pas une exigence légale, et son absence est neutre dans la grande majorité des secteurs.</p>
+<p><strong>Puis-je utiliser une photo de vacances recadrée ?</strong><br/>Non, ce type de photo est facilement identifiable et donne une impression négative disproportionnée par rapport à son importance réelle.</p>
+<p><strong>Faut-il la même photo pour toutes mes candidatures ?</strong><br/>Vous pouvez très bien préparer deux versions de votre CV, avec et sans photo, et choisir selon le secteur visé.</p>`,
+      },
+    ],
+    conclusion: "Il n'existe pas de règle universelle sur la photo de CV en Belgique — la bonne décision dépend du secteur, de la culture de l'entreprise et de la qualité de la photo disponible. Ce qui reste constant, en revanche : une photo de mauvaise qualité coûte toujours plus qu'elle n'apporte. En cas de doute persistant, l'absence de photo reste le choix le plus neutre et le moins risqué. Complétez votre réflexion avec notre guide sur les <a href=\"/fr/careers/regles-cv-belge\">règles du CV belge</a> pour aligner l'ensemble de votre candidature sur les attentes locales.",
+  },
+
+  {
+    slug: "lettre-motivation-emploi-belgique",
+    title: "Comment Rédiger une Lettre de Motivation pour un Emploi en Belgique ?",
+    description: "Structure, ton, longueur : la méthode complète pour écrire une lettre de motivation efficace et adaptée aux attentes des recruteurs en Belgique.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-20",
+    readingTime: 7,
+    tags: ["lettre de motivation", "candidature Belgique", "lettre de motivation Belgique", "recherche d'emploi", "recruteur"],
+    intro: "En résumé : une bonne lettre de motivation belge tient sur une page, s'adresse si possible à une personne nommée plutôt qu'à \"Madame, Monsieur\", explique en trois paragraphes pourquoi vous visez ce poste précis (et pas un poste générique), et se termine par une formule de politesse sobre. Elle ne répète jamais le CV : elle l'interprète.\n\nLa lettre de motivation garde une place plus importante en Belgique et en France que dans les pays anglo-saxons, où le \"cover letter\" a largement reculé. De nombreux recruteurs belges, en particulier dans les administrations publiques, les grandes entreprises traditionnelles et certains secteurs réglementés, continuent à l'exiger explicitement et à la lire attentivement pour les candidatures présélectionnées.",
+    sections: [
+      {
+        heading: "Le rôle réel de la lettre de motivation",
+        body: `<p>La lettre de motivation ne sert pas à répéter votre CV — un recruteur qui lit les deux documents n'a aucun intérêt à voir deux fois la même information. Son rôle propre est d'expliquer votre motivation pour ce poste précis, de démontrer votre connaissance de l'entreprise, et de révéler votre style de communication écrite, souvent déterminant pour des postes impliquant de la rédaction, du contact client ou de la coordination.</p>`,
+      },
+      {
+        heading: "La structure en trois paragraphes",
+        body: `<p><strong>Premier paragraphe — l'accroche :</strong> évitez la formule "je me permets de vous adresser ma candidature au poste de...", trop générique pour retenir l'attention. Ouvrez plutôt sur un élément concret : une réalisation récente en lien direct avec le poste, ou une observation précise sur l'entreprise qui montre que vous l'avez réellement étudiée.</p>
+<p><strong>Deuxième paragraphe — le pont entre votre expérience et le poste :</strong> identifiez l'exigence principale de l'offre et démontrez, à l'aide d'un exemple concret et si possible chiffré, que vous savez y répondre.</p>
+<p><strong>Troisième paragraphe — la connaissance de l'entreprise et la projection :</strong> montrez que vous comprenez les enjeux spécifiques de l'organisation (un projet en cours, une évolution stratégique, un défi de son secteur) et expliquez ce que vous pourriez y apporter concrètement.</p>`,
+      },
+      {
+        heading: "Le ton et la formule de politesse",
+        body: `<p>Le ton belge reste généralement plus formel que le ton anglo-saxon, sans tomber dans l'excès de formules ampoulées parfois observées en France. Adressez-vous à une personne nommée dès que possible — un rapide contrôle sur LinkedIn permet souvent d'identifier le nom du recruteur ou du responsable du service concerné. À défaut, "Madame, Monsieur," reste acceptable.</p>
+<p>Terminez par une formule de politesse sobre et professionnelle, en évitant les formulations trop suppliantes ("dans l'attente impatiente d'une réponse favorable de votre part"). Une formule confiante et respectueuse du temps du recruteur est toujours mieux perçue.</p>`,
+      },
+      {
+        heading: "Longueur, format et erreurs à éviter",
+        body: `<p>Une page maximum, trois à quatre paragraphes. Adaptez la police et la mise en page à celles de votre CV pour un ensemble cohérent. Soumettez au format PDF, sauf indication contraire de l'employeur. Les erreurs les plus fréquentes : une lettre non adaptée à l'offre, une réécriture pure et simple du CV, des formules de flatterie sans substance ("j'admire votre entreprise" sans préciser pourquoi), et bien sûr les fautes d'orthographe — encore plus disqualifiantes ici que sur un CV, puisque le texte entier est rédigé par vous.</p>
+<p>Cvixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>La lettre de motivation est-elle toujours obligatoire en Belgique ?</strong><br/>Non, mais elle reste souvent lue attentivement, en particulier dans le secteur public et les grandes entreprises traditionnelles.</p>
+<p><strong>Une lettre de motivation générique vaut-elle mieux que pas de lettre du tout ?</strong><br/>Pas nécessairement : une lettre visiblement non adaptée peut donner une impression de désintérêt plus forte que son absence.</p>
+<p><strong>Faut-il adresser la lettre à une personne nommée ?</strong><br/>C'est préférable dès que possible ; à défaut, "Madame, Monsieur," reste une formule acceptable.</p>`,
+      },
+    ],
+    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Elle prouve que vous avez pris le temps de comprendre le poste et l'entreprise — un effort de plus en plus rare, et donc de plus en plus remarqué. Associez-la à un CV bien structuré et adapté à l'offre : consultez notre guide pour <a href=\"/fr/careers/adapter-cv-offre-emploi-belgique\">adapter votre CV à une offre d'emploi en Belgique</a>. Générez votre lettre de motivation avec Cvixeo et gagnez un temps précieux sur chaque candidature.",
+  },
+
+  {
+    slug: "mettre-en-valeur-competences-cv",
+    title: "Comment Mettre en Valeur vos Compétences sur un CV ?",
+    description: "Compétences techniques, linguistiques et humaines : comment les présenter sur un CV de façon crédible et démontrable plutôt que de simplement les lister.",
+    category: "CVBelgique",
+    lang: "fr",
+    publishedAt: "2026-08-22",
+    readingTime: 6,
+    tags: ["compétences CV", "soft skills", "compétences techniques", "CV professionnel", "recherche d'emploi"],
+    intro: "En résumé : lister des compétences génériques (\"travail d'équipe\", \"Microsoft Office\") n'apporte aucune valeur différenciante. La bonne méthode consiste à démontrer chaque compétence importante par une réalisation concrète ailleurs dans le CV, à organiser la rubrique compétences par catégories précises, et à réserver les termes techniques exacts (logiciels, méthodologies, certifications) plutôt que des formulations vagues.\n\nLa rubrique \"compétences\" est souvent la plus mal exploitée d'un CV — remplie de mots-clés interchangeables qui ne disent rien de spécifique sur le candidat. C'est pourtant l'une des sections les plus lues par les recruteurs pressés, et l'une des plus indexées par les logiciels de tri automatique (ATS).",
+    sections: [
+      {
+        heading: "Distinguer compétences techniques, linguistiques et transversales",
+        body: `<p>Organisez votre rubrique compétences en catégories distinctes plutôt qu'en une liste indifférenciée. Les compétences techniques regroupent les logiciels, langages de programmation, méthodologies et outils métier. Les compétences linguistiques suivent l'échelle CECRL (A1 à C2) — voir nos <a href="/fr/careers/regles-cv-belge">règles du CV belge</a> à ce sujet. Les compétences transversales (ou "soft skills") — communication, gestion du temps, leadership — sont les plus difficiles à faire valoir de façon crédible, car elles sont aussi les plus fréquemment survendues sur les CV.</p>`,
+      },
+      {
+        heading: "La règle d'or : chaque compétence importante doit être démontrée, pas seulement listée",
+        body: `<p>"Gestion de projet" en simple mention dans une liste est une affirmation. "Piloté un projet de migration ERP impliquant douze collaborateurs sur huit mois, livré dans les délais et avec un budget respecté" est une preuve. Pour chaque compétence que vous jugez centrale pour le poste visé, vérifiez qu'elle apparaît quelque part dans votre section expérience, illustrée par un exemple concret — sinon, elle reste une simple déclaration que le recruteur n'a aucune raison de croire sur parole.</p>`,
+      },
+      {
+        heading: "Être spécifique plutôt que générique",
+        body: `<p>Remplacez systématiquement les formulations vagues par des précisions vérifiables. Plutôt que "Microsoft Office", écrivez "Excel avancé (tableaux croisés dynamiques, RECHERCHEV, macros VBA)". Plutôt que "bonnes compétences en communication", indiquez le contexte précis : "animation de réunions hebdomadaires avec des équipes de huit à quinze personnes" ou "rédaction de rapports destinés à la direction". La spécificité rend la compétence crédible et mémorable ; la généralité la rend interchangeable avec celle de n'importe quel autre candidat.</p>`,
+      },
+      {
+        heading: "Aligner les compétences mises en avant avec l'offre visée",
+        body: `<p>La rubrique compétences est l'une des sections les plus faciles à adapter d'une candidature à l'autre : réordonnez-la pour faire apparaître en premier les compétences explicitement recherchées dans l'offre. Cette technique s'inscrit dans une démarche plus large que nous détaillons dans <a href="/fr/careers/adapter-cv-offre-emploi-belgique">comment adapter votre CV à une offre d'emploi en Belgique</a>.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Combien de compétences faut-il lister sur un CV ?</strong><br/>Mieux vaut dix à quinze compétences réellement démontrées qu'une longue liste diluée de mots génériques.</p>
+<p><strong>Faut-il inclure des soft skills comme "travail d'équipe" ?</strong><br/>Uniquement si vous pouvez les illustrer par un exemple concret ailleurs dans le CV ; sinon, elles n'apportent aucune valeur différenciante.</p>
+<p><strong>Faut-il adapter la liste de compétences à chaque offre ?</strong><br/>Oui, réordonner cette section selon les priorités de l'offre est l'un des ajustements les plus rapides et les plus efficaces.</p>`,
+      },
+    ],
+    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec Cvixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle alignée sur votre poste cible.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIQUE FRANCOPHONE — Emploi à Bruxelles
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "trouver-emploi-bruxelles-guide-2026",
+    title: "Comment Trouver un Emploi à Bruxelles en 2026 ? Le Guide Complet",
+    description: "Actiris, bilinguisme, secteurs porteurs, réseaux : le guide complet pour trouver un emploi à Bruxelles en 2026, étape par étape.",
+    category: "EmploiBruxelles",
+    lang: "fr",
+    publishedAt: "2026-08-25",
+    readingTime: 9,
+    featured: true,
+    tags: ["emploi Bruxelles", "trouver un emploi Bruxelles 2026", "Actiris", "marché du travail Bruxelles", "bilinguisme"],
+    intro: "En résumé : chercher un emploi à Bruxelles efficacement suppose de s'inscrire auprès d'Actiris, l'office régional de l'emploi, de cibler les secteurs réellement porteurs dans la région (institutions européennes et internationales, secteur public, IT, santé, logistique), de valoriser un bilinguisme français-néerlandais même partiel, et d'activer son réseau professionnel en complément des candidatures spontanées.\n\nBruxelles concentre un marché de l'emploi particulier au sein de la Belgique : à la fois capitale nationale, siège des institutions européennes, et pôle économique régional avec ses propres dynamiques sectorielles. Cette densité crée des opportunités réelles, mais aussi une concurrence plus forte que dans d'autres régions du pays. Ce guide couvre les étapes concrètes pour structurer une recherche d'emploi efficace dans la région bruxelloise.",
+    sections: [
+      {
+        heading: "S'inscrire auprès d'Actiris, le point de passage obligé",
+        body: `<p>Toute personne domiciliée en Région de Bruxelles-Capitale et à la recherche d'un emploi a intérêt à s'inscrire auprès d'<a href="https://www.actiris.brussels/fr/citoyens/comment-m-inscrire-ou-me-reinscrire/" target="_blank" rel="noopener noreferrer">Actiris</a>, l'office régional bruxellois de l'emploi. L'inscription donne accès à l'ensemble des offres d'emploi centralisées par l'organisme, à un accompagnement personnalisé par un conseiller, et conditionne dans certains cas le maintien de droits sociaux. L'inscription se fait principalement en ligne via <a href="https://www.actiris.brussels/fr/citoyens/mon-profil-personnel-my-actiris/" target="_blank" rel="noopener noreferrer">My Actiris</a>, ou sur rendez-vous en agence. Nous détaillons l'ensemble de la démarche dans notre guide dédié : <a href="/fr/careers/actiris-inscription-trouver-emploi-bruxelles">Actiris : comment s'inscrire et trouver un emploi à Bruxelles</a>.</p>`,
+      },
+      {
+        heading: "Les secteurs qui recrutent le plus à Bruxelles",
+        body: `<p>Le tissu économique bruxellois se distingue par la place particulière qu'y occupent les institutions européennes et internationales (Commission européenne, Parlement européen, OTAN, nombreuses ONG et représentations diplomatiques), le secteur public (fédéral et régional), les services financiers et le conseil, ainsi que les secteurs de la santé, de la logistique et des technologies de l'information, portés par la présence de nombreux sièges d'entreprises internationales.</p>
+<p>Chaque secteur a ses propres canaux de recrutement : les institutions européennes publient largement leurs postes sur leurs propres portails de carrière ; le secteur public passe majoritairement par des concours et sélections statutaires ; l'IT et le conseil recrutent davantage via LinkedIn et les cabinets spécialisés. Adapter son canal de recherche au secteur visé fait gagner un temps considérable.</p>`,
+      },
+      {
+        heading: "Le bilinguisme : un avantage compétitif réel, pas un mythe",
+        body: `<p>Un nombre significatif d'offres d'emploi à Bruxelles mentionnent explicitement une connaissance du néerlandais, même pour des postes qui ne l'exigent pas formellement — la bilinguisme reste perçu comme un signal de capacité d'adaptation au contexte institutionnel bruxellois. Un niveau B1 ou B2 fonctionnel en néerlandais, correctement indiqué selon le Cadre européen commun de référence (CECRL) sur votre CV, élargit sensiblement le nombre d'offres accessibles.</p>
+<p>Si le néerlandais n'est pas votre point fort, ne le dissimulez pas : indiquez honnêtement votre niveau, aussi modeste soit-il, et concentrez votre recherche sur les nombreux postes bruxellois qui fonctionnent principalement en français ou en anglais, en particulier dans les organisations internationales.</p>`,
+      },
+      {
+        heading: "Un CV et une candidature pensés pour Bruxelles",
+        body: `<p>Un CV destiné au marché bruxellois doit appliquer les mêmes règles que partout ailleurs en Belgique — voir notre guide pour <a href="/fr/careers/cv-professionnel-belgique-guide-2026">créer un CV professionnel en Belgique</a> — avec une attention particulière portée à la présentation des langues et, pour les profils visant les institutions internationales, à un CV parfois disponible en anglais en complément du français.</p>
+<p>Pour les jeunes diplômés ou les personnes en recherche de leur première expérience significative à Bruxelles, consultez également notre guide <a href="/fr/careers/premier-emploi-bruxelles-cv-candidature">premier emploi à Bruxelles : comment préparer son CV et sa candidature</a>, ainsi que notre méthode complète pour <a href="/fr/careers/travailler-bruxelles-reussir-recherche-emploi">réussir sa recherche d'emploi à Bruxelles</a>.</p>`,
+      },
+      {
+        heading: "Réseauter et diversifier ses canaux de recherche",
+        body: `<p>Au-delà des offres publiées sur Actiris ou LinkedIn, une part significative des postes à Bruxelles se pourvoit par réseau, en particulier dans le secteur associatif, les institutions internationales et les PME. Participer à des événements professionnels, rejoindre des groupes sectoriels sur LinkedIn, et solliciter des entretiens informels ("informational interviews") auprès de personnes travaillant déjà dans le secteur visé multiplie les points d'entrée. Les agences d'intérim et de recrutement généralistes ou spécialisées jouent également un rôle important sur le marché bruxellois — notre guide sur <a href="/fr/careers/agences-interim-recrutement-belgique">les agences d'intérim et de recrutement en Belgique</a> explique comment les utiliser efficacement.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Faut-il parler néerlandais pour travailler à Bruxelles ?</strong><br/>Ce n'est pas systématiquement exigé, mais un niveau fonctionnel élargit sensiblement le nombre d'offres accessibles.</p>
+<p><strong>Faut-il obligatoirement s'inscrire à Actiris pour chercher un emploi à Bruxelles ?</strong><br/>L'inscription n'est pas une obligation légale pour candidater, mais elle donne accès à l'accompagnement et aux offres centralisées, et conditionne certains droits sociaux.</p>
+<p><strong>Les institutions européennes recrutent-elles facilement des profils belges ?</strong><br/>Elles publient leurs propres portails de carrière avec des procédures de sélection spécifiques, souvent distinctes des canaux classiques de recrutement.</p>`,
+      },
+    ],
+    conclusion: "Trouver un emploi à Bruxelles en 2026 suppose de combiner plusieurs leviers : une inscription active auprès d'Actiris, une compréhension fine des secteurs qui recrutent réellement, une présentation honnête et stratégique de son niveau de langues, et une recherche qui ne se limite pas aux plateformes d'offres en ligne. La région offre une densité d'opportunités rare en Belgique — à condition d'adapter sa méthode à ses spécificités locales. Créez un CV professionnel adapté au marché bruxellois avec Cvixeo, et retrouvez nos guides sur Actiris, le premier emploi et les agences de recrutement pour compléter votre stratégie.",
+  },
+
+  {
+    slug: "premier-emploi-bruxelles-cv-candidature",
+    title: "Premier Emploi à Bruxelles : Comment Préparer son CV et sa Candidature ?",
+    description: "Sans expérience professionnelle significative, comment construire un CV crédible et une candidature convaincante pour décrocher un premier emploi à Bruxelles.",
+    category: "EmploiBruxelles",
+    lang: "fr",
+    publishedAt: "2026-08-27",
+    readingTime: 7,
+    tags: ["premier emploi Bruxelles", "jeune diplômé", "CV sans expérience", "candidature Bruxelles", "Actiris"],
+    intro: "En résumé : sans expérience professionnelle significative, un CV pour un premier emploi à Bruxelles doit s'appuyer sur les stages, jobs étudiants, projets académiques et engagements associatifs pour démontrer des compétences transférables, tout en mettant en avant les langues et la mobilité — deux critères particulièrement valorisés sur le marché bruxellois.\n\nDécrocher un premier emploi est une étape différente d'une recherche d'emploi classique : l'absence d'expérience professionnelle significative oblige à démontrer sa valeur autrement. À Bruxelles, où la concurrence est forte et où de nombreux employeurs recherchent explicitement du bilinguisme, cette étape demande une préparation particulièrement soignée.",
+    sections: [
+      {
+        heading: "Construire un CV crédible sans expérience professionnelle classique",
+        body: `<p>L'absence d'expérience professionnelle rémunérée à temps plein n'est pas un obstacle rédhibitoire — mais elle exige de chercher les preuves de compétence ailleurs : stages, jobs étudiants (même de courte durée), projets académiques concrets, engagements bénévoles ou associatifs, et activités extra-scolaires structurées (organisation d'événements, responsabilités dans une association étudiante). Chacune de ces expériences peut être décrite avec la même rigueur qu'une expérience professionnelle : contexte, responsabilités concrètes, résultat obtenu.</p>
+<p>Un job étudiant dans la vente, par exemple, démontre du contact client, de la gestion du stress en période de forte affluence, et parfois de la gestion de caisse ou d'inventaire — des compétences directement transférables à de nombreux postes, à condition d'être formulées comme telles plutôt que listées de façon neutre.</p>`,
+      },
+      {
+        heading: "La formation, un atout à valoriser pleinement",
+        body: `<p>Pour un premier emploi, la section formation occupe une place plus importante que pour un profil expérimenté. Détaillez les projets de fin d'études, mémoires ou travaux pratiques directement pertinents pour le poste visé, ainsi que les langues étudiées et leur niveau selon le Cadre européen commun de référence (CECRL). Les certifications complémentaires (outils bureautiques avancés, certifications linguistiques, cours en ligne certifiants) renforcent également la crédibilité d'un CV encore léger en expérience professionnelle.</p>`,
+      },
+      {
+        heading: "Le bilinguisme, un avantage décisif pour un premier poste à Bruxelles",
+        body: `<p>Pour les jeunes diplômés à Bruxelles, une connaissance fonctionnelle du néerlandais, même à un niveau B1, élargit considérablement le champ des opportunités accessibles — de nombreux employeurs bruxellois valorisent particulièrement ce profil chez les jeunes candidats, précisément parce qu'il devient plus rare une fois la carrière avancée dans un seul environnement linguistique. Si vous êtes encore en formation, envisager une immersion linguistique ou un échange dans l'autre communauté linguistique du pays reste un investissement rentable pour la suite de la carrière.</p>`,
+      },
+      {
+        heading: "S'inscrire chez Actiris dès la fin des études",
+        body: `<p>Dès la fin de vos études, l'inscription auprès d'<a href="https://www.actiris.brussels/fr/citoyens/comment-m-inscrire-ou-me-reinscrire/" target="_blank" rel="noopener noreferrer">Actiris</a> donne accès à un accompagnement spécifique pour les jeunes diplômés, ainsi qu'à des offres de stages et de premiers emplois centralisées. Cette inscription peut également conditionner l'ouverture de certains droits sociaux liés au statut de demandeur d'emploi — voir notre guide sur <a href="/fr/careers/onem-demarches-demandeurs-emploi-belgique">les démarches ONEM pour les demandeurs d'emploi</a> pour comprendre ce mécanisme.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Comment remplir un CV sans expérience professionnelle ?</strong><br/>En valorisant les stages, jobs étudiants, projets académiques et engagements associatifs comme des expériences à part entière, décrits avec contexte, responsabilités et résultat.</p>
+<p><strong>Le bilinguisme compte-t-il davantage pour un premier emploi ?</strong><br/>Oui, de nombreux employeurs bruxellois le valorisent particulièrement chez les jeunes candidats, avant qu'il ne devienne plus rare à mesurer que la carrière avance.</p>
+<p><strong>Faut-il s'inscrire à Actiris dès la fin des études ?</strong><br/>C'est recommandé : cela donne accès à un accompagnement spécifique et peut conditionner certains droits sociaux.</p>`,
+      },
+    ],
+    conclusion: "Un premier emploi à Bruxelles se prépare avec la même rigueur qu'une candidature expérimentée, mais avec des leviers différents : compétences transférables issues des stages et jobs étudiants, formation valorisée en détail, et bilinguisme mis en avant chaque fois qu'il existe, même partiellement. La patience et le nombre de candidatures jouent également un rôle : un premier emploi demande souvent plus de candidatures qu'un poste ultérieur, simplement parce que le dossier est encore léger. Créez votre premier CV professionnel avec Cvixeo — la structure adaptée aux profils juniors est intégrée par défaut.",
+  },
+
+  {
+    slug: "travailler-bruxelles-reussir-recherche-emploi",
+    title: "Travailler à Bruxelles : Comment Réussir sa Recherche d'Emploi ?",
+    description: "Organisation de la recherche, sources d'offres, entretiens, délais réalistes : la méthode complète pour mener une recherche d'emploi efficace à Bruxelles.",
+    category: "EmploiBruxelles",
+    lang: "fr",
+    publishedAt: "2026-08-29",
+    readingTime: 7,
+    tags: ["travailler à Bruxelles", "recherche d'emploi Bruxelles", "méthode candidature", "entretien d'embauche", "Actiris"],
+    intro: "En résumé : une recherche d'emploi efficace à Bruxelles combine un plan de candidatures structuré (dix à quinze candidatures ciblées par semaine plutôt que cinquante envois génériques), une utilisation active des offres Actiris et des plateformes spécialisées, une préparation sérieuse aux entretiens, et une gestion réaliste des délais — la région bruxelloise, avec ses nombreuses institutions internationales, connaît souvent des processus de recrutement plus longs que la moyenne.\n\nRéussir une recherche d'emploi à Bruxelles ne repose pas uniquement sur la qualité du CV ou de la lettre de motivation : la méthode et l'organisation de la recherche elle-même font une différence mesurable sur la durée totale de la recherche et le nombre d'entretiens obtenus.",
+    sections: [
+      {
+        heading: "Structurer sa recherche comme un projet, pas comme une série d'envois isolés",
+        body: `<p>Les candidats qui structurent leur recherche — liste d'entreprises cibles, suivi des candidatures envoyées, relances planifiées — obtiennent généralement de meilleurs résultats que ceux qui envoient des candidatures de façon dispersée. Un tableau de suivi simple (entreprise, poste, date de candidature, statut, relance prévue) suffit à transformer une recherche chaotique en processus maîtrisé.</p>
+<p>Visez la qualité plutôt que le volume : dix candidatures réellement adaptées à l'offre valent mieux que cinquante candidatures génériques. Notre guide pour <a href="/fr/careers/adapter-cv-offre-emploi-belgique">adapter votre CV à une offre d'emploi</a> détaille la méthode.</p>`,
+      },
+      {
+        heading: "Diversifier ses sources d'offres d'emploi",
+        body: `<p>Les offres d'emploi à Bruxelles se répartissent entre plusieurs canaux qu'il convient de combiner : les offres centralisées par <a href="https://www.actiris.brussels/fr/citoyens/" target="_blank" rel="noopener noreferrer">Actiris</a>, les plateformes généralistes et LinkedIn, les portails de carrière spécifiques aux institutions européennes et internationales pour les profils visés, et les agences d'intérim et de recrutement, particulièrement actives sur le marché bruxellois. Consultez notre guide sur <a href="/fr/careers/agences-interim-recrutement-belgique">les agences d'intérim et de recrutement en Belgique</a> pour comprendre comment les intégrer efficacement à votre stratégie.</p>`,
+      },
+      {
+        heading: "Préparer sérieusement chaque entretien",
+        body: `<p>Une fois l'entretien obtenu, la préparation fait toute la différence. Recherchez l'organisation en profondeur : son actualité récente, ses projets en cours, sa position sur son marché. Préparez des exemples concrets de vos réalisations passées, structurés selon la méthode Situation-Tâche-Action-Résultat, pour répondre efficacement aux questions comportementales. Préparez également deux ou trois questions à poser en fin d'entretien — elles démontrent votre engagement réel envers le poste.</p>`,
+      },
+      {
+        heading: "Gérer des délais de recrutement parfois longs",
+        body: `<p>Certains processus de recrutement à Bruxelles, en particulier dans le secteur public, les institutions européennes ou les grandes organisations internationales, peuvent s'étendre sur plusieurs mois entre la candidature et la décision finale. Cette réalité n'est pas le signe d'un désintérêt de l'employeur : elle reflète souvent des processus de sélection formalisés à plusieurs étapes. Continuez à candidater activement pendant cette période plutôt que de mettre votre recherche en pause dans l'attente d'une réponse.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Combien de candidatures faut-il envoyer par semaine ?</strong><br/>Dix à quinze candidatures réellement ciblées valent mieux que cinquante candidatures génériques.</p>
+<p><strong>Pourquoi certains processus de recrutement à Bruxelles sont-ils si longs ?</strong><br/>Le secteur public et les institutions internationales suivent souvent des procédures de sélection formalisées à plusieurs étapes, ce qui allonge les délais sans refléter un désintérêt.</p>
+<p><strong>Faut-il arrêter de candidater ailleurs en attendant une réponse ?</strong><br/>Non, il est recommandé de continuer activement sa recherche pendant tout processus de recrutement, même avancé.</p>`,
+      },
+    ],
+    conclusion: "Réussir sa recherche d'emploi à Bruxelles demande de la méthode autant que des candidatures de qualité : structurez votre démarche, diversifiez vos sources d'offres, préparez sérieusement chaque entretien, et acceptez des délais parfois plus longs que dans d'autres régions. Ces principes, combinés à un CV et une lettre de motivation bien adaptés, maximisent vos chances sur un marché dense mais riche en opportunités. Créez votre CV professionnel avec Cvixeo et suivez nos guides sur Actiris et le premier emploi pour compléter votre préparation.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIQUE FRANCOPHONE — Organismes publics & recherche d'emploi
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "actiris-inscription-trouver-emploi-bruxelles",
+    title: "Actiris : Comment s'Inscrire et Trouver un Emploi à Bruxelles ?",
+    description: "Qui doit s'inscrire à Actiris, comment le faire en ligne ou en agence, et comment utiliser ses services pour trouver un emploi à Bruxelles.",
+    category: "OrganismesEmploi",
+    lang: "fr",
+    publishedAt: "2026-09-01",
+    readingTime: 7,
+    featured: true,
+    tags: ["Actiris", "inscription Actiris", "demandeur d'emploi Bruxelles", "My Actiris", "office régional emploi"],
+    intro: "En résumé : Actiris est l'office régional bruxellois de l'emploi. L'inscription, gratuite, se fait principalement en ligne via My Actiris ou sur rendez-vous en agence, à l'aide de votre carte d'identité électronique (numéro de registre national). Elle donne accès aux offres d'emploi centralisées, à un accompagnement personnalisé, et conditionne dans certains cas le maintien de droits sociaux liés au statut de demandeur d'emploi.\n\nActiris (Office régional bruxellois de l'Emploi) est l'organisme public de référence pour toute personne domiciliée en Région de Bruxelles-Capitale et à la recherche d'un emploi. Ce guide explique qui doit s'inscrire, comment procéder concrètement, et comment tirer le meilleur parti des services proposés.",
+    sections: [
+      {
+        heading: "Qui doit s'inscrire auprès d'Actiris ?",
+        body: `<p>Toute personne domiciliée en Région de Bruxelles-Capitale, sortie de l'obligation scolaire, et à la recherche d'un emploi peut et, dans de nombreux cas, doit s'inscrire auprès d'<a href="https://www.actiris.brussels/fr/citoyens/qui-peut-s-inscrire-et-quand/" target="_blank" rel="noopener noreferrer">Actiris</a> — que vous soyez jeune diplômé à la recherche d'un premier emploi, en transition professionnelle, ou en fin de droit après une période d'occupation. L'inscription est également une étape nécessaire pour bénéficier de certaines allocations gérées par l'<a href="https://www.onem.be" target="_blank" rel="noopener noreferrer">ONEM</a> — voir notre guide sur <a href="/fr/careers/onem-demarches-demandeurs-emploi-belgique">les démarches ONEM pour les demandeurs d'emploi</a> pour comprendre l'articulation entre les deux organismes.</p>`,
+      },
+      {
+        heading: "Comment s'inscrire : en ligne ou en agence",
+        body: `<p>Selon les informations publiées par Actiris, la première inscription se fait exclusivement en ligne via <a href="https://www.actiris.brussels/fr/citoyens/mon-profil-personnel-my-actiris/" target="_blank" rel="noopener noreferrer">My Actiris</a>, ou sur rendez-vous en agence pour les situations qui le nécessitent — notamment pour les personnes de nationalité étrangère, dont la première inscription doit être réalisée avec un conseiller. Munissez-vous de votre carte d'identité électronique (eID) ou de votre identifiant itsme, ainsi que de votre numéro de registre national, disponible au dos de la carte d'identité.</p>
+<p>Actiris propose également un accueil décentralisé, notamment à la Maison de l'Emploi de la Ville de Bruxelles, et un numéro de contact gratuit pour toute question liée à l'inscription ou à la réinscription.</p>`,
+      },
+      {
+        heading: "Ce que l'inscription donne concrètement accès",
+        body: `<p>Une fois inscrit, My Actiris permet de consulter et sauvegarder des offres d'emploi, de mettre à jour son profil et son CV, de solliciter des attestations administratives, et de bénéficier d'un accompagnement personnalisé par un conseiller référent. Actiris propose également des ateliers collectifs (rédaction de CV, préparation aux entretiens, techniques de recherche d'emploi) et des formations orientées vers les secteurs qui recrutent activement dans la région.</p>`,
+      },
+      {
+        heading: "Réinscription et maintien du dossier actif",
+        body: `<p>Selon votre situation (fin de contrat, retour de formation, changement de statut), une réinscription peut être nécessaire pour maintenir votre dossier actif. Les modalités précises sont détaillées sur la page officielle <a href="https://www.actiris.brussels/fr/citoyens/comment-m-inscrire-ou-me-reinscrire/" target="_blank" rel="noopener noreferrer">comment s'inscrire ou se réinscrire</a> d'Actiris. Un dossier inactif peut interrompre l'accès à certains services et, dans certains cas, affecter des droits sociaux liés au statut de demandeur d'emploi — mieux vaut donc vérifier régulièrement le statut de son inscription plutôt que de le découvrir a posteriori.</p>`,
+      },
+      {
+        heading: "Actiris n'est pas le seul organisme : bien choisir selon sa situation",
+        body: `<p>Actiris est l'interlocuteur pour toute personne domiciliée à Bruxelles, mais la Belgique compte deux autres services régionaux équivalents : le <a href="https://www.leforem.be" target="_blank" rel="noopener noreferrer">Forem</a> pour la Wallonie et le <a href="https://www.vdab.be/fr" target="_blank" rel="noopener noreferrer">VDAB</a> pour la Flandre. Si vous envisagez une recherche d'emploi élargie à d'autres régions, notre comparatif <a href="/fr/careers/forem-actiris-vdab-quel-organisme-choisir">Forem, Actiris ou VDAB : quel organisme choisir</a> explique les règles d'affiliation et les différences pratiques entre ces trois services.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>L'inscription à Actiris est-elle payante ?</strong><br/>Non, l'inscription et l'accompagnement proposés par Actiris sont entièrement gratuits.</p>
+<p><strong>Peut-on s'inscrire à Actiris sans carte d'identité électronique ?</strong><br/>Un lecteur eID ou l'application itsme est généralement nécessaire ; en cas de difficulté, un rendez-vous en agence permet d'être accompagné dans la démarche.</p>
+<p><strong>Que se passe-t-il si mon dossier Actiris devient inactif ?</strong><br/>Cela peut interrompre l'accès à certains services et affecter des droits sociaux liés au statut de demandeur d'emploi ; une réinscription est alors nécessaire.</p>`,
+      },
+    ],
+    conclusion: "S'inscrire auprès d'Actiris est la première étape concrète d'une recherche d'emploi structurée à Bruxelles : elle ouvre l'accès aux offres, à l'accompagnement personnalisé et, selon votre situation, à certains droits sociaux. La démarche est gratuite et peut se faire intégralement en ligne pour la majorité des situations. Une fois inscrit, complétez votre dossier avec un CV professionnel et adapté : créez le vôtre avec Cvixeo et retrouvez notre guide complet pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+  },
+
+  {
+    slug: "onem-demarches-demandeurs-emploi-belgique",
+    title: "ONEM : Quelles Démarches pour les Demandeurs d'Emploi en Belgique ?",
+    description: "Le rôle de l'ONEM, les démarches à connaître pour percevoir des allocations de chômage, et les changements introduits par la réforme entrée en vigueur en mars 2026.",
+    category: "OrganismesEmploi",
+    lang: "fr",
+    publishedAt: "2026-09-03",
+    updatedAt: "2026-09-18",
+    readingTime: 8,
+    tags: ["ONEM", "allocations de chômage", "demandeur d'emploi Belgique", "réforme chômage 2026", "démarches ONEM"],
+    intro: "En résumé : l'ONEM (Office national de l'emploi) est l'institution fédérale qui gère l'assurance chômage en Belgique — l'ouverture du droit, le calcul et le paiement des allocations (via un organisme de paiement : syndicat ou CAPAC), et le contrôle du respect des obligations du demandeur d'emploi. Depuis une réforme entrée en vigueur le 1ᵉʳ mars 2026, le droit aux allocations de chômage complet et à l'allocation d'insertion est désormais limité dans le temps, avec des mesures transitoires pour les personnes déjà indemnisées avant cette date.\n\nComprendre le rôle de l'ONEM et les démarches associées est une étape essentielle pour toute personne qui perd son emploi ou termine ses études en Belgique. Ce guide explique le fonctionnement du système, les démarches pratiques, et les changements introduits par la réforme récente de la réglementation du chômage.",
+    sections: [
+      {
+        heading: "Le rôle de l'ONEM, en bref",
+        body: `<p>L'<a href="https://www.onem.be" target="_blank" rel="noopener noreferrer">ONEM</a> (Office national de l'emploi) est l'institution publique fédérale belge chargée de la réglementation et de la gestion de l'assurance chômage. Il détermine si une personne remplit les conditions pour bénéficier d'allocations, fixe leur montant, et contrôle le respect des obligations du demandeur d'emploi (disponibilité active sur le marché du travail, démarches de recherche d'emploi). Le paiement effectif des allocations, en revanche, est assuré par un organisme de paiement : votre syndicat (CSC, FGTB, CGSLB) ou, si vous n'êtes affilié à aucun syndicat, la Caisse auxiliaire de paiement des allocations de chômage (CAPAC).</p>`,
+      },
+      {
+        heading: "Les démarches pour ouvrir un droit aux allocations",
+        body: `<p>La première démarche consiste à s'inscrire comme demandeur d'emploi auprès du service régional compétent selon votre domicile — <a href="https://www.actiris.brussels/fr/citoyens/comment-m-inscrire-ou-me-reinscrire/" target="_blank" rel="noopener noreferrer">Actiris</a> à Bruxelles, <a href="https://www.leforem.be/citoyens/inscription-demandeur-emploi.html" target="_blank" rel="noopener noreferrer">le Forem</a> en Wallonie, ou le <a href="https://www.vdab.be/fr" target="_blank" rel="noopener noreferrer">VDAB</a> en Flandre. Cette inscription est distincte de la demande d'allocations elle-même, qui s'effectue ensuite auprès de votre organisme de paiement (syndicat ou CAPAC), avec les documents requis : C4 (attestation de l'employeur), preuve de votre parcours professionnel, et formulaires spécifiques selon votre situation.</p>
+<p>L'admissibilité aux allocations dépend de conditions de stage de travail (nombre de jours de travail sur une période de référence) qui varient selon votre âge. Les jeunes qui terminent leurs études peuvent, sous certaines conditions, accéder à une allocation d'insertion après un stage d'insertion professionnelle.</p>`,
+      },
+      {
+        heading: "La réforme de la réglementation du chômage entrée en vigueur en mars 2026",
+        body: `<p>Selon les informations officielles publiées par l'ONEM, une réforme importante de la réglementation du chômage est entrée en vigueur le <strong>1ᵉʳ mars 2026</strong>. Son changement principal : le droit aux allocations de chômage complet est désormais limité à une durée maximale de 24 mois, composée d'une période de base de 12 mois à laquelle peuvent s'ajouter jusqu'à 12 mois supplémentaires selon le passé professionnel du bénéficiaire. Le droit à l'allocation d'insertion (destinée notamment aux jeunes sortis d'études) est quant à lui limité à une durée maximale d'un an.</p>
+<p>Des <strong>mesures transitoires</strong> s'appliquent aux personnes qui percevaient déjà des allocations avant le 1ᵉʳ mars 2026 : leur passage vers les nouvelles règles s'échelonne par vagues successives selon leur situation (ancienneté dans le chômage, catégorie d'allocation). Certaines catégories restent exemptées de cette limitation dans le temps, notamment les allocations de garantie de revenus, certains travailleurs des arts, ou les personnes de 55 ans et plus justifiant d'un passé professionnel de 30 ans ou plus. Pour le détail exact applicable à votre situation personnelle, l'ONEM publie des fiches d'information officielles (feuilles T200, T201, T202) sur sa page dédiée à la <a href="https://www.onem.be/reforme-de-la-reglementation-du-chomage" target="_blank" rel="noopener noreferrer">réforme de la réglementation du chômage</a>.</p>
+<p>Cette réforme a un impact statistique mesurable : nous le détaillons avec les chiffres officiels dans notre article de référence <a href="/fr/careers/chomage-belgique-2026-taux-statistiques-mesures">Chômage en Belgique en 2026 : taux, statistiques et mesures gouvernementales</a>.</p>`,
+      },
+      {
+        heading: "Les obligations du demandeur d'emploi indemnisé",
+        body: `<p>Percevoir des allocations de chômage implique des obligations concrètes : rester disponible pour le marché du travail, répondre aux convocations de votre service régional de l'emploi, participer aux entretiens de suivi, et accepter les offres d'emploi jugées "convenables" au sens de la réglementation. Le non-respect de ces obligations peut entraîner une suspension temporaire ou définitive du droit aux allocations. Les démarches de recherche d'emploi actives et documentées (candidatures envoyées, entretiens réalisés) sont généralement demandées lors des entretiens de suivi.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>L'ONEM verse-t-il directement les allocations de chômage ?</strong><br/>Non : l'ONEM fixe les règles et les montants, mais le paiement effectif passe par votre syndicat ou par la CAPAC.</p>
+<p><strong>La réforme de mars 2026 concerne-t-elle tout le monde ?</strong><br/>Non, plusieurs catégories restent exemptées (55 ans et plus avec 30 ans de carrière, certains travailleurs des arts, RCC, entre autres) — vérifiez votre situation auprès de l'ONEM.</p>
+<p><strong>Que se passe-t-il en cas de fin de droit ?</strong><br/>Il est recommandé de vérifier sa situation à l'avance, d'intensifier sa recherche d'emploi via son service régional, et de contacter le CPAS si les ressources deviennent insuffisantes.</p>`,
+      },
+    ],
+    conclusion: "L'ONEM reste l'institution de référence pour comprendre vos droits et obligations en tant que demandeur d'emploi indemnisé en Belgique, mais la réforme entrée en vigueur en mars 2026 a modifié en profondeur la durée maximale d'indemnisation. Si vous êtes concerné, vérifiez votre situation individuelle directement sur le site de l'ONEM ou auprès de votre organisme de paiement, les règles transitoires étant spécifiques à chaque situation. En parallèle de vos démarches administratives, structurez activement votre recherche d'emploi : consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a> et créez un CV professionnel avec Cvixeo pour candidater efficacement dès aujourd'hui.",
+  },
+
+  {
+    slug: "forem-actiris-vdab-quel-organisme-choisir",
+    title: "Le Forem, Actiris ou VDAB : Quel Service Choisir pour votre Recherche d'Emploi ?",
+    description: "Trois régions, trois services publics de l'emploi : comment savoir lequel vous concerne, et comment les utiliser si vous cherchez un emploi hors de votre région.",
+    category: "OrganismesEmploi",
+    lang: "fr",
+    publishedAt: "2026-09-05",
+    readingTime: 6,
+    tags: ["Forem", "Actiris", "VDAB", "service public emploi Belgique", "recherche d'emploi inter-régional"],
+    intro: "En résumé : votre région de domicile détermine votre service public de l'emploi de référence — Actiris pour Bruxelles, le Forem pour la Wallonie, le VDAB pour la Flandre. Vous ne choisissez pas librement entre les trois, mais vous pouvez consulter les offres et bénéficier de certains services des trois organismes si vous envisagez de travailler en dehors de votre région de résidence.\n\nLa Belgique fédérale confie la compétence de l'emploi aux trois Régions, chacune disposant de son propre service public : Actiris à Bruxelles, le Forem en Wallonie, le VDAB en Flandre. Cette organisation, logique institutionnellement, prête parfois à confusion pour les personnes qui vivent près d'une frontière régionale ou qui envisagent une mobilité géographique. Ce guide clarifie qui s'adresse à quel organisme, et comment les utiliser en complément les uns des autres.",
+    sections: [
+      {
+        heading: "Le principe de base : votre domicile détermine votre organisme",
+        body: `<p>Le principe général est simple : votre inscription comme demandeur d'emploi se fait auprès du service public de la Région où vous êtes domicilié. Si vous résidez en Région de Bruxelles-Capitale, votre organisme est <a href="https://www.actiris.brussels/fr/citoyens/qui-peut-s-inscrire-et-quand/" target="_blank" rel="noopener noreferrer">Actiris</a> — voir notre guide dédié <a href="/fr/careers/actiris-inscription-trouver-emploi-bruxelles">Actiris : comment s'inscrire et trouver un emploi à Bruxelles</a>. Si vous résidez en Région wallonne, votre organisme est <a href="https://www.leforem.be/citoyens/inscription-demandeur-emploi.html" target="_blank" rel="noopener noreferrer">le Forem</a>. Si vous résidez en Région flamande, y compris dans les communes à facilités, votre organisme est le <a href="https://www.vdab.be/fr" target="_blank" rel="noopener noreferrer">VDAB</a>.</p>
+<p>Ce principe reste valable même si vous travaillez ou cherchez à travailler dans une région différente de celle où vous êtes domicilié : c'est votre lieu de résidence, pas votre lieu de travail visé, qui détermine votre organisme d'inscription et d'accompagnement.</p>`,
+      },
+      {
+        heading: "Chercher un emploi en dehors de sa région : ce qui est possible",
+        body: `<p>Rien n'empêche un demandeur d'emploi wallon ou bruxellois de postuler à des offres en Flandre, et inversement. Le VDAB propose d'ailleurs une <a href="https://www.vdab.be/fr" target="_blank" rel="noopener noreferrer">section entièrement en français</a> destinée aux francophones souhaitant travailler en Flandre, avec des offres filtrables selon le niveau de néerlandais requis — certains postes n'en exigent que des notions limitées, voire aucune. Le VDAB dispose également d'une antenne à Bruxelles pour accompagner les francophones intéressés par le marché flamand tout en restant domiciliés dans la région bruxelloise.</p>
+<p>Actiris propose de son côté des informations spécifiques pour les Bruxellois souhaitant travailler en Flandre ou en Wallonie, notamment sur les démarches à effectuer et les différences de fonctionnement entre les trois systèmes régionaux.</p>`,
+      },
+      {
+        heading: "Les différences pratiques entre les trois organismes",
+        body: `<p>Au-delà de la langue de travail (français pour le Forem et Actiris, néerlandais pour le VDAB, avec une offre en français), les trois organismes partagent une mission similaire — accompagnement, offres d'emploi, formations — mais avec des priorités sectorielles qui reflètent le tissu économique de chaque région : forte proportion d'institutions internationales et de services à Bruxelles, industrie et logistique plus présentes en Wallonie, secteur technologique et industriel dense en Flandre. Le lien entre inscription régionale et allocations de chômage gérées par l'<a href="https://www.onem.be" target="_blank" rel="noopener noreferrer">ONEM</a> reste identique dans les trois cas — voir notre guide sur <a href="/fr/careers/onem-demarches-demandeurs-emploi-belgique">les démarches ONEM pour les demandeurs d'emploi</a>.</p>`,
+      },
+      {
+        heading: "En résumé : lequel contacter selon votre situation",
+        body: `<ul>
+<li><strong>Vous êtes domicilié à Bruxelles :</strong> inscrivez-vous auprès d'Actiris, même si vous visez un poste en Flandre ou en Wallonie.</li>
+<li><strong>Vous êtes domicilié en Wallonie :</strong> inscrivez-vous auprès du Forem.</li>
+<li><strong>Vous êtes domicilié en Flandre :</strong> inscrivez-vous auprès du VDAB, qui propose un accompagnement en français si nécessaire.</li>
+<li><strong>Vous cherchez un emploi hors de votre région :</strong> consultez également les offres et ressources de l'organisme de la région visée, en complément de votre inscription principale.</li>
+</ul>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Puis-je m'inscrire à la fois à Actiris et au VDAB ?</strong><br/>Votre inscription principale dépend de votre domicile, mais rien n'empêche de consulter les offres et ressources d'un autre organisme si vous visez une autre région.</p>
+<p><strong>Le VDAB propose-t-il un accompagnement en français ?</strong><br/>Oui, une section entièrement en français existe pour les francophones souhaitant travailler en Flandre, avec certains conseillers pouvant assister en français.</p>
+<p><strong>Le fonctionnement diffère-t-il beaucoup entre les trois organismes ?</strong><br/>La mission est similaire (accompagnement, offres, formations), mais les priorités sectorielles reflètent le tissu économique propre à chaque région.</p>`,
+      },
+    ],
+    conclusion: "Le choix entre Forem, Actiris et VDAB n'est pas vraiment un choix : il découle directement de votre région de domicile. La bonne stratégie, si vous envisagez une mobilité inter-régionale, consiste à rester inscrit auprès de votre organisme de résidence tout en consultant activement les offres et ressources de la région visée. Une fois votre organisme identifié et votre inscription faite, structurez votre candidature : créez un CV professionnel avec Cvixeo, adapté à la région et au secteur que vous ciblez.",
+  },
+
+  {
+    slug: "agences-interim-recrutement-belgique",
+    title: "Agences d'Intérim et de Recrutement en Belgique : Comment les Utiliser pour Trouver un Emploi ?",
+    description: "Le rôle des agences d'intérim et de recrutement en Belgique, comment s'y inscrire, et comment les utiliser efficacement en complément de sa recherche d'emploi.",
+    category: "OrganismesEmploi",
+    lang: "fr",
+    publishedAt: "2026-09-08",
+    readingTime: 6,
+    tags: ["agence intérim Belgique", "recrutement Belgique", "agence de placement", "recherche d'emploi", "intérim"],
+    intro: "En résumé : les agences d'intérim et de recrutement complètent utilement une recherche d'emploi en Belgique, en particulier dans la logistique, l'industrie, l'administratif et certains profils spécialisés. Elles fonctionnent en parallèle des services publics régionaux (Actiris, Forem, VDAB) et n'imposent aucun frais au candidat — le service est toujours facturé à l'entreprise cliente.\n\nEn complément des candidatures directes et des services publics régionaux de l'emploi, les agences d'intérim et de recrutement privées jouent un rôle significatif sur le marché belge, notamment dans certains secteurs à forte rotation de personnel ou pour des profils spécialisés recherchés par des cabinets de chasse.",
+    sections: [
+      {
+        heading: "Intérim généraliste, intérim spécialisé, et cabinets de recrutement : les distinguer",
+        body: `<p>Les grandes agences d'intérim généralistes présentes en Belgique proposent des missions dans des secteurs variés — logistique, industrie, administratif, vente, hôtellerie — souvent avec la possibilité d'une embauche définitive après une ou plusieurs missions ("intérim d'insertion"). D'autres agences se spécialisent sur des profils précis (IT, ingénierie, comptabilité, secteur médical), avec des consultants qui connaissent en profondeur les exigences techniques du secteur. Enfin, les cabinets de recrutement et de chasse de têtes ("executive search") interviennent surtout sur des postes de cadres ou de dirigeants, généralement à l'initiative de l'entreprise cliente plutôt que du candidat.</p>`,
+      },
+      {
+        heading: "Comment s'inscrire et ce que cela implique",
+        body: `<p>L'inscription auprès d'une agence d'intérim ou de recrutement est gratuite pour le candidat — le modèle économique de ces agences repose sur une facturation à l'entreprise cliente, jamais sur des frais prélevés auprès du chercheur d'emploi. Une agence qui demande un paiement au candidat pour "garantir" un placement doit être considérée avec une grande méfiance : ce n'est pas une pratique légale ni standard en Belgique.</p>
+<p>L'inscription implique généralement un entretien avec un consultant, la vérification de vos qualifications et, selon le secteur, des tests pratiques ou de compétences. Une fois inscrit, le consultant vous propose des missions ou des postes correspondant à votre profil au fil des besoins de ses entreprises clientes.</p>`,
+      },
+      {
+        heading: "Comment les utiliser efficacement",
+        body: `<p>Ne vous limitez pas à une seule agence : inscrivez-vous auprès de deux ou trois agences pertinentes pour votre secteur, en plus de votre inscription auprès du service public régional compétent (<a href="/fr/careers/forem-actiris-vdab-quel-organisme-choisir">Actiris, le Forem ou le VDAB selon votre situation</a>). Soyez précis sur vos disponibilités, vos prétentions salariales et vos contraintes de mobilité dès le premier échange : cela permet au consultant de vous proposer des missions réellement pertinentes plutôt que de multiplier les propositions peu adaptées.</p>
+<p>Maintenez le contact régulièrement avec votre consultant, plutôt que d'attendre passivement une proposition — les agences privilégient souvent les candidats réactifs et engagés dans leur recherche.</p>`,
+      },
+      {
+        heading: "Les limites à connaître",
+        body: `<p>L'intérim n'offre pas toujours la stabilité d'un contrat à durée indéterminée direct, et certaines missions restent de courte durée. Il reste néanmoins un moyen reconnu d'accéder à une entreprise, de démontrer sa valeur en situation réelle, et d'obtenir parfois une embauche définitive à l'issue d'une ou plusieurs missions. Pour les profils juniors ou en reconversion, l'intérim peut également constituer une façon d'acquérir une première expérience concrète dans un nouveau secteur.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Une agence d'intérim peut-elle me facturer ses services ?</strong><br/>Non, l'inscription et l'accompagnement sont toujours gratuits pour le candidat ; le service est facturé à l'entreprise cliente.</p>
+<p><strong>Faut-il s'inscrire à plusieurs agences en même temps ?</strong><br/>Oui, s'inscrire auprès de deux ou trois agences pertinentes pour votre secteur élargit vos opportunités sans coût supplémentaire.</p>
+<p><strong>L'intérim peut-il mener à un contrat fixe ?</strong><br/>Oui, de nombreuses missions d'intérim débouchent sur une embauche définitive, en particulier via l'intérim dit "d'insertion".</p>`,
+      },
+    ],
+    conclusion: "Les agences d'intérim et de recrutement sont un complément utile, jamais un substitut, à une recherche d'emploi active et bien structurée. Utilisées en parallèle des services publics régionaux et de vos candidatures directes, elles élargissent vos points d'entrée sur le marché du travail belge, en particulier dans les secteurs où la rotation de personnel est élevée. Préparez un CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence — un dossier soigné dès le premier entretien avec un consultant facilite un placement plus rapide et plus pertinent.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIQUE FRANCOPHONE — Chômage en Belgique (article de référence)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "chomage-belgique-2026-taux-statistiques-mesures",
+    title: "Chômage en Belgique en 2026 : Taux de Chômage, Statistiques et Mesures Gouvernementales",
+    description: "Taux de chômage BIT, nombre de chômeurs indemnisés, réforme de l'assurance chômage : les chiffres officiels de Statbel et de l'ONEM, expliqués et mis à jour.",
+    category: "ChomageBelgique",
+    lang: "fr",
+    publishedAt: "2026-09-10",
+    updatedAt: "2026-09-18",
+    readingTime: 12,
+    featured: true,
+    tags: ["chômage Belgique 2026", "taux de chômage Belgique", "ONEM", "Statbel", "réforme chômage 2026", "statistiques chômage"],
+    intro: "En résumé : au deuxième trimestre 2026, le taux de chômage BIT (Statbel) s'élève à 6,1% en Belgique — 4,0% en Flandre, 8,0% en Wallonie et 12,7% à Bruxelles. Ce taux ne doit pas être confondu avec le nombre de personnes effectivement indemnisées par l'ONEM : 211 973 chômeurs complets indemnisés demandeurs d'emploi en mai 2026, en baisse de 25% sur un an, principalement en raison de la réforme de l'assurance chômage entrée en vigueur le 1ᵉʳ mars 2026, qui limite désormais la durée des allocations dans le temps.\n\nCet article est traité comme un article de référence : il présente uniquement des données publiées par des sources officielles (Statbel, ONEM), avec la date exacte de chaque chiffre. Il est mis à jour au fil des publications statistiques. Dernière mise à jour : 18 septembre 2026.",
+    sections: [
+      {
+        heading: "Le taux de chômage en Belgique (Statbel, 2ᵉ trimestre 2026)",
+        body: `<p>Selon <a href="https://statbel.fgov.be/fr/themes/emploi-formation/marche-du-travail/emploi-et-chomage" target="_blank" rel="noopener noreferrer">Statbel</a>, l'institut belge de statistique, le taux de chômage au sens du Bureau International du Travail (BIT) s'élevait à <strong>6,1%</strong> de la population active en Belgique au deuxième trimestre 2026 (données publiées le 9 septembre 2026). Ce taux se répartit ainsi entre les régions :</p>
+<ul>
+<li><strong>Flandre :</strong> 4,0%</li>
+<li><strong>Wallonie :</strong> 8,0%</li>
+<li><strong>Région de Bruxelles-Capitale :</strong> 12,7%</li>
+</ul>
+<p>Sur la même période, le taux d'emploi (20-64 ans) atteignait 72,8% au niveau national (77,3% en Flandre, 67,6% en Wallonie, 64,7% à Bruxelles), pour environ 4,943 millions de personnes en emploi (20-64 ans) et environ 332 000 personnes au chômage au sens du BIT (15 ans et plus). Le taux de chômage BIT est calculé à partir de l'Enquête sur les Forces de Travail (EFT), une enquête menée en continu auprès des ménages, avec une méthodologie harmonisée au niveau européen — ce qui rend ce chiffre comparable à celui des autres pays de l'Union européenne.</p>`,
+      },
+      {
+        heading: "Le nombre de chômeurs indemnisés selon l'ONEM (mai 2026)",
+        body: `<p>Un autre chiffre, souvent confondu avec le précédent, est publié mensuellement par l'<a href="https://www.onem.be/statistiques" target="_blank" rel="noopener noreferrer">ONEM</a> (Office national de l'emploi) : le nombre de <strong>chômeurs complets indemnisés demandeurs d'emploi</strong> (CCI-DE), c'est-à-dire les personnes qui perçoivent effectivement une allocation de chômage tout en étant inscrites comme demandeurs d'emploi. En <a href="https://www.onem.be/page/chiffres-federaux-des-chomeurs-indemnises-mai-2026" target="_blank" rel="noopener noreferrer">mai 2026</a>, ce nombre s'élevait à <strong>211 973</strong> personnes, en baisse de 70 814 unités (-25,0%) par rapport à mai 2025.</p>
+<p>La répartition régionale de ce nombre, en mai 2026, était la suivante :</p>
+<ul>
+<li><strong>Flandre :</strong> 97 281 personnes (-4,7% sur un an)</li>
+<li><strong>Wallonie :</strong> 79 243 personnes (-33,6% sur un an)</li>
+<li><strong>Bruxelles :</strong> 35 449 personnes (-42,3% sur un an)</li>
+</ul>
+<p>À cela s'ajoutent 7 519 chômeurs complets indemnisés non-demandeurs d'emploi (personnes dispensées de recherche active, par exemple pour raisons d'âge ou de situation spécifique). Sur la durée du chômage, l'ONEM indique qu'en mai 2026, 54,1% des CCI-DE étaient au chômage depuis moins d'un an, 20,2% entre un et deux ans, et 25,7% depuis deux ans ou plus.</p>`,
+      },
+      {
+        heading: "Taux de chômage BIT ou nombre de chômeurs indemnisés : ne pas confondre",
+        body: `<p>Ces deux indicateurs mesurent des réalités différentes, et les confondre conduit à des interprétations erronées :</p>
+<ul>
+<li>Le <strong>taux de chômage BIT de Statbel</strong> est une estimation statistique, issue d'une enquête représentative, qui compte toute personne sans emploi, disponible pour travailler et activement à la recherche d'un emploi selon les critères internationaux du Bureau International du Travail — indépendamment du fait qu'elle perçoive ou non une allocation, ou qu'elle soit inscrite auprès d'un service régional de l'emploi.</li>
+<li>Le <strong>nombre de chômeurs indemnisés de l'ONEM</strong> est un comptage administratif exact des personnes qui perçoivent réellement une allocation de chômage à une date donnée. Il exclut les personnes sans emploi qui ne remplissent pas les conditions d'ouverture du droit, qui ont épuisé leurs droits, ou qui ne se sont jamais inscrites — et à l'inverse, il inclut des personnes en incapacité temporaire de travailler considérées différemment par l'enquête BIT.</li>
+</ul>
+<p>Une troisième mesure existe encore, propre à la Région bruxelloise : <a href="https://www.actiris.brussels/fr/citoyens/chiffres/" target="_blank" rel="noopener noreferrer">Actiris</a> publie son propre taux de chômage administratif, calculé comme le rapport entre le nombre de demandeurs d'emploi inscrits et la population active de 15 à 64 ans. Ce taux atteignait 15,4% fin décembre 2025 à Bruxelles (96 650 demandeurs d'emploi inscrits, en hausse de 4,4% sur un an) — un chiffre sensiblement plus élevé que le taux BIT de Statbel pour la même région, précisément parce que sa méthodologie et sa population de référence diffèrent. Aucun de ces trois chiffres n'est "faux" : ils répondent à des questions différentes, et il est essentiel de toujours préciser la source et la définition utilisée avant de comparer deux chiffres entre eux.</p>`,
+      },
+      {
+        heading: "La réforme de l'assurance chômage entrée en vigueur en mars 2026",
+        body: `<p>La baisse marquée du nombre de chômeurs indemnisés en 2026 s'explique en grande partie par la <a href="https://www.onem.be/reforme-de-la-reglementation-du-chomage" target="_blank" rel="noopener noreferrer">réforme de la réglementation du chômage</a>, entrée en vigueur le <strong>1ᵉʳ mars 2026</strong> selon l'ONEM. Cette réforme introduit une limitation dans le temps du droit aux allocations :</p>
+<ul>
+<li>Le droit aux <strong>allocations de chômage complet</strong> est désormais plafonné à 24 mois maximum : une période de base de 12 mois, à laquelle peuvent s'ajouter jusqu'à 12 mois supplémentaires selon le passé professionnel du bénéficiaire.</li>
+<li>Le droit à l'<strong>allocation d'insertion</strong> (notamment pour les jeunes sortis d'études) est limité à un an maximum.</li>
+</ul>
+<p>La loi a été publiée au Moniteur belge le 29 juillet 2025, avec une période transitoire débutant le 1ᵉʳ juillet 2025 et une entrée en application des nouvelles règles au 1ᵉʳ mars 2026. Selon les chiffres de l'ONEM, <strong>97 652 personnes</strong> avaient déjà atteint la fin de leur droit au cours de l'année 2026 au moment de la publication des statistiques de mai (10 920 bénéficiaires de l'allocation d'insertion et 86 732 bénéficiaires de l'allocation de chômage) — l'ONEM précise que les premiers cas de fin de droit sont survenus à partir de janvier 2026.</p>`,
+      },
+      {
+        heading: "Mesures transitoires et personnes concernées",
+        body: `<p>Les personnes qui percevaient déjà des allocations avant le 1ᵉʳ mars 2026 ne basculent pas immédiatement vers les nouvelles règles : l'ONEM prévoit un échelonnement en plusieurs vagues selon l'ancienneté dans le chômage et la catégorie d'allocation perçue, avec des dates d'entrée en application réparties entre janvier 2026 et juillet 2027 selon les catégories. Certaines catégories restent explicitement exemptées de cette limitation dans le temps : les allocations de garantie de revenus, certains travailleurs des arts, les travailleurs portuaires et de la pêche reconnus, les personnes en régime de chômage avec complément d'entreprise (RCC), les personnes de 55 ans et plus justifiant d'un passé professionnel de 30 ans ou plus, les travailleurs d'ateliers protégés, ainsi que deux catégories temporaires liées aux métiers en pénurie et au temps partiel avec garantie de revenus.</p>
+<p>Pour connaître précisément votre situation individuelle et la vague transitoire qui vous concerne, l'ONEM met à disposition des fiches d'information détaillées (feuilles T200, T201, T202) sur sa page consacrée à la réforme, et votre organisme de paiement (syndicat ou CAPAC) peut vous indiquer la date exacte de fin de droit qui s'applique à votre dossier.</p>`,
+      },
+      {
+        heading: "Que faire si vos allocations arrivent à échéance ?",
+        body: `<p>Si vous êtes concerné par une fin de droit, plusieurs démarches sont à envisager sans attendre la date d'échéance :</p>
+<ul>
+<li><strong>Vérifiez votre situation exacte</strong> auprès de votre organisme de paiement (syndicat ou CAPAC) ou directement auprès de l'ONEM, qui notifie individuellement chaque personne concernée par une fin de droit.</li>
+<li><strong>Intensifiez votre recherche d'emploi</strong> en vous appuyant sur le service régional dont vous dépendez — <a href="/fr/careers/actiris-inscription-trouver-emploi-bruxelles">Actiris à Bruxelles</a>, le Forem en Wallonie ou le VDAB en Flandre — qui proposent un accompagnement renforcé pour les personnes en fin de droit.</li>
+<li><strong>Contactez le CPAS de votre commune</strong> si vos ressources deviennent insuffisantes après la fin de vos allocations : le droit à l'intégration sociale et le droit à l'aide sociale, coordonnés par le <a href="https://www.mi-is.be/fr/droit-laide-sociale" target="_blank" rel="noopener noreferrer">SPP Intégration Sociale</a>, peuvent constituer un filet de sécurité pendant votre recherche d'emploi.</li>
+<li><strong>Structurez activement votre candidature</strong> : un CV à jour, adapté à chaque offre, reste le levier le plus direct pour raccourcir la période de recherche d'emploi — voir notre guide pour <a href="/fr/careers/cv-professionnel-belgique-guide-2026">créer un CV professionnel en Belgique</a>.</li>
+</ul>`,
+      },
+      {
+        heading: "Organismes vers qui se tourner",
+        body: `<p>Plusieurs institutions publiques accompagnent les personnes en recherche d'emploi ou en fin de droit en Belgique : l'<a href="https://www.onem.be" target="_blank" rel="noopener noreferrer">ONEM</a> pour tout ce qui concerne les allocations de chômage ; <a href="https://www.actiris.brussels" target="_blank" rel="noopener noreferrer">Actiris</a>, <a href="https://www.leforem.be" target="_blank" rel="noopener noreferrer">le Forem</a> ou le <a href="https://www.vdab.be/fr" target="_blank" rel="noopener noreferrer">VDAB</a> selon votre région pour l'accompagnement à la recherche d'emploi et les offres disponibles ; le <a href="https://emploi.belgique.be/fr" target="_blank" rel="noopener noreferrer">SPF Emploi, Travail et Concertation sociale</a> pour les questions de droit du travail ; et les CPAS locaux pour les situations de précarité financière. Les agences d'intérim et de recrutement privées constituent un complément utile — voir notre guide sur <a href="/fr/careers/agences-interim-recrutement-belgique">les agences d'intérim et de recrutement en Belgique</a>.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Quelle est la différence entre le taux de chômage BIT et le nombre de chômeurs indemnisés ?</strong><br/>Le taux BIT de Statbel (6,1% au T2 2026) est une estimation statistique de toute personne sans emploi selon les critères internationaux ; le nombre de l'ONEM (211 973 en mai 2026) est un comptage administratif des personnes qui perçoivent effectivement une allocation.</p>
+<p><strong>Qui est concerné par la réforme du chômage de mars 2026 ?</strong><br/>Toute personne percevant des allocations de chômage complet ou une allocation d'insertion, avec des mesures transitoires échelonnées selon l'ancienneté et la catégorie, et plusieurs exemptions prévues (55 ans et plus avec 30 ans de carrière, RCC, entre autres).</p>
+<p><strong>Où trouver les chiffres officiels et à jour du chômage en Belgique ?</strong><br/>Sur les pages statistiques de <a href="https://statbel.fgov.be/fr/themes/emploi-formation/marche-du-travail/emploi-et-chomage" target="_blank" rel="noopener noreferrer">Statbel</a> (trimestrielles) et de l'<a href="https://www.onem.be/statistiques" target="_blank" rel="noopener noreferrer">ONEM</a> (mensuelles).</p>
+<p><strong>Que faire si mes allocations de chômage prennent fin ?</strong><br/>Vérifiez votre situation auprès de votre organisme de paiement, intensifiez votre recherche via votre service régional de l'emploi, et contactez le CPAS de votre commune si vos ressources deviennent insuffisantes.</p>`,
+      },
+    ],
+    conclusion: "Le chômage en Belgique se lit à travers plusieurs indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de Statbel (6,1% au deuxième trimestre 2026), le nombre de chômeurs indemnisés de l'ONEM (211 973 en mai 2026, en forte baisse), et des indicateurs régionaux spécifiques comme le taux administratif d'Actiris à Bruxelles. La réforme de l'assurance chômage entrée en vigueur le 1ᵉʳ mars 2026 explique une large part de l'évolution récente de ces chiffres, avec des mesures transitoires qui continueront à produire des effets statistiques dans les prochains mois. Cet article sera mis à jour à mesure que Statbel et l'ONEM publient de nouvelles données — retrouvez également notre article complémentaire <a href=\"/fr/careers/combien-chomeurs-belgique-2026\">combien y a-t-il de chômeurs en Belgique en 2026</a> pour le suivi mois par mois des chiffres. Si votre situation professionnelle est concernée par ces évolutions, la meilleure préparation reste une recherche d'emploi active et un dossier de candidature solide : créez votre CV professionnel avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+  },
+
+  {
+    slug: "combien-chomeurs-belgique-2026",
+    title: "Combien y a-t-il de Chômeurs en Belgique en 2026 ?",
+    description: "Le nombre de chômeurs en Belgique en 2026 dépend de la définition utilisée. Voici les chiffres officiels publiés à ce jour, et comment les lire correctement.",
+    category: "ChomageBelgique",
+    lang: "fr",
+    publishedAt: "2026-09-12",
+    updatedAt: "2026-09-18",
+    readingTime: 6,
+    tags: ["combien de chômeurs Belgique", "nombre de chômeurs 2026", "statistiques chômage Belgique", "ONEM", "Statbel"],
+    intro: "En résumé : il n'existe pas un seul chiffre du \"nombre de chômeurs en Belgique en 2026\", car deux définitions officielles coexistent et ne se recoupent pas. Au sens du chômage indemnisé (ONEM), la Belgique comptait 211 973 chômeurs complets indemnisés demandeurs d'emploi en mai 2026, en baisse marquée sur un an. Au sens du chômage BIT (Statbel), environ 332 000 personnes étaient sans emploi au deuxième trimestre 2026. Aucune de ces deux sources ne publie de \"prévision\" chiffrée pour la fin de l'année : les chiffres définitifs de 2026 ne seront connus qu'une fois l'année terminée.\n\nCette question, fréquemment posée, appelle une réponse nuancée plutôt qu'un chiffre unique. Voici ce que les sources officielles permettent réellement d'affirmer à ce jour, et pourquoi une prévision précise pour la fin de l'année ne peut pas être présentée comme certaine.",
+    sections: [
+      {
+        heading: "Ce que l'on sait avec certitude à ce jour",
+        body: `<p>Selon les statistiques mensuelles publiées par l'<a href="https://www.onem.be/statistiques" target="_blank" rel="noopener noreferrer">ONEM</a>, le nombre de chômeurs complets indemnisés demandeurs d'emploi (CCI-DE) a nettement diminué au cours de l'année 2026 :</p>
+<ul>
+<li><strong>Mars 2026 :</strong> 242 668 personnes (-19,7% par rapport à mars 2025, soit 59 430 personnes de moins)</li>
+<li><strong>Mai 2026 :</strong> 211 973 personnes (-25,0% par rapport à mai 2025, soit 70 814 personnes de moins)</li>
+</ul>
+<p>Cette baisse s'accélère mois après mois, ce que l'ONEM attribue explicitement à l'entrée en vigueur de la <a href="/fr/careers/onem-demarches-demandeurs-emploi-belgique">réforme de la réglementation du chômage</a> au 1ᵉʳ mars 2026, qui a produit ses premiers effets de fin de droit à partir de janvier 2026. Du côté du chômage au sens du Bureau International du Travail, Statbel dénombrait environ 332 000 personnes sans emploi (15 ans et plus) au deuxième trimestre 2026, pour un taux de chômage de 6,1% de la population active.</p>`,
+      },
+      {
+        heading: "Pourquoi il n'existe pas de \"chiffre final\" pour 2026",
+        body: `<p>Ni Statbel ni l'ONEM ne publient de prévision chiffrée du nombre de chômeurs pour une année en cours : les deux organismes publient des constats, mois par mois ou trimestre par trimestre, jamais des projections. Toute annonce d'un chiffre "définitif" pour 2026 avant la fin de l'année, ou toute affirmation d'un total nettement supérieur ou inférieur aux tendances observées, doit être considérée avec prudence si elle n'est pas directement sourcée auprès de Statbel ou de l'ONEM. Notre article de référence <a href="/fr/careers/chomage-belgique-2026-taux-statistiques-mesures">chômage en Belgique en 2026 : taux, statistiques et mesures gouvernementales</a> est mis à jour à chaque nouvelle publication officielle disponible.</p>`,
+      },
+      {
+        heading: "Deux chiffres, deux réalités différentes",
+        body: `<p>La confusion la plus fréquente consiste à comparer un chiffre à l'autre comme s'ils mesuraient la même chose. Le nombre de l'ONEM (211 973 en mai 2026) est un comptage administratif des personnes qui perçoivent effectivement une allocation de chômage. Le nombre de Statbel (environ 332 000) est une estimation statistique de toutes les personnes sans emploi selon la définition internationale du BIT, qu'elles perçoivent ou non une allocation. La baisse rapide du premier chiffre en 2026 reflète surtout l'effet de la réforme sur la durée d'indemnisation — elle ne signifie pas nécessairement que le même nombre de personnes a retrouvé un emploi, puisqu'une personne peut atteindre une fin de droit sans pour autant sortir du chômage au sens statistique.</p>`,
+      },
+      {
+        heading: "Où suivre l'évolution des chiffres au fil de l'année",
+        body: `<p>Pour suivre l'évolution réelle du chômage en Belgique tout au long de 2026, les sources à consulter directement sont les statistiques interactives de l'<a href="https://www.onem.be/interactivestats" target="_blank" rel="noopener noreferrer">ONEM</a>, mises à jour mensuellement, et la page <a href="https://statbel.fgov.be/fr/themes/emploi-formation/marche-du-travail/emploi-et-chomage" target="_blank" rel="noopener noreferrer">emploi et chômage de Statbel</a>, mise à jour trimestriellement. Ces deux sources restent les références officielles ; les articles de presse ou les estimations tierces doivent toujours être recoupés avec elles avant d'être considérés comme fiables.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Le nombre de chômeurs a-t-il vraiment baissé en 2026 ?</strong><br/>Le nombre de chômeurs indemnisés (ONEM) a nettement baissé, principalement du fait de la réforme ; le taux de chômage BIT (Statbel), plus stable, mesure une réalité différente.</p>
+<p><strong>Peut-on prévoir le nombre de chômeurs fin 2026 ?</strong><br/>Non : ni Statbel ni l'ONEM ne publient de prévision chiffrée pour une année en cours, seulement des constats mensuels ou trimestriels déjà observés.</p>
+<p><strong>Pourquoi les chiffres de l'ONEM et de Statbel sont-ils si différents ?</strong><br/>Parce qu'ils ne mesurent pas la même population : bénéficiaires effectifs d'une allocation pour l'ONEM, personnes sans emploi selon la définition internationale du BIT pour Statbel.</p>`,
+      },
+    ],
+    conclusion: "Répondre honnêtement à \"combien y a-t-il de chômeurs en Belgique en 2026\" suppose d'abord de préciser de quelle définition on parle, puis de citer un chiffre daté plutôt qu'une estimation approximative. À ce jour, les données officielles montrent une baisse marquée du nombre de chômeurs indemnisés, largement portée par la réforme entrée en vigueur en mars 2026, tandis que le taux de chômage BIT reste l'indicateur de référence pour les comparaisons internationales. Si votre recherche d'emploi est active en cette période de changement, un CV à jour reste votre meilleur atout : créez le vôtre avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+  },
+
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
@@ -628,7 +1372,7 @@ export function getArticleBySlug(slug: string): Article | undefined {
 
 export function getRelatedArticles(current: Article, limit = 3): Article[] {
   return articles
-    .filter((a) => a.slug !== current.slug)
+    .filter((a) => a.slug !== current.slug && (a.lang ?? "en") === (current.lang ?? "en"))
     .sort((a, b) => {
       const catA = a.category === current.category ? 1 : 0;
       const catB = b.category === current.category ? 1 : 0;

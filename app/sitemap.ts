@@ -33,13 +33,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  // Career articles have no French translation yet — English only, no alternates.
-  const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${BASE}/careers/${article.slug}`,
-    lastModified: new Date(article.publishedAt),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  // Career articles are single-language content (no per-article translation), so each
+  // gets its own URL under the matching locale prefix with no cross-language alternates.
+  const articlePages: MetadataRoute.Sitemap = articles.map((article) => {
+    const prefix = article.lang === "fr" ? "/fr/careers" : "/careers";
+    return {
+      url: `${BASE}${prefix}/${article.slug}`,
+      lastModified: new Date(article.updatedAt ?? article.publishedAt),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    };
+  });
 
   return [...localizedPages, ...articlePages];
 }

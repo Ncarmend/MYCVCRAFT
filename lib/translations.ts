@@ -574,6 +574,10 @@ export const translations = {
         Interview: "Interview",
         LinkedIn: "LinkedIn",
         Career: "Career",
+        CVBelgique: "Belgian CVs",
+        EmploiBruxelles: "Jobs in Brussels",
+        OrganismesEmploi: "Public Employment Agencies",
+        ChomageBelgique: "Unemployment in Belgium",
       },
     },
 
@@ -1217,6 +1221,10 @@ export const translations = {
         Interview: "Entretien",
         LinkedIn: "LinkedIn",
         Career: "Carrière",
+        CVBelgique: "CV en Belgique",
+        EmploiBruxelles: "Emploi à Bruxelles",
+        OrganismesEmploi: "Organismes & recherche d'emploi",
+        ChomageBelgique: "Chômage en Belgique",
       },
     },
 

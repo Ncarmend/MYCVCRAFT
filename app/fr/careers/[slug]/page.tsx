@@ -5,6 +5,7 @@ import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
+import { translations } from "@/lib/translations";
 import {
   articles,
   getArticleBySlug,
@@ -12,22 +13,24 @@ import {
   categoryStyle,
 } from "@/lib/articles";
 
+const T = translations.fr.careers;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return articles.filter((a) => (a.lang ?? "en") === "en").map((a) => ({ slug: a.slug }));
+  return articles.filter((a) => a.lang === "fr").map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article || (article.lang ?? "en") !== "en") return { title: "Article not found" };
+  if (!article || article.lang !== "fr") return { title: "Article introuvable" };
 
   // Root layout's title template already appends "| Cvixeo" — don't double it here.
   const title = article.title;
-  const url = `https://cvixeo.com/careers/${article.slug}`;
+  const url = `https://cvixeo.com/fr/careers/${article.slug}`;
 
   return {
     title,
@@ -39,7 +42,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       type: "article",
       publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt ?? article.publishedAt,
       tags: article.tags,
+      locale: "fr_BE",
     },
     twitter: {
       card: "summary_large_image",
@@ -51,18 +56,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
+  return new Date(iso).toLocaleDateString("fr-BE", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function ArticlePageFr({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  if (!article || (article.lang ?? "en") !== "en") {
+  if (!article || article.lang !== "fr") {
     notFound();
   }
 
@@ -75,10 +80,12 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description,
     datePublished: article.publishedAt,
+    dateModified: article.updatedAt ?? article.publishedAt,
+    inLanguage: "fr-BE",
     author: { "@type": "Organization", name: "Cvixeo" },
     publisher: { "@type": "Organization", name: "Cvixeo", url: "https://cvixeo.com" },
     keywords: article.tags.join(", "),
-    url: `https://cvixeo.com/careers/${article.slug}`,
+    url: `https://cvixeo.com/fr/careers/${article.slug}`,
   };
 
   return (
@@ -102,16 +109,16 @@ export default async function ArticlePage({ params }: Props) {
           />
           <div className="relative mx-auto max-w-3xl px-6 py-16 text-white">
             <Link
-              href="/careers"
+              href="/fr/careers"
               className="mb-6 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 transition-colors hover:text-white"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              Career resources
+              {T.backLink}
             </Link>
 
             <div className="mb-4">
               <span className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${style.badge}`}>
-                {article.category}
+                {T.categories[article.category]}
               </span>
             </div>
 
@@ -128,9 +135,14 @@ export default async function ArticlePage({ params }: Props) {
                 <Calendar className="h-3.5 w-3.5" />
                 {formatDate(article.publishedAt)}
               </span>
+              {article.updatedAt && (
+                <span className="flex items-center gap-1.5">
+                  Mis à jour le {formatDate(article.updatedAt)}
+                </span>
+              )}
               <span className="flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5" />
-                {article.readingTime} min read
+                {article.readingTime} {T.minRead}
               </span>
             </div>
           </div>
@@ -175,7 +187,7 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* Conclusion */}
           <div className="mt-10 border-t border-gray-100 pt-8">
-            <h2 className="mb-4 text-lg font-bold tracking-tight text-slate-900">Conclusion</h2>
+            <h2 className="mb-4 text-lg font-bold tracking-tight text-slate-900">{T.conclusion}</h2>
             {article.conclusion.split("\n\n").map((para, i) => (
               <p key={i} className={`text-sm leading-7 text-slate-600 ${i > 0 ? "mt-4" : ""}`}>
                 {para}
@@ -198,15 +210,15 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* CTA */}
           <div className="mt-10 rounded-2xl bg-slate-800 px-8 py-8 text-center text-white">
-            <p className="text-base font-bold">Put this advice into action</p>
+            <p className="text-base font-bold">{T.articleCta.heading}</p>
             <p className="mt-1 text-xs text-slate-300">
-              Build an ATS-optimised resume in minutes with Cvixeo — free to start.
+              {T.articleCta.subtext}
             </p>
             <Link
               href="/signup"
               className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
             >
-              Build your CV free
+              {T.articleCta.btn}
             </Link>
           </div>
         </div>
@@ -218,7 +230,7 @@ export default async function ArticlePage({ params }: Props) {
               <div className="mb-6 flex items-center gap-3">
                 <span className="h-px flex-1 bg-gray-200" />
                 <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
-                  You might also like
+                  {T.youMightAlsoLike}
                 </h2>
                 <span className="h-px flex-1 bg-gray-200" />
               </div>
