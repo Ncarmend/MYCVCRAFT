@@ -21,6 +21,7 @@ import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { cn } from "@/lib/utils";
+import { trackCoverLetterCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
 
 // --- Zod schema ---
@@ -388,6 +389,7 @@ export function CVForm({
       if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.coverLetterFailed)); return; }
       const { coverLetter } = await res.json();
       setCoverLetterResult(coverLetter);
+      trackCoverLetterCreated({ cvId });
       toast.success(T.toasts.coverLetterGenerated);
     } catch {
       toast.error(T.toasts.coverLetterFailed);

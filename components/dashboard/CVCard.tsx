@@ -20,6 +20,7 @@ import {
   DialogFooter,
 } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { trackCvDownloaded } from "@/lib/analytics";
 
 interface CVCardProps {
   cv: CV;
@@ -64,6 +65,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
         win.print();
         URL.revokeObjectURL(url);
       });
+      trackCvDownloaded({ cvId: cv.id, template: cv.template });
       toast.success("Use 'Save as PDF' in the print dialog.", { duration: 5000 });
     } catch {
       toast.error("Failed to generate PDF");

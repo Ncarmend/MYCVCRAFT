@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
 import { CVPreview } from "@/components/cv/CVPreview";
+import { PdfDownloadLink } from "@/components/cv/PdfDownloadLink";
 import { ArrowLeft, Edit, FileDown } from "lucide-react";
 import type { CV, CVFormData } from "@/types";
 
@@ -78,15 +79,15 @@ export default async function CVPreviewPage({ params }: Props) {
             Edit
           </Link>
           {/* Opens PDF in new tab; user prints to PDF from there */}
-          <a
+          <PdfDownloadLink
             href={`/api/pdf?cvId=${id}&template=${cv.template ?? "BASIC"}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            cvId={id}
+            template={cv.template ?? "BASIC"}
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-green-600 transition-colors"
           >
             <FileDown className="h-3.5 w-3.5" />
             Download PDF
-          </a>
+          </PdfDownloadLink>
         </div>
       </div>
 

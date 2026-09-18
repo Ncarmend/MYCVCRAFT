@@ -9,6 +9,7 @@ import { Header } from "@/components/dashboard/Header";
 import { Button } from "@/components/ui/button";
 import { FileDown, Eye, EyeOff, Check, Loader2, AlertCircle, Upload } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { trackCvDownloaded } from "@/lib/analytics";
 import type { CV, CVFormData } from "@/types";
 
 const AUTOSAVE_MS = 2000;
@@ -105,6 +106,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
         throw new Error(lang === "fr" ? "Popup bloqué — autorisez les popups pour ce site." : "Popup blocked — allow pop-ups for this site.");
       }
       setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      trackCvDownloaded({ cvId: cv.id, template });
       toast.success(
         lang === "fr" ? "Utilisez « Enregistrer en PDF » dans la fenêtre d'impression." : "Use 'Save as PDF' in the print dialog.",
         { id: "pdf", duration: 5000 },

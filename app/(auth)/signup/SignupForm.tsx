@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { Mail, Lock, User } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { trackSignUp } from "@/lib/analytics";
 
 const schema = z
   .object({
@@ -55,6 +56,7 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
         },
       });
       if (error) throw error;
+      trackSignUp("email");
       toast.success(
         "Account created! Check your email to verify your address."
       );
@@ -69,6 +71,9 @@ export default function SignupForm({ returnTo }: { returnTo: string }) {
 
   async function signUpWithOAuth(provider: "google" | "github") {
     setOauthLoading(provider);
+    // Fire before the redirect kicks off — the browser navigates away as soon
+    // as signInWithOAuth resolves, so there's no reliable "after success" point.
+    trackSignUp(provider);
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider,

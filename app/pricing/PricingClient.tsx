@@ -8,6 +8,7 @@ import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
 import { HelpCircle, CheckCircle } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { trackBeginCheckout, trackPurchase } from "@/lib/analytics";
 
 const mockStatColors = [
   { bg: "bg-indigo-50 border border-indigo-100", valueColor: "text-indigo-700" },
@@ -29,6 +30,7 @@ export function PricingClient() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [subStatus, setSubStatus] = useState<SubscriptionStatus | null>(null);
   const paddleRef = useRef<Paddle | null>(null);
+  const pendingPlanRef = useRef<"MONTHLY" | "ANNUAL" | "PASS" | null>(null);
   const { lang } = useLanguage();
   const T = translations[lang].pricing;
   const TM = translations[lang].hero.mock;
@@ -48,6 +50,14 @@ export function PricingClient() {
         // Paddle checkout is an in-page overlay — on success, redirect the whole
         // page carrying the transaction ID so the dashboard can reconcile it.
         if (event.name === "checkout.completed" && event.data?.transaction_id) {
+          if (pendingPlanRef.current) {
+            trackPurchase({
+              transactionId: event.data.transaction_id,
+              value: event.data.totals?.total ?? 0,
+              currency: event.data.currency_code ?? "EUR",
+              planType: pendingPlanRef.current,
+            });
+          }
           window.location.href = `/dashboard?success=true&transaction_id=${event.data.transaction_id}`;
         }
       },
@@ -67,6 +77,12 @@ export function PricingClient() {
       const { transactionId, error } = await res.json();
       if (error) throw new Error(error);
       if (transactionId) {
+        const value =
+          planType === "PASS" ? PLANS.PASS.price
+          : planType === "ANNUAL" ? PLANS.PRO.priceAnnualTotal
+          : PLANS.PRO.priceMonthly;
+        pendingPlanRef.current = planType;
+        trackBeginCheckout({ planType, value });
         paddleRef.current?.Checkout.open({ transactionId });
       }
     } catch {
