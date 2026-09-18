@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { ArticleCard } from "@/components/careers/ArticleCard";
-import { articles, CATEGORIES, CATEGORIES_BE, type Category } from "@/lib/articles";
+import { articles, CATEGORIES, CATEGORIES_BE, CATEGORIES_FRANCE, type Category } from "@/lib/articles";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 export function CareersClient() {
@@ -16,7 +16,7 @@ export function CareersClient() {
     () => articles.filter((a) => (a.lang ?? "en") === lang),
     [lang]
   );
-  const visibleCategories = lang === "fr" ? CATEGORIES_BE : CATEGORIES;
+  const visibleCategories = lang === "fr" ? [...CATEGORIES_BE, ...CATEGORIES_FRANCE] : CATEGORIES;
 
   const featured = useMemo(() => localeArticles.filter((a) => a.featured), [localeArticles]);
 

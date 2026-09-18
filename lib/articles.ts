@@ -1,11 +1,15 @@
 export type Category =
   | "Resume" | "ATS" | "Cover Letter" | "Interview" | "LinkedIn" | "Career"
-  | "CVBelgique" | "EmploiBruxelles" | "OrganismesEmploi" | "ChomageBelgique";
+  | "CVBelgique" | "EmploiBruxelles" | "OrganismesEmploi" | "ChomageBelgique"
+  | "CVFrance" | "RechercheEmploiFrance" | "ChomageFrance" | "IAEtCV";
 
 export const CATEGORIES: Category[] = ["Resume", "ATS", "Cover Letter", "Interview", "LinkedIn", "Career"];
 
 // Belgian French-language categories, shown only on /fr/careers (filtered by article.lang === "fr").
 export const CATEGORIES_BE: Category[] = ["CVBelgique", "EmploiBruxelles", "OrganismesEmploi", "ChomageBelgique"];
+
+// French (France) French-language categories, shown only on /fr/careers (filtered by article.lang === "fr").
+export const CATEGORIES_FRANCE: Category[] = ["CVFrance", "RechercheEmploiFrance", "ChomageFrance", "IAEtCV"];
 
 export const categoryStyle: Record<Category, { gradient: string; badge: string }> = {
   "Resume":       { gradient: "from-slate-600 to-slate-900",   badge: "bg-slate-100 text-slate-700"   },
@@ -18,6 +22,10 @@ export const categoryStyle: Record<Category, { gradient: string; badge: string }
   "EmploiBruxelles":  { gradient: "from-rose-600 to-pink-900",    badge: "bg-rose-100 text-rose-700"     },
   "OrganismesEmploi": { gradient: "from-indigo-600 to-slate-900", badge: "bg-indigo-100 text-indigo-700" },
   "ChomageBelgique":  { gradient: "from-red-700 to-rose-950",     badge: "bg-red-100 text-red-700"       },
+  "CVFrance":             { gradient: "from-blue-700 to-slate-900",   badge: "bg-blue-100 text-blue-700"     },
+  "RechercheEmploiFrance":{ gradient: "from-fuchsia-600 to-purple-950", badge: "bg-fuchsia-100 text-fuchsia-700" },
+  "ChomageFrance":        { gradient: "from-orange-700 to-red-950",   badge: "bg-orange-100 text-orange-700" },
+  "IAEtCV":               { gradient: "from-cyan-600 to-blue-950",    badge: "bg-cyan-100 text-cyan-700"     },
 };
 
 export interface ArticleSection {
@@ -1362,6 +1370,525 @@ export const articles: Article[] = [
       },
     ],
     conclusion: "Répondre honnêtement à \"combien y a-t-il de chômeurs en Belgique en 2026\" suppose d'abord de préciser de quelle définition on parle, puis de citer un chiffre daté plutôt qu'une estimation approximative. À ce jour, les données officielles montrent une baisse marquée du nombre de chômeurs indemnisés, largement portée par la réforme entrée en vigueur en mars 2026, tandis que le taux de chômage BIT reste l'indicateur de référence pour les comparaisons internationales. Si votre recherche d'emploi est active en cette période de changement, un CV à jour reste votre meilleur atout : créez le vôtre avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FRANCE — CV & Candidature
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "cv-ats-compatible-france",
+    title: "Comment Créer un CV Compatible ATS en France ?",
+    description: "Structure, mots-clés, format : comment rédiger un CV qui passe les logiciels de tri automatique (ATS) utilisés par les recruteurs en France.",
+    category: "CVFrance",
+    lang: "fr",
+    publishedAt: "2026-08-05",
+    readingTime: 8,
+    featured: true,
+    tags: ["CV ATS France", "CV compatible ATS", "logiciel de tri CV", "recherche d'emploi France", "rédiger un CV"],
+    intro: "En résumé : un CV compatible ATS en France utilise une mise en page à une seule colonne, des intitulés de rubriques standards (\"Expérience professionnelle\", \"Formation\", \"Compétences\"), un format PDF au texte sélectionnable (jamais une image), et un vocabulaire qui reprend fidèlement les termes de l'offre d'emploi. Ces logiciels sont aujourd'hui largement répandus dans les grandes entreprises et les cabinets de recrutement en France.\n\nDe plus en plus d'entreprises françaises, en particulier les grandes structures et les groupes internationaux, utilisent des logiciels de gestion des candidatures (ATS, pour Applicant Tracking System) afin de trier automatiquement les CV avant qu'un recruteur humain ne les examine. Un CV excellent sur le fond peut être rejeté par ces systèmes s'il n'est pas correctement structuré. Ce guide explique comment éviter cet écueil.",
+    sections: [
+      {
+        heading: "Qu'est-ce qu'un ATS et pourquoi cela concerne votre CV",
+        body: `<p>Un ATS est un logiciel utilisé par les services de recrutement pour centraliser les candidatures, en extraire automatiquement les informations clés (nom, coordonnées, expériences, formation, compétences), et les comparer aux critères du poste. Les candidatures qui obtiennent un score suffisant sont transmises à un recruteur humain ; les autres restent souvent invisibles, sans qu'aucune personne ne les ait lues.</p>
+<p>Ces logiciels lisent un CV de façon séquentielle, comme un flux de texte continu. Une mise en page en plusieurs colonnes, des tableaux ou des zones de texte peuvent être interprétés de façon désordonnée, voire ignorés totalement — un CV visuellement impeccable peut ainsi devenir illisible pour la machine qui le traite en premier.</p>`,
+      },
+      {
+        heading: "Les règles de mise en page à respecter",
+        body: `<ul>
+<li><strong>Une seule colonne :</strong> évitez les CV en deux colonnes, fréquents sur les modèles graphiques, qui perturbent l'ordre de lecture automatique.</li>
+<li><strong>Pas de tableaux ni de zones de texte :</strong> le contenu placé dans ces éléments est souvent perdu à l'extraction.</li>
+<li><strong>Des intitulés de rubriques standards :</strong> "Expérience professionnelle", "Formation", "Compétences" plutôt que des titres créatifs que l'algorithme ne reconnaît pas.</li>
+<li><strong>Les coordonnées dans le corps du document</strong>, jamais uniquement dans l'en-tête ou le pied de page, souvent ignorés par les parseurs.</li>
+<li><strong>Un export PDF au texte sélectionnable</strong>, jamais une image scannée ou un export depuis un outil de design graphique non prévu pour cet usage.</li>
+</ul>
+<p>Un test simple : copiez l'intégralité de votre CV dans un éditeur de texte brut. S'il reste lisible et dans un ordre logique, la structure est probablement compatible avec la majorité des ATS.</p>`,
+      },
+      {
+        heading: "Utiliser les bons mots-clés",
+        body: `<p>Un ATS compare le vocabulaire de votre CV à celui de l'offre d'emploi. Lisez l'annonce attentivement et relevez les compétences, outils et qualifications explicitement cités. Si l'offre mentionne "gestion de projet Agile" et que votre CV indique "coordination d'équipes en méthode Scrum", reformulez pour reprendre les termes exacts de l'offre, à condition que l'expérience corresponde réellement — n'inventez jamais une compétence que vous ne possédez pas.</p>
+<p>Notre guide pour <a href="/fr/careers/ia-adapter-cv-offre-emploi">utiliser l'IA pour adapter son CV à une offre d'emploi</a> détaille une méthode rapide pour identifier ces mots-clés systématiquement.</p>`,
+      },
+      {
+        heading: "Structurer le contenu pour l'ATS et pour le recruteur humain",
+        body: `<p>Un bon CV doit fonctionner à la fois pour la machine et pour l'humain qui le lira ensuite. Placez vos expériences en ordre antichronologique, avec des dates précises (mois et année). Quantifiez vos réalisations dès que possible : "augmentation de 22% du taux de conversion" est à la fois lisible par un ATS et convaincant pour un recruteur, contrairement à une simple liste de tâches.</p>
+<p>La rubrique compétences mérite une attention particulière car elle est souvent indexée comme un champ à part par les ATS — voir notre guide pour <a href="/fr/careers/presenter-competences-cv-france">présenter ses compétences sur un CV</a>.</p>`,
+      },
+      {
+        heading: "Faut-il un CV différent pour chaque candidature ?",
+        body: `<p>Envoyer le même CV générique à toutes les offres reste l'une des erreurs les plus fréquentes. Un CV adapté, qui reprend le vocabulaire précis de chaque annonce, obtient un score ATS plus élevé et retient davantage l'attention du recruteur. Ce travail prend une quinzaine de minutes une fois que votre CV de base est bien structuré.</p>
+<p>Cvixeo génère des CV structurés pour passer les filtres ATS tout en restant agréables à lire pour un recruteur humain, et permet de comparer directement votre CV à une offre d'emploi pour repérer les mots-clés manquants.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Toutes les entreprises françaises utilisent-elles un ATS ?</strong><br/>Non, les PME et certaines administrations pratiquent encore une lecture humaine directe, mais les grandes entreprises et de nombreux cabinets de recrutement y ont largement recours.</p>
+<p><strong>Un CV avec un design graphique original passe-t-il un ATS ?</strong><br/>Cela dépend fortement du logiciel utilisé pour le créer. Un modèle avec colonnes multiples ou éléments graphiques complexes présente un risque réel de mauvaise extraction.</p>
+<p><strong>Comment savoir si mon CV est réellement compatible ATS ?</strong><br/>Copiez son contenu dans un éditeur de texte simple : s'il reste lisible et ordonné, la structure est probablement correcte.</p>`,
+      },
+    ],
+    conclusion: "Un CV compatible ATS en France repose sur une mise en page simple, des intitulés standards, un format PDF texte, et un vocabulaire aligné sur celui de chaque offre. Ces règles ne s'opposent pas à un CV agréable à lire — au contraire, elles produisent généralement un document plus clair, y compris pour un recruteur humain. Consultez également nos guides sur <a href=\"/fr/careers/cv-avec-ou-sans-photo-france\">le CV avec ou sans photo</a> et <a href=\"/fr/careers/lettre-motivation-france\">la lettre de motivation</a> pour compléter votre candidature. Créez votre CV professionnel avec Cvixeo : la structure compatible ATS est prise en charge automatiquement.",
+  },
+
+  {
+    slug: "cv-avec-ou-sans-photo-france",
+    title: "CV Avec ou Sans Photo : Quelles Sont les Meilleures Pratiques en France ?",
+    description: "La photo sur un CV français : une pratique en net recul mais pas totalement absente. Quand l'inclure, quand l'éviter, et comment décider.",
+    category: "CVFrance",
+    lang: "fr",
+    publishedAt: "2026-08-07",
+    readingTime: 5,
+    tags: ["CV avec photo", "CV sans photo France", "photo CV", "candidature France", "CV professionnel"],
+    intro: "En résumé : la photo sur un CV n'est pas obligatoire en France et son usage recule nettement depuis plusieurs années, en particulier pour lutter contre les discriminations à l'embauche. Elle reste ponctuellement utilisée dans certains secteurs en contact direct avec la clientèle, mais son absence est aujourd'hui perçue comme neutre, voire professionnelle, dans la grande majorité des candidatures.\n\nContrairement à d'autres pays européens, la France a vu l'usage de la photo de CV reculer significativement, portée notamment par les recommandations de nombreux cabinets de recrutement et par une sensibilisation croissante aux biais de sélection liés à l'apparence. Ce guide aide à trancher selon votre situation.",
+    sections: [
+      {
+        heading: "Pourquoi la photo recule en France",
+        body: `<p>Depuis plusieurs années, de nombreux recruteurs, cabinets de recrutement et organismes de lutte contre les discriminations recommandent d'omettre la photo pour limiter les biais inconscients liés à l'âge, l'origine perçue ou l'apparence physique. De grandes entreprises ont explicitement adopté des politiques de recrutement "anonymisé" ou déconseillent la photo dans leurs conseils de candidature publiés. Un CV sans photo est aujourd'hui reçu sans aucune surprise par la quasi-totalité des recruteurs français.</p>`,
+      },
+      {
+        heading: "Les cas où elle reste courante",
+        body: `<p>Certains secteurs à forte dimension relationnelle — hôtellerie-restauration, vente, accueil, certains postes commerciaux — conservent un usage plus fréquent de la photo, sans que son absence y soit pénalisante. Certains modèles de CV créatifs (design, communication) l'intègrent également comme élément visuel, dans une logique différente de la simple identification.</p>`,
+      },
+      {
+        heading: "Si vous choisissez d'en inclure une",
+        body: `<p>Une photo de mauvaise qualité nuit toujours plus qu'elle n'apporte. Les critères d'une photo professionnelle acceptable : fond neutre, cadrage buste ou visage-épaules, tenue adaptée au secteur visé, éclairage naturel, photo récente. Évitez systématiquement les selfies, les photos de vacances recadrées ou les photos de groupe découpées.</p>`,
+      },
+      {
+        heading: "Comment trancher pour votre candidature",
+        body: `<p>Dans le doute, l'absence de photo reste le choix le plus sûr en France : elle est neutre dans la quasi-totalité des secteurs et évite tout risque de biais de sélection. Si le secteur visé est fortement relationnel et que vous disposez d'une photo réellement professionnelle, l'inclure reste acceptable, sans être un avantage décisif.</p>
+<p>Avec Cvixeo, vous pouvez générer votre CV avec ou sans photo en quelques clics selon la candidature visée.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Un recruteur peut-il légalement demander une photo ?</strong><br/>Rien n'oblige un candidat à en fournir une, et son absence ne peut légalement justifier un rejet de candidature.</p>
+<p><strong>La photo est-elle plus courante pour les postes juniors ?</strong><br/>Non, son usage dépend davantage du secteur que du niveau d'expérience du candidat.</p>
+<p><strong>Faut-il retirer la photo d'un CV existant ?</strong><br/>Si la photo est ancienne, de mauvaise qualité ou peu professionnelle, la retirer est généralement la meilleure option.</p>`,
+      },
+    ],
+    conclusion: "La photo de CV en France n'est ni interdite ni obligatoire : c'est un choix qui dépend du secteur visé et de la qualité de la photo disponible. En cas de doute, l'absence de photo reste l'option la plus sûre et la plus largement acceptée aujourd'hui. Complétez votre réflexion avec notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a> et créez le vôtre avec Cvixeo.",
+  },
+
+  {
+    slug: "presenter-competences-cv-france",
+    title: "Comment Présenter ses Compétences sur un CV ?",
+    description: "Compétences techniques, transversales et linguistiques : comment les organiser et les rendre crédibles sur un CV, plutôt que de simplement les lister.",
+    category: "CVFrance",
+    lang: "fr",
+    publishedAt: "2026-08-09",
+    readingTime: 6,
+    tags: ["compétences CV", "soft skills", "compétences techniques CV", "CV professionnel France", "recherche d'emploi"],
+    intro: "En résumé : une rubrique compétences efficace organise les compétences par catégories (techniques, transversales, linguistiques), utilise des termes précis plutôt que génériques, et s'assure que chaque compétence importante est démontrée par une réalisation concrète ailleurs dans le CV. Une liste de mots-clés sans preuve associée reste une simple affirmation, peu convaincante pour un recruteur.\n\nLa rubrique compétences est souvent la plus mal exploitée d'un CV, réduite à une liste de termes interchangeables. C'est pourtant l'une des sections les plus lues par les recruteurs pressés, et l'une des plus indexées par les logiciels de tri automatique.",
+    sections: [
+      {
+        heading: "Organiser les compétences par catégories",
+        body: `<p>Séparez clairement les compétences techniques (logiciels, langages, méthodologies, outils métier), les compétences linguistiques (avec un niveau précis, par exemple selon le Cadre européen commun de référence pour les langues), et les compétences transversales ("soft skills") comme la communication ou la gestion de projet. Cette organisation facilite la lecture rapide par un recruteur qui cherche une compétence précise.</p>`,
+      },
+      {
+        heading: "La règle d'or : démontrer plutôt que lister",
+        body: `<p>"Gestion de projet" en simple mention dans une liste est une affirmation. "Piloté un projet de migration impliquant huit collaborateurs sur six mois, livré dans les délais" est une preuve. Pour chaque compétence jugée centrale pour le poste visé, vérifiez qu'elle apparaît quelque part dans votre section expérience, illustrée par un exemple concret.</p>`,
+      },
+      {
+        heading: "Être spécifique plutôt que générique",
+        body: `<p>Remplacez les formulations vagues par des précisions vérifiables. Plutôt que "Pack Office", écrivez "Excel avancé (tableaux croisés dynamiques, macros VBA)". Plutôt que "bon relationnel", précisez le contexte : "animation de réunions hebdomadaires avec des équipes de dix personnes". La spécificité rend la compétence crédible ; la généralité la rend interchangeable avec celle de n'importe quel autre candidat.</p>`,
+      },
+      {
+        heading: "Adapter les compétences mises en avant à chaque offre",
+        body: `<p>Réordonnez votre rubrique compétences pour faire apparaître en premier celles explicitement recherchées dans l'offre visée. Cet ajustement, rapide à réaliser, s'inscrit dans une démarche plus large que nous détaillons dans notre guide pour <a href="/fr/careers/ia-adapter-cv-offre-emploi">utiliser l'IA pour adapter son CV à une offre d'emploi</a>.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Combien de compétences faut-il lister sur un CV ?</strong><br/>Dix à quinze compétences réellement démontrées valent mieux qu'une longue liste diluée de termes génériques.</p>
+<p><strong>Faut-il inclure des soft skills comme "travail d'équipe" ?</strong><br/>Uniquement si vous pouvez les illustrer par un exemple concret ailleurs dans le CV.</p>
+<p><strong>Les niveaux de langue doivent-ils être précisés ?</strong><br/>Oui, une échelle reconnue (par exemple le CECRL, de A1 à C2) est toujours plus crédible qu'une mention vague comme "bon niveau".</p>`,
+      },
+    ],
+    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec Cvixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle adaptée à votre poste cible.",
+  },
+
+  {
+    slug: "lettre-motivation-france",
+    title: "Comment Rédiger une Lettre de Motivation Efficace en France ?",
+    description: "Structure, ton, longueur : la méthode complète pour écrire une lettre de motivation qui complète efficacement votre CV et retient l'attention du recruteur.",
+    category: "CVFrance",
+    lang: "fr",
+    publishedAt: "2026-08-11",
+    readingTime: 7,
+    tags: ["lettre de motivation France", "lettre de motivation efficace", "candidature France", "recherche d'emploi", "recruteur"],
+    intro: "En résumé : une lettre de motivation efficace tient sur une page, s'adresse si possible à une personne nommée, explique en trois paragraphes pourquoi vous visez ce poste précis (et pas un poste générique), et se termine par une formule de politesse sobre. Elle n'a pas vocation à répéter le CV : elle l'interprète et y ajoute ce que les faits seuls ne montrent pas.\n\nLa lettre de motivation reste une pièce attendue dans de nombreuses candidatures en France, en particulier dans le secteur public, les grandes entreprises traditionnelles et certains secteurs réglementés. Ce guide détaille sa structure et les erreurs les plus fréquentes à éviter.",
+    sections: [
+      {
+        heading: "Le rôle réel de la lettre de motivation",
+        body: `<p>La lettre de motivation ne sert pas à répéter le CV — un recruteur qui lit les deux documents n'a aucun intérêt à voir deux fois la même information. Son rôle propre est d'expliquer votre motivation pour ce poste précis, de démontrer votre connaissance de l'entreprise, et de révéler votre style de communication écrite, souvent déterminant pour des postes impliquant de la rédaction ou du contact client.</p>`,
+      },
+      {
+        heading: "La structure en trois paragraphes",
+        body: `<p><strong>Premier paragraphe — l'accroche :</strong> évitez la formule "je me permets de vous adresser ma candidature au poste de...", trop générique. Ouvrez plutôt sur un élément concret : une réalisation récente en lien direct avec le poste, ou une observation précise sur l'entreprise qui montre que vous l'avez réellement étudiée.</p>
+<p><strong>Deuxième paragraphe — le pont entre votre expérience et le poste :</strong> identifiez l'exigence principale de l'offre et démontrez, à l'aide d'un exemple concret et si possible chiffré, que vous savez y répondre.</p>
+<p><strong>Troisième paragraphe — la connaissance de l'entreprise et la projection :</strong> montrez que vous comprenez les enjeux spécifiques de l'organisation et expliquez ce que vous pourriez y apporter concrètement.</p>`,
+      },
+      {
+        heading: "Le ton et la formule de politesse",
+        body: `<p>Adressez-vous à une personne nommée dès que possible — un rapide contrôle sur LinkedIn permet souvent d'identifier le recruteur ou le responsable du service concerné. À défaut, "Madame, Monsieur," reste acceptable. Terminez par une formule de politesse sobre et professionnelle, en évitant les formulations trop suppliantes.</p>`,
+      },
+      {
+        heading: "Longueur, format et erreurs à éviter",
+        body: `<p>Une page maximum, trois à quatre paragraphes. Adaptez la police et la mise en page à celles de votre CV. Soumettez au format PDF, sauf indication contraire. Les erreurs les plus fréquentes : une lettre non adaptée à l'offre, une réécriture pure et simple du CV, des formules de flatterie sans substance, et bien sûr les fautes d'orthographe.</p>
+<p>Cvixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>La lettre de motivation est-elle toujours exigée en France ?</strong><br/>Non, certaines entreprises ne la demandent plus explicitement, mais elle reste souvent lue attentivement quand elle est fournie.</p>
+<p><strong>Une lettre générique vaut-elle mieux que pas de lettre ?</strong><br/>Pas nécessairement : une lettre visiblement non adaptée peut donner une impression de désintérêt plus forte que son absence.</p>
+<p><strong>Faut-il citer des chiffres dans une lettre de motivation ?</strong><br/>Oui, un exemple chiffré rend votre argumentation nettement plus crédible qu'une affirmation générale.</p>`,
+      },
+    ],
+    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Associez-la à un CV bien structuré : consultez notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a>. Générez votre lettre de motivation avec Cvixeo et gagnez un temps précieux sur chaque candidature.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FRANCE — Recherche d'emploi & organismes
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "sites-emploi-france-guide",
+    title: "Comment Utiliser les Sites d'Emploi pour Trouver un Emploi en France ?",
+    description: "France Travail, LinkedIn, Indeed, APEC : comment utiliser efficacement les principaux sites d'emploi et éviter de vous y perdre.",
+    category: "RechercheEmploiFrance",
+    lang: "fr",
+    publishedAt: "2026-08-13",
+    readingTime: 8,
+    featured: true,
+    tags: ["sites d'emploi France", "trouver un emploi", "France Travail", "recherche d'emploi en ligne", "candidature"],
+    intro: "En résumé : une recherche d'emploi efficace en France combine plusieurs canaux plutôt qu'un seul — le site public <a href=\"https://www.francetravail.fr/accueil/\" target=\"_blank\" rel=\"noopener noreferrer\">France Travail</a>, les plateformes généralistes (LinkedIn, Indeed), les sites spécialisés selon votre secteur (l'<a href=\"https://www.apec.fr\" target=\"_blank\" rel=\"noopener noreferrer\">APEC</a> pour les cadres), et les candidatures directes auprès des entreprises ciblées. Aucun canal unique ne suffit : la diversification et la régularité comptent davantage que le volume brut de candidatures envoyées.\n\nAvec la multiplication des plateformes d'emploi, structurer sa recherche devient aussi important que la qualité du CV lui-même. Ce guide explique comment utiliser chaque canal efficacement, sans y perdre un temps disproportionné.",
+    sections: [
+      {
+        heading: "France Travail, le point de passage central",
+        body: `<p><a href="https://www.francetravail.fr/accueil/" target="_blank" rel="noopener noreferrer">France Travail</a> (anciennement Pôle emploi) centralise une grande partie des offres d'emploi publiées en France, tous secteurs confondus, et reste le service public de référence pour toute recherche d'emploi. S'inscrire donne accès aux offres, à un accompagnement personnalisé et, selon votre situation, à des allocations chômage. Notre guide détaillé explique <a href="/fr/careers/inscription-france-travail-guide">comment s'inscrire à France Travail</a>.</p>`,
+      },
+      {
+        heading: "Les plateformes généralistes : LinkedIn et Indeed",
+        body: `<p>LinkedIn combine offres d'emploi et réseau professionnel : au-delà des candidatures, la plateforme permet d'identifier des personnes travaillant déjà dans l'entreprise visée pour solliciter un contact informel. Indeed agrège un très grand nombre d'offres provenant de multiples sources, ce qui en fait un bon point de départ pour cartographier le marché, à condition de filtrer soigneusement pour éviter les doublons et les annonces obsolètes.</p>`,
+      },
+      {
+        heading: "Les sites spécialisés selon votre profil",
+        body: `<p>Pour les cadres et les jeunes diplômés visant des postes à responsabilité, l'<a href="https://www.apec.fr" target="_blank" rel="noopener noreferrer">APEC</a> propose des offres ciblées et des services de conseil de carrière dédiés — voir notre comparatif <a href="/fr/careers/apec-ou-france-travail">APEC ou France Travail</a>. De nombreux secteurs disposent également de jobboards spécialisés (informatique, santé, ingénierie, hôtellerie) souvent plus pertinents qu'une plateforme généraliste pour des profils très spécifiques.</p>`,
+      },
+      {
+        heading: "Ne pas négliger la candidature spontanée et le réseau",
+        body: `<p>Une part significative des postes, en particulier dans les PME, ne fait jamais l'objet d'une annonce publique. Identifier une liste d'entreprises cibles et candidater spontanément, en s'appuyant si possible sur un contact réseau, reste une stratégie sous-exploitée mais souvent payante. Les agences d'intérim et de recrutement jouent également un rôle complémentaire — voir notre guide sur <a href="/fr/careers/interim-france-trouver-mission-rapidement">le travail temporaire en France</a>.</p>`,
+      },
+      {
+        heading: "Organiser sa recherche plutôt que la disperser",
+        body: `<p>Utiliser cinq plateformes sans méthode conduit souvent à une dispersion inefficace. Un tableau de suivi simple (entreprise, poste, plateforme, date de candidature, statut) permet de garder une vision claire de sa recherche et d'éviter les candidatures en double. Privilégiez la qualité : dix candidatures réellement adaptées à l'offre valent mieux que cinquante candidatures génériques.</p>
+<p>Créez un CV professionnel avec Cvixeo et adaptez-le rapidement à chaque offre repérée sur ces différentes plateformes.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Faut-il utiliser toutes les plateformes en même temps ?</strong><br/>Non, mieux vaut combiner deux ou trois canaux pertinents pour votre profil plutôt que de se disperser sur un trop grand nombre de sites.</p>
+<p><strong>Les candidatures spontanées fonctionnent-elles vraiment ?</strong><br/>Oui, en particulier auprès des PME qui ne publient pas systématiquement leurs postes à pourvoir.</p>
+<p><strong>Faut-il s'inscrire à France Travail même en poste ?</strong><br/>Non, l'inscription concerne les personnes en recherche active d'emploi ; en poste, les plateformes généralistes et le réseau restent les canaux les plus adaptés.</p>`,
+      },
+    ],
+    conclusion: "Trouver un emploi en France en 2026 suppose de combiner plusieurs canaux complémentaires plutôt que de miser sur un seul : France Travail pour l'accompagnement et les offres centralisées, les plateformes généralistes pour le volume, les sites spécialisés pour la pertinence, et la candidature spontanée pour accéder au marché caché de l'emploi. Consultez nos guides sur <a href=\"/fr/careers/inscription-france-travail-guide\">l'inscription à France Travail</a> et créez votre CV professionnel avec Cvixeo pour candidater efficacement.",
+  },
+
+  {
+    slug: "inscription-france-travail-guide",
+    title: "Comment s'Inscrire à France Travail ? Le Guide du Demandeur d'Emploi",
+    description: "Étapes, documents nécessaires, droits associés : le guide complet pour s'inscrire à France Travail et comprendre ce que cette démarche implique.",
+    category: "RechercheEmploiFrance",
+    lang: "fr",
+    publishedAt: "2026-08-15",
+    readingTime: 7,
+    tags: ["France Travail", "inscription France Travail", "demandeur d'emploi France", "Pôle emploi", "allocations chômage"],
+    intro: "En résumé : l'inscription à France Travail se fait en ligne, en six étapes (données personnelles, demande d'allocation, questionnaire de situation, vérification, prise de rendez-vous, confirmation), accessible 7j/7 et 24h/24. Elle donne accès au statut de demandeur d'emploi, à un accompagnement personnalisé, aux allocations chômage si vous y êtes éligible, et à la protection sociale associée.\n\nDepuis le 1ᵉʳ janvier 2025, dans le cadre de la loi pour le plein emploi du 18 décembre 2023, l'inscription à France Travail s'est élargie : elle est désormais automatique pour les bénéficiaires du RSA et leur conjoint, les jeunes suivis en Mission locale, et les personnes accompagnées par le réseau Cap emploi. Ce guide explique la démarche d'inscription classique ainsi que ce changement récent.",
+    sections: [
+      {
+        heading: "Qui doit s'inscrire, et pourquoi",
+        body: `<p>Toute personne en recherche d'emploi en France a intérêt à s'inscrire auprès de <a href="https://www.francetravail.fr/accueil/" target="_blank" rel="noopener noreferrer">France Travail</a>, que ce soit après une perte d'emploi, à la fin de ses études, ou en transition professionnelle. Selon <a href="https://www.francetravail.fr/candidat/vos-droits-et-demarches.html" target="_blank" rel="noopener noreferrer">France Travail</a>, l'inscription donne le statut de demandeur d'emploi et ouvre l'accès à un accompagnement personnalisé, à l'aide à la formation ou à la création d'entreprise, aux allocations chômage si vous remplissez les conditions, et à la protection sociale (retraite, complémentaire, assurance maladie).</p>`,
+      },
+      {
+        heading: "Les six étapes de l'inscription en ligne",
+        body: `<p>D'après les informations officielles publiées par France Travail, l'inscription en ligne se déroule en six étapes : la saisie de vos données personnelles (état civil, coordonnées, numéro de sécurité sociale), la demande d'allocation (parcours professionnel, situation personnelle, coordonnées bancaires), un questionnaire sur votre projet professionnel et votre situation, la vérification des informations saisies, la prise de rendez-vous pour un premier entretien avec un conseiller, et enfin la confirmation de votre inscription. Le service est accessible en continu, et vos données saisies restent enregistrées quinze jours si vous devez interrompre la démarche.</p>
+<p>Munissez-vous de votre carte Vitale (numéro de sécurité sociale), de vos justificatifs de parcours professionnel (bulletins de salaire, attestations employeur) et de votre relevé d'identité bancaire.</p>`,
+      },
+      {
+        heading: "L'inscription automatique depuis janvier 2025",
+        body: `<p>La loi pour le plein emploi du 18 décembre 2023 a introduit, à partir du 1ᵉʳ janvier 2025, une inscription généralisée et automatique auprès de France Travail pour les bénéficiaires du RSA et leur conjoint, les jeunes accompagnés par une Mission locale, et les personnes suivies par le réseau Cap emploi. Cette réforme s'accompagne d'une obligation d'activité d'au moins 15 heures par semaine pour percevoir le RSA. Ce changement explique en partie l'élargissement significatif du nombre de personnes inscrites à France Travail toutes catégories confondues depuis 2025 — un point que nous détaillons dans notre article de référence <a href="/fr/careers/chomage-france-2026-taux-statistiques-tendances">chômage en France en 2026</a>.</p>`,
+      },
+      {
+        heading: "L'actualisation mensuelle, une obligation à ne pas manquer",
+        body: `<p>Une fois inscrit, chaque demandeur d'emploi doit "s'actualiser" mensuellement auprès de France Travail — c'est-à-dire confirmer sa situation (toujours en recherche, changement d'activité, arrêt maladie, etc.) entre le 28 du mois en cours et le 15 du mois suivant, par internet, téléphone ou courrier. Cette actualisation conditionne le versement des allocations et le maintien du statut de demandeur d'emploi ; l'oublier peut entraîner une radiation.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>L'inscription à France Travail est-elle payante ?</strong><br/>Non, l'inscription et l'accompagnement sont entièrement gratuits.</p>
+<p><strong>Que se passe-t-il si j'oublie mon actualisation mensuelle ?</strong><br/>Cela peut entraîner une radiation et une interruption du versement des allocations ; il est possible de régulariser rapidement en cas d'oubli ponctuel.</p>
+<p><strong>Dois-je être inscrit pour percevoir des allocations chômage ?</strong><br/>Oui, l'inscription et l'actualisation régulière sont des conditions nécessaires, mais non suffisantes, pour percevoir des allocations — l'éligibilité dépend aussi de votre parcours professionnel antérieur.</p>`,
+      },
+    ],
+    conclusion: "L'inscription à France Travail reste la première démarche concrète pour toute personne en recherche d'emploi en France, et elle s'est élargie depuis 2025 à un nombre croissant de situations. Une fois inscrit, structurez activement votre recherche : consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi</a> et créez un CV professionnel avec Cvixeo pour candidater efficacement dès aujourd'hui.",
+  },
+
+  {
+    slug: "apec-ou-france-travail",
+    title: "APEC ou France Travail : Quel Service Utiliser pour votre Recherche d'Emploi ?",
+    description: "Deux organismes, deux publics : comment choisir entre l'APEC et France Travail selon votre profil, et pourquoi les deux ne sont pas exclusifs.",
+    category: "RechercheEmploiFrance",
+    lang: "fr",
+    publishedAt: "2026-08-18",
+    readingTime: 6,
+    tags: ["APEC", "France Travail", "recherche d'emploi cadre", "service public emploi", "comparatif"],
+    intro: "En résumé : France Travail s'adresse à l'ensemble des demandeurs d'emploi, tous secteurs et tous niveaux d'expérience confondus, tandis que l'APEC (Association Pour l'Emploi des Cadres) cible spécifiquement les cadres, jeunes diplômés visant des postes à responsabilité et cadres en transition. Les deux services ne sont pas exclusifs : de nombreux cadres s'inscrivent aux deux simultanément pour maximiser leur visibilité.\n\nCe choix revient fréquemment chez les cadres et jeunes diplômés en recherche d'emploi. Ce guide clarifie les différences pratiques entre les deux organismes et explique comment les utiliser ensemble efficacement.",
+    sections: [
+      {
+        heading: "France Travail : le service public généraliste",
+        body: `<p><a href="https://www.francetravail.fr/accueil/" target="_blank" rel="noopener noreferrer">France Travail</a> est le service public de l'emploi en France, ouvert à tous les demandeurs d'emploi indépendamment de leur secteur ou de leur niveau de qualification. L'inscription y donne accès aux offres centralisées, à un accompagnement personnalisé, et conditionne l'éligibilité aux allocations chômage. Voir notre guide détaillé pour <a href="/fr/careers/inscription-france-travail-guide">s'inscrire à France Travail</a>.</p>`,
+      },
+      {
+        heading: "L'APEC : un service dédié aux cadres",
+        body: `<p>L'<a href="https://www.apec.fr" target="_blank" rel="noopener noreferrer">APEC</a> est une association paritaire dédiée à l'emploi des cadres, financée par une cotisation spécifique prélevée sur les salaires des cadres et de leurs employeurs. Elle propose un jobboard spécialisé avec des offres exclusivement destinées aux profils cadres et jeunes diplômés visant ce type de poste, ainsi que des services de conseil de carrière, des ateliers et un <a href="https://corporate.apec.fr/observatoire-de-lemploi-cadre" target="_blank" rel="noopener noreferrer">observatoire de l'emploi cadre</a> qui publie régulièrement des analyses sectorielles du marché du travail des cadres.</p>`,
+      },
+      {
+        heading: "Peut-on s'inscrire aux deux en même temps ?",
+        body: `<p>Oui, et c'est la pratique la plus courante chez les cadres en recherche active : l'inscription à France Travail reste nécessaire pour percevoir des allocations chômage, tandis que l'inscription à l'APEC élargit l'accès à des offres plus ciblées et à un accompagnement spécifique aux enjeux de carrière des cadres. Les deux services sont gratuits pour le candidat.</p>`,
+      },
+      {
+        heading: "Comment choisir selon votre profil",
+        body: `<ul>
+<li><strong>Vous êtes cadre ou visez un poste à responsabilité :</strong> inscrivez-vous aux deux services pour maximiser votre visibilité.</li>
+<li><strong>Vous êtes jeune diplômé visant un poste de cadre :</strong> l'APEC propose des ressources et un accompagnement spécifiquement pensés pour cette transition.</li>
+<li><strong>Vous n'êtes pas cadre ou changez de secteur non-cadre :</strong> France Travail reste votre interlocuteur principal, en complément des plateformes généralistes évoquées dans notre guide sur <a href="/fr/careers/sites-emploi-france-guide">les sites d'emploi en France</a>.</li>
+</ul>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>L'inscription à l'APEC est-elle payante pour un candidat ?</strong><br/>Non, elle est gratuite pour les candidats ; le financement provient d'une cotisation spécifique aux cadres et à leurs employeurs.</p>
+<p><strong>L'APEC verse-t-elle des allocations chômage ?</strong><br/>Non, seules France Travail et les organismes associés gèrent le versement des allocations ; l'APEC se concentre sur l'accompagnement et les offres.</p>
+<p><strong>Un non-cadre peut-il consulter les offres de l'APEC ?</strong><br/>Les offres de l'APEC ciblent principalement des postes cadres ; les autres profils y trouveront un intérêt limité comparé à France Travail ou aux plateformes généralistes.</p>`,
+      },
+    ],
+    conclusion: "APEC et France Travail répondent à des besoins complémentaires plutôt que concurrents : le premier cible spécifiquement les cadres, le second reste le service public universel de référence. Pour un cadre en recherche active, s'inscrire aux deux reste la stratégie la plus efficace. Créez un CV professionnel avec Cvixeo, adapté à vos candidatures sur l'une ou l'autre de ces plateformes.",
+  },
+
+  {
+    slug: "interim-france-trouver-mission-rapidement",
+    title: "Travail Temporaire en France : Comment Trouver une Mission Rapidement ?",
+    description: "Le fonctionnement de l'intérim en France, comment s'inscrire auprès d'une agence, et comment l'utiliser pour retrouver rapidement une activité.",
+    category: "RechercheEmploiFrance",
+    lang: "fr",
+    publishedAt: "2026-08-21",
+    readingTime: 6,
+    tags: ["travail temporaire France", "intérim", "agence d'intérim", "mission intérim", "recherche d'emploi rapide"],
+    intro: "En résumé : le travail temporaire (intérim) permet souvent de retrouver une activité plus rapidement qu'une recherche de contrat à durée indéterminée classique. L'inscription auprès d'une agence d'intérim est gratuite pour le candidat, ne nécessite généralement pas de rendez-vous long, et donne accès à des missions dans des secteurs variés — logistique, industrie, BTP, tertiaire, hôtellerie-restauration.\n\nEn complément des candidatures directes et de France Travail, les agences d'intérim et de recrutement temporaire jouent un rôle significatif sur le marché de l'emploi français, en particulier dans les secteurs à forte rotation de personnel ou pour des besoins ponctuels de main-d'œuvre.",
+    sections: [
+      {
+        heading: "Comment fonctionne l'intérim en France",
+        body: `<p>L'intérim repose sur une relation à trois : l'agence d'intérim (l'employeur juridique), l'entreprise utilisatrice (qui accueille le salarié pour une mission définie) et le salarié intérimaire. Chaque mission fait l'objet d'un contrat de mission avec une durée déterminée, souvent renouvelable. À l'issue de plusieurs missions, une embauche directe par l'entreprise utilisatrice reste une issue fréquente, en particulier dans l'industrie et la logistique.</p>`,
+      },
+      {
+        heading: "S'inscrire auprès d'une agence : ce que cela implique",
+        body: `<p>L'inscription auprès d'une agence d'intérim est gratuite pour le candidat — le modèle économique repose sur une facturation à l'entreprise utilisatrice. Elle implique généralement un entretien avec un chargé de recrutement, la vérification de vos qualifications et habilitations éventuelles (CACES, habilitations électriques selon le secteur), et la constitution d'un dossier administratif (pièce d'identité, carte Vitale, RIB). Une fois inscrit, l'agence vous propose des missions correspondant à votre profil au fil des besoins de ses entreprises clientes.</p>`,
+      },
+      {
+        heading: "Comment maximiser ses chances d'obtenir une mission rapidement",
+        body: `<p>Inscrivez-vous auprès de plusieurs agences plutôt qu'une seule, en particulier celles spécialisées dans votre secteur d'activité. Soyez précis et flexible sur vos disponibilités et votre mobilité géographique dès le premier échange : les missions urgentes se pourvoient souvent en quelques heures, et les candidats réactifs sont privilégiés. Maintenez un contact régulier avec votre agence plutôt que d'attendre passivement une proposition.</p>`,
+      },
+      {
+        heading: "Les limites à connaître",
+        body: `<p>L'intérim n'offre pas la stabilité d'un contrat à durée indéterminée, et certaines missions restent de courte durée. Il reste néanmoins un moyen reconnu de générer rapidement des revenus, de démontrer sa valeur en situation réelle, et d'accéder parfois à une embauche définitive. Pour les profils juniors ou en reconversion, l'intérim peut également constituer une façon d'acquérir une première expérience concrète dans un nouveau secteur.</p>
+<p>Préparez un CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence — un dossier soigné facilite un placement plus rapide.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>L'intérim est-il payant pour le candidat ?</strong><br/>Non, l'inscription et le placement sont toujours gratuits ; l'agence facture l'entreprise utilisatrice.</p>
+<p><strong>Un intérimaire a-t-il les mêmes droits qu'un salarié classique ?</strong><br/>L'intérimaire bénéficie de droits spécifiques (indemnité de fin de mission, congés payés), encadrés par le code du travail.</p>
+<p><strong>Peut-on refuser une mission proposée par son agence ?</strong><br/>Oui, mais un refus répété sans justification peut réduire le nombre de propositions ultérieures de l'agence.</p>`,
+      },
+    ],
+    conclusion: "Le travail temporaire reste un levier rapide et accessible pour retrouver une activité en France, en complément des candidatures classiques. Utilisé stratégiquement — plusieurs agences, disponibilité claire, réactivité — il peut aussi ouvrir la voie à une embauche durable. Consultez notre guide sur <a href=\"/fr/careers/sites-emploi-france-guide\">les sites d'emploi en France</a> pour compléter votre stratégie de recherche, et créez votre CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FRANCE — Chômage en France (article de référence)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "chomage-france-2026-taux-statistiques-tendances",
+    title: "Chômage en France en 2026 : Taux de Chômage, Chiffres et Tendances",
+    description: "Taux de chômage BIT, demandeurs d'emploi inscrits, chômage des jeunes : les chiffres officiels de l'INSEE et de la DARES, expliqués et mis à jour.",
+    category: "ChomageFrance",
+    lang: "fr",
+    publishedAt: "2026-09-14",
+    updatedAt: "2026-09-18",
+    readingTime: 12,
+    featured: true,
+    tags: ["chômage France 2026", "taux de chômage France", "INSEE", "DARES", "France Travail", "chômage des jeunes"],
+    intro: "En résumé : au deuxième trimestre 2026, le taux de chômage au sens du Bureau International du Travail (BIT) s'établit à 8,3% de la population active en France hors Mayotte, selon l'INSEE (publication du 7 août 2026) — son plus haut niveau depuis 2020, en hausse pour le cinquième trimestre consécutif. Cela représente environ 2,7 millions de personnes sans emploi selon cette définition. Ce chiffre ne doit pas être confondu avec le nombre de demandeurs d'emploi inscrits à France Travail en catégorie A (3,323 millions au 2ᵉ trimestre 2026), qui répond à une méthodologie et une population de référence différentes.\n\nCet article est traité comme un article de référence : il ne présente que des données publiées par des sources officielles (INSEE, DARES, France Travail), avec la date exacte de chaque chiffre. Il est mis à jour au fil des publications statistiques. Dernière mise à jour : 18 septembre 2026.",
+    sections: [
+      {
+        heading: "Le taux de chômage BIT en France (INSEE, 2ᵉ trimestre 2026)",
+        body: `<p>Selon l'<a href="https://www.insee.fr/fr/statistiques/9032359" target="_blank" rel="noopener noreferrer">INSEE</a>, dans sa publication "Informations rapides" du 7 août 2026, le taux de chômage au sens du Bureau International du Travail s'élevait à <strong>8,3%</strong> de la population active en France (hors Mayotte) au deuxième trimestre 2026 — en hausse de 0,2 point par rapport au premier trimestre 2026 (8,1%) et de 0,7 point sur un an. L'INSEE précise qu'il s'agit du cinquième trimestre consécutif de hausse, portant le taux de chômage à son plus haut niveau depuis le troisième trimestre 2020, marqué par la crise sanitaire.</p>
+<p>En nombre de personnes, cela représente environ <strong>2,7 millions</strong> de chômeurs au sens du BIT au deuxième trimestre 2026, soit 62 000 personnes de plus qu'au trimestre précédent et 261 000 de plus qu'un an auparavant. Le taux de chômage BIT est calculé à partir de l'enquête Emploi en continu, menée par l'INSEE auprès d'un échantillon de ménages selon une méthodologie harmonisée au niveau international, ce qui rend ce chiffre comparable à celui des autres pays de l'Union européenne. La page de référence <a href="https://www.insee.fr/fr/statistiques/4805248" target="_blank" rel="noopener noreferrer">"L'essentiel sur... le chômage"</a> de l'INSEE détaille cette méthodologie.</p>`,
+      },
+      {
+        heading: "Le chômage des jeunes, un indicateur à part",
+        body: `<p>Toujours selon l'INSEE, le taux de chômage des 15-24 ans atteignait <strong>21,6%</strong> au deuxième trimestre 2026, en hausse de 0,4 point par rapport au trimestre précédent et de 2,5 points sur un an — une progression nettement plus marquée que celle du taux de chômage global. Ce taux se calcule sur la population active de cette tranche d'âge (les jeunes en étude et non en recherche d'emploi ne sont pas comptabilisés dans la population active), ce qui explique pourquoi il est structurellement plus élevé et plus volatil que le taux de chômage de l'ensemble de la population.</p>`,
+      },
+      {
+        heading: "Le nombre de demandeurs d'emploi inscrits à France Travail (DARES)",
+        body: `<p>Un second indicateur, publié trimestriellement par la <a href="https://dares.travail-emploi.gouv.fr/donnees/inscrits-france-travail-donnees-trimestrielles" target="_blank" rel="noopener noreferrer">DARES</a> en partenariat avec France Travail, mesure le nombre de personnes inscrites sur les listes de France Travail par catégorie : la catégorie A regroupe les demandeurs d'emploi tenus de rechercher un emploi et sans aucune activité ; les catégories B et C regroupent les demandeurs d'emploi tenus de rechercher un emploi ayant exercé une activité réduite, respectivement courte (78 heures ou moins par mois) et longue (plus de 78 heures par mois).</p>
+<p>Au deuxième trimestre 2026, la catégorie A comptait <strong>3,323 millions</strong> de personnes, en hausse de 0,8% sur le trimestre. La DARES précise toutefois qu'une fois neutralisés les effets de la réforme de l'inscription (voir section suivante), l'évolution réelle de la catégorie A serait plutôt de -0,2%, et celle des catégories A, B, C réunies de +0,4% (soit environ 20 000 personnes). Au premier trimestre 2026, les catégories A, B et C réunies totalisaient 5,73 millions de personnes, dont 3 295 100 en catégorie A et 2 432 900 en catégories B et C.</p>`,
+      },
+      {
+        heading: "Taux de chômage BIT ou demandeurs d'emploi inscrits : ne pas confondre",
+        body: `<p>Ces deux indicateurs répondent à des questions différentes, et les mélanger conduit à des interprétations erronées :</p>
+<ul>
+<li>Le <strong>taux de chômage BIT de l'INSEE</strong> est une estimation statistique, issue d'une enquête représentative, qui compte toute personne sans emploi, disponible et activement à la recherche d'un emploi selon les critères internationaux du Bureau International du Travail — indépendamment du fait qu'elle soit ou non inscrite à France Travail.</li>
+<li>Le <strong>nombre de demandeurs d'emploi inscrits (DARES/France Travail)</strong> est un comptage administratif des personnes inscrites sur les listes, quelle que soit leur situation vis-à-vis de l'enquête Emploi de l'INSEE. Il inclut par exemple des personnes en catégories B et C qui exercent une activité réduite et ne sont donc pas comptées comme chômeurs au sens du BIT.</li>
+</ul>
+<p>Ne comparez jamais directement le taux de chômage BIT (8,3%) au nombre de demandeurs d'emploi inscrits (au-delà de 3,3 millions en catégorie A) comme s'il s'agissait de la même mesure exprimée différemment : ce sont deux populations de référence distinctes, mesurées par deux méthodologies différentes.</p>`,
+      },
+      {
+        heading: "Une réforme qui complique la lecture des chiffres depuis 2025",
+        body: `<p>La <strong>loi pour le plein emploi</strong> du 18 décembre 2023 a introduit, à compter du 1ᵉʳ janvier 2025, l'inscription généralisée et automatique à France Travail des bénéficiaires du revenu de solidarité active (RSA) et de leur conjoint, des jeunes accompagnés par une Mission locale, et des personnes suivies par le réseau Cap emploi — assortie d'une obligation d'activité d'au moins 15 heures par semaine pour percevoir le RSA. Cet élargissement du périmètre des personnes inscrites, ainsi que de nouvelles procédures d'actualisation et des règles de contrôle renforcées, expliquent une partie de la hausse mécanique du nombre d'inscrits à France Travail observée depuis 2025 — c'est précisément ce que la DARES neutralise dans son calcul d'évolution "corrigée" mentionné plus haut. Notre guide sur <a href="/fr/careers/inscription-france-travail-guide">l'inscription à France Travail</a> détaille cette réforme et ses conséquences pratiques pour les personnes concernées.</p>`,
+      },
+      {
+        heading: "L'état du marché de l'emploi et les secteurs qui recrutent",
+        body: `<p>Selon l'enquête <strong>Besoins en Main-d'Œuvre (BMO) 2026</strong> de France Travail, menée entre octobre et décembre 2025 auprès des employeurs, <strong>2,28 millions</strong> de projets de recrutement sont anticipés pour l'année 2026 en France, en baisse de 6,5% par rapport à 2025. La part des projets jugés difficiles à pourvoir par les employeurs recule également, à 43,8% contre 50,1% en 2025. Les métiers concentrant le plus grand nombre de projets de recrutement relèvent en grande partie de la restauration, de l'agriculture et des services à la personne — des secteurs que la <a href="https://www.francetravail.fr/candidat/decouvrir-le-marche-du-travail/besoins-en-main-doeuvre.html" target="_blank" rel="noopener noreferrer">page dédiée de France Travail</a> détaille région par région.</p>`,
+      },
+      {
+        heading: "Soutiens et démarches pour les personnes en recherche d'emploi",
+        body: `<p>Plusieurs institutions publiques accompagnent les personnes en recherche d'emploi en France : <a href="https://www.francetravail.fr/candidat/vos-droits-et-demarches.html" target="_blank" rel="noopener noreferrer">France Travail</a> pour l'inscription, l'accompagnement et les allocations chômage ; l'<a href="https://www.apec.fr" target="_blank" rel="noopener noreferrer">APEC</a> pour les cadres ; le <a href="https://www.travail-emploi.gouv.fr" target="_blank" rel="noopener noreferrer">ministère du Travail</a> pour les questions de droit du travail et les politiques publiques de l'emploi ; et <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F17556" target="_blank" rel="noopener noreferrer">Service-Public.fr</a> pour les démarches administratives liées à la recherche d'emploi. Si votre situation professionnelle est concernée par ces évolutions du marché du travail, structurez activement votre recherche : consultez notre guide pour <a href="/fr/careers/sites-emploi-france-guide">utiliser les sites d'emploi</a> et créez un CV professionnel adapté avec Cvixeo.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Quelle est la différence entre le taux de chômage BIT et le nombre de demandeurs d'emploi inscrits ?</strong><br/>Le taux BIT de l'INSEE (8,3% au T2 2026) est une estimation statistique de toute personne sans emploi selon les critères internationaux ; le nombre de la DARES/France Travail (plus de 3,3 millions en catégorie A) est un comptage administratif des personnes inscrites sur les listes, incluant des situations différentes de celles mesurées par l'enquête Emploi.</p>
+<p><strong>Pourquoi le nombre d'inscrits à France Travail a-t-il augmenté depuis 2025 ?</strong><br/>En grande partie du fait de la loi pour le plein emploi, qui a rendu l'inscription automatique pour les bénéficiaires du RSA, les jeunes suivis en Mission locale et les personnes accompagnées par Cap emploi depuis janvier 2025.</p>
+<p><strong>Le chômage des jeunes est-il plus élevé que la moyenne ?</strong><br/>Oui, le taux de chômage des 15-24 ans (21,6% au T2 2026) est structurellement plus élevé que le taux global, en partie parce qu'il se calcule sur une population active plus restreinte.</p>
+<p><strong>Où trouver les chiffres officiels et à jour du chômage en France ?</strong><br/>Sur les pages statistiques de <a href="https://www.insee.fr/fr/statistiques/4805248" target="_blank" rel="noopener noreferrer">l'INSEE</a> (trimestrielles) et de la <a href="https://dares.travail-emploi.gouv.fr/donnees/inscrits-france-travail-donnees-trimestrielles" target="_blank" rel="noopener noreferrer">DARES</a> (trimestrielles également, pour les inscrits à France Travail).</p>`,
+      },
+    ],
+    conclusion: "Le chômage en France se lit à travers deux indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de l'INSEE (8,3% au deuxième trimestre 2026, en hausse pour le cinquième trimestre consécutif) et le nombre de demandeurs d'emploi inscrits à France Travail suivi par la DARES, dont la lecture est actuellement compliquée par la réforme de l'inscription entrée en vigueur en 2025. Le marché du travail reste toutefois actif, avec 2,28 millions de projets de recrutement anticipés pour 2026 selon l'enquête BMO. Cet article sera mis à jour à mesure que l'INSEE et la DARES publient de nouvelles données. Si votre recherche d'emploi est active dans ce contexte, un CV à jour et bien ciblé reste votre meilleur atout : créez le vôtre avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi en France</a>.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FRANCE — IA & CV
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "cv-intelligence-artificielle-optimiser-candidature",
+    title: "CV et Intelligence Artificielle : Comment Optimiser sa Candidature ?",
+    description: "Ce que l'IA peut vraiment améliorer sur un CV — et ce qu'elle ne remplace pas. Un guide pratique et honnête pour utiliser l'IA dans sa recherche d'emploi.",
+    category: "IAEtCV",
+    lang: "fr",
+    publishedAt: "2026-08-24",
+    readingTime: 8,
+    featured: true,
+    tags: ["CV intelligence artificielle", "IA candidature", "optimiser CV avec IA", "recherche d'emploi 2026", "outil IA CV"],
+    intro: "En résumé : l'intelligence artificielle peut utilement accélérer la reformulation de vos réalisations, la vérification de vos mots-clés par rapport à une offre, et la génération d'une première structure de CV — mais elle ne remplace pas votre jugement sur ce qui est réellement vrai, pertinent et démontrable dans votre parcours. Utilisée avec discernement, elle fait gagner un temps considérable ; utilisée sans relecture critique, elle produit des CV génériques et parfois factuellement erronés.\n\nEn 2026, l'intelligence artificielle générative est devenue un outil courant dans la recherche d'emploi — reformulation, génération de contenu, préparation d'entretien. Ce guide fait le point, de façon factuelle, sur ce que l'IA apporte réellement à un CV et sur les précautions à connaître avant de s'y fier aveuglément.",
+    sections: [
+      {
+        heading: "Ce que l'IA améliore réellement sur un CV",
+        body: `<p>L'IA excelle à reformuler une description de poste en une série de réalisations orientées résultat, à condition de lui fournir les faits bruts (contexte, action, résultat chiffré). Elle est également efficace pour comparer rapidement le vocabulaire d'un CV à celui d'une offre d'emploi et signaler les mots-clés manquants — une tâche fastidieuse à faire manuellement pour chaque candidature. Enfin, elle accélère la production d'une première version structurée de CV ou de lettre de motivation, à partir de laquelle vous pouvez ensuite affiner.</p>`,
+      },
+      {
+        heading: "Ce que l'IA ne peut pas faire à votre place",
+        body: `<p>L'IA ne connaît pas votre parcours réel : elle ne peut inventer ni vérifier une réalisation que vous ne lui avez pas fournie avec précision. Elle a également tendance à produire un style générique et facilement reconnaissable si elle n'est pas guidée avec des informations spécifiques — un recruteur habitué à lire des candidatures repère aisément un texte non retravaillé. Enfin, l'IA ne peut pas juger de la pertinence stratégique de telle ou telle expérience pour un poste donné aussi finement qu'une réflexion personnelle sur votre propre parcours.</p>`,
+      },
+      {
+        heading: "Le risque d'inexactitude : toujours vérifier avant d'envoyer",
+        body: `<p>Les outils d'IA générative peuvent produire des formulations plausibles mais inexactes si les informations fournies en entrée sont imprécises ou incomplètes. Ne jamais envoyer un CV généré par IA sans l'avoir relu intégralement : vérifiez que chaque date, chiffre et intitulé de poste correspond exactement à la réalité. Une erreur factuelle sur un CV, même involontaire, peut compromettre sérieusement la confiance d'un recruteur si elle est découverte en entretien.</p>`,
+      },
+      {
+        heading: "Utiliser l'IA pour adapter son CV à chaque offre",
+        body: `<p>L'un des usages les plus efficaces de l'IA reste l'adaptation rapide d'un CV à une offre précise : identification des mots-clés, reformulation ciblée, réordonnancement des expériences les plus pertinentes. Nous détaillons cette méthode dans notre guide <a href="/fr/careers/ia-adapter-cv-offre-emploi">comment utiliser l'IA pour adapter son CV à une offre d'emploi</a>.</p>`,
+      },
+      {
+        heading: "Les outils généralistes ont-ils leurs limites propres ?",
+        body: `<p>Des outils comme ChatGPT peuvent aider à reformuler du texte, mais ils ne sont pas conçus spécifiquement pour produire un CV structuré, compatible ATS et correctement mis en page — voir notre analyse détaillée dans <a href="/fr/careers/chatgpt-peut-il-creer-bon-cv">ChatGPT peut-il créer un bon CV</a>. Cvixeo, à l'inverse, combine génération de contenu assistée par IA et structure de CV pensée dès le départ pour la compatibilité ATS et la mise en page professionnelle — un CV créé avec Cvixeo n'a donc pas besoin d'une étape de reformatage a posteriori.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Un recruteur peut-il détecter qu'un CV a été généré par IA ?</strong><br/>Un texte non retravaillé et générique est souvent reconnaissable ; un contenu spécifique, vérifié et personnalisé, qu'il ait été assisté par IA ou non, ne pose pas de problème.</p>
+<p><strong>Est-il malhonnête d'utiliser l'IA pour rédiger son CV ?</strong><br/>Non, tant que le contenu reste factuellement exact et reflète réellement votre parcours ; l'IA est alors un outil de rédaction, pas un moyen de fabrication d'informations.</p>
+<p><strong>Faut-il toujours relire un CV généré par IA ?</strong><br/>Oui, systématiquement : vérifiez chaque date, chiffre et intitulé avant tout envoi.</p>`,
+      },
+    ],
+    conclusion: "L'IA est un outil puissant pour accélérer la rédaction et l'adaptation d'un CV, à condition de garder le contrôle sur l'exactitude et la pertinence du contenu final. Utilisée pour reformuler, comparer à une offre et structurer une première version, elle fait gagner un temps précieux ; utilisée sans relecture, elle produit des candidatures génériques ou risquées. Créez votre CV avec Cvixeo, où la génération assistée par IA et la structure professionnelle sont pensées ensemble dès le départ.",
+  },
+
+  {
+    slug: "ia-adapter-cv-offre-emploi",
+    title: "Comment Utiliser l'IA pour Adapter son CV à une Offre d'Emploi ?",
+    description: "Une méthode concrète pour utiliser l'intelligence artificielle et adapter rapidement votre CV à chaque offre d'emploi, sans perdre en exactitude.",
+    category: "IAEtCV",
+    lang: "fr",
+    publishedAt: "2026-08-27",
+    readingTime: 6,
+    tags: ["IA adapter CV", "adapter CV offre emploi", "mots-clés CV", "intelligence artificielle candidature", "CV ciblé"],
+    intro: "En résumé : utiliser l'IA pour adapter un CV consiste à lui fournir votre CV de base et le texte intégral de l'offre visée, puis à lui demander d'identifier les mots-clés manquants et de proposer une reformulation ciblée de vos réalisations les plus pertinentes — jamais d'inventer des compétences ou expériences que vous ne possédez pas. Utilisée ainsi, l'IA réduit le temps d'adaptation d'un CV de vingt minutes à environ cinq minutes.\n\nAdapter son CV à chaque offre reste l'un des leviers les plus efficaces pour augmenter son taux de réponse, mais c'est aussi une tâche répétitive que l'IA peut sensiblement accélérer, à condition de l'utiliser avec une méthode claire.",
+    sections: [
+      {
+        heading: "Étape 1 — Fournir le contexte complet à l'outil",
+        body: `<p>Donnez à l'outil d'IA votre CV actuel dans son intégralité, ainsi que le texte complet de l'offre d'emploi visée — pas seulement un résumé. Plus le contexte fourni est précis et complet, plus les suggestions seront pertinentes et moins l'outil aura tendance à produire des formulations génériques.</p>`,
+      },
+      {
+        heading: "Étape 2 — Demander une analyse des mots-clés manquants",
+        body: `<p>Demandez explicitement à l'outil d'identifier les compétences, outils et qualifications mentionnés dans l'offre qui n'apparaissent pas, ou apparaissent sous une formulation différente, dans votre CV actuel. Cette étape reproduit rapidement un travail qui prendrait autrement dix à quinze minutes de lecture croisée manuelle.</p>`,
+      },
+      {
+        heading: "Étape 3 — Vérifier chaque suggestion avant de l'accepter",
+        body: `<p>Pour chaque mot-clé signalé comme manquant, vérifiez honnêtement : possédez-vous réellement cette compétence ou expérience ? Si oui, sous quelle forme apparaît-elle actuellement dans votre CV, et comment la reformuler pour reprendre le vocabulaire exact de l'offre ? Si non, n'ajoutez jamais une compétence que vous ne maîtrisez pas — le risque en entretien technique est élevé, et la confiance du recruteur, une fois entamée, est très difficile à regagner.</p>`,
+      },
+      {
+        heading: "Étape 4 — Demander une reformulation ciblée, pas une réécriture complète",
+        body: `<p>Plutôt que de demander à l'IA de réécrire l'intégralité du CV, demandez des reformulations ciblées de vos réalisations les plus pertinentes pour cette offre précise, en conservant vos faits et chiffres réels. Cette approche limite le risque de dérive vers un contenu générique ou inexact, tout en accélérant considérablement le travail de reformulation.</p>`,
+      },
+      {
+        heading: "Étape 5 — Relire l'ensemble avant l'envoi",
+        body: `<p>Une dernière relecture complète reste indispensable : vérifiez la cohérence du ton, l'exactitude de chaque information, et l'absence de formulations trop génériques qui trahiraient un contenu non retravaillé. Cvixeo intègre directement cette comparaison entre votre CV et une offre d'emploi, avec un score de correspondance et des suggestions de mots-clés, sans quitter l'outil de création de CV.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Combien de temps prend l'adaptation d'un CV avec l'IA ?</strong><br/>Environ cinq à dix minutes une fois la méthode maîtrisée, contre quinze à vingt minutes pour un travail manuel complet.</p>
+<p><strong>L'IA peut-elle se tromper sur les mots-clés à ajouter ?</strong><br/>Oui, c'est pourquoi chaque suggestion doit être vérifiée individuellement avant d'être intégrée au CV.</p>
+<p><strong>Faut-il utiliser un outil d'IA générale ou un outil spécialisé CV ?</strong><br/>Un outil pensé spécifiquement pour les CV, comme Cvixeo, évite une étape de reformatage supplémentaire après la génération du texte.</p>`,
+      },
+    ],
+    conclusion: "L'IA transforme l'adaptation d'un CV d'une tâche fastidieuse en un processus rapide, à condition de garder un contrôle humain sur chaque suggestion. Cette méthode en cinq étapes — contexte complet, analyse des mots-clés, vérification honnête, reformulation ciblée, relecture finale — permet d'adapter efficacement chaque candidature sans sacrifier l'exactitude. Comparez directement votre CV à une offre d'emploi avec Cvixeo et identifiez en quelques secondes les ajustements à apporter. Retrouvez notre panorama complet dans <a href=\"/fr/careers/cv-intelligence-artificielle-optimiser-candidature\">CV et intelligence artificielle : comment optimiser sa candidature</a>.",
+  },
+
+  {
+    slug: "chatgpt-peut-il-creer-bon-cv",
+    title: "ChatGPT Peut-il Créer un Bon CV ? Le Guide pour les Candidats",
+    description: "Ce que ChatGPT fait bien pour un CV, ce qu'il fait mal, et pourquoi un outil spécialisé reste souvent plus efficace pour un résultat prêt à envoyer.",
+    category: "IAEtCV",
+    lang: "fr",
+    publishedAt: "2026-08-30",
+    readingTime: 6,
+    tags: ["ChatGPT CV", "IA CV", "générer CV ChatGPT", "CV intelligence artificielle", "candidature 2026"],
+    intro: "En résumé : ChatGPT peut aider à reformuler du contenu, générer des idées de formulation et produire une première ébauche de texte, mais il n'a pas été conçu pour produire un CV correctement structuré, compatible ATS et prêt à exporter en PDF professionnel. Il constitue un bon point de départ pour le contenu, à condition de vérifier chaque information et de transférer ensuite ce contenu vers un outil pensé pour la mise en forme d'un CV.\n\nLa question revient très fréquemment depuis la démocratisation des outils d'IA générative : peut-on simplement demander à ChatGPT de générer un CV complet et l'envoyer tel quel ? La réponse honnête est nuancée, et ce guide détaille précisément où l'outil est utile et où il montre ses limites.",
+    sections: [
+      {
+        heading: "Ce que ChatGPT fait bien",
+        body: `<p>ChatGPT est efficace pour reformuler une expérience professionnelle en une phrase orientée résultat, à condition de lui fournir les faits précis. Il peut également générer rapidement plusieurs variantes de formulation pour une même réalisation, aider à identifier des synonymes professionnels adaptés à un secteur, ou encore relire un texte à la recherche de fautes ou de lourdeurs de style.</p>`,
+      },
+      {
+        heading: "Ce que ChatGPT ne fait pas nativement",
+        body: `<p>ChatGPT ne produit pas de mise en page structurée et exportable directement en PDF professionnel — le texte généré doit être recopié et mis en forme manuellement dans un autre outil, ce qui introduit un risque d'erreur et une perte de temps. Il n'a par ailleurs aucune garantie de compatibilité avec les logiciels ATS utilisés par les recruteurs : rien n'empêche l'utilisateur de coller le texte généré dans une mise en page à plusieurs colonnes, qui pose exactement les problèmes détaillés dans notre guide sur <a href="/fr/careers/cv-ats-compatible-france">le CV compatible ATS</a>.</p>`,
+      },
+      {
+        heading: "Le risque d'un contenu générique et non vérifié",
+        body: `<p>Sans instructions précises et sans faits réels fournis en entrée, ChatGPT a tendance à produire des formulations plausibles mais génériques, parfois reconnaissables par un recruteur habitué à lire de nombreuses candidatures. Il peut également, comme tout outil d'IA générative, produire une information incorrecte si le contexte fourni est insuffisant — chaque date, chiffre et intitulé doit systématiquement être vérifié avant l'envoi.</p>`,
+      },
+      {
+        heading: "Un outil de contenu, pas un outil de CV complet",
+        body: `<p>La distinction essentielle : ChatGPT est un outil de génération de texte, pas un outil de création de CV. Il peut utilement contribuer à la phase de rédaction, mais la structure, la mise en page, la compatibilité ATS et l'export final restent des besoins distincts, mieux couverts par un outil spécifiquement conçu pour cet usage. Cvixeo combine la génération de contenu assistée par IA avec une structure de CV pensée dès le départ pour la compatibilité ATS et un rendu professionnel — sans étape de reformatage manuelle après la génération du texte.</p>`,
+      },
+      {
+        heading: "Foire aux questions (FAQ)",
+        body: `<p><strong>Peut-on envoyer directement un CV généré par ChatGPT ?</strong><br/>Ce n'est pas recommandé sans reformatage : le texte généré nécessite une mise en page adaptée et une vérification complète de son exactitude avant tout envoi.</p>
+<p><strong>ChatGPT connaît-il les attentes spécifiques des recruteurs français ?</strong><br/>Il peut produire du texte en français correct, mais il ne connaît pas les codes spécifiques d'un secteur ou d'une entreprise sans qu'on les lui précise explicitement.</p>
+<p><strong>Quelle est la différence avec un outil comme Cvixeo ?</strong><br/>Cvixeo associe génération de contenu par IA et structure de CV compatible ATS dans un seul outil, évitant l'étape de mise en forme manuelle nécessaire après une génération via ChatGPT.</p>`,
+      },
+    ],
+    conclusion: "ChatGPT peut être un allié utile pour la phase de rédaction d'un CV, mais il n'a pas été conçu pour produire un document final structuré, compatible ATS et prêt à l'envoi. La meilleure approche consiste à l'utiliser pour générer des idées de formulation, puis à transférer ce contenu vérifié vers un outil spécialisé. Créez directement votre CV avec Cvixeo, où génération de contenu par IA et mise en page professionnelle compatible ATS sont intégrées dans un seul et même outil.",
   },
 
 ];

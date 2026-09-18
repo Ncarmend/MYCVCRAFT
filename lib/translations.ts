@@ -578,6 +578,10 @@ export const translations = {
         EmploiBruxelles: "Jobs in Brussels",
         OrganismesEmploi: "Public Employment Agencies",
         ChomageBelgique: "Unemployment in Belgium",
+        CVFrance: "French CVs",
+        RechercheEmploiFrance: "Job Search in France",
+        ChomageFrance: "Unemployment in France",
+        IAEtCV: "AI & CVs",
       },
     },
 
@@ -1225,6 +1229,10 @@ export const translations = {
         EmploiBruxelles: "Emploi à Bruxelles",
         OrganismesEmploi: "Organismes & recherche d'emploi",
         ChomageBelgique: "Chômage en Belgique",
+        CVFrance: "CV en France",
+        RechercheEmploiFrance: "Recherche d'emploi",
+        ChomageFrance: "Chômage en France",
+        IAEtCV: "IA & CV",
       },
     },
 
