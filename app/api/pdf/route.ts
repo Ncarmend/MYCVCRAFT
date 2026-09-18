@@ -8,6 +8,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
+import { translations } from "@/lib/translations";
+
+type PdfLang = "en" | "fr" | "nl";
+function parseLang(value: string | null): PdfLang {
+  return value === "fr" || value === "nl" ? value : "en";
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -32,8 +38,9 @@ export async function GET(request: NextRequest) {
     // Allow client to pass the currently selected (possibly unsaved) template
     const templateOverride = request.nextUrl.searchParams.get("template");
     const cvData = { ...cv, template: templateOverride ?? cv.template ?? "BASIC" };
+    const lang = parseLang(request.nextUrl.searchParams.get("lang"));
 
-    const html = buildCVHTML(cvData as Record<string, unknown>, !isPro);
+    const html = buildCVHTML(cvData as Record<string, unknown>, !isPro, lang);
 
     return new NextResponse(html, {
       headers: {
@@ -400,10 +407,146 @@ function certificationsHTML(certifications: Array<Record<string, unknown>>): str
   </div>`;
 }
 
+// ─── Administrative Digital — dedicated builder (own CSS + i18n section labels) ─
+
+function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang): string {
+  const L = translations[lang].cvTemplateLabels;
+  const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
+  const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
+  const education = Array.isArray(cv.education) ? cv.education as Array<Record<string, unknown>> : [];
+  const projects = Array.isArray(cv.projects) ? cv.projects as Array<Record<string, unknown>> : [];
+  const languages = Array.isArray(cv.languages) ? cv.languages as Array<Record<string, unknown>> : [];
+  const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
+
+  const wm = watermark
+    ? `.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:64pt;font-weight:900;color:rgba(99,102,241,0.06);white-space:nowrap;pointer-events:none;z-index:9999;}`
+    : "";
+
+  const css = `*{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:Calibri,'Segoe UI',Helvetica,Arial,sans-serif;font-size:10.5pt;background:white;color:#1e1e1e;line-height:1.55;}
+    ${wm}
+    .page{max-width:816px;margin:0 auto;min-height:1056px;padding:56px 50px;}
+    .header{text-align:center;padding-bottom:18px;margin-bottom:22px;border-bottom:1px solid #e2e8f0;}
+    .header h1{font-size:22pt;font-weight:700;color:#0f172a;}
+    .header .jobtitle{font-size:11.5pt;color:#64748b;margin-top:4px;}
+    .header .contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:10px;font-size:9pt;color:#475569;}
+    .contact{display:inline-flex;align-items:center;gap:4px;}
+    h2.badge{display:inline-block;font-size:9pt;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#1e293b;background:#f1f5f9;border-radius:6px;padding:4px 12px;margin-bottom:12px;}
+    .section{margin-bottom:20px;}
+    .row{display:flex;justify-content:space-between;align-items:flex-start;}
+    .date{font-size:9pt;color:#64748b;background:#f8fafc;border-radius:999px;padding:2px 10px;white-space:nowrap;flex-shrink:0;margin-left:12px;}
+    h3{font-size:10.5pt;font-weight:700;color:#0f172a;}
+    .meta{color:#64748b;font-size:10pt;}
+    p{color:#334155;font-size:10.5pt;}
+    ul{padding-left:18px;margin-top:6px;}
+    li{color:#334155;font-size:10.5pt;margin-bottom:2px;line-height:1.55;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:4px;}
+    .two-col div{color:#334155;font-size:10pt;}`;
+
+  const wmDiv = watermark ? `<div class="watermark">Cvixeo Free</div>` : "";
+
+  const contactSpans = (
+    [
+      [ICON.mail,      cv.email],
+      [ICON.phone,     cv.phone],
+      [ICON.location,  cv.location],
+      [ICON.web,       cv.website],
+      [ICON.linkedin,  cv.linkedin],
+      [ICON.github,    cv.github],
+    ] as [string, unknown][]
+  )
+    .filter(([, v]) => Boolean(v))
+    .map(([icon, v]) => `<span class="contact">${icon}${String(v)}</span>`)
+    .join("");
+
+  const profileSection = cv.summary
+    ? `<div class="section"><h2 class="badge">${L.profile}</h2><p>${stripHtml(cv.summary)}</p></div>`
+    : "";
+
+  const skillsSection = skills.length
+    ? `<div class="section"><h2 class="badge">${L.skills}</h2><div class="two-col">${skills.map((s) => `<div>${s}</div>`).join("")}</div></div>`
+    : "";
+
+  const educationSection = education.length
+    ? `<div class="section"><h2 class="badge">${L.education}</h2>${education.map((edu) => `
+      <div class="row" style="margin-bottom:10px;">
+        <div><h3>${edu.degree}${edu.field ? ` — ${edu.field}` : ""}</h3><p class="meta">${edu.institution}${edu.grade ? ` · ${edu.grade}` : ""}</p></div>
+        <span class="date">${edu.startDate} – ${edu.endDate}</span>
+      </div>`).join("")}</div>`
+    : "";
+
+  const experienceSection = experience.length
+    ? `<div class="section"><h2 class="badge">${L.experience}</h2>${experience.map((exp) => `
+      <div style="margin-bottom:16px;">
+        <div class="row">
+          <div><h3>${exp.role}</h3><p class="meta">${exp.company}</p></div>
+          <span class="date">${exp.startDate} – ${exp.endDate}</span>
+        </div>
+        ${exp.description ? `<p style="margin-top:6px;">${stripHtml(exp.description)}</p>` : ""}
+        ${Array.isArray(exp.achievements) && (exp.achievements as string[]).length
+          ? `<ul>${(exp.achievements as string[]).map((a) => `<li>${a}</li>`).join("")}</ul>`
+          : ""}
+      </div>`).join("")}</div>`
+    : "";
+
+  const projectsSection = projects.length
+    ? `<div class="section"><h2 class="badge">${L.projects}</h2>${projects.map((p) => `
+      <div style="margin-bottom:12px;">
+        <div class="row" style="align-items:baseline;">
+          <h3>${p.name}</h3>
+          ${p.url ? `<span class="meta" style="font-size:9pt;">${p.url}</span>` : ""}
+        </div>
+        ${p.description ? `<p style="margin-top:3px;">${stripHtml(p.description as string)}</p>` : ""}
+        ${Array.isArray(p.technologies) && (p.technologies as string[]).length
+          ? `<p class="meta" style="font-size:9pt;margin-top:3px;">${(p.technologies as string[]).join(" · ")}</p>`
+          : ""}
+      </div>`).join("")}</div>`
+    : "";
+
+  const languagesSection = languages.length
+    ? `<div class="section"><h2 class="badge">${L.languages}</h2><div class="two-col">${languages.map((l) => `<div><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}</div></div>`
+    : "";
+
+  const certificationsSection = certifications.length
+    ? `<div class="section"><h2 class="badge">${L.certifications}</h2>${certifications.map((c) => `
+      <div class="row" style="margin-bottom:8px;">
+        <span><strong>${c.name}</strong>${c.issuer ? ` — ${c.issuer}` : ""}</span>
+        <span class="date">${c.date}</span>
+      </div>`).join("")}</div>`
+    : "";
+
+  return `<!DOCTYPE html><html lang="${lang}"><head>
+    <meta charset="UTF-8"/>
+    <title>${cv.name} — CV</title>
+    <style>${css}</style>
+  </head><body>
+    ${wmDiv}
+    <div class="page">
+      <div class="header">
+        <h1>${cv.name}</h1>
+        <div class="jobtitle">${cv.jobTitle}</div>
+        <div class="contacts">${contactSpans}</div>
+      </div>
+      ${profileSection}
+      ${skillsSection}
+      ${educationSection}
+      ${experienceSection}
+      ${projectsSection}
+      ${languagesSection}
+      ${certificationsSection}
+    </div>
+  </body></html>`;
+}
+
 // ─── Main builder ─────────────────────────────────────────────────────────────
 
-function buildCVHTML(cv: Record<string, unknown>, watermark: boolean): string {
+function buildCVHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en"): string {
   const template = (cv.template as string) || "BASIC";
+
+  if (template === "ADMINISTRATIVE_DIGITAL") {
+    return administrativeDigitalHTML(cv, watermark, lang);
+  }
+
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
   const education = Array.isArray(cv.education) ? cv.education as Array<Record<string, unknown>> : [];

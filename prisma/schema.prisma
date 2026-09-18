@@ -149,6 +149,7 @@ enum CVTemplate {
   PHOTO
   CLASSIC
   CRISP
+  ADMINISTRATIVE_DIGITAL
 }
 
 enum CVStatus {

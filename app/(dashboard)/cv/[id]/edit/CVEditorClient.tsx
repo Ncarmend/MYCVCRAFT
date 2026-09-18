@@ -89,7 +89,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
     try {
       toast.loading(lang === "fr" ? "Préparation du PDF…" : "Preparing PDF…", { id: "pdf" });
       const template = (previewData.template as string) || "BASIC";
-      const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}`);
+      const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}&lang=${lang}`);
       if (!res.ok) throw new Error("PDF generation failed");
       const html = await res.text();
 

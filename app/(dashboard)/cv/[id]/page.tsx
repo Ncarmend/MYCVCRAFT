@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { redirect, notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
@@ -32,6 +33,8 @@ export default async function CVPreviewPage({ params }: Props) {
 
   const isPro = isProUser(dbUser.subscription);
   const cvTitle = (cv as unknown as CV).title || cv.name;
+  const storedLang = (await cookies()).get("cv-lang")?.value;
+  const lang = storedLang === "fr" || storedLang === "nl" ? storedLang : "en";
 
   const cvData: Partial<CVFormData> = {
     ...(cv as unknown as CVFormData),
@@ -80,7 +83,7 @@ export default async function CVPreviewPage({ params }: Props) {
           </Link>
           {/* Opens PDF in new tab; user prints to PDF from there */}
           <PdfDownloadLink
-            href={`/api/pdf?cvId=${id}&template=${cv.template ?? "BASIC"}`}
+            href={`/api/pdf?cvId=${id}&template=${cv.template ?? "BASIC"}&lang=${lang}`}
             cvId={id}
             template={cv.template ?? "BASIC"}
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-green-600 transition-colors"

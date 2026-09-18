@@ -15,6 +15,7 @@ import { SoftTemplate } from "./templates/SoftTemplate";
 import { PhotoTemplate } from "./templates/PhotoTemplate";
 import { ClassicTemplate } from "./templates/ClassicTemplate";
 import { CrispTemplate } from "./templates/CrispTemplate";
+import { AdministrativeDigitalTemplate } from "./templates/AdministrativeDigitalTemplate";
 import type { CVFormData } from "@/types";
 
 // All templates are designed at this pixel width (US Letter at 96 dpi).
@@ -43,6 +44,7 @@ export function TemplateRenderer({ data, watermark = false }: { data: Partial<CV
   if (t === "PHOTO")     return <PhotoTemplate     cv={data} watermark={watermark} />;
   if (t === "CLASSIC")   return <ClassicTemplate   cv={data} watermark={watermark} />;
   if (t === "CRISP")     return <CrispTemplate     cv={data} watermark={watermark} />;
+  if (t === "ADMINISTRATIVE_DIGITAL") return <AdministrativeDigitalTemplate cv={data} watermark={watermark} />;
   return <BasicTemplate cv={data} watermark={watermark} />;
 }
 

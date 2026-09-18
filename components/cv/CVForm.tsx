@@ -27,7 +27,7 @@ import type { CVFormData } from "@/types";
 // --- Zod schema ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
-  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP"]),
+  template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP", "ADMINISTRATIVE_DIGITAL"]),
   photoUrl: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   jobTitle: z.string().min(1, "Job title is required"),
@@ -104,6 +104,7 @@ const TEMPLATE_KEYS = [
   { value: "PHOTO",     label: "Photo" },
   { value: "CLASSIC",   label: "Classic" },
   { value: "CRISP",     label: "Crisp" },
+  { value: "ADMINISTRATIVE_DIGITAL", label: "Administrative Digital" },
 ];
 
 const PROFICIENCY_VALUES = ["Native", "Fluent", "Advanced", "Intermediate", "Basic"] as const;

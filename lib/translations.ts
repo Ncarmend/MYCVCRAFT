@@ -341,6 +341,7 @@ export const translations = {
           "With portrait",
           "ATS traditional",
           "ATS modern",
+          "Icon header, badge labels",
         ],
         groups: [
           { names: "Basic / Classic / Crisp",   desc: "ATS-optimised, single column" },
@@ -352,6 +353,7 @@ export const translations = {
           { names: "Warm",                       desc: "Beige & cream tones" },
           { names: "Soft",                       desc: "Pale lavender & rose" },
           { names: "Photo",                      desc: "Includes circular profile photo" },
+          { names: "Administrative Digital",     desc: "Centred header with icons, soft badge section labels" },
         ],
       },
       ai: {
@@ -431,6 +433,16 @@ export const translations = {
         fileTooLarge:      "File too large. Maximum 5 MB.",
         unsupportedType:   "Unsupported format. Use PDF, DOCX, or TXT.",
       },
+    },
+    // ── CV template section labels (used by CV template components + PDF export) ──
+    cvTemplateLabels: {
+      profile:        "Profile",
+      experience:     "Experience",
+      education:      "Education",
+      skills:         "Skills",
+      languages:      "Languages",
+      certifications: "Courses & Certifications",
+      projects:       "Projects",
     },
     sidebar: {
       dashboard: "Dashboard",
@@ -992,6 +1004,7 @@ export const translations = {
           "Avec portrait",
           "ATS traditionnel",
           "ATS moderne",
+          "En-tête avec icônes, badges de section",
         ],
         groups: [
           { names: "Basic / Classic / Crisp", desc: "ATS-optimisé, colonne unique" },
@@ -1003,6 +1016,7 @@ export const translations = {
           { names: "Warm",                    desc: "Tons beige et crème" },
           { names: "Soft",                    desc: "Lavande pâle et rose" },
           { names: "Photo",                   desc: "Inclut une photo de profil circulaire" },
+          { names: "Administrative Digital",  desc: "En-tête centré avec icônes, badges de section discrets" },
         ],
       },
       ai: {
@@ -1082,6 +1096,16 @@ export const translations = {
         fileTooLarge:      "Fichier trop volumineux. Maximum 5 Mo.",
         unsupportedType:   "Format non supporté. Utilisez PDF, DOCX ou TXT.",
       },
+    },
+    // ── Intitulés de sections du CV (utilisés par les modèles de CV + l'export PDF) ──
+    cvTemplateLabels: {
+      profile:        "Profil",
+      experience:     "Expérience",
+      education:      "Formation",
+      skills:         "Compétences",
+      languages:      "Langues",
+      certifications: "Formations & certifications",
+      projects:       "Projets",
     },
     sidebar: {
       dashboard: "Tableau de bord",
@@ -1652,6 +1676,7 @@ export const translations = {
           "Met pasfoto",
           "ATS traditioneel",
           "ATS modern",
+          "Iconen-header, badge-secties",
         ],
         groups: [
           { names: "Basic / Classic / Crisp",   desc: "ATS-geoptimaliseerd, één kolom" },
@@ -1663,6 +1688,7 @@ export const translations = {
           { names: "Warm",                       desc: "Beige & crèmetinten" },
           { names: "Soft",                       desc: "Bleeklila & oudroze" },
           { names: "Photo",                      desc: "Inclusief ronde profielfoto" },
+          { names: "Administrative Digital",     desc: "Gecentreerde header met iconen, subtiele badge-secties" },
         ],
       },
       ai: {
@@ -1742,6 +1768,16 @@ export const translations = {
         fileTooLarge:      "Bestand te groot. Maximaal 5 MB.",
         unsupportedType:   "Niet-ondersteund formaat. Gebruik pdf, docx of txt.",
       },
+    },
+    // ── Sectielabels voor cv-sjablonen (gebruikt door cv-templates + pdf-export) ──
+    cvTemplateLabels: {
+      profile:        "Profiel",
+      experience:     "Werkervaring",
+      education:      "Opleiding",
+      skills:         "Vaardigheden",
+      languages:      "Talen",
+      certifications: "Cursussen & certificaten",
+      projects:       "Projecten",
     },
     sidebar: {
       dashboard: "Dashboard",

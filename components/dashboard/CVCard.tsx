@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { trackCvDownloaded } from "@/lib/analytics";
+import { useLanguage } from "@/components/landing/LanguageContext";
 
 interface CVCardProps {
   cv: CV;
@@ -30,6 +31,7 @@ interface CVCardProps {
 
 export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
   const router = useRouter();
+  const { lang } = useLanguage();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -53,7 +55,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       toast.info("Upgrade to Pro for watermark-free PDF export");
     }
     try {
-      const res = await fetch(`/api/pdf?cvId=${cv.id}`);
+      const res = await fetch(`/api/pdf?cvId=${cv.id}&lang=${lang}`);
       if (!res.ok) throw new Error("Failed to generate PDF");
       const html = await res.text();
       const blob = new Blob([html], { type: "text/html" });
