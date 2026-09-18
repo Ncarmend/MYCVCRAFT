@@ -33,10 +33,10 @@ export function CookiesClient() {
             </div>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                {lang === "fr" ? "Politique de cookies" : "Cookie Policy"}
+                {lang === "fr" ? "Politique de cookies" : lang === "nl" ? "Cookiebeleid" : "Cookie Policy"}
               </h1>
               <p className="text-xs text-slate-400">
-                {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
+                {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: juli 2026 · Van toepassing op cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
               </p>
             </div>
           </div>
@@ -46,7 +46,7 @@ export function CookiesClient() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-10">
         <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          {lang === "fr" ? <CookiesFR /> : <CookiesEN />}
+          {lang === "fr" ? <CookiesFR /> : lang === "nl" ? <CookiesNL /> : <CookiesEN />}
         </div>
       </div>
     </>
@@ -222,6 +222,94 @@ function CookiesFR() {
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
             <p>E-mail : <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
             <p className="mt-1">Formulaire de contact : <Link href="/fr/contact" className="text-green-700 underline">cvixeo.com/fr/contact</Link></p>
+          </div>
+        </Section>
+      </div>
+    </>
+  );
+}
+
+function CookiesNL() {
+  return (
+    <>
+      <div className="mb-8 rounded-xl bg-green-50 px-5 py-4 text-xs leading-relaxed text-green-800 ring-1 ring-green-100">
+        <strong>Kort samengevat:</strong> Cvixeo gebruikt enkel strikt noodzakelijke cookies om je ingelogd te houden en je taalvoorkeur te onthouden. We gebruiken geen advertentiecookies, trackingpixels van sociale media, of externe analysetools die je volgen over verschillende websites heen. Voor strikt noodzakelijke cookies is onder de AVG geen toestemmingsbanner vereist, maar we leggen hier alles in volledige transparantie uit.
+      </div>
+
+      <div className="space-y-8">
+        <Section id="what-are-cookies" title="1. Wat zijn cookies?">
+          <p>Cookies zijn kleine tekstbestanden die op je apparaat (computer, tablet of telefoon) worden geplaatst wanneer je een website bezoekt. Ze stellen de website in staat bepaalde informatie over je bezoek te onthouden — zoals je inlogsessie of voorkeuren — zodat je deze niet telkens opnieuw hoeft in te voeren.</p>
+          <p>Cookies kunnen "sessiecookies" zijn (verwijderd wanneer je je browser sluit) of "permanente cookies" (blijven op je apparaat gedurende een bepaalde periode of tot je ze verwijdert).</p>
+        </Section>
+
+        <Section id="how-we-use" title="2. Hoe we cookies gebruiken">
+          <p>Cvixeo gebruikt een minimale set cookies, die allemaal strikt noodzakelijk zijn voor de werking van de Dienst. We gebruiken geen cookies voor reclame, gedragsmatige tracking, of om profielen van je surfgedrag op te bouwen.</p>
+
+          <div className="overflow-hidden rounded-xl ring-1 ring-gray-200">
+            <table className="w-full text-xs">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Cookienaam</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Doel</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Type</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Duur</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                <tr className="bg-white">
+                  <td className="px-4 py-3 font-mono text-slate-700">sb-*</td>
+                  <td className="px-4 py-3 text-slate-600">Authenticatiesessietoken (Supabase). Houdt je ingelogd na het aanmelden.</td>
+                  <td className="px-4 py-3"><span className="rounded-full bg-blue-50 px-2 py-0.5 text-blue-700">Strikt noodzakelijk</span></td>
+                  <td className="px-4 py-3 text-slate-600">Sessie / 1 jaar</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-4 py-3 font-mono text-slate-700">cv-lang</td>
+                  <td className="px-4 py-3 text-slate-600">Slaat je taalvoorkeur op (EN, FR of NL) zodat deze bewaard blijft tussen bezoeken.</td>
+                  <td className="px-4 py-3"><span className="rounded-full bg-blue-50 px-2 py-0.5 text-blue-700">Strikt noodzakelijk</span></td>
+                  <td className="px-4 py-3 text-slate-600">Permanent (localStorage)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-xs text-slate-500">Opmerking: <code className="rounded bg-slate-100 px-1 py-0.5">cv-lang</code> wordt opgeslagen in <em>localStorage</em>, niet in een cookie. Het werkt op vergelijkbare wijze, maar wordt nooit automatisch naar onze servers verzonden.</p>
+        </Section>
+
+        <Section id="third-party" title="3. Cookies van derden">
+          <p>We gebruiken Paddle als onze betalingsprovider en "Merchant of Record". Wanneer je de betaalpagina opent (abonnement of aankoop van de Pas), kan Paddle cookies op je apparaat plaatsen voor fraudepreventie en betalingsbeveiliging. Deze cookies vallen onder het <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid van Paddle</a>.</p>
+          <p>De fraudepreventiecookies van Paddle worden beschouwd als strikt noodzakelijk voor de werking van de betalingsdienst en vereisen geen afzonderlijke toestemming.</p>
+          <p>We laden geen Google Analytics, Facebook Pixel, TikTok Pixel, LinkedIn Insight Tag, Hotjar, of enig ander trackingscript of analysetool van derden.</p>
+        </Section>
+
+        <Section id="legal-basis" title="4. Rechtsgrond onder de AVG en de ePrivacy-richtlijn">
+          <p>Onder de Europese ePrivacy-richtlijn (nationaal omgezet als "cookiewetgeving") en de AVG vereisen cookies die strikt noodzakelijk zijn voor de werking van de dienst geen toestemming. Dit omvat onze authenticatiecookies en de fraudepreventiecookies van Paddle.</p>
+          <p>Omdat we geen niet-essentiële cookies gebruiken, tonen we geen cookiebanner. Als we in de toekomst optionele analyse- of marketingcookies invoeren, werken we dit beleid bij, voegen we een gepast toestemmingsmechanisme toe en informeren we bestaande gebruikers.</p>
+        </Section>
+
+        <Section id="managing" title="5. Cookies beheren of verwijderen">
+          <p>Je kunt cookies beheren en verwijderen via je browserinstellingen. De volgende links geven uitleg voor populaire browsers:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li><a href="https://support.google.com/chrome/answer/95647" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/nl/kb/cookies-verwijderen-gegevens-wissen-websites" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/nl-be/guide/safari/sfri11471/mac" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Apple Safari</a></li>
+            <li><a href="https://support.microsoft.com/nl-nl/microsoft-edge/cookies-verwijderen-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+          </ul>
+          <p>Let op: het verwijderen of blokkeren van onze authenticatiecookies logt je uit, en je moet je bij je volgende bezoek opnieuw aanmelden. Het verwijderen van het item <code className="rounded bg-slate-100 px-1 py-0.5">cv-lang</code> uit localStorage zet je taalvoorkeur terug naar de standaardtaal van je browser.</p>
+        </Section>
+
+        <Section id="rights" title="6. Jouw rechten">
+          <p>Onder de AVG heb je rechten met betrekking tot hoe we je persoonsgegevens verwerken, inclusief de gegevens die aan cookies gekoppeld zijn. Raadpleeg ons <Link href="/nl/privacy" className="text-green-700 underline">Privacybeleid</Link> — Sectie 8 — voor een volledige beschrijving van je rechten en hoe je ze kunt uitoefenen.</p>
+        </Section>
+
+        <Section id="changes" title="7. Wijzigingen aan dit Cookiebeleid">
+          <p>We kunnen dit Cookiebeleid bijwerken als we de cookies die we gebruiken wijzigen. We informeren je over belangrijke wijzigingen per e-mail of via een melding op de Dienst. De huidige versie is steeds beschikbaar op <Link href="/nl/cookies" className="text-green-700 underline">cvixeo.com/nl/cookies</Link>.</p>
+        </Section>
+
+        <Section id="contact" title="8. Contact">
+          <p>Voor vragen over dit Cookiebeleid, contacteer ons:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
+            <p>E-mail: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+            <p className="mt-1">Contactformulier: <Link href="/nl/contact" className="text-green-700 underline">cvixeo.com/nl/contact</Link></p>
           </div>
         </Section>
       </div>

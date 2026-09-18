@@ -3,7 +3,7 @@ import { articles } from "@/lib/articles";
 
 const BASE = "https://cvixeo.com";
 
-// Routes available in both English (unprefixed) and French (/fr prefix),
+// Routes available in English (unprefixed), French (/fr prefix) and Dutch (/nl prefix),
 // each with matching content in lib/translations.ts.
 const LOCALIZED_ROUTES: {
   path: string;
@@ -25,18 +25,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const localizedPages: MetadataRoute.Sitemap = LOCALIZED_ROUTES.flatMap(({ path, changeFrequency, priority }) => {
     const en = `${BASE}${path}`;
     const fr = `${BASE}/fr${path}`;
-    const languages = { en, fr, "x-default": en };
+    const nl = `${BASE}/nl${path}`;
+    const languages = { en, fr, nl, "x-default": en };
 
     return [
       { url: en, lastModified: new Date(), changeFrequency, priority, alternates: { languages } },
       { url: fr, lastModified: new Date(), changeFrequency, priority, alternates: { languages } },
+      { url: nl, lastModified: new Date(), changeFrequency, priority, alternates: { languages } },
     ];
   });
 
   // Career articles are single-language content (no per-article translation), so each
   // gets its own URL under the matching locale prefix with no cross-language alternates.
   const articlePages: MetadataRoute.Sitemap = articles.map((article) => {
-    const prefix = article.lang === "fr" ? "/fr/careers" : "/careers";
+    const prefix = article.lang === "fr" ? "/fr/careers" : article.lang === "nl" ? "/nl/careers" : "/careers";
     return {
       url: `${BASE}${prefix}/${article.slug}`,
       lastModified: new Date(article.updatedAt ?? article.publishedAt),

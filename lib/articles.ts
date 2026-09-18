@@ -44,7 +44,7 @@ export interface Article {
   tags: string[];
   featured?: boolean;
   /** Content language. Defaults to "en" when omitted — existing articles are English-only. */
-  lang?: "en" | "fr";
+  lang?: "en" | "fr" | "nl";
   intro: string;
   sections: ArticleSection[];
   conclusion: string;
@@ -1889,6 +1889,473 @@ export const articles: Article[] = [
       },
     ],
     conclusion: "ChatGPT peut être un allié utile pour la phase de rédaction d'un CV, mais il n'a pas été conçu pour produire un document final structuré, compatible ATS et prêt à l'envoi. La meilleure approche consiste à l'utiliser pour générer des idées de formulation, puis à transférer ce contenu vérifié vers un outil spécialisé. Créez directement votre CV avec Cvixeo, où génération de contenu par IA et mise en page professionnelle compatible ATS sont intégrées dans un seul et même outil.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIË (NEDERLANDS) — Cv & sollicitatie
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "professioneel-cv-maken-belgie",
+    title: "Hoe Maak je een Professioneel Cv in België?",
+    description: "Structuur, lengte, foto, talen: alles wat je moet weten om een professioneel cv te maken dat werkgevers in België overtuigt.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-10",
+    readingTime: 8,
+    featured: true,
+    tags: ["professioneel cv België", "cv maken", "sollicitatie België", "werk zoeken", "cv tips"],
+    intro: "Kort antwoord: een sterk cv in België is één tot twee pagina's lang, staat in omgekeerde chronologische volgorde, vermeldt je taalkennis duidelijk per taal (Nederlands, Frans, Engels), en blijft sober in de opmaak — zeker als het door een sollicitatiesoftware (ATS) moet geraken voor het bij een rekruteerder terechtkomt.\n\nDe Belgische arbeidsmarkt heeft zijn eigen gewoontes, met duidelijke verschillen tussen Vlaanderen, Brussel en Wallonië. Een cv dat in Nederland of Frankrijk perfect werkt, overtuigt niet altijd een Vlaamse of Brusselse rekruteerder. Deze gids bundelt de concrete regels om een cv te bouwen dat aansluit bij wat Belgische werkgevers verwachten.",
+    sections: [
+      {
+        heading: "De structuur die Belgische rekruteerders verwachten",
+        body: `<p>De meeste Belgische rekruteerders verwachten een cv in omgekeerde chronologische volgorde: je meest recente ervaring eerst. De verwachte leesvolgorde is: contactgegevens, professioneel profiel, werkervaring, opleiding, vaardigheden (talen, technisch, digitaal), en eventueel bijkomende informatie (rijbewijs, mobiliteit).</p>
+<p>Open je cv met een kort professioneel profiel van twee tot vier zinnen dat samenvat wie je bent, waarin je gespecialiseerd bent en wat je precies zoekt. Dit stukje moet in vijftien seconden duidelijk maken waarom een rekruteerder verder moet lezen.</p>
+<p>Voor de lengte: een junior profiel of iemand met minder dan zeven à acht jaar ervaring past op één pagina. Daarboven wordt een tweede pagina aanvaardbaar, op voorwaarde dat ze geen overbodige inhoud bevat. Drie pagina's blijft zeldzaam, behalve voor zeer senior profielen.</p>`,
+      },
+      {
+        heading: "Talen: het element waar het meest naar gekeken wordt",
+        body: `<p>België heeft drie officiële talen (Nederlands, Frans, Duits), en talenkennis is vaak het eerste criterium waarop rekruteerders selecteren — nog voor technische vaardigheden. Een kandidaat die tweetalig Nederlands-Frans is, heeft een reëel voordeel op de Brusselse arbeidsmarkt, waar veel vacatures uitdrukkelijk een functionele kennis van beide landstalen vereisen.</p>
+<p>Geef je niveau aan volgens het Europees Referentiekader voor Talen (ERK/CEFR), van A1 (beginner) tot C2 (moedertaalniveau). Deze schaal wordt onmiddellijk herkend door Belgische rekruteerders en vermijdt vage termen zoals "notities" of "vlot", die door iedereen anders geïnterpreteerd worden. Als je het Frans niet machtig bent, verzwijg dit niet: geef eerlijk je niveau aan (zelfs A1 of A2) in plaats van het weg te laten, wat tijdens een sollicitatiegesprek als een poging tot verbergen kan overkomen.</p>
+<p>Voor vacatures in Brussel specifiek, lees ook onze gids om <a href="/nl/careers/job-vinden-brussel">een job te vinden in Brussel</a>, die de reële impact van tweetaligheid op je kansen op een gesprek in detail bespreekt.</p>`,
+      },
+      {
+        heading: "Foto of geen foto, en welke persoonlijke info opnemen?",
+        body: `<p>De vraag naar de foto komt in België systematisch terug — de gewoonte is er wijder verspreid dan in Nederland, zonder verplicht te zijn. Ze blijft gangbaar in klantgerichte sectoren (verkoop, horeca, onthaal) en minder systematisch in IT of overheidsfuncties.</p>
+<p>Wat de andere persoonlijke gegevens betreft: vermeld je naam, een professioneel e-mailadres, een telefoonnummer en je woonplaats (het volledige straatadres is niet noodzakelijk). De vermelding van het rijbewijs ("Rijbewijs B") is een sterk gewaardeerde Belgische standaard zodra dit relevant is voor de functie of mobiliteit. Geboortedatum en nationaliteit mogen vermeld worden, maar blijven optioneel — steeds meer kandidaten laten ze bewust weg om onbewuste vooroordelen bij het lezen te beperken.</p>`,
+      },
+      {
+        heading: "Moet je cv door een ATS geraken? Wat dit in de praktijk betekent",
+        body: `<p>Grote Belgische bedrijven en filialen van internationale groepen gebruiken steeds vaker sollicitatiesoftware (ATS) om cv's te sorteren voor menselijke lezing. KMO's en lokale overheden blijven doorgaans traditioneler, met een rechtstreekse menselijke lezing. In geval van twijfel is het altijd beter een "ATS-vriendelijk" cv te maken — zie onze gids <a href="/nl/careers/ats-vriendelijk-cv-maken">hoe maak je een ATS-vriendelijk cv</a> voor de volledige methode.</p>
+<p>Cvixeo genereert automatisch gestructureerde cv's die ATS-filters doorstaan en toch leesbaar en verzorgd blijven voor een menselijke rekruteerder — een evenwicht dat bijzonder nuttig is op een Belgische markt waar beide selectiemethodes naast elkaar bestaan.</p>`,
+      },
+      {
+        heading: "Je cv aanpassen aan elke sollicitatie",
+        body: `<p>Hetzelfde cv naar elke vacature sturen blijft de meest verspreide en meest kostelijke fout. Een generiek cv verdunt de vaardigheden die de werkgever écht zoekt tussen minder relevante informatie. De juiste aanpak: behoud een volledig "moeder-cv", en haal daar voor elke sollicitatie een compactere, herwerkte versie uit, met het exacte vocabulaire van de vacature.</p>
+<p>Dit aanpassingswerk kost tien tot twintig minuten zodra de basisstructuur staat — en verhoogt je responspercentage aanzienlijk. We bespreken de volledige methode in <a href="/nl/careers/cv-aanpassen-aan-vacature">hoe je je cv aanpast aan een vacature</a>.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Moet een Belgisch cv verplicht op één pagina passen?</strong><br/>Nee. Eén pagina wordt aangeraden voor een junior profiel of met minder dan zeven à acht jaar ervaring; daarboven blijven twee pagina's aanvaardbaar als de inhoud dit rechtvaardigt.</p>
+<p><strong>Moet ik mijn niveau Frans vermelden als ik het niet goed spreek?</strong><br/>Ja, zelfs een eerlijk aangegeven niveau A1 of A2 is beter dan het weglaten, zeker voor functies in Brussel.</p>
+<p><strong>Moet mijn cv anders zijn per Belgische regio?</strong><br/>De basisregels blijven identiek; enkel het relatieve belang van tweetaligheid en professioneel Engels verschilt per regio en sector.</p>`,
+      },
+    ],
+    conclusion: "Een geslaagd professioneel cv in België combineert een duidelijke structuur, een eerlijke en precieze vermelding van je talenkennis, een beheerste lengte, en een systematische aanpassing aan elke vacature. Herbekijk je cv in het licht van deze punten voor je je volgende sollicitatie verstuurt — en raadpleeg onze gidsen over de sollicitatiebrief, <a href=\"/nl/careers/job-vinden-zonder-ervaring\">een job vinden zonder ervaring</a> en het aanpassen van je cv om je sollicitatiedossier te vervolledigen. Maak je professioneel cv met Cvixeo: de structuur, het ATS-formaat en de opmaak worden automatisch verzorgd, jij focust op de inhoud.",
+  },
+
+  {
+    slug: "goede-sollicitatiebrief-schrijven",
+    title: "Hoe Schrijf je een Goede Sollicitatiebrief?",
+    description: "Structuur, toon, lengte: de complete methode om een sollicitatiebrief te schrijven die je cv aanvult en de aandacht van de rekruteerder trekt.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-12",
+    readingTime: 7,
+    tags: ["sollicitatiebrief", "motivatiebrief", "solliciteren België", "werk zoeken", "sollicitatie tips"],
+    intro: "Kort antwoord: een goede sollicitatiebrief past op één pagina, richt zich indien mogelijk tot een genoemde persoon, legt in drie alinea's uit waarom je precies deze functie wil (en niet zomaar een job), en eindigt met een sobere afsluitformule. Ze herhaalt nooit gewoon je cv: ze verklaart en verrijkt het.\n\nDe sollicitatiebrief blijft in België een verwacht onderdeel van veel sollicitaties, vooral bij de overheid, grote traditionele bedrijven en bepaalde gereglementeerde sectoren. Deze gids overloopt de structuur en de meest voorkomende fouten om te vermijden.",
+    sections: [
+      {
+        heading: "De echte rol van een sollicitatiebrief",
+        body: `<p>Een sollicitatiebrief dient niet om je cv te herhalen — een rekruteerder die beide documenten leest, heeft er geen baat bij dezelfde informatie twee keer te zien. De eigen rol van de brief is je motivatie voor deze specifieke functie uit te leggen, je kennis van het bedrijf aan te tonen, en je schriftelijke communicatiestijl te tonen, vaak doorslaggevend voor functies met redactiewerk of klantcontact.</p>`,
+      },
+      {
+        heading: "De structuur in drie alinea's",
+        body: `<p><strong>Eerste alinea — de opener:</strong> vermijd de formule "hierbij solliciteer ik graag voor de functie van...", te generiek om aandacht te trekken. Open liever met iets concreets: een recente verwezenlijking die rechtstreeks verband houdt met de functie, of een precieze observatie over het bedrijf die toont dat je het echt bestudeerd hebt.</p>
+<p><strong>Tweede alinea — de brug tussen je ervaring en de functie:</strong> identificeer de belangrijkste vereiste uit de vacature en toon, aan de hand van een concreet en indien mogelijk becijferd voorbeeld, dat je hieraan kan voldoen.</p>
+<p><strong>Derde alinea — kennis van het bedrijf en vooruitblik:</strong> toon dat je de specifieke uitdagingen van de organisatie begrijpt en leg uit wat je concreet zou kunnen bijdragen.</p>`,
+      },
+      {
+        heading: "Toon en afsluitformule",
+        body: `<p>Richt je zo snel mogelijk tot een genoemde persoon — een korte controle op LinkedIn laat vaak toe de naam van de rekruteerder of verantwoordelijke te achterhalen. Bij gebrek daaraan blijft "Geachte mevrouw, geachte heer," aanvaardbaar. Sluit af met een sobere en professionele afsluitformule, en vermijd te smekende formuleringen.</p>`,
+      },
+      {
+        heading: "Lengte, formaat en fouten om te vermijden",
+        body: `<p>Maximaal één pagina, drie tot vier alinea's. Pas het lettertype en de opmaak aan die van je cv aan voor een coherent geheel. Verstuur als pdf, tenzij anders aangegeven. De meest voorkomende fouten: een brief die niet is aangepast aan de vacature, een pure herschrijving van het cv, loze complimenten zonder inhoud, en natuurlijk spel- en grammaticafouten.</p>
+<p>Cvixeo genereert een basis sollicitatiebrief afgestemd op je cv, die je vervolgens kan personaliseren met de specifieke details van elk bedrijf.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Is een sollicitatiebrief altijd verplicht in België?</strong><br/>Nee, maar ze wordt vaak wel aandachtig gelezen wanneer ze bijgevoegd wordt, zeker bij de overheid en traditionele grote bedrijven.</p>
+<p><strong>Is een generieke brief beter dan helemaal geen brief?</strong><br/>Niet noodzakelijk: een zichtbaar niet-aangepaste brief kan een sterkere indruk van desinteresse geven dan haar afwezigheid.</p>
+<p><strong>Moet ik cijfers vermelden in mijn sollicitatiebrief?</strong><br/>Ja, een becijferd voorbeeld maakt je argumentatie veel geloofwaardiger dan een algemene bewering.</p>`,
+      },
+    ],
+    conclusion: "Een geslaagde sollicitatiebrief compenseert geen zwak cv, maar maakt vaak het verschil tussen twee verder gelijkwaardige kandidaturen. Ze bewijst dat je de tijd genomen hebt om de functie en het bedrijf te begrijpen — een steeds zeldzamere en dus steeds meer opgemerkte inspanning. Combineer ze met een goed gestructureerd cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>, en onze <a href=\"/nl/careers/solliciteren-belgie-tips-kandidatuur\">tips voor een succesvolle kandidatuur</a>. Genereer je sollicitatiebrief met Cvixeo en bespaar kostbare tijd bij elke sollicitatie.",
+  },
+
+  {
+    slug: "ats-vriendelijk-cv-maken",
+    title: "Hoe Maak je een ATS-Vriendelijk Cv?",
+    description: "Opmaak, sleutelwoorden, formaat: hoe je een cv schrijft dat de sollicitatiesoftware (ATS) van Belgische werkgevers succesvol doorstaat.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-14",
+    readingTime: 7,
+    tags: ["ATS-vriendelijk cv", "sollicitatiesoftware", "cv sleutelwoorden", "cv opmaak", "solliciteren"],
+    intro: "Kort antwoord: een ATS-vriendelijk cv gebruikt een opmaak met één kolom, standaard rubriektitels ('Werkervaring', 'Opleiding', 'Vaardigheden'), een pdf-formaat met selecteerbare tekst (nooit een gescande afbeelding), en woordenschat die nauwkeurig aansluit bij de vacaturetekst. Deze software wordt vandaag veel gebruikt bij grote werkgevers en rekruteringsbureaus in België.\n\nSteeds meer Belgische bedrijven, vooral grote structuren en internationale groepen, gebruiken sollicitatiesoftware (ATS, Applicant Tracking System) om cv's automatisch te sorteren voor ze bij een rekruteerder terechtkomen. Een inhoudelijk uitstekend cv kan door deze systemen afgewezen worden als het niet correct gestructureerd is.",
+    sections: [
+      {
+        heading: "Wat is een ATS en waarom is dit belangrijk voor je cv",
+        body: `<p>Een ATS is software die rekruteringsdiensten gebruiken om sollicitaties te centraliseren, er automatisch de belangrijkste informatie uit te halen (naam, contactgegevens, ervaring, opleiding, vaardigheden), en deze te vergelijken met de functievereisten. Sollicitaties die voldoende scoren, gaan door naar een menselijke rekruteerder; de rest blijft vaak onzichtbaar, zonder dat iemand ze ooit gelezen heeft.</p>
+<p>Deze software leest een cv sequentieel, als een doorlopende tekststroom. Een opmaak met meerdere kolommen, tabellen of tekstvakken kan door elkaar gelezen worden, of zelfs volledig genegeerd — een visueel perfect cv kan zo onleesbaar worden voor de machine die het als eerste verwerkt.</p>`,
+      },
+      {
+        heading: "De opmaakregels om te respecteren",
+        body: `<ul>
+<li><strong>Eén kolom:</strong> vermijd cv's met twee kolommen, vaak voorkomend bij grafische sjablonen, die de automatische leesvolgorde verstoren.</li>
+<li><strong>Geen tabellen of tekstvakken:</strong> inhoud in deze elementen gaat vaak verloren bij het extraheren.</li>
+<li><strong>Standaard rubriektitels:</strong> "Werkervaring", "Opleiding", "Vaardigheden" in plaats van creatieve titels die het algoritme niet herkent.</li>
+<li><strong>Contactgegevens in de hoofdtekst</strong>, nooit enkel in de koptekst of voettekst, die vaak genegeerd worden door parsers.</li>
+<li><strong>Een pdf-export met selecteerbare tekst</strong>, nooit een gescande afbeelding of een export vanuit een grafisch ontwerptool die hier niet voor bedoeld is.</li>
+</ul>
+<p>Een eenvoudige test: kopieer je volledige cv naar een tekstverwerker zonder opmaak. Blijft het resultaat leesbaar en logisch geordend, dan is de structuur waarschijnlijk compatibel met de meeste ATS-systemen.</p>`,
+      },
+      {
+        heading: "De juiste sleutelwoorden gebruiken",
+        body: `<p>Een ATS vergelijkt de woordenschat van je cv met die van de vacature. Lees de vacaturetekst aandachtig en noteer de expliciet vermelde vaardigheden, tools en kwalificaties. Als de vacature "projectmanagement volgens Agile" vermeldt en je cv zegt "teams gecoördineerd in sprints", herformuleer dan om de exacte termen van de vacature over te nemen — op voorwaarde natuurlijk dat de ervaring echt overeenkomt.</p>
+<p>Onze gids om <a href="/nl/careers/cv-aanpassen-aan-vacature">je cv aan te passen aan een vacature</a> beschrijft een snelle methode om deze sleutelwoorden systematisch te identificeren.</p>`,
+      },
+      {
+        heading: "Inhoud structureren voor zowel de ATS als de menselijke rekruteerder",
+        body: `<p>Een goed cv moet werken voor zowel de machine als de mens die het daarna leest. Plaats je ervaringen in omgekeerde chronologische volgorde, met precieze data (maand en jaar). Kwantificeer je verwezenlijkingen waar mogelijk: "conversieratio met 22% verhoogd" is zowel leesbaar voor een ATS als overtuigend voor een rekruteerder, in tegenstelling tot een eenvoudige takenlijst.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Gebruiken alle Belgische bedrijven een ATS?</strong><br/>Nee, kmo's en sommige overheidsdiensten werken nog met rechtstreekse menselijke lezing, maar grote bedrijven en veel rekruteringsbureaus gebruiken er wel een.</p>
+<p><strong>Kan een cv met een origineel grafisch design een ATS doorstaan?</strong><br/>Dit hangt sterk af van de gebruikte software. Een sjabloon met meerdere kolommen of complexe grafische elementen brengt een reëel risico op foutieve extractie met zich mee.</p>
+<p><strong>Hoe weet ik zeker of mijn cv ATS-compatibel is?</strong><br/>Kopieer de inhoud naar een eenvoudige teksteditor: blijft het leesbaar en in logische volgorde, dan is de structuur waarschijnlijk correct.</p>`,
+      },
+    ],
+    conclusion: "Een ATS-vriendelijk cv in België steunt op een eenvoudige opmaak, standaard rubriektitels, een pdf-tekstformaat en woordenschat afgestemd op elke vacature. Deze regels staan een aangenaam leesbaar cv niet in de weg — integendeel, ze leveren doorgaans een duidelijker document op, ook voor een menselijke rekruteerder. Maak je cv met Cvixeo: de ATS-compatibele structuur wordt automatisch verzorgd.",
+  },
+
+  {
+    slug: "job-vinden-zonder-ervaring",
+    title: "Hoe Vind je een Job Zonder Ervaring?",
+    description: "Zonder relevante werkervaring een geloofwaardig cv en een overtuigende sollicitatie opbouwen: de concrete stappen voor je eerste job.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-17",
+    readingTime: 7,
+    tags: ["job zonder ervaring", "eerste job", "cv zonder ervaring", "starter", "solliciteren"],
+    intro: "Kort antwoord: zonder relevante werkervaring bouw je een geloofwaardig cv door stages, studentenjobs, schoolprojecten en verenigingswerk te presenteren als volwaardige bewijzen van overdraagbare vaardigheden, terwijl je talenkennis en mobiliteit — twee bijzonder gewaardeerde criteria op de Belgische arbeidsmarkt — sterk in de verf zet.\n\nEen eerste job vinden is een andere oefening dan een klassieke jobzoektocht: het ontbreken van relevante betaalde werkervaring dwingt je om je waarde anders te bewijzen. Deze gids overloopt de concrete stappen.",
+    sections: [
+      {
+        heading: "Een geloofwaardig cv opbouwen zonder klassieke werkervaring",
+        body: `<p>Het ontbreken van voltijdse betaalde werkervaring is geen onoverkomelijk obstakel — maar het vraagt om bewijzen van vaardigheid elders te zoeken: stages, studentenjobs (ook van korte duur), concrete schoolprojecten, vrijwilligerswerk en gestructureerde buitenschoolse activiteiten (evenementen organiseren, verantwoordelijkheden in een studentenvereniging). Elk van deze ervaringen kan met dezelfde grondigheid beschreven worden als een professionele ervaring: context, concrete verantwoordelijkheden, behaald resultaat.</p>
+<p>Een studentenjob in de verkoop toont bijvoorbeeld klantcontact, stressbestendigheid tijdens drukke periodes, en soms kassabeheer of voorraadbeheer — vaardigheden die rechtstreeks overdraagbaar zijn naar veel functies, op voorwaarde dat ze zo geformuleerd worden en niet neutraal opgesomd.</p>`,
+      },
+      {
+        heading: "Opleiding, een troef om volledig uit te spelen",
+        body: `<p>Voor een eerste job neemt de rubriek opleiding een belangrijkere plaats in dan bij een ervaren profiel. Beschrijf in detail de eindwerken, thesissen of praktijkopdrachten die rechtstreeks relevant zijn voor de gezochte functie, evenals de gestudeerde talen en hun niveau volgens het Europees Referentiekader (ERK). Bijkomende certificaten (geavanceerde kantoorsoftware, taalcertificaten, gecertificeerde online cursussen) versterken ook de geloofwaardigheid van een cv dat nog licht is qua werkervaring.</p>`,
+      },
+      {
+        heading: "Tweetaligheid, een beslissend voordeel in België",
+        body: `<p>Voor starters op de Belgische arbeidsmarkt vergroot een functionele kennis van het Frans of Nederlands (afhankelijk van je regio), zelfs op niveau B1, aanzienlijk het aantal toegankelijke kansen — veel werkgevers waarderen dit profiel bijzonder bij jonge kandidaten, net omdat het zeldzamer wordt naarmate een carrière in één taalgebied vordert. Overweeg, indien je nog studeert, een taalimmersie of uitwisseling in de andere taalgemeenschap van het land als een rendabele investering voor de rest van je loopbaan.</p>`,
+      },
+      {
+        heading: "Structureer je sollicitatie strategisch",
+        body: `<p>Combineer een sterk cv met een sollicitatiebrief die je motivatie en potentieel benadrukt eerder dan je gebrek aan ervaring — zie onze gids <a href="/nl/careers/goede-sollicitatiebrief-schrijven">hoe schrijf je een goede sollicitatiebrief</a>. Aarzel niet om je in te schrijven bij VDAB, Actiris of Forem naargelang je regio, die specifieke begeleiding voor starters aanbieden — zie onze gids <a href="/nl/careers/vdab-job-vinden-vlaanderen">VDAB: hoe vind je een job in Vlaanderen</a>.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Telt een studentenjob als echte werkervaring op een cv?</strong><br/>Ja, mits ze beschreven wordt met context, verantwoordelijkheden en resultaat, net als een professionele ervaring.</p>
+<p><strong>Moet ik mijn gebrek aan ervaring vermelden in mijn sollicitatiebrief?</strong><br/>Nee, focus liever op wat je wél kan bijdragen en op je leergierigheid, eerder dan te benadrukken wat ontbreekt.</p>
+<p><strong>Hoeveel sollicitaties zijn er gemiddeld nodig voor een eerste job?</strong><br/>Doorgaans meer dan voor een latere functie, precies omdat het dossier nog lichter is — geduld en volume blijven belangrijk.</p>`,
+      },
+    ],
+    conclusion: "Een job vinden zonder ervaring vraagt om andere hefbomen dan een klassieke jobzoektocht: overdraagbare vaardigheden uit stages en studentenjobs, een sterk uitgewerkte opleidingsrubriek, en talenkennis die systematisch in de verf gezet wordt, ook als ze nog beperkt is. Maak je eerste professioneel cv met Cvixeo — de structuur aangepast aan starterprofielen is standaard voorzien.",
+  },
+
+  {
+    slug: "solliciteren-belgie-tips-kandidatuur",
+    title: "Solliciteren in België: Tips voor een Succesvolle Kandidatuur",
+    description: "Praktische tips om je sollicitatie te structureren, fouten te vermijden en je kandidatuur op te volgen op de Belgische arbeidsmarkt.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-19",
+    readingTime: 6,
+    tags: ["solliciteren België", "kandidatuur tips", "sollicitatie succesvol", "werk zoeken tips", "jobzoektocht"],
+    intro: "Kort antwoord: een succesvolle sollicitatie in België combineert een cv en sollicitatiebrief die specifiek zijn aangepast aan de vacature, een correcte en volledige kandidatuur (alle gevraagde documenten, correct ingediend), een opvolging binnen een redelijke termijn, en een grondige voorbereiding op het sollicitatiegesprek. Elke stap afzonderlijk is eenvoudig — de combinatie ervan maakt het verschil.\n\nEen sollicitatie is meer dan het versturen van een cv: het is een proces met verschillende stappen, elk met hun eigen aandachtspunten. Deze gids overloopt de belangrijkste tips voor een succesvolle kandidatuur in België.",
+    sections: [
+      {
+        heading: "Voor je verstuurt: controleer alles nog eens",
+        body: `<p>Lees je cv en sollicitatiebrief hardop voor — je oor merkt fouten op die je oog mist. Controleer dat je contactgegevens correct en actueel zijn, dat de bestandsnamen professioneel zijn (bijvoorbeeld "Cv_Voornaam_Achternaam.pdf" in plaats van "cv_definitief_v3.pdf"), en dat alle gevraagde bijlagen aanwezig zijn.</p>`,
+      },
+      {
+        heading: "Volg nauwkeurig de instructies van de vacature",
+        body: `<p>Sommige werkgevers vragen expliciet om bepaalde documenten, een specifiek onderwerp in je e-mail, of een sollicitatie via een online platform in plaats van per e-mail. Het niet volgen van deze instructies wordt vaak geïnterpreteerd als een gebrek aan aandacht — een slecht signaal nog voor je kwalificaties beoordeeld worden.</p>`,
+      },
+      {
+        heading: "Volg je sollicitatie professioneel op",
+        body: `<p>Als je binnen twee à drie weken geen antwoord krijgt, is een korte en beleefde opvolgingsmail gepast. Herbevestig kort je interesse en vraag naar de stand van zaken, zonder druk te zetten. Deze opvolging toont engagement zonder opdringerig te zijn, en kan soms een sollicitatie die anders zou blijven liggen weer op de radar brengen.</p>`,
+      },
+      {
+        heading: "Bereid je grondig voor op het sollicitatiegesprek",
+        body: `<p>Onderzoek het bedrijf grondig: zijn activiteiten, recente actualiteit, en de context van de functie. Bereid concrete voorbeelden voor van je verwezenlijkingen, gestructureerd volgens de STAR-methode (Situatie, Taak, Actie, Resultaat). Bereid ook twee of drie vragen voor om aan het einde van het gesprek te stellen — ze tonen je echte betrokkenheid bij de functie.</p>`,
+      },
+      {
+        heading: "Blijf actief solliciteren tijdens een lopend proces",
+        body: `<p>Zelfs na een positief eerste gesprek is het aan te raden je jobzoektocht niet stop te zetten tot je een schriftelijk aanbod hebt ontvangen. Sollicitatieprocessen kunnen langer duren dan verwacht, vooral bij grote structuren of de overheid, zonder dat dit een gebrek aan interesse van de werkgever betekent.</p>
+<p>Maak je professioneel cv met Cvixeo en pas het snel aan voor elke nieuwe vacature die je tegenkomt tijdens je zoektocht.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Hoe lang moet ik wachten voor ik opvolg na een sollicitatie?</strong><br/>Twee tot drie weken is een redelijke termijn, tenzij de vacature een andere timing aangeeft.</p>
+<p><strong>Moet ik blijven solliciteren na een goed eerste gesprek?</strong><br/>Ja, tot je een schriftelijk aanbod hebt, blijft het aangeraden je zoektocht actief voort te zetten.</p>
+<p><strong>Wat als een werkgever een specifiek sollicitatieplatform vraagt?</strong><br/>Volg dit altijd nauwkeurig op — het niet respecteren van deze instructie wordt vaak negatief geïnterpreteerd.</p>`,
+      },
+    ],
+    conclusion: "Een succesvolle sollicitatie in België is het resultaat van zorgvuldigheid in elke fase: een aangepaste kandidatuur, correcte opvolging van instructies, professionele opvolging, en grondige voorbereiding op het gesprek. Combineer deze tips met een sterk cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>. Maak je cv met Cvixeo en verstuur je volgende sollicitatie met vertrouwen.",
+  },
+
+  {
+    slug: "cv-aanpassen-aan-vacature",
+    title: "Cv Aanpassen aan een Vacature: Zo Doe je Dat",
+    description: "Een methode in vijf stappen om je cv aan te passen aan elke vacature en je kansen op een sollicitatiegesprek te vergroten.",
+    category: "CVBelgique",
+    lang: "nl",
+    publishedAt: "2026-08-21",
+    readingTime: 6,
+    tags: ["cv aanpassen", "vacature", "sollicitatie op maat", "cv sleutelwoorden", "werk zoeken"],
+    intro: "Kort antwoord: je cv aanpassen aan een vacature betekent het exacte vocabulaire van de vacaturetekst overnemen, je ervaringen en vaardigheden herordenen volgens hun relevantie voor deze specifieke functie, en je professioneel profiel herschrijven in functie van het bedrijf. Dit werk kost vijftien tot twintig minuten zodra je basis-cv goed gestructureerd is, en verhoogt merkbaar je responspercentage.\n\nHetzelfde cv naar vijftig verschillende vacatures sturen is een strategie die tien jaar geleden misschien nog werkte, toen de concurrentie kleiner was. Vandaag krijgen aantrekkelijke vacatures in België tientallen, soms honderden sollicitaties. Een generiek cv verdrinkt in de massa; een cv dat zichtbaar op maat gemaakt is voor deze functie, valt onmiddellijk op.",
+    sections: [
+      {
+        heading: "Stap 1 — Ontleed de vacature",
+        body: `<p>Lees de vacaturetekst drie keer. De eerste lezing identificeert de doorslaggevende criteria ("vereist", "onmisbaar", "verplicht"). De tweede lezing spoort termen op die meerdere keren terugkomen — vaak een signaal van wat de rekruteerder als centraal beschouwt. De derde lezing zoekt naar de impliciete context: welk probleem probeert dit bedrijf op te lossen door deze functie in te vullen?</p>
+<p>Noteer op een apart blad de technische vaardigheden, software, certificaten en menselijke kwaliteiten die expliciet vermeld worden. Deze lijst wordt je vergelijkingsraster met je eigen cv.</p>`,
+      },
+      {
+        heading: "Stap 2 — Match je ervaring met het vocabulaire van de vacature",
+        body: `<p>Controleer voor elke term uit je lijst of ze al herkenbaar in je cv staat. Als de vacature "projectmanagement in agile methodologie" vermeldt en je cv zegt "coördinatie van teams in sprints", herformuleer dan om de exacte termen van de vacature te gebruiken — op voorwaarde natuurlijk dat de ervaring echt overeenkomt. Verzin nooit een vaardigheid die je niet bezit.</p>`,
+      },
+      {
+        heading: "Stap 3 — Herorden in plaats van volledig herschrijven",
+        body: `<p>Je cv aanpassen betekent niet dat je het bij elke sollicitatie helemaal opnieuw moet schrijven. Het gaat vooral om herordenen: plaats bij elke ervaring de meest relevante verwezenlijkingen voor de gezochte functie vooraan. Een ervaring van vijf jaar kan acht mogelijke verwezenlijkingen bevatten — behoud er slechts drie of vier die rechtstreeks aanspreken bij deze specifieke vacature.</p>`,
+      },
+      {
+        heading: "Stap 4 — Herschrijf je professioneel profiel",
+        body: `<p>Je professioneel profiel (de twee tot vier regels bovenaan je cv) is het element om het meest systematisch te personaliseren. Een generiek profiel zoals "ervaren professional op zoek naar evolutie" zegt niemand iets. Een gericht profiel noemt de gezochte functie of sector, je belangrijkste specialisatie, en een becijferde verwezenlijking die je waarde voor dit type functie illustreert.</p>`,
+      },
+      {
+        heading: "Stap 5 — Controleer voor je verstuurt",
+        body: `<p>Vergelijk je aangepaste cv een laatste keer met de criterialijst uit stap 1. Heeft elk belangrijk criterium uit de vacature een zichtbaar antwoord in je cv? Cvixeo laat toe je cv rechtstreeks te vergelijken met een vacature en ontbrekende sleutelwoorden op te sporen voor je verstuurt — een snelle manier om deze laatste controle te betrouwbaarder te maken.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Hoeveel tijd kost het aanpassen van een cv?</strong><br/>Vijftien tot twintig minuten gemiddeld, zodra je basis-cv goed gestructureerd is.</p>
+<p><strong>Moet ik mijn hele cv herschrijven voor elke sollicitatie?</strong><br/>Nee, herordenen van verwezenlijkingen en het profiel aanpassen volstaat doorgaans, zonder het hele document te herschrijven.</p>
+<p><strong>Is het riskant om te veel sleutelwoorden uit de vacature over te nemen?</strong><br/>Ja, als dit kunstmatig wordt. Het doel is dezelfde woordenschat als de vacature te gebruiken, enkel voor vaardigheden die je écht bezit.</p>`,
+      },
+    ],
+    conclusion: "Je cv aanpassen aan elke vacature is geen optie voorbehouden voor de belangrijkste sollicitaties: het is een discipline om systematisch toe te passen, zodra de functie je echt interesseert. De methode in vijf stappen — vacature ontleden, vocabulaire matchen, verwezenlijkingen herordenen, profiel herschrijven, controleren voor verzending — wordt snel een gewoonte. Pas je cv aan je volgende vacature aan met Cvixeo, in enkele minuten.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIË (NEDERLANDS) — Werk zoeken & organisaties
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "job-vinden-brussel",
+    title: "Hoe Vind je een Job in Brussel?",
+    description: "Actiris, tweetaligheid, sterke sectoren: de complete gids om stap voor stap een job te vinden in Brussel.",
+    category: "EmploiBruxelles",
+    lang: "nl",
+    publishedAt: "2026-08-24",
+    readingTime: 8,
+    featured: true,
+    tags: ["job vinden Brussel", "werk Brussel", "Actiris", "arbeidsmarkt Brussel", "tweetaligheid"],
+    intro: "Kort antwoord: een job vinden in Brussel vraagt om je in te schrijven bij Actiris, het regionale tewerkstellingsbureau, je te richten op de sectoren die er écht sterk staan (Europese en internationale instellingen, overheid, IT, gezondheidszorg, logistiek), je Nederlands-Franse tweetaligheid — ook gedeeltelijk — in de verf te zetten, en je professioneel netwerk actief in te schakelen naast spontane sollicitaties.\n\nBrussel vormt een aparte arbeidsmarkt binnen België: tegelijk hoofdstad, zetel van de Europese instellingen, en een economisch centrum met eigen sectorale dynamieken. Deze dichtheid schept reële kansen, maar ook meer concurrentie dan in andere regio's van het land. Deze gids overloopt de concrete stappen voor een efficiënte jobzoektocht in Brussel.",
+    sections: [
+      {
+        heading: "Inschrijven bij Actiris, de verplichte eerste stap",
+        body: `<p>Elke persoon die in het Brussels Hoofdstedelijk Gewest woont en werk zoekt, heeft er baat bij zich in te schrijven bij <a href="https://www.actiris.brussels/nl/burgers/wie-en-wanneer-inschrijven/" target="_blank" rel="noopener noreferrer">Actiris</a>, het Brusselse gewestelijke tewerkstellingsbureau. De inschrijving geeft toegang tot alle vacatures die het bureau centraliseert, tot persoonlijke begeleiding door een consulent, en is in sommige gevallen een voorwaarde om sociale rechten te behouden. Inschrijven kan online via <a href="https://www.actiris.brussels/nl/burgers/hoe-opnieuw-inschrijven/" target="_blank" rel="noopener noreferrer">My Actiris</a>, of op afspraak in een kantoor. Inschrijven is volledig gratis.</p>`,
+      },
+      {
+        heading: "De sectoren die het meest aanwerven in Brussel",
+        body: `<p>De Brusselse economie onderscheidt zich door de bijzondere plaats van de Europese en internationale instellingen (Europese Commissie, Europees Parlement, NAVO, talrijke ngo's en diplomatieke vertegenwoordigingen), de overheidssector (federaal en gewestelijk), de financiële en consultancysector, en de sectoren gezondheidszorg, logistiek en informatietechnologie, gedragen door de aanwezigheid van veel internationale bedrijfszetels.</p>
+<p>Elke sector heeft zijn eigen wervingskanalen: de Europese instellingen publiceren hun vacatures vooral op eigen carrièreportalen; de overheidssector werkt grotendeels via examens en statutaire selecties; IT en consultancy rekruteren meer via LinkedIn en gespecialiseerde bureaus.</p>`,
+      },
+      {
+        heading: "Tweetaligheid: een reëel concurrentievoordeel, geen mythe",
+        body: `<p>Een aanzienlijk aantal vacatures in Brussel vermeldt expliciet een kennis van het Frans, zelfs voor functies die dit niet formeel vereisen — tweetaligheid wordt gezien als een teken van aanpassingsvermogen aan de Brusselse institutionele context. Een functioneel niveau B1 of B2 Frans, correct aangegeven volgens het Europees Referentiekader (ERK) op je cv, verruimt merkbaar het aantal toegankelijke vacatures.</p>
+<p>Is Frans niet je sterkste kant, verberg dit dan niet: geef eerlijk je niveau aan, hoe bescheiden ook, en focus je zoektocht op de talrijke Brusselse functies die vooral in het Nederlands of Engels functioneren, zeker bij internationale organisaties.</p>`,
+      },
+      {
+        heading: "Een cv en sollicitatie afgestemd op Brussel",
+        body: `<p>Een cv voor de Brusselse markt volgt dezelfde regels als elders in België — zie onze gids om <a href="/nl/careers/professioneel-cv-maken-belgie">een professioneel cv te maken in België</a> — met extra aandacht voor de presentatie van je talenkennis, en voor profielen gericht op internationale instellingen soms een cv beschikbaar in het Engels als aanvulling.</p>`,
+      },
+      {
+        heading: "Netwerken en je zoekkanalen diversifiëren",
+        body: `<p>Naast de vacatures op Actiris of LinkedIn wordt een aanzienlijk deel van de Brusselse jobs ingevuld via netwerk, vooral in de non-profitsector, internationale instellingen en kmo's. Deelnemen aan professionele evenementen, je aansluiten bij sectorale LinkedIn-groepen, en informele gesprekken aanvragen bij mensen die al in de gewenste sector werken, vermenigvuldigt je toegangspunten. Uitzendbureaus en rekruteringsbureaus spelen ook een belangrijke rol op de Brusselse markt.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Moet ik Frans spreken om in Brussel te werken?</strong><br/>Dit is niet altijd een strikte vereiste, maar een functioneel niveau vergroot merkbaar het aantal toegankelijke vacatures.</p>
+<p><strong>Moet ik me verplicht inschrijven bij Actiris om in Brussel te solliciteren?</strong><br/>Inschrijving is geen wettelijke verplichting om te solliciteren, maar geeft wel toegang tot begeleiding en gecentraliseerde vacatures, en kan bepaalde sociale rechten bepalen.</p>
+<p><strong>Rekruteren de Europese instellingen gemakkelijk Belgische profielen?</strong><br/>Ze publiceren hun eigen carrièreportalen met specifieke selectieprocedures, vaak verschillend van klassieke wervingskanalen.</p>`,
+      },
+    ],
+    conclusion: "Een job vinden in Brussel vraagt om meerdere hefbomen te combineren: een actieve inschrijving bij Actiris, een goed begrip van de sectoren die écht aanwerven, een eerlijke en strategische presentatie van je talenkennis, en een zoektocht die zich niet beperkt tot online vacatureplatforms. De regio biedt een dichtheid aan kansen die zeldzaam is in België — op voorwaarde dat je je methode aanpast aan de lokale eigenheden. Maak een professioneel cv aangepast aan de Brusselse markt met Cvixeo, en lees ook onze gids over <a href=\"/nl/careers/vdab-job-vinden-vlaanderen\">VDAB en werk zoeken in Vlaanderen</a>.",
+  },
+
+  {
+    slug: "vdab-job-vinden-vlaanderen",
+    title: "VDAB: Hoe Vind je een Job in Vlaanderen?",
+    description: "Hoe je je inschrijft bij VDAB, welke diensten je kan gebruiken, en hoe je efficiënt een job vindt in Vlaanderen.",
+    category: "OrganismesEmploi",
+    lang: "nl",
+    publishedAt: "2026-08-27",
+    readingTime: 7,
+    tags: ["VDAB", "job Vlaanderen", "werkzoekende Vlaanderen", "inschrijven VDAB", "arbeidsmarkt Vlaanderen"],
+    intro: "Kort antwoord: VDAB is de Vlaamse dienst voor arbeidsbemiddeling en beroepsopleiding. Inschrijven is gratis en gebeurt online via vdab.be of telefonisch via het gratis nummer 0800 30 700. De inschrijving geeft toegang tot gecentraliseerde vacatures, persoonlijke begeleiding, gratis opleidingen, en is in bepaalde gevallen een voorwaarde om een werkloosheidsuitkering te ontvangen.\n\nVDAB is de referentie-instelling voor iedereen die in Vlaanderen woont en werk zoekt. Deze gids legt uit wie zich moet inschrijven, hoe dit concreet in zijn werk gaat, en hoe je de aangeboden diensten optimaal benut.",
+    sections: [
+      {
+        heading: "Wie moet zich inschrijven bij VDAB?",
+        body: `<p>Als je in het Vlaams Gewest woont en werk zoekt, moet je je inschrijven bij <a href="https://www.vdab.be/meer-info-over-inschrijven" target="_blank" rel="noopener noreferrer">VDAB</a> — of je nu net afgestudeerd bent, ontslagen werd, of tussen twee jobs zit. Volgens VDAB is inschrijving ook noodzakelijk om aanspraak te maken op een werkloosheidsuitkering, een activeringsuitkering, of om je inschakelingstijd na afstuderen te laten lopen.</p>`,
+      },
+      {
+        heading: "Hoe schrijf je je in: online of telefonisch",
+        body: `<p>Volgens de officiële informatie van VDAB kan je je online inschrijven via de <a href="https://www.vdab.be/registratie/" target="_blank" rel="noopener noreferrer">registratiepagina van VDAB</a>, met je eID of itsme. Heb je hier hulp bij nodig, dan kan je bellen naar het gratis nummer 0800 30 700, elke werkdag van 8 tot 16.30 uur. Na inschrijving krijg je een persoonlijk VDAB-account waarmee je vacatures kan raadplegen, je cv kan beheren, en je dossier kan opvolgen.</p>`,
+      },
+      {
+        heading: "Wat de inschrijving concreet oplevert",
+        body: `<p>Eens ingeschreven, krijg je toegang tot vacatures verzameld door VDAB, gratis beroepsopleidingen afgestemd op knelpuntberoepen, en persoonlijke begeleiding door een bemiddelaar. VDAB organiseert ook workshops rond cv-opmaak, sollicitatietechnieken en jobzoekmethodes, en biedt specifieke trajecten voor pas afgestudeerden, langdurig werkzoekenden en mensen in beroepsheroriëntering.</p>`,
+      },
+      {
+        heading: "VDAB is niet het enige aanspreekpunt: kies goed volgens je situatie",
+        body: `<p>VDAB is de dienst voor wie in Vlaanderen woont, maar België telt twee andere gewestelijke diensten: <a href="https://www.actiris.brussels/nl/burgers/" target="_blank" rel="noopener noreferrer">Actiris</a> voor Brussel en Le Forem voor Wallonië. Woon je in Brussel maar wil je in Vlaanderen werken, dan blijft je inschrijving bij Actiris je hoofddossier, terwijl je ook de vacatures van VDAB kan raadplegen — zie onze gids om <a href="/nl/careers/job-vinden-brussel">een job te vinden in Brussel</a>.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Is inschrijven bij VDAB gratis?</strong><br/>Ja, inschrijving en begeleiding door VDAB zijn volledig gratis.</p>
+<p><strong>Moet ik me herinschrijven na een tijdelijke job of ontslag?</strong><br/>Ja, in bepaalde situaties is een herinschrijving nodig om je dossier actief te houden — VDAB voorziet hiervoor specifieke informatie op zijn website.</p>
+<p><strong>Kan ik bij VDAB terecht als ik in Brussel woon maar in Vlaanderen wil werken?</strong><br/>Ja, VDAB heeft een specifieke werking voor Brusselaars die in Vlaanderen willen werken, terwijl je hoofdinschrijving bij Actiris blijft.</p>`,
+      },
+    ],
+    conclusion: "VDAB blijft het centrale aanspreekpunt voor elke jobzoektocht in Vlaanderen: gratis inschrijving, gecentraliseerde vacatures, persoonlijke begeleiding en gratis opleidingen. Zodra je ingeschreven bent, structureer je zoektocht actief met onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>. Maak een professioneel cv met Cvixeo om elke kans die je bij VDAB vindt optimaal te benutten.",
+  },
+
+  {
+    slug: "werk-zoeken-belgie-complete-gids",
+    title: "Werk Zoeken in België: Complete Gids",
+    description: "VDAB, Actiris, Forem, uitzendbureaus, online vacatures: de complete gids om je jobzoektocht in België effectief te structureren.",
+    category: "OrganismesEmploi",
+    lang: "nl",
+    publishedAt: "2026-08-30",
+    readingTime: 8,
+    featured: true,
+    tags: ["werk zoeken België", "jobzoektocht", "VDAB Actiris Forem", "vacatures België", "uitzendbureau"],
+    intro: "Kort antwoord: efficiënt werk zoeken in België combineert een inschrijving bij de gewestelijke dienst van je woonplaats (VDAB in Vlaanderen, Actiris in Brussel, Forem in Wallonië), het gebruik van algemene en gespecialiseerde vacatureplatforms, uitzendbureaus als aanvullend kanaal, en een gestructureerde, methodische aanpak eerder dan een groot aantal ongerichte sollicitaties.\n\nBelgië kent drie gewestelijke tewerkstellingsdiensten, elk met hun eigen werking. Deze complete gids overloopt alle beschikbare kanalen en legt uit hoe je ze best combineert voor een efficiënte jobzoektocht.",
+    sections: [
+      {
+        heading: "Stap 1 — Schrijf je in bij de juiste gewestelijke dienst",
+        body: `<p>Je woonplaats bepaalt bij welke dienst je je moet inschrijven: <a href="https://www.vdab.be/registratie/" target="_blank" rel="noopener noreferrer">VDAB</a> als je in Vlaanderen woont, <a href="https://www.actiris.brussels/nl/burgers/wie-en-wanneer-inschrijven/" target="_blank" rel="noopener noreferrer">Actiris</a> als je in Brussel woont, en Le Forem als je in Wallonië woont. Deze inschrijving is gratis, geeft toegang tot persoonlijke begeleiding en gecentraliseerde vacatures, en is in veel gevallen een voorwaarde om een werkloosheidsuitkering te ontvangen — zie onze gids <a href="/nl/careers/vdab-job-vinden-vlaanderen">VDAB: hoe vind je een job in Vlaanderen</a>.</p>`,
+      },
+      {
+        heading: "Stap 2 — Gebruik meerdere vacatureplatforms",
+        body: `<p>Naast de vacatures gecentraliseerd door je gewestelijke dienst, geven algemene platforms zoals LinkedIn en Indeed toegang tot een breed aanbod, terwijl gespecialiseerde jobsites per sector (IT, zorg, techniek, horeca) vaak relevanter zijn voor specifieke profielen. Combineer twee of drie kanalen die passen bij je profiel, eerder dan je te verspreiden over te veel platforms tegelijk.</p>`,
+      },
+      {
+        heading: "Stap 3 — Overweeg uitzendarbeid als versneller",
+        body: `<p>Uitzendbureaus spelen een belangrijke rol op de Belgische arbeidsmarkt, vooral in sectoren met veel personeelsrotatie zoals logistiek, industrie en de bouw. Inschrijven is gratis voor de kandidaat — het bureau factureert steeds de gebruikende onderneming. Een uitzendopdracht kan bovendien uitmonden in een vast contract, en biedt een snelle manier om terug aan de slag te gaan.</p>`,
+      },
+      {
+        heading: "Stap 4 — Vergeet spontane sollicitaties en netwerk niet",
+        body: `<p>Een aanzienlijk deel van de vacatures, vooral bij kmo's, wordt nooit publiek geadverteerd. Een lijst opstellen van doelbedrijven en spontaan solliciteren, indien mogelijk gesteund door een netwerkcontact, blijft een onderbenutte maar vaak succesvolle strategie.</p>`,
+      },
+      {
+        heading: "Stap 5 — Structureer je zoektocht als een project",
+        body: `<p>Kandidaten die hun zoektocht structureren — een lijst van doelbedrijven, opvolging van verstuurde sollicitaties, geplande opvolgmomenten — behalen doorgaans betere resultaten dan wie ongeorganiseerd solliciteert. Focus op kwaliteit boven kwantiteit: tien écht aangepaste sollicitaties zijn meer waard dan vijftig generieke verzendingen — zie onze gids om <a href="/nl/careers/cv-aanpassen-aan-vacature">je cv aan te passen aan een vacature</a>.</p>
+<p>Maak een professioneel cv met Cvixeo en pas het snel aan voor elke vacature die je op deze verschillende kanalen tegenkomt.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Moet ik me inschrijven bij VDAB, Actiris of Forem als ik in een andere regio wil werken?</strong><br/>Je hoofdinschrijving blijft bij de dienst van je woonplaats, maar niets belet je de vacatures van een andere gewestelijke dienst te raadplegen.</p>
+<p><strong>Is uitzendarbeid een goede manier om snel werk te vinden?</strong><br/>Ja, uitzendbureaus kunnen relatief snel een opdracht aanbieden, en een deel van de opdrachten leidt tot een vast contract.</p>
+<p><strong>Hoeveel sollicitaties per week zijn aan te raden?</strong><br/>Tien tot vijftien écht gerichte sollicitaties zijn doeltreffender dan een veel groter aantal generieke verzendingen.</p>`,
+      },
+    ],
+    conclusion: "Werk zoeken in België vraagt om verschillende kanalen te combineren: inschrijving bij de juiste gewestelijke dienst, gebruik van algemene en gespecialiseerde vacatureplatforms, uitzendarbeid als versneller, en spontane sollicitaties om de verborgen arbeidsmarkt te bereiken. Een gestructureerde aanpak maakt uiteindelijk het verschil. Maak je professioneel cv met Cvixeo en lees ook onze gidsen over <a href=\"/nl/careers/job-vinden-brussel\">werk zoeken in Brussel</a>, <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv maken</a> en <a href=\"/nl/careers/werkloosheid-belgie-cijfers-regels\">werkloosheid in België</a>.",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELGIË (NEDERLANDS) — Werkloosheid (referentieartikel)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    slug: "werkloosheid-belgie-cijfers-regels",
+    title: "Werkloosheid in België: Cijfers, Regels en Nuttige Informatie",
+    description: "Werkloosheidsgraad, aantal uitkeringsgerechtigden, hervorming van de werkloosheidsverzekering: de officiële cijfers van Statbel en de RVA, uitgelegd en bijgewerkt.",
+    category: "ChomageBelgique",
+    lang: "nl",
+    publishedAt: "2026-09-16",
+    updatedAt: "2026-09-18",
+    readingTime: 12,
+    featured: true,
+    tags: ["werkloosheid België 2026", "werkloosheidsgraad", "RVA", "Statbel", "hervorming werkloosheid 2026", "werkloosheidsuitkering"],
+    intro: "Kort antwoord: in het tweede kwartaal van 2026 bedraagt de werkloosheidsgraad volgens de definitie van het Internationaal Arbeidsbureau (IAB/BIT) 6,1% van de actieve bevolking in België, volgens Statbel (cijfers gepubliceerd op 9 september 2026) — 4,0% in Vlaanderen, 8,0% in Wallonië en 12,7% in Brussel. Dit cijfer mag niet verward worden met het aantal effectief uitkeringsgerechtigde werklozen bij de RVA: 211.973 volledig uitkeringsgerechtigde werkzoekenden in mei 2026, een daling van 25% op jaarbasis, vooral als gevolg van de hervorming van de werkloosheidsverzekering die op 1 maart 2026 in werking trad en die de duur van uitkeringen voortaan beperkt in de tijd.\n\nDit artikel wordt als referentieartikel behandeld: het bevat uitsluitend gegevens uit officiële bronnen (Statbel, RVA), telkens met de exacte datum van elk cijfer. Het wordt bijgewerkt naarmate nieuwe officiële cijfers verschijnen. Laatst bijgewerkt: 18 september 2026.",
+    sections: [
+      {
+        heading: "De werkloosheidsgraad in België (Statbel, 2e kwartaal 2026)",
+        body: `<p>Volgens <a href="https://statbel.fgov.be/nl/themas/werk-opleiding/arbeidsmarkt/werkgelegenheid-en-werkloosheid" target="_blank" rel="noopener noreferrer">Statbel</a>, het Belgisch statistiekbureau, bedroeg de werkloosheidsgraad volgens de definitie van het Internationaal Arbeidsbureau (IAB) <strong>6,1%</strong> van de actieve bevolking in België in het tweede kwartaal van 2026 (cijfers gepubliceerd op 9 september 2026). Regionaal verdeeld:</p>
+<ul>
+<li><strong>Vlaanderen:</strong> 4,0%</li>
+<li><strong>Wallonië:</strong> 8,0%</li>
+<li><strong>Brussels Hoofdstedelijk Gewest:</strong> 12,7%</li>
+</ul>
+<p>In diezelfde periode bedroeg de werkzaamheidsgraad (20-64 jaar) 72,8% op nationaal niveau, voor ongeveer 4,943 miljoen werkende personen (20-64 jaar) en ongeveer 332.000 werklozen volgens de IAB-definitie (15 jaar en ouder). De IAB-werkloosheidsgraad wordt berekend op basis van de Enquête naar de Arbeidskrachten (EAK), een continue steekproefenquête bij huishoudens volgens een op Europees niveau geharmoniseerde methodologie — wat dit cijfer internationaal vergelijkbaar maakt.</p>`,
+      },
+      {
+        heading: "Het aantal uitkeringsgerechtigde werklozen volgens de RVA (mei 2026)",
+        body: `<p>Een ander cijfer, vaak verward met het vorige, wordt maandelijks gepubliceerd door de <a href="https://www.rva.be/" target="_blank" rel="noopener noreferrer">RVA</a> (Rijksdienst voor Arbeidsvoorziening): het aantal <strong>volledig uitkeringsgerechtigde werkzoekenden</strong>, met andere woorden mensen die effectief een werkloosheidsuitkering ontvangen én als werkzoekende ingeschreven zijn. In mei 2026 bedroeg dit aantal <strong>211.973</strong> personen, een daling van 70.814 eenheden (-25,0%) tegenover mei 2025.</p>
+<p>De regionale verdeling van dit aantal in mei 2026:</p>
+<ul>
+<li><strong>Vlaanderen:</strong> 97.281 personen (-4,7% op jaarbasis)</li>
+<li><strong>Wallonië:</strong> 79.243 personen (-33,6% op jaarbasis)</li>
+<li><strong>Brussel:</strong> 35.449 personen (-42,3% op jaarbasis)</li>
+</ul>
+<p>Daarnaast telde men 7.519 volledig uitkeringsgerechtigde niet-werkzoekenden (personen vrijgesteld van actief zoeken, bijvoorbeeld omwille van leeftijd of specifieke situatie). Wat de duur van de werkloosheid betreft, was in mei 2026 54,1% van de uitkeringsgerechtigde werkzoekenden minder dan één jaar werkloos, 20,2% tussen één en twee jaar, en 25,7% al twee jaar of langer.</p>`,
+      },
+      {
+        heading: "IAB-werkloosheidsgraad of uitkeringsgerechtigde werklozen: niet verwarren",
+        body: `<p>Deze twee indicatoren meten verschillende zaken, en ze door elkaar gebruiken leidt tot verkeerde conclusies:</p>
+<ul>
+<li>De <strong>IAB-werkloosheidsgraad van Statbel</strong> is een statistische schatting, gebaseerd op een representatieve enquête, die elke persoon telt die zonder werk is, beschikbaar is voor de arbeidsmarkt en actief werk zoekt volgens de internationale criteria van het Internationaal Arbeidsbureau — ongeacht of deze persoon een uitkering ontvangt of ingeschreven is bij een gewestelijke tewerkstellingsdienst.</li>
+<li>Het <strong>aantal uitkeringsgerechtigden van de RVA</strong> is een administratieve telling van de personen die op een gegeven moment effectief een werkloosheidsuitkering ontvangen. Dit sluit personen uit die niet voldoen aan de voorwaarden om een uitkeringsrecht te openen, hun rechten al hebben uitgeput, of nooit ingeschreven waren — en omvat omgekeerd personen die de EAK-enquête anders zou classificeren.</li>
+</ul>
+<p>Een derde maatstaf bestaat bovendien, specifiek voor het Brussels Gewest: <a href="https://www.actiris.brussels/nl/burgers/" target="_blank" rel="noopener noreferrer">Actiris</a> publiceert zijn eigen administratieve werkloosheidsgraad, berekend als de verhouding tussen het aantal ingeschreven werkzoekenden en de actieve bevolking van 15 tot 64 jaar. Dit cijfer lag eind december 2025 op 15,4% in Brussel (96.650 ingeschreven werkzoekenden, een stijging van 4,4% op jaarbasis) — merkbaar hoger dan de IAB-werkloosheidsgraad van Statbel voor dezelfde regio, precies omdat de methodologie en de referentiepopulatie verschillen. Geen van deze drie cijfers is "fout": ze beantwoorden elk een andere vraag, en het blijft essentieel om steeds de bron en de gebruikte definitie te vermelden voor je twee cijfers met elkaar vergelijkt.</p>`,
+      },
+      {
+        heading: "De hervorming van de werkloosheidsverzekering sinds maart 2026",
+        body: `<p>De opvallende daling van het aantal uitkeringsgerechtigde werklozen in 2026 wordt grotendeels verklaard door de <a href="https://www.rva.be/burgers/volledige-werkloosheid" target="_blank" rel="noopener noreferrer">hervorming van de werkloosheidsreglementering</a>, die volgens de RVA op <strong>1 maart 2026</strong> in werking trad. Deze hervorming voert een beperking in de tijd in van het recht op uitkeringen:</p>
+<ul>
+<li>Het recht op <strong>volledige werkloosheidsuitkeringen</strong> is voortaan beperkt tot maximaal 24 maanden: een basisperiode van 12 maanden, waaraan tot 12 bijkomende maanden kunnen toegevoegd worden op basis van het beroepsverleden van de uitkeringsgerechtigde.</li>
+<li>Het recht op de <strong>inschakelingsuitkering</strong> (voor onder meer jongeren die hun studies beëindigen) is beperkt tot maximaal één jaar.</li>
+</ul>
+<p>Personen die al voor 1 maart 2026 een uitkering ontvingen, vallen niet onmiddellijk onder de nieuwe regels: de RVA voorziet een gefaseerde overgang volgens de anciënniteit in de werkloosheid en de categorie van de uitkering. Bepaalde categorieën blijven expliciet vrijgesteld van deze tijdsbeperking, waaronder inkomensgarantie-uitkeringen, bepaalde kunstenaars, erkende haven- en visserijarbeiders, personen in het stelsel van werkloosheid met bedrijfstoeslag (SWT), personen van 55 jaar en ouder met een loopbaan van 30 jaar of meer, en werknemers van beschutte werkplaatsen.</p>`,
+      },
+      {
+        heading: "Wat te doen als je uitkering afloopt?",
+        body: `<p>Ben je betrokken bij een einde van je uitkeringsrecht, dan zijn verschillende stappen aan te raden zonder te wachten op de vervaldatum:</p>
+<ul>
+<li><strong>Controleer je exacte situatie</strong> bij je uitbetalingsinstelling (vakbond of HVW) of rechtstreeks bij de RVA, die elke betrokken persoon individueel op de hoogte brengt van een einde van rechten.</li>
+<li><strong>Intensifieer je jobzoektocht</strong> via de gewestelijke dienst waarvan je afhangt — <a href="/nl/careers/vdab-job-vinden-vlaanderen">VDAB in Vlaanderen</a>, Actiris in Brussel of Le Forem in Wallonië — die versterkte begeleiding aanbieden voor personen met een aflopend recht.</li>
+<li><strong>Contacteer het OCMW van je gemeente</strong> als je middelen ontoereikend worden na het einde van je uitkering: het recht op maatschappelijke integratie kan een vangnet vormen tijdens je jobzoektocht.</li>
+<li><strong>Structureer je sollicitatie actief</strong>: een bijgewerkt, aan elke vacature aangepast cv blijft de meest directe hefboom om je zoektocht te verkorten — zie onze gids om <a href="/nl/careers/professioneel-cv-maken-belgie">een professioneel cv te maken in België</a>.</li>
+</ul>`,
+      },
+      {
+        heading: "Instanties waar je terechtkan",
+        body: `<p>Verschillende overheidsinstanties begeleiden werkzoekenden of personen met een aflopend uitkeringsrecht in België: de <a href="https://www.rva.be/" target="_blank" rel="noopener noreferrer">RVA</a> voor alles wat werkloosheidsuitkeringen betreft; <a href="https://www.vdab.be/" target="_blank" rel="noopener noreferrer">VDAB</a>, <a href="https://www.actiris.brussels/nl/burgers/" target="_blank" rel="noopener noreferrer">Actiris</a> of Le Forem naargelang je regio voor begeleiding bij je jobzoektocht en beschikbare vacatures; de <a href="https://werk.belgie.be" target="_blank" rel="noopener noreferrer">FOD Werkgelegenheid, Arbeid en Sociaal Overleg</a> voor vragen over arbeidsrecht; en het lokale OCMW voor situaties van financiële kwetsbaarheid.</p>`,
+      },
+      {
+        heading: "Veelgestelde vragen (FAQ)",
+        body: `<p><strong>Wat is het verschil tussen de IAB-werkloosheidsgraad en het aantal uitkeringsgerechtigden?</strong><br/>De IAB-graad van Statbel (6,1% in het 2e kwartaal 2026) is een statistische schatting van elke persoon zonder werk volgens internationale criteria; het aantal van de RVA (211.973 in mei 2026) is een administratieve telling van personen die effectief een uitkering ontvangen.</p>
+<p><strong>Wie wordt getroffen door de hervorming van maart 2026?</strong><br/>Elke persoon die een volledige werkloosheidsuitkering of een inschakelingsuitkering ontvangt, met overgangsmaatregelen gespreid volgens anciënniteit en categorie, en met verschillende voorziene vrijstellingen (55 jaar en ouder met 30 jaar loopbaan, SWT, onder meer).</p>
+<p><strong>Waar vind ik de officiële en actuele cijfers over werkloosheid in België?</strong><br/>Op de statistiekpagina's van <a href="https://statbel.fgov.be/nl/themas/werk-opleiding/arbeidsmarkt/werkgelegenheid-en-werkloosheid" target="_blank" rel="noopener noreferrer">Statbel</a> (per kwartaal) en van de <a href="https://www.rva.be/" target="_blank" rel="noopener noreferrer">RVA</a> (maandelijks).</p>
+<p><strong>Wat als mijn werkloosheidsuitkering afloopt?</strong><br/>Controleer je situatie bij je uitbetalingsinstelling, intensifieer je jobzoektocht via je gewestelijke dienst, en contacteer het OCMW van je gemeente als je middelen ontoereikend worden.</p>`,
+      },
+    ],
+    conclusion: "Werkloosheid in België wordt gemeten via meerdere aanvullende indicatoren, die nooit onderling verwisselbaar zijn: de IAB-werkloosheidsgraad van Statbel (6,1% in het tweede kwartaal van 2026), het aantal uitkeringsgerechtigde werklozen van de RVA (211.973 in mei 2026, sterk dalend), en gewestelijke indicatoren zoals de administratieve graad van Actiris in Brussel. De hervorming van de werkloosheidsverzekering die op 1 maart 2026 in werking trad, verklaart een groot deel van de recente evolutie van deze cijfers, met overgangsmaatregelen die de komende maanden nog effect zullen hebben. Dit artikel wordt bijgewerkt naarmate Statbel en de RVA nieuwe gegevens publiceren. Is je professionele situatie betrokken bij deze evoluties, dan blijft een actieve jobzoektocht met een sterk sollicitatiedossier je beste voorbereiding: maak je professioneel cv met Cvixeo en bekijk onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>.",
   },
 
 ];

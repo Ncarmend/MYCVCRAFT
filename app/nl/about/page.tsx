@@ -4,11 +4,11 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { AboutClient } from "../../about/AboutClient";
 
 export const metadata: Metadata = {
-  title: "À propos de Cvixeo — Notre mission, vision et valeurs",
+  title: "Over Cvixeo — Onze missie, visie & waarden",
   description:
-    "La mission de Cvixeo est d'aider chaque candidat à décrocher plus d'entretiens grâce à l'IA. Découvrez notre vision produit, nos valeurs fondamentales et l'équipe derrière la plateforme.",
+    "Cvixeo's missie is om elke werkzoekende te helpen meer sollicitatiegesprekken te krijgen dankzij AI. Ontdek onze productvisie, kernwaarden en het team achter het platform.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/about",
+    canonical: "https://cvixeo.com/nl/about",
     languages: {
       en: "https://cvixeo.com/about",
       fr: "https://cvixeo.com/fr/about",
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "À propos de Cvixeo",
-    description: "La mission de Cvixeo est d'aider chaque candidat à décrocher plus d'entretiens grâce à l'IA.",
-    url: "https://cvixeo.com/fr/about",
-    locale: "fr_FR",
+    title: "Over Cvixeo",
+    description: "Cvixeo's missie is om elke werkzoekende te helpen meer sollicitatiegesprekken te krijgen dankzij AI.",
+    url: "https://cvixeo.com/nl/about",
+    locale: "nl_BE",
   },
 };
 
-export default function AboutPageFr() {
+export default function AboutPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

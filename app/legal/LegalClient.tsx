@@ -28,10 +28,10 @@ export function LegalClient() {
             {lang === "fr" ? "Retour à l'accueil" : "Back to home"}
           </Link>
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            {lang === "fr" ? "Mentions légales" : "Legal Notice"}
+            {lang === "fr" ? "Mentions légales" : lang === "nl" ? "Wettelijke vermeldingen" : "Legal Notice"}
           </h1>
           <p className="mt-1 text-xs text-slate-400">
-            {lang === "fr" ? "Mentions légales — Dernière mise à jour : juillet 2026" : "Mentions légales — Last updated: July 2026"}
+            {lang === "fr" ? "Mentions légales — Dernière mise à jour : juillet 2026" : lang === "nl" ? "Wettelijke vermeldingen — Laatst bijgewerkt: juli 2026" : "Mentions légales — Last updated: July 2026"}
           </p>
         </div>
       </div>
@@ -39,7 +39,7 @@ export function LegalClient() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-10">
         <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          {lang === "fr" ? <LegalFR /> : <LegalEN />}
+          {lang === "fr" ? <LegalFR /> : lang === "nl" ? <LegalNL /> : <LegalEN />}
         </div>
       </div>
     </>
@@ -187,6 +187,80 @@ function LegalFR() {
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
             <p>E-mail : <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
             <p className="mt-1">Formulaire de contact : <Link href="/fr/contact" className="text-green-700 underline">cvixeo.com/fr/contact</Link></p>
+          </div>
+        </Section>
+      </div>
+    </>
+  );
+}
+
+function LegalNL() {
+  return (
+    <>
+      <div className="mb-8 text-xs leading-relaxed text-slate-500">
+        Overeenkomstig de artikelen 6 en 19 van de Franse wet nr. 2004-575 van 21 juni 2004 betreffende het vertrouwen in de digitale economie (Loi pour la Confiance dans l'Économie Numérique — LCEN), wordt de volgende informatie ter beschikking gesteld van de gebruikers van de website <strong>cvixeo.com</strong>.
+      </div>
+
+      <div className="space-y-8">
+        <Section id="publisher" title="1. Uitgever van de website">
+          <div className="rounded-lg bg-slate-50 px-4 py-4 text-sm ring-1 ring-slate-100">
+            <p><strong>Website:</strong> cvixeo.com</p>
+            <p className="mt-1"><strong>Uitgever:</strong> Cvixeo</p>
+            <p className="mt-1"><strong>E-mail:</strong> <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+            <p className="mt-1"><strong>Publicatieverantwoordelijke:</strong> De directie van Cvixeo</p>
+          </div>
+          <p>Cvixeo is een online dienst. Voor formele juridische communicatie gebruik je het hierboven vermelde e-mailadres.</p>
+        </Section>
+
+        <Section id="hosting" title="2. Hosting">
+          <p>De website cvixeo.com wordt gehost door:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-4 text-sm ring-1 ring-slate-100">
+            <p><strong>Vercel Inc.</strong></p>
+            <p>340 Pine Street, Suite 900</p>
+            <p>San Francisco, CA 94104</p>
+            <p>Verenigde Staten</p>
+            <p className="mt-1"><a href="https://vercel.com" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+          </div>
+          <p>Database- en authenticatiediensten worden geleverd door Supabase (Supabase Inc.), dat draait op AWS-infrastructuur met Europese datacenteropties.</p>
+        </Section>
+
+        <Section id="intellectual-property" title="3. Intellectuele eigendom">
+          <p>De volledige inhoud van de website cvixeo.com — met inbegrip van, maar niet beperkt tot, teksten, afbeeldingen, grafische elementen, logo's, iconen, software, sjablonen, AI-modellen en het algemene interfaceontwerp — is de exclusieve eigendom van Cvixeo of haar licentiegevers en wordt beschermd door het Franse en internationale intellectuele-eigendomsrecht.</p>
+          <p>Elke reproductie, weergave, wijziging, verspreiding of gebruik van enig onderdeel van de website, geheel of gedeeltelijk, zonder de voorafgaande schriftelijke toestemming van Cvixeo, is strikt verboden en vormt een inbreuk die strafbaar is onder de artikelen L.335-2 en volgende van het Franse Wetboek van Intellectuele Eigendom.</p>
+          <p>De naam en het logo Cvixeo zijn merken. Ongeoorloofd gebruik is strikt verboden.</p>
+          <p><strong>Uitzondering:</strong> Inhoud die gebruikers aanmaken met de tools van Cvixeo (cv-tekst, sollicitatiebrieven, enz.) blijft de exclusieve intellectuele eigendom van de gebruiker die ze heeft aangemaakt. Cvixeo maakt geen aanspraak op door gebruikers gegenereerde inhoud.</p>
+        </Section>
+
+        <Section id="personal-data" title="4. Persoonsgegevens en AVG">
+          <p>Cvixeo verwerkt de persoonsgegevens van zijn gebruikers in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG — Verordening (EU) 2016/679) en de Franse wet Informatique et Libertés.</p>
+          <p>Voor volledige details over hoe we je persoonsgegevens verzamelen, gebruiken, bewaren en beschermen, en om je rechten als betrokkene te begrijpen, raadpleeg ons <Link href="/nl/privacy" className="text-green-700 underline">Privacybeleid</Link>.</p>
+          <p>Om je rechten uit te oefenen of voor vragen over gegevensbescherming, contacteer: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+        </Section>
+
+        <Section id="cookies" title="5. Cookies">
+          <p>De website cvixeo.com gebruikt strikt noodzakelijke cookies voor authenticatie en gebruikersvoorkeuren. We gebruiken geen advertentie- of trackingcookies. Voor volledige details, zie ons <Link href="/nl/cookies" className="text-green-700 underline">Cookiebeleid</Link>.</p>
+        </Section>
+
+        <Section id="limitation" title="6. Beperking van aansprakelijkheid">
+          <p>Cvixeo doet er alles aan om ervoor te zorgen dat de informatie op cvixeo.com correct en actueel is. Cvixeo kan echter de juistheid, volledigheid of actualiteit van de op de website gepubliceerde informatie niet garanderen en wijst elke aansprakelijkheid af voor eventuele fouten of weglatingen.</p>
+          <p>Cvixeo behoudt zich het recht voor om de inhoud van de website op elk moment en zonder voorafgaande kennisgeving te wijzigen, bij te werken of te verwijderen.</p>
+          <p>Cvixeo is niet aansprakelijk voor enige directe of indirecte schade die voortvloeit uit de toegang tot of het gebruik van de website, met inbegrip van gegevensverlies, technische onderbreking of een veiligheidslek dat buiten haar redelijke controle valt.</p>
+        </Section>
+
+        <Section id="hyperlinks" title="7. Hyperlinks">
+          <p>De website cvixeo.com kan links bevatten naar websites van derden. Deze links worden uitsluitend ter informatie aangeboden. Cvixeo heeft geen controle over de inhoud van websites van derden en aanvaardt hiervoor geen aansprakelijkheid.</p>
+          <p>Het aanmaken van hyperlinks naar cvixeo.com vereist de voorafgaande schriftelijke toestemming van Cvixeo.</p>
+        </Section>
+
+        <Section id="applicable-law" title="8. Toepasselijk recht en bevoegdheid">
+          <p>Deze wettelijke vermeldingen worden beheerst door het Franse recht. Elk geschil met betrekking tot de interpretatie of toepassing ervan valt onder de exclusieve bevoegdheid van de bevoegde Franse rechtbanken, onder voorbehoud van de dwingende consumentenbeschermingsbepalingen van de EU.</p>
+        </Section>
+
+        <Section id="contact-legal" title="9. Contact">
+          <p>Voor juridische vragen met betrekking tot de website cvixeo.com:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
+            <p>E-mail: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+            <p className="mt-1">Contactformulier: <Link href="/nl/contact" className="text-green-700 underline">cvixeo.com/nl/contact</Link></p>
           </div>
         </Section>
       </div>

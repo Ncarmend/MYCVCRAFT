@@ -3,8 +3,10 @@ import { Clock, Calendar } from "lucide-react";
 import { Article, categoryStyle } from "@/lib/articles";
 import { translations } from "@/lib/translations";
 
-function formatDate(iso: string, isFr: boolean) {
-  return new Date(iso).toLocaleDateString(isFr ? "fr-BE" : "en-US", {
+const DATE_LOCALE: Record<"en" | "fr" | "nl", string> = { en: "en-US", fr: "fr-BE", nl: "nl-BE" };
+
+function formatDate(iso: string, locale: "en" | "fr" | "nl") {
+  return new Date(iso).toLocaleDateString(DATE_LOCALE[locale], {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -13,12 +15,12 @@ function formatDate(iso: string, isFr: boolean) {
 
 export function ArticleCard({ article }: { article: Article }) {
   const style = categoryStyle[article.category];
-  const isFr = article.lang === "fr";
-  const T = translations[isFr ? "fr" : "en"].careers;
+  const locale = article.lang ?? "en";
+  const T = translations[locale].careers;
 
   return (
     <Link
-      href={article.lang === "fr" ? `/fr/careers/${article.slug}` : `/careers/${article.slug}`}
+      href={locale === "en" ? `/careers/${article.slug}` : `/${locale}/careers/${article.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
     >
       {/* Gradient cover */}
@@ -47,7 +49,7 @@ export function ArticleCard({ article }: { article: Article }) {
         <div className="flex items-center gap-3 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            {formatDate(article.publishedAt, isFr)}
+            {formatDate(article.publishedAt, locale)}
           </span>
           <span className="flex items-center gap-1">
             <Clock className="h-3 w-3" />

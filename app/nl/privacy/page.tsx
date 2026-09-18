@@ -4,10 +4,10 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { PrivacyClient } from "../../privacy/PrivacyClient";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Cvixeo",
-  description: "Comment Cvixeo collecte, utilise et protège vos données personnelles. Politique de confidentialité conforme au RGPD pour les utilisateurs européens.",
+  title: "Privacybeleid — Cvixeo",
+  description: "Hoe Cvixeo je persoonsgegevens verzamelt, gebruikt en beschermt. AVG-conform privacybeleid voor Europese gebruikers.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/privacy",
+    canonical: "https://cvixeo.com/nl/privacy",
     languages: {
       en: "https://cvixeo.com/privacy",
       fr: "https://cvixeo.com/fr/privacy",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Politique de confidentialité — Cvixeo",
-    description: "Comment Cvixeo collecte, utilise et protège vos données personnelles.",
-    url: "https://cvixeo.com/fr/privacy",
-    locale: "fr_FR",
+    title: "Privacybeleid — Cvixeo",
+    description: "Hoe Cvixeo je persoonsgegevens verzamelt, gebruikt en beschermt.",
+    url: "https://cvixeo.com/nl/privacy",
+    locale: "nl_BE",
   },
 };
 
-export default function PrivacyPageFr() {
+export default function PrivacyPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

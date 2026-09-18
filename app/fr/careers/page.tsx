@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     languages: {
       en: "https://cvixeo.com/careers",
       fr: "https://cvixeo.com/fr/careers",
+      nl: "https://cvixeo.com/nl/careers",
       "x-default": "https://cvixeo.com/careers",
     },
   },

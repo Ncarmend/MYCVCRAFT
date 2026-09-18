@@ -15,7 +15,8 @@ export async function proxy(request: NextRequest) {
   // <html lang> correctly. Read-only signal — never redirects or rewrites.
   const { pathname } = request.nextUrl;
   const isFrench = pathname === "/fr" || pathname.startsWith("/fr/");
-  request.headers.set("x-locale", isFrench ? "fr" : "en");
+  const isDutch = pathname === "/nl" || pathname.startsWith("/nl/");
+  request.headers.set("x-locale", isFrench ? "fr" : isDutch ? "nl" : "en");
 
   let supabaseResponse = NextResponse.next({ request });
 

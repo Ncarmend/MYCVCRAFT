@@ -16,7 +16,8 @@ export function CareersClient() {
     () => articles.filter((a) => (a.lang ?? "en") === lang),
     [lang]
   );
-  const visibleCategories = lang === "fr" ? [...CATEGORIES_BE, ...CATEGORIES_FRANCE] : CATEGORIES;
+  const visibleCategories =
+    lang === "fr" ? [...CATEGORIES_BE, ...CATEGORIES_FRANCE] : lang === "nl" ? CATEGORIES_BE : CATEGORIES;
 
   const featured = useMemo(() => localeArticles.filter((a) => a.featured), [localeArticles]);
 

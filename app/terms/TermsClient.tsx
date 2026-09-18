@@ -28,10 +28,10 @@ export function TermsClient() {
             {lang === "fr" ? "Retour à l'accueil" : "Back to home"}
           </Link>
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            {lang === "fr" ? "Conditions d'utilisation" : "Terms of Use"}
+            {lang === "fr" ? "Conditions d'utilisation" : lang === "nl" ? "Gebruiksvoorwaarden" : "Terms of Use"}
           </h1>
           <p className="mt-2 text-xs text-slate-400">
-            {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
+            {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: juli 2026 · Van toepassing op cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
           </p>
         </div>
       </div>
@@ -39,7 +39,7 @@ export function TermsClient() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-10">
         <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          {lang === "fr" ? <TermsFR /> : <TermsEN />}
+          {lang === "fr" ? <TermsFR /> : lang === "nl" ? <TermsNL /> : <TermsEN />}
         </div>
       </div>
     </>
@@ -311,6 +311,142 @@ function TermsFR() {
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
             <p>E-mail : <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
             <p className="mt-1">Formulaire de contact : <Link href="/fr/contact" className="text-green-700 underline">cvixeo.com/fr/contact</Link></p>
+          </div>
+        </Section>
+      </div>
+    </>
+  );
+}
+
+function TermsNL() {
+  return (
+    <>
+      <div className="mb-8 rounded-xl bg-amber-50 px-5 py-4 text-xs leading-relaxed text-amber-800 ring-1 ring-amber-100">
+        Lees deze Gebruiksvoorwaarden zorgvuldig door voordat je <strong>cvixeo.com</strong> en de bijbehorende diensten van <strong>Cvixeo</strong> ("wij", "ons", "onze") gebruikt. Door de Dienst te openen of te gebruiken, ga je akkoord met deze Voorwaarden. Als je niet akkoord gaat, gebruik de Dienst dan niet.
+      </div>
+
+      <div className="space-y-8">
+        <Section id="definitions" title="1. Definities">
+          <p><strong>"Dienst"</strong> betekent de Cvixeo-website op cvixeo.com, inclusief alle functies, tools, sjablonen en AI-gestuurde functionaliteiten die daarop toegankelijk zijn.</p>
+          <p><strong>"Gebruiker"</strong> of <strong>"je"</strong> betekent elke persoon die de Dienst opent of gebruikt.</p>
+          <p><strong>"Inhoud"</strong> betekent alle informatie, tekst, gegevens of bestanden die je via de Dienst indient, uploadt of creëert.</p>
+          <p><strong>"Abonnement"</strong> betekent een betaald maandelijks of jaarlijks plan dat toegang geeft tot premiumfuncties.</p>
+        </Section>
+
+        <Section id="acceptance" title="2. Aanvaarding van de Voorwaarden">
+          <p>Door een account aan te maken of de Dienst te gebruiken, bevestig je dat:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Je minstens 16 jaar oud bent, of de toestemming hebt van een ouder of wettelijke voogd.</li>
+            <li>Je deze Voorwaarden en ons <Link href="/nl/privacy" className="text-green-700 underline">Privacybeleid</Link> hebt gelezen, begrepen en aanvaardt.</li>
+            <li>Als je de Dienst namens een organisatie gebruikt, je de bevoegdheid hebt om die organisatie aan deze Voorwaarden te binden.</li>
+          </ul>
+        </Section>
+
+        <Section id="description" title="3. Beschrijving van de Dienst">
+          <p>Cvixeo biedt een AI-gestuurd platform waarmee gebruikers professionele cv's kunnen aanmaken, bewerken, aanpassen en exporteren. De functies omvatten onder meer:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>AI-ondersteunde inhoudsgeneratie voor cv-secties</li>
+            <li>ATS-optimalisatiescore (Applicant Tracking System)</li>
+            <li>Vacature-matching en trefwoordanalyse</li>
+            <li>Professionele cv-sjablonen</li>
+            <li>Pdf-export</li>
+            <li>Generatie van sollicitatiebrieven</li>
+          </ul>
+          <p>We behouden ons het recht voor om elke functie van de Dienst op elk moment te wijzigen, op te schorten of stop te zetten. Waar redelijkerwijs mogelijk, geven we vooraf kennis van belangrijke wijzigingen.</p>
+        </Section>
+
+        <Section id="account" title="4. Accountregistratie en beveiliging">
+          <p>Om toegang te krijgen tot de meeste functies, moet je een account aanmaken. Je gaat ermee akkoord om:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Nauwkeurige, actuele en volledige informatie te verstrekken bij de registratie.</li>
+            <li>De vertrouwelijkheid van je wachtwoord en accountgegevens te bewaren.</li>
+            <li>Ons onmiddellijk te informeren via <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a> bij ongeoorloofde toegang tot je account.</li>
+            <li>De verantwoordelijkheid te dragen voor alle activiteiten die via je account plaatsvinden.</li>
+          </ul>
+          <p>We zijn niet aansprakelijk voor verlies of schade als gevolg van het niet beveiligen van je account.</p>
+        </Section>
+
+        <Section id="subscriptions" title="5. Abonnementen, facturatie en 7-dagenpas">
+          <p><strong>Gratis plan:</strong> Een gratis account geeft toegang tot basisfuncties, met beperkingen op exports en sjablonen.</p>
+          <p><strong>7-dagen Premium Pas:</strong> Een eenmalige betaling van €3,99 geeft volledige Premium-toegang gedurende 7 dagen vanaf de aankoopdatum. Na deze periode keert je account automatisch terug naar het gratis plan. Geen terugkerende kosten.</p>
+          <p><strong>Maandelijks Premium-abonnement:</strong> Gefactureerd aan €12 per maand, elke maand op dezelfde dag. Loopt door tot opzegging.</p>
+          <p><strong>Jaarlijks Premium-abonnement:</strong> Gefactureerd aan €108 per jaar (gelijk aan €9/maand, een besparing van 25%). Loopt door tot opzegging.</p>
+          <p>Abonnementen worden automatisch verlengd tenzij ze voor de verlengingsdatum worden opgezegd. Je kunt op elk moment opzeggen via je accountinstellingen. Toegang blijft behouden tot het einde van de lopende betaalde periode.</p>
+          <p>Alle prijzen zijn inclusief de toepasselijke btw waar wettelijk vereist.</p>
+        </Section>
+
+        <Section id="refunds" title="6. Terugbetalingsbeleid">
+          <p><strong>Maandelijkse en jaarlijkse abonnementen</strong> genieten een <strong>niet-goed-geld-terug-garantie van 14 dagen</strong> vanaf de datum van de eerste betaling. Als je om welke reden dan ook niet tevreden bent, contacteer ons binnen 14 dagen na betaling en we betalen je volledig terug, zonder vragen.</p>
+          <p><strong>7-dagen Premium Pas:</strong> Vanwege de korte duur van deze pas is terugbetaling mogelijk binnen 48 uur na aankoop, op voorwaarde dat er geen Premium-functies gebruikt zijn.</p>
+          <p>Om een terugbetaling aan te vragen, contacteer <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a>. Terugbetalingen worden binnen 5 tot 10 werkdagen verwerkt.</p>
+        </Section>
+
+        <Section id="acceptable-use" title="7. Aanvaardbaar gebruik">
+          <p>Je gaat ermee akkoord de Dienst niet te gebruiken om:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Cv's te maken, te verspreiden of in te dienen die valse, frauduleuze of misleidende informatie bevatten.</li>
+            <li>Je voor te doen als een andere persoon of entiteit, of je band met een organisatie verkeerd voor te stellen.</li>
+            <li>Malware, virussen of andere schadelijke code te uploaden.</li>
+            <li>Te proberen de onderliggende AI-modellen, sjablonen of broncode te scrapen, te reverse-engineeren of te extraheren.</li>
+            <li>De Dienst te gebruiken op een manier die in strijd is met de toepasselijke wetgeving, met inbegrip van de wetgeving inzake gegevensbescherming.</li>
+            <li>Toegang tot de Dienst door te verkopen of in sublicentie te geven zonder onze schriftelijke toestemming.</li>
+          </ul>
+          <p>We behouden ons het recht voor om accounts die deze sectie schenden op te schorten of te beëindigen.</p>
+        </Section>
+
+        <Section id="intellectual-property" title="8. Intellectuele eigendom">
+          <p><strong>Jouw Inhoud:</strong> Je behoudt de volledige eigendom van alle Inhoud die je aanmaakt of uploadt via de Dienst, inclusief de tekst en structuur van je cv's. Je verleent Cvixeo een beperkte, niet-exclusieve licentie om je Inhoud op te slaan, te verwerken en weer te geven, uitsluitend voor zover nodig om je de Dienst te leveren.</p>
+          <p><strong>Eigendom van Cvixeo:</strong> De Dienst, met inbegrip van de code, het ontwerp, de sjablonen, de AI-modellen, de algoritmes en de merknaam, is eigendom van Cvixeo en beschermd door het intellectueel eigendomsrecht. Je mag geen enkel onderdeel van de Dienst kopiëren, wijzigen, verspreiden of er afgeleide werken van maken zonder onze voorafgaande schriftelijke toestemming.</p>
+        </Section>
+
+        <Section id="ai-content" title="9. Door AI gegenereerde inhoud">
+          <p>Cvixeo gebruikt AI-modellen om cv-inhoud, ATS-suggesties en sollicitatiebrieven te genereren. Je erkent dat:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Door AI gegenereerde inhoud een hulpmiddel is en geen garantie op een tewerkstellingsresultaat.</li>
+            <li>Je verantwoordelijk bent voor het nalezen, bewerken en controleren van alle door AI gegenereerde inhoud voor je deze aan werkgevers bezorgt.</li>
+            <li>Je ervoor moet zorgen dat elke gebruikte inhoud je kwalificaties en ervaring accuraat weergeeft.</li>
+          </ul>
+        </Section>
+
+        <Section id="privacy-ref" title="10. Privacy en gegevensbescherming">
+          <p>Het verzamelen en gebruiken van je persoonsgegevens wordt geregeld door ons <Link href="/nl/privacy" className="text-green-700 underline">Privacybeleid</Link>, dat door verwijzing deel uitmaakt van deze Voorwaarden. Voor gebruikers in de Europese Unie beschrijft ons Privacybeleid je rechten onder de AVG.</p>
+        </Section>
+
+        <Section id="liability" title="11. Beperking van aansprakelijkheid">
+          <p>Voor zover maximaal toegestaan door de toepasselijke wetgeving:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>De Dienst wordt geleverd "zoals ze is" en "zoals beschikbaar", zonder enige garantie, uitdrukkelijk of impliciet.</li>
+            <li>We garanderen niet dat de Dienst foutloos of ononderbroken zal zijn, of dat ze specifieke tewerkstellingsresultaten zal opleveren.</li>
+            <li>De totale cumulatieve aansprakelijkheid van Cvixeo jegens jou voor elke vordering die voortvloeit uit of verband houdt met de Dienst, zal het bedrag dat je ons betaalde in de 12 maanden voorafgaand aan de vordering niet overschrijden.</li>
+            <li>We zijn niet aansprakelijk voor indirecte, incidentele, bijzondere, gevolg- of punitieve schade.</li>
+          </ul>
+          <p>Niets in deze Voorwaarden sluit aansprakelijkheid uit voor fraude, overlijden of lichamelijk letsel veroorzaakt door nalatigheid, of enige andere aansprakelijkheid die niet wettelijk kan worden uitgesloten onder Frans of Europees recht.</p>
+        </Section>
+
+        <Section id="indemnification" title="12. Vrijwaring">
+          <p>Je gaat ermee akkoord Cvixeo, haar bestuurders, werknemers en agenten te vrijwaren van elke vordering, schade of kost (met inbegrip van juridische kosten) die voortvloeit uit je gebruik van de Dienst, je schending van deze Voorwaarden, of je inbreuk op de rechten van derden.</p>
+        </Section>
+
+        <Section id="termination" title="13. Beëindiging">
+          <p>Je kunt je account op elk moment beëindigen door het te verwijderen via je accountinstellingen of door ons te contacteren. Bij beëindiging verwijderen we je persoonsgegevens in overeenstemming met ons Privacybeleid.</p>
+          <p>We kunnen je account onmiddellijk opschorten of beëindigen als je deze Voorwaarden schendt, als dit wettelijk vereist is, of als je account een veiligheids- of juridisch risico vormt voor de Dienst of andere gebruikers. Waar mogelijk stellen we je hiervan op de hoogte.</p>
+        </Section>
+
+        <Section id="governing-law" title="14. Toepasselijk recht en geschillenbeslechting">
+          <p>Deze Voorwaarden worden beheerst door en geïnterpreteerd in overeenstemming met het recht van <strong>Frankrijk</strong>, ongeacht de bepalingen van internationaal privaatrecht. De dwingende consumentenbeschermingsbepalingen van de EU zijn van toepassing wanneer je een Europese consument bent.</p>
+          <p>Bij een geschil moedigen we je aan om ons eerst te contacteren om een minnelijke oplossing te zoeken. Als een geschil niet kan worden opgelost, valt het onder de exclusieve bevoegdheid van de Franse rechtbanken, tenzij het toepasselijke EU-recht anders vereist.</p>
+          <p>Europese consumenten hebben ook het recht om gebruik te maken van het Europese platform voor onlinegeschillenbeslechting op <a href="https://ec.europa.eu/consumers/odr" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+        </Section>
+
+        <Section id="changes" title="15. Wijzigingen aan deze Voorwaarden">
+          <p>We kunnen deze Voorwaarden van tijd tot tijd bijwerken. We informeren je over belangrijke wijzigingen per e-mail of via een duidelijk zichtbare melding op de Dienst, minstens 30 dagen voordat ze van kracht worden. Je voortgezet gebruik van de Dienst na de ingangsdatum geldt als aanvaarding van de bijgewerkte Voorwaarden.</p>
+        </Section>
+
+        <Section id="contact" title="16. Contact">
+          <p>Voor vragen over deze Gebruiksvoorwaarden, contacteer:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
+            <p>E-mail: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+            <p className="mt-1">Contactformulier: <Link href="/nl/contact" className="text-green-700 underline">cvixeo.com/nl/contact</Link></p>
           </div>
         </Section>
       </div>

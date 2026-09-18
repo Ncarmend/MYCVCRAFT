@@ -4,10 +4,10 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { TermsClient } from "../../terms/TermsClient";
 
 export const metadata: Metadata = {
-  title: "Conditions d'utilisation — Cvixeo",
-  description: "Les conditions générales qui régissent votre utilisation du générateur de CV par IA de Cvixeo et des services associés.",
+  title: "Gebruiksvoorwaarden — Cvixeo",
+  description: "De voorwaarden die je gebruik van Cvixeo's AI-gestuurde cv-generator en bijbehorende diensten regelen.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/terms",
+    canonical: "https://cvixeo.com/nl/terms",
     languages: {
       en: "https://cvixeo.com/terms",
       fr: "https://cvixeo.com/fr/terms",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Conditions d'utilisation — Cvixeo",
-    description: "Les conditions générales qui régissent votre utilisation de Cvixeo.",
-    url: "https://cvixeo.com/fr/terms",
-    locale: "fr_FR",
+    title: "Gebruiksvoorwaarden — Cvixeo",
+    description: "De voorwaarden die je gebruik van Cvixeo regelen.",
+    url: "https://cvixeo.com/nl/terms",
+    locale: "nl_BE",
   },
 };
 
-export default function TermsPageFr() {
+export default function TermsPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

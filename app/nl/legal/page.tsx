@@ -4,10 +4,10 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LegalClient } from "../../legal/LegalClient";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Cvixeo",
-  description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
+  title: "Wettelijke vermeldingen — Cvixeo",
+  description: "Wettelijke vermeldingen (mentions légales) voor Cvixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/legal",
+    canonical: "https://cvixeo.com/nl/legal",
     languages: {
       en: "https://cvixeo.com/legal",
       fr: "https://cvixeo.com/fr/legal",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Mentions légales — Cvixeo",
-    description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
-    url: "https://cvixeo.com/fr/legal",
-    locale: "fr_FR",
+    title: "Wettelijke vermeldingen — Cvixeo",
+    description: "Wettelijke vermeldingen voor Cvixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
+    url: "https://cvixeo.com/nl/legal",
+    locale: "nl_BE",
   },
 };
 
-export default function LegalPageFr() {
+export default function LegalPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

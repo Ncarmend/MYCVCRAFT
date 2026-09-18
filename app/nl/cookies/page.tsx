@@ -4,10 +4,10 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { CookiesClient } from "../../cookies/CookiesClient";
 
 export const metadata: Metadata = {
-  title: "Politique de cookies — Cvixeo",
-  description: "Comment Cvixeo utilise les cookies et comment gérer vos préférences. Politique de cookies conforme au RGPD pour les utilisateurs européens.",
+  title: "Cookiebeleid — Cvixeo",
+  description: "Hoe Cvixeo cookies gebruikt en hoe je je voorkeuren beheert. AVG-conform cookiebeleid voor Europese gebruikers.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/cookies",
+    canonical: "https://cvixeo.com/nl/cookies",
     languages: {
       en: "https://cvixeo.com/cookies",
       fr: "https://cvixeo.com/fr/cookies",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Politique de cookies — Cvixeo",
-    description: "Comment Cvixeo utilise les cookies et comment gérer vos préférences.",
-    url: "https://cvixeo.com/fr/cookies",
-    locale: "fr_FR",
+    title: "Cookiebeleid — Cvixeo",
+    description: "Hoe Cvixeo cookies gebruikt en hoe je je voorkeuren beheert.",
+    url: "https://cvixeo.com/nl/cookies",
+    locale: "nl_BE",
   },
 };
 
-export default function CookiesPageFr() {
+export default function CookiesPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

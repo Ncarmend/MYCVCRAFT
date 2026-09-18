@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
-import { CareersClient } from "./CareersClient";
+import { CareersClient } from "../../careers/CareersClient";
 
 export const metadata: Metadata = {
-  title: "Career Advice & Resources",
+  title: "Carrièretips en advies",
   description:
-    "Expert career tips, CV writing guides, and job search advice to help you land your dream job faster.",
+    "Praktische carrièretips, cv-schrijfgidsen en advies voor je jobzoektocht — geschreven door experts, om sneller de job van je dromen te vinden.",
   alternates: {
-    canonical: "https://cvixeo.com/careers",
+    canonical: "https://cvixeo.com/nl/careers",
     languages: {
       en: "https://cvixeo.com/careers",
       fr: "https://cvixeo.com/fr/careers",
@@ -17,13 +17,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Career Advice & Resources | Cvixeo",
-    description: "Expert CV writing guides and job search advice from the Cvixeo team.",
-    url: "https://cvixeo.com/careers",
+    title: "Carrièretips en advies | Cvixeo",
+    description: "Cv-schrijfgidsen en advies voor je jobzoektocht, geschreven door het Cvixeo-team.",
+    url: "https://cvixeo.com/nl/careers",
+    locale: "nl_BE",
   },
 };
 
-export default function CareersPage() {
+export default function CareersPageNl() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavbarServer />

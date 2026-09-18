@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     languages: {
       en: "https://cvixeo.com/privacy",
       fr: "https://cvixeo.com/fr/privacy",
+      nl: "https://cvixeo.com/nl/privacy",
       "x-default": "https://cvixeo.com/privacy",
     },
   },

@@ -3,11 +3,11 @@ import { NavbarServer } from "@/components/landing/NavbarServer";
 import { PricingClient } from "../../pricing/PricingClient";
 
 export const metadata: Metadata = {
-  title: "Tarifs",
+  title: "Prijzen",
   description:
-    "Choisissez l'offre Cvixeo adaptée à vos besoins. Démarrez gratuitement ou débloquez des CV illimités optimisés ATS avec Premium.",
+    "Kies het Cvixeo-plan dat bij je past. Start gratis of ontgrendel onbeperkt ATS-geoptimaliseerde cv's met Premium.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/pricing",
+    canonical: "https://cvixeo.com/nl/pricing",
     languages: {
       en: "https://cvixeo.com/pricing",
       fr: "https://cvixeo.com/fr/pricing",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Tarifs | Cvixeo",
-    description: "Démarrez gratuitement ou passez à Premium — créez des CV illimités optimisés ATS avec Cvixeo.",
-    url: "https://cvixeo.com/fr/pricing",
-    locale: "fr_FR",
+    title: "Prijzen | Cvixeo",
+    description: "Start gratis of ga voor Premium — maak onbeperkt ATS-geoptimaliseerde cv's met Cvixeo.",
+    url: "https://cvixeo.com/nl/pricing",
+    locale: "nl_BE",
   },
 };
 
-export default function PricingPageFr() {
+export default function PricingPageNl() {
   return (
     <>
       <NavbarServer />

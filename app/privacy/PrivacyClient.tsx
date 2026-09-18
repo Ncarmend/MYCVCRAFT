@@ -28,10 +28,10 @@ export function PrivacyClient() {
             {lang === "fr" ? "Retour à l'accueil" : "Back to home"}
           </Link>
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            {lang === "fr" ? "Politique de confidentialité" : "Privacy Policy"}
+            {lang === "fr" ? "Politique de confidentialité" : lang === "nl" ? "Privacybeleid" : "Privacy Policy"}
           </h1>
           <p className="mt-2 text-xs text-slate-400">
-            {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
+            {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: juli 2026 · Van toepassing op cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
           </p>
         </div>
       </div>
@@ -39,7 +39,7 @@ export function PrivacyClient() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-10">
         <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          {lang === "fr" ? <PrivacyFR /> : <PrivacyEN />}
+          {lang === "fr" ? <PrivacyFR /> : lang === "nl" ? <PrivacyNL /> : <PrivacyEN />}
         </div>
       </div>
     </>
@@ -287,6 +287,130 @@ function PrivacyFR() {
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
             <p>E-mail : <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
             <p className="mt-1">Formulaire de contact : <Link href="/fr/contact" className="text-green-700 underline">cvixeo.com/fr/contact</Link></p>
+          </div>
+        </Section>
+      </div>
+    </>
+  );
+}
+
+function PrivacyNL() {
+  return (
+    <>
+      <div className="mb-8 rounded-xl bg-blue-50 px-5 py-4 text-xs leading-relaxed text-blue-800 ring-1 ring-blue-100">
+        Dit Privacybeleid legt uit hoe <strong>Cvixeo</strong> ("wij", "ons", "onze") informatie over jou verzamelt, gebruikt en beschermt wanneer je onze website <strong>cvixeo.com</strong> en onze diensten (samen de "Dienst") gebruikt. Wij zetten ons volledig in voor naleving van de Algemene Verordening Gegevensbescherming van de Europese Unie (<strong>AVG</strong>/GDPR) — Verordening (EU) 2016/679.
+      </div>
+
+      <div className="space-y-8">
+        <Section id="controller" title="1. Verwerkingsverantwoordelijke">
+          <p>De verwerkingsverantwoordelijke voor je persoonsgegevens is:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
+            <p><strong>Cvixeo</strong></p>
+            <p>Website: cvixeo.com</p>
+            <p>Contact: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+          </div>
+          <p>Voor alle vragen over gegevensbescherming kun je ons contacteren op bovenstaand e-mailadres.</p>
+        </Section>
+
+        <Section id="data-collected" title="2. Persoonsgegevens die we verzamelen">
+          <p>We verzamelen de volgende categorieën persoonsgegevens:</p>
+          <p><strong>Accountgegevens:</strong> Voornaam, achternaam, e-mailadres en gehasht wachtwoord bij het aanmaken van je account.</p>
+          <p><strong>Cv-inhoud:</strong> Professionele informatie die je in je cv invoert — werkervaring, opleiding, vaardigheden, contactgegevens en alle andere informatie die je ervoor kiest toe te voegen. Deze gegevens zijn en blijven volledig van jou.</p>
+          <p><strong>Gebruiksgegevens:</strong> Bezochte pagina's, gebruikte functies, sessieduur, browsertype, apparaattype en IP-adres. Deze gegevens worden automatisch verzameld om de Dienst te laten werken en te verbeteren.</p>
+          <p><strong>Betalingsgegevens:</strong> Abonnements- en facturatiegegevens worden rechtstreeks verwerkt door Paddle.com Market Limited, dat optreedt als onze wederverkoper en "Merchant of Record" voor alle aankopen — Paddle is de officiële verkoper en behandelt de betalingsinning, fraudepreventie en de toepasselijke btw / verkoopbelasting. Wij bewaren geen kaartnummers, CVV-codes of volledige bankgegevens op onze servers.</p>
+          <p><strong>Communicatiegegevens:</strong> Berichten die je naar ons supportteam stuurt, inclusief de inhoud van je bericht en je contactgegevens.</p>
+        </Section>
+
+        <Section id="legal-basis" title="3. Rechtsgrond voor de verwerking (Art. 6 AVG)">
+          <p>Wij verwerken je persoonsgegevens op basis van de volgende rechtsgronden:</p>
+          <p><strong>Uitvoering van een overeenkomst (Art. 6(1)(b)):</strong> Verwerking die noodzakelijk is om je de Dienst te leveren — het aanmaken van je account, het opslaan van je cv's, het verwerken van je abonnement.</p>
+          <p><strong>Gerechtvaardigd belang (Art. 6(1)(f)):</strong> Het verbeteren en beveiligen van de Dienst, het voorkomen van fraude, en het begrijpen van hoe onze gebruikers de functies gebruiken. We beroepen ons hier enkel op wanneer dit belang niet wordt overstegen door jouw fundamentele rechten.</p>
+          <p><strong>Toestemming (Art. 6(1)(a)):</strong> Wanneer we promotionele of marketingcommunicatie versturen. Je kunt je toestemming op elk moment intrekken door je uit te schrijven of ons te contacteren.</p>
+          <p><strong>Wettelijke verplichting (Art. 6(1)(c)):</strong> Het bewaren van financiële gegevens en transactiegegevens zoals vereist door de toepasselijke fiscale en boekhoudkundige wetgeving (doorgaans 7 jaar binnen de EU).</p>
+        </Section>
+
+        <Section id="purposes" title="4. Doeleinden van de verwerking">
+          <p>We gebruiken je persoonsgegevens voor de volgende doeleinden:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Het aanmaken en beheren van je account</li>
+            <li>Het leveren, uitbaten en verbeteren van de AI-functies voor het opstellen van cv's</li>
+            <li>Het verwerken van abonnementsbetalingen en het opstellen van facturen</li>
+            <li>Het versturen van transactionele e-mails (accountbevestiging, wachtwoordherstel, abonnementsbevestigingen)</li>
+            <li>Het beantwoorden van supportvragen</li>
+            <li>Het opsporen en voorkomen van fraude en misbruik</li>
+            <li>Het naleven van wettelijke en reglementaire verplichtingen</li>
+          </ul>
+          <p>Wij verkopen je persoonsgegevens <strong>niet</strong> aan derden. We gebruiken de inhoud van je cv niet om AI-modellen te trainen zonder je uitdrukkelijke toestemming.</p>
+        </Section>
+
+        <Section id="retention" title="5. Bewaartermijn van gegevens">
+          <p>We bewaren je persoonsgegevens zo lang als nodig is om de in dit beleid beschreven doeleinden te verwezenlijken:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li><strong>Account- en cv-gegevens:</strong> Bewaard zolang je account actief is. Als je je account verwijdert, worden je gegevens binnen 30 dagen gewist.</li>
+            <li><strong>Financiële en facturatiegegevens:</strong> Bewaard gedurende 7 jaar na de transactie, zoals vereist door de EU-fiscale wetgeving.</li>
+            <li><strong>Supportcommunicatie:</strong> Bewaard gedurende 3 jaar vanaf je laatste contact, waarna deze wordt gewist.</li>
+            <li><strong>Gebruiks- en analysegegevens:</strong> Na 24 maanden bewaard in geanonimiseerde of geaggregeerde vorm.</li>
+          </ul>
+        </Section>
+
+        <Section id="processors" title="6. Externe verwerkers">
+          <p>We gebruiken de volgende externe diensten om Cvixeo te laten werken. Elk van hen is gebonden aan een verwerkersovereenkomst (DPA) die voldoet aan de vereisten van de AVG:</p>
+          <ul className="ml-4 list-disc space-y-1.5">
+            <li><strong>Supabase</strong> (Supabase Inc.) — Authenticatie en databaseopslag. Gegevens gehost op AWS-infrastructuur, met EU-datacenters beschikbaar. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+            <li><strong>Paddle</strong> (Paddle.com Market Limited) — Onze wederverkoper en "Merchant of Record" voor alle aankopen; verzorgt de betalingsverwerking, facturatie en btw / verkoopbelasting wereldwijd. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+            <li><strong>Anthropic</strong> (Anthropic PBC) — AI-functies (cv-generatie, ATS-analyse, generatie van sollicitatiebrieven). <a href="https://www.anthropic.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+            <li><strong>Resend</strong> (Resend Inc.) — Verzending van transactionele e-mails. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+            <li><strong>Vercel</strong> (Vercel Inc.) — Hosting en infrastructuur van de website. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+          </ul>
+        </Section>
+
+        <Section id="transfers" title="7. Internationale gegevensoverdrachten">
+          <p>Sommige van onze externe verwerkers zijn gevestigd in de Verenigde Staten. Wanneer persoonsgegevens worden overgedragen buiten de Europese Economische Ruimte (EER), zorgen we voor passende waarborgen, waaronder:</p>
+          <ul className="ml-4 list-disc space-y-1">
+            <li>Standaardcontractbepalingen (SCC's) goedgekeurd door de Europese Commissie</li>
+            <li>Adequaatheidsbesluiten waar van toepassing</li>
+            <li>Bindende bedrijfsvoorschriften (waar relevant)</li>
+          </ul>
+          <p>Je kunt details over de specifieke waarborgen opvragen door ons te contacteren.</p>
+        </Section>
+
+        <Section id="rights" title="8. Jouw rechten onder de AVG">
+          <p>Onder de AVG (artikelen 15–22) heb je de volgende rechten met betrekking tot je persoonsgegevens:</p>
+          <ul className="ml-4 list-disc space-y-1.5">
+            <li><strong>Recht op inzage (Art. 15):</strong> Je kunt een kopie opvragen van de persoonsgegevens die we over je bewaren.</li>
+            <li><strong>Recht op rectificatie (Art. 16):</strong> Je kunt correctie van onjuiste of onvolledige gegevens vragen.</li>
+            <li><strong>Recht op gegevenswissing (Art. 17):</strong> Je kunt de verwijdering van je persoonsgegevens vragen ("recht om vergeten te worden"). Sommige gegevens moeten echter bewaard blijven om aan wettelijke verplichtingen te voldoen (zie Sectie 5).</li>
+            <li><strong>Recht op beperking van de verwerking (Art. 18):</strong> Je kunt vragen dat we de verwerking van je gegevens in bepaalde omstandigheden beperken.</li>
+            <li><strong>Recht op overdraagbaarheid van gegevens (Art. 20):</strong> Je kunt je gegevens opvragen in een gestructureerd, gangbaar en machineleesbaar formaat. Cv-gegevens kunnen rechtstreeks vanuit je accountinstellingen geëxporteerd worden.</li>
+            <li><strong>Recht van bezwaar (Art. 21):</strong> Je kunt bezwaar maken tegen verwerking op basis van gerechtvaardigd belang, met inbegrip van profilering.</li>
+            <li><strong>Recht om niet onderworpen te worden aan geautomatiseerde besluitvorming (Art. 22):</strong> We gebruiken je persoonsgegevens niet voor uitsluitend geautomatiseerde beslissingen die rechtsgevolgen hebben of je op vergelijkbare wijze aanzienlijk treffen.</li>
+          </ul>
+          <p>Om een van deze rechten uit te oefenen, contacteer je ons op <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a>. We antwoorden binnen 30 dagen, zoals vereist door de AVG. We kunnen je identiteit moeten verifiëren voordat we je verzoek behandelen.</p>
+        </Section>
+
+        <Section id="complaints" title="9. Recht om een klacht in te dienen">
+          <p>Als je van mening bent dat we je persoonsgegevens niet in overeenstemming met de AVG hebben verwerkt, heb je het recht om een klacht in te dienen bij je nationale toezichthoudende autoriteit voor gegevensbescherming. Als je in België woont, is dit de <strong>Gegevensbeschermingsautoriteit (GBA)</strong>, via <a href="https://www.gegevensbeschermingsautoriteit.be" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">www.gegevensbeschermingsautoriteit.be</a>. Als je elders in de EU woont, vind je de bevoegde nationale toezichthouder op de website van het Europees Comité voor gegevensbescherming.</p>
+          <p>We zouden het op prijs stellen als je ons eerst contacteert, zodat we elke bezorgdheid kunnen proberen op te lossen voor je een toezichthoudende autoriteit contacteert.</p>
+        </Section>
+
+        <Section id="cookies" title="10. Cookies">
+          <p>We gebruiken een beperkt aantal cookies om de Dienst te laten werken. Raadpleeg ons <Link href="/nl/cookies" className="text-green-700 underline">Cookiebeleid</Link> voor alle details, inclusief hoe je je cookievoorkeuren kunt beheren.</p>
+          <p>We gebruiken uitsluitend strikt noodzakelijke cookies (authenticatiesessie en taalvoorkeur). We gebruiken geen advertentie- of trackingcookies van derden.</p>
+        </Section>
+
+        <Section id="children" title="11. Privacy van kinderen">
+          <p>De Dienst richt zich niet tot kinderen onder de 16 jaar. We verzamelen niet bewust persoonsgegevens van personen onder de 16 jaar. Als je vermoedt dat een kind onder de 16 jaar ons persoonsgegevens heeft bezorgd, contacteer ons dan onmiddellijk zodat we de nodige stappen kunnen ondernemen om deze gegevens te verwijderen.</p>
+        </Section>
+
+        <Section id="changes" title="12. Wijzigingen aan dit beleid">
+          <p>We kunnen dit Privacybeleid van tijd tot tijd bijwerken om wijzigingen in onze praktijken, onze diensten of de toepasselijke wetgeving weer te geven. We informeren je over belangrijke wijzigingen per e-mail of via een duidelijk zichtbare melding op de Dienst, minstens 30 dagen voordat ze van kracht worden. Het bijgewerkte beleid is steeds beschikbaar op <Link href="/nl/privacy" className="text-green-700 underline">cvixeo.com/nl/privacy</Link>.</p>
+        </Section>
+
+        <Section id="contact" title="13. Contact">
+          <p>Voor vragen of opmerkingen over dit Privacybeleid of onze omgang met gegevens, kun je ons contacteren:</p>
+          <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
+            <p>E-mail: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
+            <p className="mt-1">Contactformulier: <Link href="/nl/contact" className="text-green-700 underline">cvixeo.com/nl/contact</Link></p>
           </div>
         </Section>
       </div>
