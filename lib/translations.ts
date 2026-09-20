@@ -401,6 +401,8 @@ export const translations = {
         titleRequired:    "Title is required",
         nameRequired:     "Name is required",
         jobTitleRequired: "Job title is required",
+        websiteInvalid:   "Enter a valid website address (e.g. example.com)",
+        emailInvalid:     "Enter a valid email address",
       },
       import: {
         buttonLabel:       "Import Resume",
@@ -1064,6 +1066,8 @@ export const translations = {
         titleRequired:    "Le titre est requis",
         nameRequired:     "Le nom est requis",
         jobTitleRequired: "L'intitulé du poste est requis",
+        websiteInvalid:   "Saisissez une adresse de site web valide (ex. example.com)",
+        emailInvalid:     "Saisissez une adresse e-mail valide",
       },
       import: {
         buttonLabel:       "Importer mon CV",
@@ -1736,6 +1740,8 @@ export const translations = {
         titleRequired:    "Titel is verplicht",
         nameRequired:     "Naam is verplicht",
         jobTitleRequired: "Functietitel is verplicht",
+        websiteInvalid:   "Voer een geldig websiteadres in (bv. example.com)",
+        emailInvalid:     "Voer een geldig e-mailadres in",
       },
       import: {
         buttonLabel:       "Cv importeren",

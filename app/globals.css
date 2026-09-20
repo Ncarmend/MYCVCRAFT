@@ -60,6 +60,29 @@ html {
   z-index: 10;
 }
 
+/*
+ * Print isolation: some pages (e.g. /cv/new) trigger window.print() directly on the
+ * app shell rather than opening a dedicated /api/pdf document. Any element marked
+ * `.print-cv-area` is the ONLY thing that may appear in that print/PDF output —
+ * everything else (dashboard nav, form, buttons) is forced hidden regardless of
+ * DOM nesting, so printing never captures the editor UI instead of the CV.
+ */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-cv-area,
+  .print-cv-area * {
+    visibility: visible;
+  }
+  .print-cv-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
 /* Page transitions */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }

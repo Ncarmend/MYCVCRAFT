@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
+import { normalizeWebsite } from "@/lib/utils";
 
 export async function GET() {
   try {
@@ -51,6 +52,19 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
 
+    // Server-side guard for the fields the client already requires — never trust the
+    // client alone. This mirrors CVForm's own required-field rule, so it should never
+    // trigger from the app itself; it only stops a malformed/direct API call from
+    // reaching the database.
+    if (typeof body.name !== "string" || !body.name.trim() || typeof body.jobTitle !== "string" || !body.jobTitle.trim()) {
+      return NextResponse.json({ error: "name and jobTitle are required" }, { status: 400 });
+    }
+
+    // Normalize website server-side too (defense in depth): the value may have
+    // reached this endpoint via AI resume import or a direct API call, not just
+    // the form's own onBlur/setValueAs normalization.
+    const website = (normalizeWebsite(body.website) as string | null | undefined) || null;
+
     const cv = await prisma.cV.create({
       data: {
         userId: dbUser.id,
@@ -61,7 +75,7 @@ export async function POST(request: NextRequest) {
         email: body.email || null,
         phone: body.phone || null,
         location: body.location || null,
-        website: body.website || null,
+        website,
         linkedin: body.linkedin || null,
         github: body.github || null,
         portfolio: body.portfolio || null,

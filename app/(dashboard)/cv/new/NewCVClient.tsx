@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { CVForm } from "@/components/cv/CVForm";
-import { CVPreview } from "@/components/cv/CVPreview";
+import { CVPreview, TemplateRenderer } from "@/components/cv/CVPreview";
 import { ResumeImportModal } from "@/components/cv/ResumeImportModal";
 import { Header } from "@/components/dashboard/Header";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,10 @@ export function NewCVClient({ isPro }: Props) {
 
       const { cv } = await res.json();
       toast.success(lang === "fr" ? "CV créé avec succès !" : "CV created successfully!");
+      // Invalidate the Router Cache so /dashboard's CV count and "My CVs" list
+      // (server-rendered from Postgres) are re-fetched fresh next time they're
+      // visited, instead of serving whatever was cached before this CV existed.
+      router.refresh();
       router.push(`/cv/${cv.id}/edit`);
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : "Failed to save");
@@ -66,53 +70,62 @@ export function NewCVClient({ isPro }: Props) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <Header
-        title={lang === "fr" ? "Nouveau CV" : "New CV"}
-        subtitle={lang === "fr" ? "Remplissez vos informations et regardez votre CV prendre vie" : "Fill in your details and watch your CV come to life"}
-        actions={
-          <div className="flex items-center gap-2">
+      {/*
+        Print scope: everything below is hidden when printing except the
+        dedicated `.print-cv-area` node further down, which renders the CV
+        through the exact same TemplateRenderer used for the live preview —
+        never the editor UI itself. See globals.css for the @media print rule
+        that hides everything outside `.print-cv-area`.
+      */}
+      <div className="print:hidden">
+        <Header
+          title={lang === "fr" ? "Nouveau CV" : "New CV"}
+          subtitle={lang === "fr" ? "Remplissez vos informations et regardez votre CV prendre vie" : "Fill in your details and watch your CV come to life"}
+          actions={
+            <div className="flex items-center gap-2">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="gap-2"
+                onClick={() => setImportOpen(true)}
+              >
+                <Upload className="h-4 w-4" />
+                {T.import.buttonLabel}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-2"
+                onClick={() => window.print()}
+              >
+                <FileDown className="h-4 w-4" />
+                {lang === "fr" ? "Aperçu PDF" : "Preview PDF"}
+              </Button>
+            </div>
+          }
+        />
+
+        {/* Import banner — shown until user imports */}
+        {formKey === 0 && (
+          <div className="mx-6 mt-4 flex shrink-0 items-center justify-between gap-4 rounded-xl border border-green-100 bg-green-50 px-5 py-4">
+            <div>
+              <p className="text-sm font-semibold text-green-900">{T.import.bannerTitle}</p>
+              <p className="text-xs text-green-600">{T.import.bannerSubtitle}</p>
+            </div>
             <Button
-              variant="secondary"
               size="sm"
-              className="gap-2"
+              className="shrink-0 gap-2"
               onClick={() => setImportOpen(true)}
             >
               <Upload className="h-4 w-4" />
               {T.import.buttonLabel}
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2"
-              onClick={() => window.print()}
-            >
-              <FileDown className="h-4 w-4" />
-              {lang === "fr" ? "Aperçu PDF" : "Preview PDF"}
-            </Button>
           </div>
-        }
-      />
-
-      {/* Import banner — shown until user imports */}
-      {formKey === 0 && (
-        <div className="mx-6 mt-4 flex shrink-0 items-center justify-between gap-4 rounded-xl border border-green-100 bg-green-50 px-5 py-4">
-          <div>
-            <p className="text-sm font-semibold text-green-900">{T.import.bannerTitle}</p>
-            <p className="text-xs text-green-600">{T.import.bannerSubtitle}</p>
-          </div>
-          <Button
-            size="sm"
-            className="shrink-0 gap-2"
-            onClick={() => setImportOpen(true)}
-          >
-            <Upload className="h-4 w-4" />
-            {T.import.buttonLabel}
-          </Button>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Two-column layout — flex-1 so it fills remaining height */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden print:hidden">
         <div className="flex flex-col overflow-hidden flex-1 border-r border-gray-100">
           <CVForm
             key={formKey}
@@ -130,6 +143,13 @@ export function NewCVClient({ isPro }: Props) {
           </p>
           <CVPreview data={previewData} watermark={!isPro} previewRef={previewRef} />
         </div>
+      </div>
+
+      {/* Print-only, full-size, unscaled render of the CV — same TemplateRenderer
+          and same `previewData` as the live preview panel above, so printing
+          ("Preview PDF") never shows anything but the finished CV. */}
+      <div className="print-cv-area hidden print:block">
+        <TemplateRenderer data={previewData} watermark={!isPro} />
       </div>
 
       <ResumeImportModal

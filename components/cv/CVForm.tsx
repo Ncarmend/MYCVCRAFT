@@ -20,9 +20,14 @@ import Link from "next/link";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
-import { cn } from "@/lib/utils";
+import { cn, normalizeWebsite } from "@/lib/utils";
 import { trackCoverLetterCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
+
+// Fields whose Zod rule is a genuine "must be filled in" requirement — used to keep the
+// error summary accurate (an optional field failing format validation, e.g. website, is
+// not a "required field" and must never be reported as one).
+const REQUIRED_FIELD_KEYS = ["title", "name", "jobTitle"] as const;
 
 // --- Zod schema ---
 const schema = z.object({
@@ -618,13 +623,24 @@ export function CVForm({
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <Input label={T.personal.email}    type="email" placeholder={T.personal.emailPlaceholder}    {...register("email")} />
+              <Input
+                label={T.personal.email} type="email" placeholder={T.personal.emailPlaceholder}
+                error={errors.email ? T.validation.emailInvalid : undefined}
+                {...register("email")}
+              />
               <Input label={T.personal.phone}             placeholder={T.personal.phonePlaceholder}    {...register("phone")} />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <Input label={T.personal.location}  placeholder={T.personal.locationPlaceholder}  {...register("location")} />
-              <Input label={T.personal.website}   placeholder={T.personal.websitePlaceholder}   {...register("website")} />
+              <Input
+                label={T.personal.website} placeholder={T.personal.websitePlaceholder}
+                error={errors.website ? T.validation.websiteInvalid : undefined}
+                {...register("website", {
+                  setValueAs: (v) => normalizeWebsite(v) as string,
+                  onBlur: (e) => setValue("website", normalizeWebsite(e.target.value) as string),
+                })}
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
@@ -1178,11 +1194,17 @@ export function CVForm({
       {/* ── Save button (when not auto-saving) ── */}
       {!hideSaveButton && (
         <div className="shrink-0 flex items-center justify-between border-t border-gray-100 px-6 py-4">
-          {Object.keys(errors).length > 0 && (
-            <p className="text-sm text-red-500">
-              {T.form.requiredFields} {Object.keys(errors).join(", ")}
-            </p>
-          )}
+          {(() => {
+            // Only genuinely-required fields belong in this summary. A field like
+            // `website` is optional — if it has an error, it's a format issue and is
+            // already reported inline next to the field, never as "required" here.
+            const missing = REQUIRED_FIELD_KEYS.filter((k) => errors[k]);
+            return missing.length > 0 ? (
+              <p className="text-sm text-red-500">
+                {T.form.requiredFields} {missing.join(", ")}
+              </p>
+            ) : null;
+          })()}
           <Button type="submit" size="lg" loading={saving} className="ml-auto gap-2 px-8">
             {T.form.saveCV}
           </Button>

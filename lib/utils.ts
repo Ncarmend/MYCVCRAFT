@@ -33,14 +33,22 @@ export function getInitials(name: string): string {
     .slice(0, 2);
 }
 
-/** Check if a subscription is active/valid */
-export function isSubscriptionActive(
-  status: string,
-  periodEnd?: Date | null
-): boolean {
-  if (status === "ACTIVE") return true;
-  if (periodEnd && new Date(periodEnd) > new Date()) return true;
-  return false;
+/**
+ * Website is an optional CV field, but when a value is present it's very common
+ * for users (or AI-imported resume data) to supply a bare domain ("example.com")
+ * without a protocol — which strict URL validation rejects. Trim whitespace and
+ * auto-prefix "https://" so ordinary input validates correctly instead of
+ * surfacing a confusing error on a field that was, in fact, filled in.
+ *
+ * Shared by the CV form (client-side validation) and the CV API routes
+ * (server-side, so the stored value is normalized regardless of which client
+ * path produced it — typed by hand, AI-imported, or posted directly to the API).
+ */
+export function normalizeWebsite(value: unknown): unknown {
+  if (typeof value !== "string") return value;
+  const trimmed = value.trim();
+  if (trimmed === "") return "";
+  return /^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
 /** Generate a random gradient for CV card placeholders */

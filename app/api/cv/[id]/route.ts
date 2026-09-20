@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
+import { normalizeWebsite } from "@/lib/utils";
 
 async function getAuthorizedCV(cvId: string, supabaseUserId: string) {
   const dbUser = await prisma.user.findUnique({ where: { supabaseId: supabaseUserId } });
@@ -49,6 +50,7 @@ export async function PATCH(
     if (!existing) return NextResponse.json({ error: "CV not found" }, { status: 404 });
 
     const body = await request.json();
+    const website = (normalizeWebsite(body.website) as string | null | undefined) || null;
 
     const updated = await prisma.cV.update({
       where: { id },
@@ -61,7 +63,7 @@ export async function PATCH(
         email: body.email || null,
         phone: body.phone || null,
         location: body.location || null,
-        website: body.website || null,
+        website,
         linkedin: body.linkedin || null,
         github: body.github || null,
         portfolio: body.portfolio || null,
