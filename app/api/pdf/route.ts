@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
 import { translations } from "@/lib/translations";
+import { sortCvSections } from "@/lib/cvSort";
 
 type PdfLang = "en" | "fr" | "nl";
 function parseLang(value: string | null): PdfLang {
@@ -540,7 +541,11 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
 
 // ─── Main builder ─────────────────────────────────────────────────────────────
 
-function buildCVHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en"): string {
+function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en"): string {
+  // Sorted once here, before branching to any per-template HTML builder
+  // (including administrativeDigitalHTML), so every template gets the same
+  // chronological order the live preview shows — never the stored DB order.
+  const cv = sortCvSections(rawCv);
   const template = (cv.template as string) || "BASIC";
 
   if (template === "ADMINISTRATIVE_DIGITAL") {
