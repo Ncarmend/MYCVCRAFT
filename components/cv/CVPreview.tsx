@@ -17,6 +17,7 @@ import { ClassicTemplate } from "./templates/ClassicTemplate";
 import { CrispTemplate } from "./templates/CrispTemplate";
 import { AdministrativeDigitalTemplate } from "./templates/AdministrativeDigitalTemplate";
 import { sortCvSections } from "@/lib/cvSort";
+import { resolveCvFooterName } from "@/lib/cvFooterName";
 import type { CVFormData } from "@/types";
 
 // All templates are designed at this pixel width (US Letter at 96 dpi).
@@ -35,22 +36,35 @@ export function TemplateRenderer({ data: rawData, watermark = false }: { data: P
   // (and whatever's in the editor/database) is never mutated.
   const data = sortCvSections(rawData);
   const t = data.template ?? "BASIC";
-  if (t === "BASIC")     return <BasicTemplate     cv={data} watermark={watermark} />;
-  if (t === "MODERN")    return <ModernTemplate    cv={data} watermark={watermark} />;
-  if (t === "EXECUTIVE") return <ExecutiveTemplate cv={data} watermark={watermark} />;
-  if (t === "CREATIVE")  return <CreativeTemplate  cv={data} watermark={watermark} />;
-  if (t === "MINIMAL")   return <MinimalTemplate   cv={data} watermark={watermark} />;
-  if (t === "ELEGANT")   return <ElegantTemplate   cv={data} watermark={watermark} />;
-  if (t === "TECH")      return <TechTemplate      cv={data} watermark={watermark} />;
-  if (t === "CORPORATE") return <CorporateTemplate cv={data} watermark={watermark} />;
-  if (t === "SLATE")     return <SlateTemplate     cv={data} watermark={watermark} />;
-  if (t === "WARM")      return <WarmTemplate      cv={data} watermark={watermark} />;
-  if (t === "SOFT")      return <SoftTemplate      cv={data} watermark={watermark} />;
-  if (t === "PHOTO")     return <PhotoTemplate     cv={data} watermark={watermark} />;
-  if (t === "CLASSIC")   return <ClassicTemplate   cv={data} watermark={watermark} />;
-  if (t === "CRISP")     return <CrispTemplate     cv={data} watermark={watermark} />;
-  if (t === "ADMINISTRATIVE_DIGITAL") return <AdministrativeDigitalTemplate cv={data} watermark={watermark} />;
-  return <BasicTemplate cv={data} watermark={watermark} />;
+  const template =
+    t === "MODERN"    ? <ModernTemplate    cv={data} watermark={watermark} /> :
+    t === "EXECUTIVE" ? <ExecutiveTemplate cv={data} watermark={watermark} /> :
+    t === "CREATIVE"  ? <CreativeTemplate  cv={data} watermark={watermark} /> :
+    t === "MINIMAL"   ? <MinimalTemplate   cv={data} watermark={watermark} /> :
+    t === "ELEGANT"   ? <ElegantTemplate   cv={data} watermark={watermark} /> :
+    t === "TECH"      ? <TechTemplate      cv={data} watermark={watermark} /> :
+    t === "CORPORATE" ? <CorporateTemplate cv={data} watermark={watermark} /> :
+    t === "SLATE"     ? <SlateTemplate     cv={data} watermark={watermark} /> :
+    t === "WARM"      ? <WarmTemplate      cv={data} watermark={watermark} /> :
+    t === "SOFT"      ? <SoftTemplate      cv={data} watermark={watermark} /> :
+    t === "PHOTO"     ? <PhotoTemplate     cv={data} watermark={watermark} /> :
+    t === "CLASSIC"   ? <ClassicTemplate   cv={data} watermark={watermark} /> :
+    t === "CRISP"     ? <CrispTemplate     cv={data} watermark={watermark} /> :
+    t === "ADMINISTRATIVE_DIGITAL" ? <AdministrativeDigitalTemplate cv={data} watermark={watermark} /> :
+    <BasicTemplate cv={data} watermark={watermark} />;
+
+  // Priority: CV's own name field, never an email/ID/blob URL. The
+  // authenticated user's profile-name fallback is applied server-side
+  // (see resolveCvFooterName in the PDF route) — here there's always a
+  // required, non-empty `data.name` for any CV that reached the editor.
+  const footerName = resolveCvFooterName(data.name);
+
+  return (
+    <>
+      {template}
+      {footerName && <div className="cv-footer">{footerName}</div>}
+    </>
+  );
 }
 
 export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {

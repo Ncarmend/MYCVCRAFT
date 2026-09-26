@@ -83,6 +83,33 @@ html {
   }
 }
 
+/*
+ * CV owner-name footer (React template pipeline). On screen it's just the
+ * last line of the document. Under print it switches to `position: fixed`,
+ * which Chrome repeats on every physical page — the same technique already
+ * used for the free-plan watermark — so a multi-page CV gets the name on
+ * every page, not only the last one.
+ */
+.cv-footer {
+  margin-top: 24px;
+  padding-top: 10px;
+  text-align: center;
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+@media print {
+  .cv-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 8px;
+  }
+}
+
 /* Page transitions */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }

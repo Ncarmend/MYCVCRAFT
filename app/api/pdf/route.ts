@@ -10,6 +10,7 @@ import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
 import { translations } from "@/lib/translations";
 import { sortCvSections } from "@/lib/cvSort";
+import { resolveCvFooterName } from "@/lib/cvFooterName";
 
 type PdfLang = "en" | "fr" | "nl";
 function parseLang(value: string | null): PdfLang {
@@ -40,8 +41,9 @@ export async function GET(request: NextRequest) {
     const templateOverride = request.nextUrl.searchParams.get("template");
     const cvData = { ...cv, template: templateOverride ?? cv.template ?? "BASIC" };
     const lang = parseLang(request.nextUrl.searchParams.get("lang"));
+    const footerName = resolveCvFooterName(cv.name, dbUser.name);
 
-    const html = buildCVHTML(cvData as Record<string, unknown>, !isPro, lang);
+    const html = buildCVHTML(cvData as Record<string, unknown>, !isPro, lang, footerName);
 
     return new NextResponse(html, {
       headers: {
@@ -84,7 +86,11 @@ function getTemplateStyles(template: string, watermark: boolean): string {
     ? `.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:64pt;font-weight:900;color:rgba(99,102,241,0.06);white-space:nowrap;pointer-events:none;z-index:9999;}`
     : "";
 
-  const base = `*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;background:white;color:#1a1a1a;}ul{padding-left:16px;margin-top:4px;}li{margin-bottom:2px;font-size:10pt;color:#444;line-height:1.6;}${wm}`;
+  // Fixed positioning repeats on every printed page (same technique as the
+  // watermark above), so a multi-page CV shows the owner's name on each page.
+  const footerCss = `.cv-footer{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:8pt;color:#94a3b8;padding-bottom:10px;}`;
+
+  const base = `*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;background:white;color:#1a1a1a;}ul{padding-left:16px;margin-top:4px;}li{margin-bottom:2px;font-size:10pt;color:#444;line-height:1.6;}${wm}${footerCss}`;
 
   switch (template) {
     case "MODERN":
@@ -410,7 +416,7 @@ function certificationsHTML(certifications: Array<Record<string, unknown>>): str
 
 // ─── Administrative Digital — dedicated builder (own CSS + i18n section labels) ─
 
-function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang): string {
+function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang, footerName = ""): string {
   const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
@@ -439,6 +445,7 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
     h3{font-size:10.5pt;font-weight:700;color:#0f172a;}
     .meta{color:#64748b;font-size:10pt;}
     p{color:#334155;font-size:10.5pt;}
+    .cv-footer{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:8pt;color:#94a3b8;padding-bottom:10px;}
     ul{padding-left:18px;margin-top:6px;}
     li{color:#334155;font-size:10.5pt;margin-bottom:2px;line-height:1.55;}
     .two-col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:4px;}
@@ -536,20 +543,22 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
       ${languagesSection}
       ${certificationsSection}
     </div>
+    ${footerName ? `<div class="cv-footer">${footerName}</div>` : ""}
   </body></html>`;
 }
 
 // ─── Main builder ─────────────────────────────────────────────────────────────
 
-function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en"): string {
+function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en", footerName = ""): string {
   // Sorted once here, before branching to any per-template HTML builder
   // (including administrativeDigitalHTML), so every template gets the same
   // chronological order the live preview shows — never the stored DB order.
   const cv = sortCvSections(rawCv);
   const template = (cv.template as string) || "BASIC";
+  const footerHtml = footerName ? `<div class="cv-footer">${footerName}</div>` : "";
 
   if (template === "ADMINISTRATIVE_DIGITAL") {
-    return administrativeDigitalHTML(cv, watermark, lang);
+    return administrativeDigitalHTML(cv, watermark, lang, footerName);
   }
 
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
@@ -610,6 +619,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
           ${projectsHTML(projects)}
         </div>
       </div>
+      ${footerHtml}
     </body></html>`;
   }
 
@@ -667,5 +677,6 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
     ${headerHTML}
     ${bodyContent}
     ${footerHTML}
+    ${footerHtml}
   </body></html>`;
 }
