@@ -48,3 +48,32 @@ export function trackCvDownloaded(params: { cvId: string; template?: string }) {
 export function trackCoverLetterCreated(params: { cvId?: string }) {
   sendGTMEvent({ event: "cover_letter_created", cv_id: params.cvId });
 }
+
+export function trackCvCreated(params: { cvId: string; template?: string }) {
+  sendGTMEvent({ event: "cv_created", cv_id: params.cvId, template: params.template });
+}
+
+export function trackCvPreviewOpened(params: { cvId: string }) {
+  sendGTMEvent({ event: "cv_preview_opened", cv_id: params.cvId });
+}
+
+export function trackJobMatchStarted(params: { cvId: string }) {
+  sendGTMEvent({ event: "job_match_started", cv_id: params.cvId });
+}
+
+export function trackJobMatchCompleted(params: { cvId: string; score: number }) {
+  sendGTMEvent({ event: "job_match_completed", cv_id: params.cvId, score: params.score });
+}
+
+export function trackJobMatchImproved(params: { cvId: string; previousScore: number; newScore: number }) {
+  sendGTMEvent({
+    event: "job_match_improved",
+    cv_id: params.cvId,
+    previous_score: params.previousScore,
+    new_score: params.newScore,
+  });
+}
+
+export function trackPremiumClicked(params: { source: string }) {
+  sendGTMEvent({ event: "premium_clicked", source: params.source });
+}

@@ -4,7 +4,7 @@
 import Anthropic, { APIError, AuthenticationError, PermissionDeniedError, RateLimitError, APIConnectionError } from "@anthropic-ai/sdk";
 import type { CVFormData } from "@/types";
 
-export type Lang = "en" | "fr";
+export type Lang = "en" | "fr" | "nl";
 
 let _client: Anthropic | null = null;
 function getClient(): Anthropic {
@@ -19,11 +19,11 @@ function getClient(): Anthropic {
 
 const MODEL = "claude-haiku-4-5-20251001";
 
-/** Appended to every system prompt when the user chose French. */
+/** Appended to every system prompt when the user chose French or Dutch. */
 function langInstruction(lang: Lang): string {
-  return lang === "fr"
-    ? " Write ALL text content (summaries, bullet points, descriptions, suggestions, improvements) in French."
-    : "";
+  if (lang === "fr") return " Write ALL text content (summaries, bullet points, descriptions, suggestions, improvements) in French.";
+  if (lang === "nl") return " Write ALL text content (summaries, bullet points, descriptions, suggestions, improvements) in Dutch (Belgian Dutch register — e.g. \"cv\", \"sollicitatie\", \"werkervaring\").";
+  return "";
 }
 
 async function ask(system: string, user: string, maxTokens = 2000): Promise<string> {
@@ -208,6 +208,168 @@ Required JSON schema:
     languages:      (result.languages      ?? []).map((e, i) => ({ ...e, id: `lang_${i}` })),
     certifications: (result.certifications ?? []).map((e, i) => ({ ...e, id: `cert_${i}` })),
   };
+}
+
+// --- Job Match ---
+//
+// AI is used in two narrowly-scoped, non-fabricating ways here:
+//  1. extractJobRequirements() reads ONLY the job posting's own text — it
+//     can't invent anything about the candidate because it never sees a CV.
+//  2. canonicalizeCvSkills() relabels items the user already entered with a
+//     cross-language id; it must return exactly one output per input item,
+//     never more, never fewer — so it cannot add a skill.
+// The actual score is computed elsewhere (lib/jobMatch.ts) as plain
+// arithmetic over these structured shapes, not by asking AI for a number.
+
+const CANONICAL_ID_RULE =
+  "Every \"canonical\" value must be a short, generic, lowercase, hyphenated English identifier for the underlying concept, independent of the language it was written in — e.g. \"react\", \"typescript\", \"docker\", \"web-development\", \"rest-api\", \"bachelor-computer-science\", \"french\", \"english\", \"dutch\". Equivalent concepts in different languages (e.g. \"développeur web\", \"web developer\", \"webontwikkelaar\") MUST resolve to the exact same canonical id.";
+
+export interface JobRequirementsRaw {
+  requiredSkills: { canonical: string; label: string }[];
+  niceToHaveSkills: { canonical: string; label: string }[];
+  minYears: number | null;
+  domains: string[];
+  education: { canonical: string; label: string }[];
+  languages: { canonical: string; label: string }[];
+  keywords: { canonical: string; label: string }[];
+  responsibilities: string[];
+}
+
+/**
+ * Extracts structured requirements from a job posting's free text. Job
+ * descriptions may be French, English, or Dutch — the model detects this
+ * itself, since "label" is always returned in the posting's own language
+ * regardless of the app's current UI language.
+ */
+export async function extractJobRequirements(jobDescription: string): Promise<JobRequirementsRaw> {
+  const result = (await askJSON(
+    `You are a recruiting analyst. Read a job description (it may be written in French, English, or Dutch — detect the language yourself) and extract structured requirements. ${CANONICAL_ID_RULE} "label" must stay in the job description's own original language. Return JSON only, matching this schema exactly:
+{
+  "requiredSkills": [{"canonical":"","label":""}],
+  "niceToHaveSkills": [{"canonical":"","label":""}],
+  "minYears": null,
+  "domains": ["short lowercase-hyphenated domain/keyword tokens, e.g. frontend-development, saas"],
+  "education": [{"canonical":"","label":""}],
+  "languages": [{"canonical":"","label":""}],
+  "keywords": [{"canonical":"","label":""}],
+  "responsibilities": ["short strings in the original language"]
+}
+Do not invent requirements that aren't stated or clearly implied by the posting. If a category has no information, return an empty array (or null for minYears).`,
+    `Job description:\n\n${jobDescription.slice(0, 6000)}`,
+    1536,
+  )) as Partial<JobRequirementsRaw>;
+
+  return {
+    requiredSkills: Array.isArray(result.requiredSkills) ? result.requiredSkills : [],
+    niceToHaveSkills: Array.isArray(result.niceToHaveSkills) ? result.niceToHaveSkills : [],
+    minYears: typeof result.minYears === "number" ? result.minYears : null,
+    domains: Array.isArray(result.domains) ? result.domains : [],
+    education: Array.isArray(result.education) ? result.education : [],
+    languages: Array.isArray(result.languages) ? result.languages : [],
+    keywords: Array.isArray(result.keywords) ? result.keywords : [],
+    responsibilities: Array.isArray(result.responsibilities) ? result.responsibilities : [],
+  };
+}
+
+/**
+ * Tags the CV's OWN existing skills/languages/education with a cross-language
+ * canonical id. This never adds, removes, or rewrites an item's meaning —
+ * each output entry corresponds 1:1 to an input entry by position.
+ */
+export async function canonicalizeCvSkills(
+  skills: string[],
+  languages: string[],
+  education: string[],
+): Promise<{ skills: Record<string, string>; languages: Record<string, string>; education: Record<string, string> }> {
+  if (skills.length === 0 && languages.length === 0 && education.length === 0) {
+    return { skills: {}, languages: {}, education: {} };
+  }
+
+  const result = (await askJSON(
+    `You are tagging a person's existing CV list items with a cross-language identifier — you are NOT extracting or inventing anything, only relabeling exactly the items given to you. ${CANONICAL_ID_RULE} Return one output entry for every input entry, in the same order, never more and never fewer. Return JSON only, matching this schema exactly:
+{
+  "skills": [{"original":"","canonical":""}],
+  "languages": [{"original":"","canonical":""}],
+  "education": [{"original":"","canonical":""}]
+}`,
+    `Skills: ${JSON.stringify(skills)}\nLanguages: ${JSON.stringify(languages)}\nEducation: ${JSON.stringify(education)}`,
+    1024,
+  )) as { skills?: { original: string; canonical: string }[]; languages?: { original: string; canonical: string }[]; education?: { original: string; canonical: string }[] };
+
+  const toMap = (arr?: { original: string; canonical: string }[]): Record<string, string> =>
+    Object.fromEntries((arr ?? []).filter((e) => e && e.original).map((e) => [e.original, e.canonical]));
+
+  return {
+    skills: toMap(result.skills),
+    languages: toMap(result.languages),
+    education: toMap(result.education),
+  };
+}
+
+export interface JobMatchRecommendationInput {
+  matchingSkills: string[];
+  missingSkills: string[];
+  missingKeywords: string[];
+  experienceGap: string | null;
+  educationGap: boolean;
+  languageGap: string[];
+}
+
+/**
+ * Writes recommendation text strictly from the pre-computed matching/missing
+ * lists — the prompt forbids introducing anything not already in them, so it
+ * cannot fabricate experience, employers, degrees, or skills. If this call
+ * fails, callers should use `fallbackJobMatchRecommendations()` instead.
+ */
+export async function generateJobMatchRecommendations(input: JobMatchRecommendationInput, lang: Lang = "en"): Promise<string[]> {
+  const result = (await askJSON(
+    `You are a career coach writing CV improvement recommendations. You will be given exactly which skills/keywords are already present and which are missing. Rules: ONLY reference items that appear in the provided lists below. NEVER invent or assume any skill, employer, degree, certification, language, or achievement that isn't explicitly listed. If something is missing, phrase it as missing/to highlight-if-applicable, never as something the person already has. Return JSON with a "recommendations" array of 3-6 short, concrete, actionable strings.${langInstruction(lang)}`,
+    `Already present (matching skills): ${JSON.stringify(input.matchingSkills)}
+Missing skills: ${JSON.stringify(input.missingSkills)}
+Missing keywords: ${JSON.stringify(input.missingKeywords)}
+Experience gap: ${input.experienceGap ?? "none"}
+Education requirement unmet: ${input.educationGap}
+Missing languages: ${JSON.stringify(input.languageGap)}`,
+    768,
+  )) as { recommendations?: string[] };
+
+  return Array.isArray(result.recommendations) ? result.recommendations : [];
+}
+
+/** Deterministic, non-AI fallback used when generateJobMatchRecommendations fails or returns malformed JSON — guarantees a safe, non-fabricating result even on AI failure. */
+export function fallbackJobMatchRecommendations(input: JobMatchRecommendationInput, lang: Lang = "en"): string[] {
+  const out: string[] = [];
+  const templates = {
+    en: {
+      skill: (s: string) => `If you have experience with ${s}, make sure it's clearly visible on your CV.`,
+      keyword: (k: string) => `Consider adding "${k}" if it genuinely applies to your background.`,
+      experience: (g: string) => `Experience gap: ${g}.`,
+      education: () => `This role lists an education requirement not currently reflected on your CV.`,
+      language: (l: string) => `This role expects ${l}, which isn't currently listed on your CV.`,
+    },
+    fr: {
+      skill: (s: string) => `Si vous avez de l'expérience avec ${s}, assurez-vous qu'elle apparaît clairement sur votre CV.`,
+      keyword: (k: string) => `Envisagez d'ajouter « ${k} » si cela correspond réellement à votre profil.`,
+      experience: (g: string) => `Écart d'expérience : ${g}.`,
+      education: () => `Cette offre mentionne un niveau d'études qui n'apparaît pas actuellement sur votre CV.`,
+      language: (l: string) => `Cette offre requiert ${l}, qui n'est pas actuellement mentionné sur votre CV.`,
+    },
+    nl: {
+      skill: (s: string) => `Als je ervaring hebt met ${s}, zorg er dan voor dat dit duidelijk zichtbaar is op je cv.`,
+      keyword: (k: string) => `Overweeg "${k}" toe te voegen als dit echt bij jouw profiel past.`,
+      experience: (g: string) => `Ervaringskloof: ${g}.`,
+      education: () => `Deze vacature vermeldt een opleidingsvereiste die momenteel niet op je cv staat.`,
+      language: (l: string) => `Deze vacature vereist ${l}, wat momenteel niet op je cv staat.`,
+    },
+  }[lang];
+
+  input.missingSkills.slice(0, 3).forEach((s) => out.push(templates.skill(s)));
+  input.missingKeywords.slice(0, 2).forEach((k) => out.push(templates.keyword(k)));
+  if (input.experienceGap) out.push(templates.experience(input.experienceGap));
+  if (input.educationGap) out.push(templates.education());
+  input.languageGap.forEach((l) => out.push(templates.language(l)));
+
+  return out;
 }
 
 // --- Helpers ---

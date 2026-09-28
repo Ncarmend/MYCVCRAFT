@@ -3,6 +3,7 @@ export const translations = {
     // ── Navbar ──────────────────────────────────────────────────────────────
     nav: {
       features: "Features",
+      jobMatch: "Job Match",
       pricing: "Pricing",
       careers: "Careers",
       contact: "Contact",
@@ -15,10 +16,10 @@ export const translations = {
     // ── Hero ─────────────────────────────────────────────────────────────────
     hero: {
       badge: "Cvixeo — Be seen. Be chosen.",
-      headline1: "Land your dream job",
-      headline2: "CVixeo",
+      headline1: "Does your CV really match",
+      headline2: "the job you're applying for?",
       subtext:
-        "Generate ATS-optimized, professionally crafted CVs in minutes. Match your CV to any job description and download beautiful PDFs instantly.",
+        "Create your professional CV with AI, compare it with a specific job offer and discover exactly what you can improve.",
       highlights: [
         "ATS-optimized in one click",
         "AI bullet point generation",
@@ -29,8 +30,8 @@ export const translations = {
         { value: "94%",     label: "ATS pass rate" },
         { value: "3×",      label: "More interviews" },
       ],
-      ctaPrimary: "Build your CV free",
-      ctaSecondary: "View pricing",
+      ctaPrimary: "Create my CV for free",
+      ctaSecondary: "Analyze a job offer",
       noCard: "No credit card required · Free plan available",
       mock: {
         nav: ["Dashboard", "My CVs", "Templates", "Settings", "Support"],
@@ -65,16 +66,19 @@ export const translations = {
     },
 
     // ── Testimonials ─────────────────────────────────────────────────────────
+    // Note: previous items here were fabricated named testimonials attributed
+    // to real companies (Google, Stripe, Figma, OpenAI...) — replaced with
+    // neutral, non-attributed feature statements rather than invented quotes.
     testimonials: {
-      sectionLabel: "Testimonials",
-      headline: "Loved by job seekers worldwide",
+      sectionLabel: "What you can do",
+      headline: "Built around what actually helps your job search",
       items: [
-        { name: "Sarah Chen",      role: "Software Engineer at Google",      avatar: "SC", content: "Cvixeo helped me land my dream job at Google. The ATS optimization feature was a game-changer — my CV was getting ignored before, but after the AI suggestions I started getting callbacks within days." },
-        { name: "Marcus Johnson",  role: "Product Manager at Stripe",        avatar: "MJ", content: "I rewrote my CV 4 times before trying Cvixeo. The job description matching feature is incredible — it told me exactly which keywords I was missing and helped me tailor each application." },
-        { name: "Elena Rodriguez", role: "UX Designer at Figma",             avatar: "ER", content: "The modern template is stunning. Multiple recruiters mentioned how professional my CV looked. The cover letter generator saved me hours per application." },
-        { name: "David Park",      role: "Data Scientist at OpenAI",         avatar: "DP", content: "As someone who hates writing, the AI generation feature was perfect. I just filled in my experience and it turned my bullet points into compelling, professional descriptions." },
-        { name: "Priya Patel",     role: "Marketing Lead at HubSpot",        avatar: "PP", content: "Worth every penny of the Pro plan. I upgraded within 10 minutes of trying the free plan — the unlimited CVs and PDF export are essential when you're actively job hunting." },
-        { name: "James Williams",  role: "Backend Engineer at Vercel",       avatar: "JW", content: "The ATS score went from 42 to 91 after following Cvixeo's suggestions. I had 3 interviews scheduled within a week of updating my CV." },
+        { name: "Job Match",         role: "", avatar: "JM", content: "Compare your CV with a specific job offer and see exactly which skills and keywords are missing." },
+        { name: "ATS Optimization",  role: "", avatar: "ATS", content: "Score your CV against Applicant Tracking Systems and get concrete suggestions to improve it." },
+        { name: "Templates",         role: "", avatar: "TP", content: "Choose from professionally designed templates and switch between them without losing your data." },
+        { name: "PDF Export",        role: "", avatar: "PDF", content: "Export a clean, print-ready PDF in one click." },
+        { name: "Cover Letters",     role: "", avatar: "CL", content: "Generate a cover letter tailored to a specific job description." },
+        { name: "Track Your Score",  role: "", avatar: "SC", content: "Re-run your Job Match analysis after editing your CV and see your score change." },
       ],
     },
 
@@ -527,11 +531,115 @@ export const translations = {
         settingsFailed: "Failed to save settings.",
       },
     },
+
+    // ── Job Match ────────────────────────────────────────────────────────────
+    jobMatch: {
+      metaTitle: "Job Match – Match Your CV to a Job Offer | CVIXEO",
+      metaDescription: "Compare your CV with a job offer, measure your match score, and discover which skills and keywords to improve with CVIXEO.",
+      pageTitle: "Job Match",
+      pageSubtitle: "Does your CV really match this job offer? Create a professional CV, compare it with a specific job offer and discover what you can improve.",
+      scoreLabel: "CV / Job Match Score",
+      scoreCaption: "An analytical matching score — not a hiring probability.",
+
+      step1Title: "Select your CV",
+      noCvTitle: "Create your CV first",
+      noCvCta: "Create my CV",
+
+      step2Title: "Add the job offer",
+      jobDescriptionLabel: "Job Offer",
+      jobDescriptionPlaceholder: "Paste the job description here",
+      jobTitleLabel: "Job title",
+      jobTitlePlaceholder: "Frontend Developer",
+      companyLabel: "Company",
+      companyPlaceholder: "Company name",
+
+      analyzeButton: "Analyze Job",
+      analyzingLabel: "Analyzing your CV and the job offer…",
+      analysisCompleteLabel: "Analysis complete",
+
+      breakdownTitle: "Score breakdown",
+      categories: {
+        skills: "Skills",
+        experience: "Experience",
+        keywords: "Keywords",
+        education: "Education",
+        languages: "Languages",
+      },
+
+      whyTitle: "Why this score?",
+      whyBody: "Your CV matches most of the technical requirements detected in this offer. Items listed below as missing were not detected in your CV — that doesn't mean you don't have them, only that they weren't found.",
+      matchingSkillsTitle: "Matching Skills",
+      missingSkillsTitle: "Missing Skills",
+      matchingKeywordsTitle: "Matching Keywords",
+      missingKeywordsTitle: "Missing Keywords",
+      recommendationsTitle: "Recommendations",
+
+      improveCta: "Improve My CV",
+      rerunButton: "Run Analysis Again",
+      scoreImprovedLabel: "Your score improved",
+
+      historyTitle: "Your analyses",
+      historyEmpty: "No analyses yet.",
+      lastAnalysis: "Last analysis",
+      viewAnalysis: "View analysis",
+
+      upgrade: {
+        title: "Job Match is a Premium feature",
+        subtitle: "Upgrade to run the full analysis — matching skills, missing keywords, and recommendations.",
+        cta: "See Premium plans",
+      },
+
+      errors: {
+        empty: "Please paste the full job description (at least a few sentences).",
+        generic: "The analysis failed. Please try again.",
+        rateLimited: "Too many requests. Please wait a moment and try again.",
+        noCv: "Select a CV to run the analysis.",
+      },
+
+      scoreMeaning: {
+        title: "What does the score mean?",
+        body: "The score represents the degree of textual and structural alignment detected between your CV and the job description.",
+        notLabel: "It does NOT represent:",
+        notItems: [
+          "probability of getting hired",
+          "probability of getting an interview",
+          "a recruiter's decision",
+          "guaranteed ATS acceptance",
+        ],
+        beta: "CVIXEO is currently in beta. The product is actively being improved based on user feedback.",
+      },
+
+      demo: {
+        title: "Adapt your CV to every job offer",
+        illustrativeNote: "Illustrative example — not a real analysis result.",
+        before: "Match Score",
+        after: "After improvements",
+      },
+
+      howItWorks: {
+        title: "How Job Match works",
+        steps: [
+          { n: "01", title: "Analyze the offer", body: "CVIXEO identifies the skills, keywords, responsibilities, and important criteria." },
+          { n: "02", title: "Analyze your CV", body: "CVIXEO looks at the information actually present in your CV." },
+          { n: "03", title: "Compare", body: "Both are compared to identify matches and missing elements." },
+          { n: "04", title: "Improve", body: "Get concrete recommendations." },
+          { n: "05", title: "Measure", body: "Run the analysis again and see how your score evolves." },
+        ],
+      },
+    },
+
     dashboard: {
       title: "Dashboard",
       welcomeBack: "Welcome back",
       newCV: "New CV",
       upgradeForMore: "Upgrade for more",
+      jobMatchCard: {
+        title: "Job Match",
+        subtitle: "Compare your CV to a job offer",
+        cta: "Analyze a job offer",
+        lastAnalysis: "Last analysis",
+        viewAnalysis: "View analysis",
+      },
       stats: {
         totalCVs: "Total CVs",
         published: "Published",
@@ -676,6 +784,7 @@ export const translations = {
   fr: {
     nav: {
       features:   "Fonctionnalités",
+      jobMatch:   "Job Match",
       pricing:    "Tarifs",
       careers:    "Carrières",
       contact:    "Contact",
@@ -687,10 +796,10 @@ export const translations = {
 
     hero: {
       badge:     "Cvixeo — Sois vu. Sois choisi.",
-      headline1: "Décrochez l'emploi de vos rêves avec",
-      headline2: "CVIXEO",
+      headline1: "Votre CV correspond-il vraiment",
+      headline2: "à l'offre que vous visez ?",
       subtext:
-        "Générez des CV optimisés ATS et professionnels en quelques minutes. Adaptez votre CV à n'importe quelle offre et téléchargez de beaux PDF instantanément.",
+        "Créez votre CV professionnel avec l'IA, comparez-le à une offre d'emploi précise et découvrez exactement ce que vous pouvez améliorer.",
       highlights: [
         "ATS-optimisé en un clic",
         "Génération IA de points clés",
@@ -702,7 +811,7 @@ export const translations = {
         { value: "3×",      label: "Plus d'entretiens" },
       ],
       ctaPrimary:   "Créer mon CV gratuitement",
-      ctaSecondary: "Voir les tarifs",
+      ctaSecondary: "Analyser une offre",
       noCard:       "Sans carte bancaire · Offre gratuite disponible",
       mock: {
         nav: ["Tableau de bord", "Mes CV", "Modèles", "Paramètres", "Support"],
@@ -735,16 +844,18 @@ export const translations = {
       ],
     },
 
+    // Note: fabricated named testimonials attributed to real companies
+    // replaced with neutral, non-attributed feature statements.
     testimonials: {
-      sectionLabel: "Témoignages",
-      headline:     "Adopté par des chercheurs d'emploi du monde entier",
+      sectionLabel: "Ce que vous pouvez faire",
+      headline:     "Conçu autour de ce qui aide vraiment votre recherche d'emploi",
       items: [
-        { name: "Sarah Chen",      role: "Ingénieure Logiciel chez Google",         avatar: "SC", content: "Cvixeo m'a aidée à décrocher mon emploi de rêve chez Google. L'optimisation ATS a tout changé — mon CV était ignoré avant, mais après les suggestions IA j'ai commencé à recevoir des rappels en quelques jours." },
-        { name: "Marcus Johnson",  role: "Product Manager chez Stripe",             avatar: "MJ", content: "J'ai réécrit mon CV 4 fois avant d'essayer Cvixeo. Le matching par offre d'emploi est incroyable — il m'a dit exactement quels mots-clés me manquaient et m'a aidé à personnaliser chaque candidature." },
-        { name: "Elena Rodriguez", role: "UX Designer chez Figma",                  avatar: "ER", content: "Le modèle moderne est superbe. Plusieurs recruteurs ont commenté le professionnalisme de mon CV. Le générateur de lettre de motivation m'a économisé des heures par candidature." },
-        { name: "David Park",      role: "Data Scientist chez OpenAI",              avatar: "DP", content: "En tant que personne qui n'aime pas écrire, la génération IA était parfaite. J'ai renseigné mon expérience et elle a transformé mes points en descriptions convaincantes et professionnelles." },
-        { name: "Priya Patel",     role: "Responsable Marketing chez HubSpot",     avatar: "PP", content: "Chaque centime du plan Pro en vaut la peine. J'ai upgradé 10 minutes après l'essai gratuit — les CV illimités et l'export PDF sont indispensables en recherche active." },
-        { name: "James Williams",  role: "Ingénieur Backend chez Vercel",          avatar: "JW", content: "Mon score ATS est passé de 42 à 91 après avoir suivi les suggestions de Cvixeo. J'avais 3 entretiens planifiés une semaine après avoir mis à jour mon CV." },
+        { name: "Job Match",             role: "", avatar: "JM",  content: "Comparez votre CV à une offre d'emploi précise et voyez exactement quelles compétences et quels mots-clés manquent." },
+        { name: "Optimisation ATS",      role: "", avatar: "ATS", content: "Évaluez votre CV face aux systèmes de suivi des candidatures et recevez des suggestions concrètes pour l'améliorer." },
+        { name: "Modèles",               role: "", avatar: "TP",  content: "Choisissez parmi des modèles conçus par des professionnels et changez de style sans perdre vos données." },
+        { name: "Export PDF",            role: "", avatar: "PDF", content: "Téléchargez un PDF propre et prêt à l'emploi en un clic." },
+        { name: "Lettre de motivation",  role: "", avatar: "CL",  content: "Générez une lettre de motivation adaptée à une offre d'emploi précise." },
+        { name: "Suivez votre score",    role: "", avatar: "SC",  content: "Relancez votre analyse Job Match après avoir modifié votre CV et suivez l'évolution de votre score." },
       ],
     },
 
@@ -1192,11 +1303,115 @@ export const translations = {
         settingsFailed: "Échec de l'enregistrement des paramètres.",
       },
     },
+
+    // ── Job Match ────────────────────────────────────────────────────────────
+    jobMatch: {
+      metaTitle: "Job Match – Adaptez votre CV à une offre d'emploi | CVIXEO",
+      metaDescription: "Comparez votre CV à une offre d'emploi, mesurez votre score de correspondance et découvrez les compétences et mots-clés à améliorer avec CVIXEO.",
+      pageTitle: "Job Match",
+      pageSubtitle: "Votre CV correspond-il vraiment à cette offre d'emploi ? Créez un CV professionnel, comparez-le à une offre d'emploi précise et découvrez ce que vous pouvez améliorer.",
+      scoreLabel: "Score de correspondance CV / offre",
+      scoreCaption: "Un score d'analyse de correspondance — pas une probabilité d'embauche.",
+
+      step1Title: "Sélectionnez votre CV",
+      noCvTitle: "Créez d'abord votre CV",
+      noCvCta: "Créer mon CV",
+
+      step2Title: "Ajoutez l'offre d'emploi",
+      jobDescriptionLabel: "Offre d'emploi",
+      jobDescriptionPlaceholder: "Collez ici la description de l'offre d'emploi",
+      jobTitleLabel: "Intitulé du poste",
+      jobTitlePlaceholder: "Développeur Frontend",
+      companyLabel: "Entreprise",
+      companyPlaceholder: "Nom de l'entreprise",
+
+      analyzeButton: "Analyser l'offre",
+      analyzingLabel: "Analyse de votre CV et de l'offre…",
+      analysisCompleteLabel: "Analyse terminée",
+
+      breakdownTitle: "Détail du score",
+      categories: {
+        skills: "Compétences",
+        experience: "Expérience",
+        keywords: "Mots-clés",
+        education: "Formation",
+        languages: "Langues",
+      },
+
+      whyTitle: "Pourquoi ce score ?",
+      whyBody: "Votre CV correspond à la majorité des exigences techniques détectées dans cette offre. Les éléments listés comme manquants n'ont pas été détectés dans votre CV — cela ne signifie pas que vous ne les avez pas, seulement qu'ils n'ont pas été trouvés.",
+      matchingSkillsTitle: "Compétences correspondantes",
+      missingSkillsTitle: "Compétences manquantes",
+      matchingKeywordsTitle: "Mots-clés correspondants",
+      missingKeywordsTitle: "Mots-clés manquants",
+      recommendationsTitle: "Recommandations",
+
+      improveCta: "Améliorer mon CV",
+      rerunButton: "Relancer l'analyse",
+      scoreImprovedLabel: "Votre score s'est amélioré",
+
+      historyTitle: "Vos analyses",
+      historyEmpty: "Aucune analyse pour le moment.",
+      lastAnalysis: "Dernière analyse",
+      viewAnalysis: "Voir l'analyse",
+
+      upgrade: {
+        title: "Job Match est une fonctionnalité Premium",
+        subtitle: "Passez à Premium pour lancer l'analyse complète — compétences correspondantes, mots-clés manquants et recommandations.",
+        cta: "Voir les offres Premium",
+      },
+
+      errors: {
+        empty: "Merci de coller la description complète de l'offre (au moins quelques phrases).",
+        generic: "L'analyse a échoué. Veuillez réessayer.",
+        rateLimited: "Trop de requêtes. Veuillez patienter un instant puis réessayer.",
+        noCv: "Sélectionnez un CV pour lancer l'analyse.",
+      },
+
+      scoreMeaning: {
+        title: "Que signifie le score ?",
+        body: "Le score représente le degré de correspondance textuelle et structurelle détecté entre votre CV et l'offre d'emploi.",
+        notLabel: "Il ne représente PAS :",
+        notItems: [
+          "une probabilité d'être embauché",
+          "une probabilité d'obtenir un entretien",
+          "la décision d'un recruteur",
+          "une acceptation garantie par un ATS",
+        ],
+        beta: "CVIXEO est actuellement en version bêta. Le produit est activement amélioré en fonction des retours des utilisateurs.",
+      },
+
+      demo: {
+        title: "Adaptez votre CV à chaque offre",
+        illustrativeNote: "Exemple illustratif — pas un résultat d'analyse réel.",
+        before: "Score de correspondance",
+        after: "Après améliorations",
+      },
+
+      howItWorks: {
+        title: "Comment fonctionne Job Match ?",
+        steps: [
+          { n: "01", title: "Analysez l'offre", body: "CVIXEO identifie les compétences, mots-clés, responsabilités et critères importants." },
+          { n: "02", title: "Analysez votre CV", body: "CVIXEO examine les informations réellement présentes dans votre CV." },
+          { n: "03", title: "Comparez", body: "Les deux sont comparés afin d'identifier les correspondances et les éléments manquants." },
+          { n: "04", title: "Améliorez", body: "Recevez des recommandations concrètes." },
+          { n: "05", title: "Mesurez", body: "Relancez l'analyse et voyez l'évolution de votre score." },
+        ],
+      },
+    },
+
     dashboard: {
       title: "Tableau de bord",
       welcomeBack: "Bon retour",
       newCV: "Nouveau CV",
       upgradeForMore: "Passer Premium",
+      jobMatchCard: {
+        title: "Job Match",
+        subtitle: "Comparez votre CV à une offre d'emploi",
+        cta: "Analyser une offre",
+        lastAnalysis: "Dernière analyse",
+        viewAnalysis: "Voir l'analyse",
+      },
       stats: {
         totalCVs: "Total CVs",
         published: "Publiés",
@@ -1342,6 +1557,7 @@ export const translations = {
     // ── Navbar ──────────────────────────────────────────────────────────────
     nav: {
       features: "Functies",
+      jobMatch: "Job Match",
       pricing: "Prijzen",
       careers: "Carrière",
       contact: "Contact",
@@ -1354,10 +1570,10 @@ export const translations = {
     // ── Hero ─────────────────────────────────────────────────────────────────
     hero: {
       badge: "Cvixeo — Word gezien. Word gekozen.",
-      headline1: "Vind je droomjob met",
-      headline2: "CVixeo",
+      headline1: "Sluit je cv echt aan",
+      headline2: "bij de vacature die je wil?",
       subtext:
-        "Genereer ATS-geoptimaliseerde, professioneel opgestelde cv's in enkele minuten. Stem je cv af op elke vacature en download meteen een prachtige pdf.",
+        "Maak je professionele cv met AI, vergelijk het met een specifieke vacature en ontdek precies wat je kan verbeteren.",
       highlights: [
         "ATS-geoptimaliseerd met één klik",
         "AI-gegenereerde bullet points",
@@ -1368,8 +1584,8 @@ export const translations = {
         { value: "94%",     label: "ATS-slaagpercentage" },
         { value: "3×",      label: "meer sollicitatiegesprekken" },
       ],
-      ctaPrimary: "Maak gratis je cv",
-      ctaSecondary: "Bekijk prijzen",
+      ctaPrimary: "Maak gratis mijn cv",
+      ctaSecondary: "Analyseer een vacature",
       noCard: "Geen kredietkaart nodig · Gratis plan beschikbaar",
       mock: {
         nav: ["Dashboard", "Mijn cv's", "Sjablonen", "Instellingen", "Support"],
@@ -1404,16 +1620,18 @@ export const translations = {
     },
 
     // ── Testimonials ─────────────────────────────────────────────────────────
+    // Note: fabricated named testimonials attributed to real companies
+    // replaced with neutral, non-attributed feature statements.
     testimonials: {
-      sectionLabel: "Getuigenissen",
-      headline: "Geliefd bij werkzoekenden wereldwijd",
+      sectionLabel: "Wat je kan doen",
+      headline: "Gebouwd rond wat je zoektocht echt vooruit helpt",
       items: [
-        { name: "Sarah Chen",      role: "Software-engineer bij Google",     avatar: "SC", content: "Cvixeo hielp me mijn droomjob bij Google te vinden. De ATS-optimalisatie was een gamechanger — mijn cv werd voorheen genegeerd, maar na de AI-suggesties kreeg ik binnen enkele dagen al reacties." },
-        { name: "Marcus Johnson",  role: "Product manager bij Stripe",       avatar: "MJ", content: "Ik herschreef mijn cv vier keer voor ik Cvixeo probeerde. De vacature-matching is ongelooflijk — het vertelde me precies welke trefwoorden ik miste en hielp me elke sollicitatie af te stemmen." },
-        { name: "Elena Rodriguez", role: "UX-designer bij Figma",            avatar: "ER", content: "Het moderne sjabloon is prachtig. Meerdere rekruteerders merkten op hoe professioneel mijn cv eruitzag. De generator voor sollicitatiebrieven bespaarde me uren per sollicitatie." },
-        { name: "David Park",      role: "Data scientist bij OpenAI",        avatar: "DP", content: "Als iemand die een hekel heeft aan schrijven, was de AI-generatie perfect. Ik vulde gewoon mijn ervaring in en het maakte er overtuigende, professionele beschrijvingen van." },
-        { name: "Priya Patel",     role: "Marketing lead bij HubSpot",       avatar: "PP", content: "Elke euro van het Pro-plan waard. Ik upgradede binnen tien minuten na het uitproberen van het gratis plan — de onbeperkte cv's en pdf-export zijn essentieel tijdens een actieve jobzoektocht." },
-        { name: "James Williams",  role: "Backend-engineer bij Vercel",      avatar: "JW", content: "De ATS-score ging van 42 naar 91 na het volgen van Cvixeo's suggesties. Ik had binnen een week na het bijwerken van mijn cv al drie sollicitatiegesprekken gepland." },
+        { name: "Job Match",          role: "", avatar: "JM",  content: "Vergelijk je cv met een specifieke vacature en zie precies welke vaardigheden en zoekwoorden ontbreken." },
+        { name: "ATS-optimalisatie",  role: "", avatar: "ATS", content: "Beoordeel je cv tegenover Applicant Tracking Systems en krijg concrete suggesties om het te verbeteren." },
+        { name: "Sjablonen",          role: "", avatar: "TP",  content: "Kies uit professioneel ontworpen sjablonen en wissel van stijl zonder je gegevens te verliezen." },
+        { name: "Pdf-export",         role: "", avatar: "PDF", content: "Download een nette, afdrukklare pdf met één klik." },
+        { name: "Sollicitatiebrief",  role: "", avatar: "CL",  content: "Genereer een sollicitatiebrief afgestemd op een specifieke vacature." },
+        { name: "Volg je score",      role: "", avatar: "SC",  content: "Voer je Job Match-analyse opnieuw uit na het bijwerken van je cv en volg hoe je score verandert." },
       ],
     },
 
@@ -1866,11 +2084,115 @@ export const translations = {
         settingsFailed: "Opslaan van instellingen mislukt.",
       },
     },
+
+    // ── Job Match ────────────────────────────────────────────────────────────
+    jobMatch: {
+      metaTitle: "Job Match – Stem je cv af op een vacature | CVIXEO",
+      metaDescription: "Vergelijk je cv met een vacature, meet je matchingsscore en ontdek welke vaardigheden en zoekwoorden je kan verbeteren met CVIXEO.",
+      pageTitle: "Job Match",
+      pageSubtitle: "Sluit je cv echt aan bij deze vacature? Maak een professioneel cv, vergelijk het met een specifieke vacature en ontdek wat je kan verbeteren.",
+      scoreLabel: "Cv / Vacature matchingsscore",
+      scoreCaption: "Een analytische matchingsscore — geen kans op aanwerving.",
+
+      step1Title: "Selecteer je cv",
+      noCvTitle: "Maak eerst je cv",
+      noCvCta: "Maak mijn cv",
+
+      step2Title: "Voeg de vacature toe",
+      jobDescriptionLabel: "Vacature",
+      jobDescriptionPlaceholder: "Plak hier de functiebeschrijving",
+      jobTitleLabel: "Functietitel",
+      jobTitlePlaceholder: "Frontend developer",
+      companyLabel: "Bedrijf",
+      companyPlaceholder: "Naam van het bedrijf",
+
+      analyzeButton: "Vacature analyseren",
+      analyzingLabel: "Je cv en de vacature worden geanalyseerd…",
+      analysisCompleteLabel: "Analyse voltooid",
+
+      breakdownTitle: "Detail van de score",
+      categories: {
+        skills: "Vaardigheden",
+        experience: "Werkervaring",
+        keywords: "Zoekwoorden",
+        education: "Opleiding",
+        languages: "Talen",
+      },
+
+      whyTitle: "Waarom deze score?",
+      whyBody: "Je cv komt overeen met de meeste technische vereisten uit deze vacature. De hieronder vermelde ontbrekende punten zijn niet gevonden in je cv — dat betekent niet dat je ze niet hebt, enkel dat ze niet werden gedetecteerd.",
+      matchingSkillsTitle: "Overeenkomende vaardigheden",
+      missingSkillsTitle: "Ontbrekende vaardigheden",
+      matchingKeywordsTitle: "Overeenkomende zoekwoorden",
+      missingKeywordsTitle: "Ontbrekende zoekwoorden",
+      recommendationsTitle: "Aanbevelingen",
+
+      improveCta: "Mijn cv verbeteren",
+      rerunButton: "Analyse opnieuw uitvoeren",
+      scoreImprovedLabel: "Je score is verbeterd",
+
+      historyTitle: "Jouw analyses",
+      historyEmpty: "Nog geen analyses.",
+      lastAnalysis: "Laatste analyse",
+      viewAnalysis: "Analyse bekijken",
+
+      upgrade: {
+        title: "Job Match is een Premium-functie",
+        subtitle: "Upgrade naar Premium om de volledige analyse uit te voeren — overeenkomende vaardigheden, ontbrekende zoekwoorden en aanbevelingen.",
+        cta: "Bekijk Premium-plannen",
+      },
+
+      errors: {
+        empty: "Plak de volledige functiebeschrijving (minstens enkele zinnen).",
+        generic: "De analyse is mislukt. Probeer het opnieuw.",
+        rateLimited: "Te veel aanvragen. Wacht even en probeer het opnieuw.",
+        noCv: "Selecteer een cv om de analyse uit te voeren.",
+      },
+
+      scoreMeaning: {
+        title: "Wat betekent de score?",
+        body: "De score geeft de mate van tekstuele en structurele overeenkomst weer die tussen je cv en de vacature werd gedetecteerd.",
+        notLabel: "De score betekent NIET:",
+        notItems: [
+          "kans om aangeworven te worden",
+          "kans op een sollicitatiegesprek",
+          "de beslissing van een rekruteerder",
+          "gegarandeerde ATS-goedkeuring",
+        ],
+        beta: "CVIXEO bevindt zich momenteel in bèta. Het product wordt actief verbeterd op basis van feedback van gebruikers.",
+      },
+
+      demo: {
+        title: "Stem je cv af op elke vacature",
+        illustrativeNote: "Illustratief voorbeeld — geen echt analyseresultaat.",
+        before: "Matchingsscore",
+        after: "Na verbeteringen",
+      },
+
+      howItWorks: {
+        title: "Hoe werkt Job Match?",
+        steps: [
+          { n: "01", title: "Analyseer de vacature", body: "CVIXEO identificeert de vaardigheden, zoekwoorden, verantwoordelijkheden en belangrijke criteria." },
+          { n: "02", title: "Analyseer je cv", body: "CVIXEO bekijkt de informatie die echt in je cv aanwezig is." },
+          { n: "03", title: "Vergelijk", body: "Beide worden vergeleken om overeenkomsten en ontbrekende elementen te identificeren." },
+          { n: "04", title: "Verbeter", body: "Ontvang concrete aanbevelingen." },
+          { n: "05", title: "Meet", body: "Voer de analyse opnieuw uit en volg de evolutie van je score." },
+        ],
+      },
+    },
+
     dashboard: {
       title: "Dashboard",
       welcomeBack: "Welkom terug",
       newCV: "Nieuw cv",
       upgradeForMore: "Upgrade voor meer",
+      jobMatchCard: {
+        title: "Job Match",
+        subtitle: "Vergelijk je cv met een vacature",
+        cta: "Analyseer een vacature",
+        lastAnalysis: "Laatste analyse",
+        viewAnalysis: "Analyse bekijken",
+      },
       stats: {
         totalCVs: "Totaal cv's",
         published: "Gepubliceerd",

@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
 import { CVPreview } from "@/components/cv/CVPreview";
 import { PdfDownloadLink } from "@/components/cv/PdfDownloadLink";
+import { CvPreviewTracker } from "@/components/dashboard/CvPreviewTracker";
 import { ArrowLeft, Edit, FileDown } from "lucide-react";
 import type { CV, CVFormData } from "@/types";
 
@@ -56,6 +57,7 @@ export default async function CVPreviewPage({ params }: Props) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-gray-100">
+      <CvPreviewTracker cvId={id} />
 
       {/* Toolbar */}
       <div className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-white px-4 py-3">

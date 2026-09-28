@@ -10,6 +10,7 @@ import { Header } from "@/components/dashboard/Header";
 import { Button } from "@/components/ui/button";
 import { FileDown, Upload } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { trackCvCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
 
 const BLANK: Partial<CVFormData> = { template: "BASIC", name: "Your Name", jobTitle: "Your Job Title" };
@@ -47,6 +48,7 @@ export function NewCVClient({ isPro }: Props) {
       }
 
       const { cv } = await res.json();
+      trackCvCreated({ cvId: cv.id, template: cv.template });
       toast.success(lang === "fr" ? "CV créé avec succès !" : "CV created successfully!");
       // Invalidate the Router Cache so /dashboard's CV count and "My CVs" list
       // (server-rendered from Postgres) are re-fetched fresh next time they're

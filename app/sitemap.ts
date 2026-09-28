@@ -11,6 +11,7 @@ const LOCALIZED_ROUTES: {
   priority: number;
 }[] = [
   { path: "", changeFrequency: "weekly", priority: 1.0 },
+  { path: "/job-match", changeFrequency: "weekly", priority: 0.9 },
   { path: "/pricing", changeFrequency: "weekly", priority: 0.9 },
   { path: "/careers", changeFrequency: "weekly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },

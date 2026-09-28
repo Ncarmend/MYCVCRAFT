@@ -24,6 +24,7 @@ model User {
   cvs          CV[]
   subscription Subscription?
   settings     UserSettings?
+  jobMatches   JobMatch[]
 
   @@map("users")
 }
@@ -72,6 +73,8 @@ model CV {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  jobMatches JobMatch[]
+
   @@index([userId])
   @@map("cvs")
 }
@@ -103,6 +106,41 @@ model Subscription {
   updatedAt DateTime @updatedAt
 
   @@map("subscriptions")
+}
+
+model JobMatch {
+  id     String @id @default(cuid())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  cvId String
+  cv   CV @relation(fields: [cvId], references: [id], onDelete: Cascade)
+
+  jobTitle       String?
+  companyName    String?
+  jobDescription String  @db.Text
+  lang           String  @default("en")
+
+  score           Int
+  skillsScore     Int
+  experienceScore Int
+  keywordsScore   Int
+  educationScore  Int
+  languagesScore  Int
+
+  matchingSkills   Json @default("[]")
+  missingSkills    Json @default("[]")
+  matchingKeywords Json @default("[]")
+  missingKeywords  Json @default("[]")
+  recommendations  Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([cvId])
+  @@map("job_matches")
 }
 
 model UserSettings {

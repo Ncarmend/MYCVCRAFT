@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/landing/Hero";
+import { JobMatchDemo } from "@/components/landing/JobMatchDemo";
 import { Features } from "@/components/landing/Features";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { CTA } from "@/components/landing/CTA";
@@ -33,6 +34,7 @@ export default function LandingPageNl() {
       <NavbarServer />
       <main className="flex-1">
         <Hero />
+        <JobMatchDemo />
         <Features />
         <Testimonials />
         <CTA />

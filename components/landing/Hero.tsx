@@ -15,6 +15,7 @@ const mockStatColors = [
 export function Hero() {
   const { lang } = useLanguage();
   const T = translations[lang].hero;
+  const jobMatchHref = lang === "fr" ? "/fr/job-match" : lang === "nl" ? "/nl/job-match" : "/job-match";
 
   return (
     <section className="relative overflow-hidden bg-white">
@@ -62,7 +63,7 @@ export function Hero() {
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/pricing">
+          <Link href={jobMatchHref}>
             <Button size="lg" variant="secondary">
               {T.ctaSecondary}
             </Button>

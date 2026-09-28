@@ -15,7 +15,7 @@ const langBase     = "rounded-md px-2.5 py-1 transition-all duration-200 ease-in
 // Routes that exist in all three languages: /x (English), /fr/x (French), /nl/x (Dutch).
 // Anything else (e.g. /careers/[slug] articles, most of which only exist in one
 // language) falls back to the nearest supported ancestor.
-const LOCALIZED_ROUTES = ["/", "/pricing", "/careers", "/about", "/contact", "/privacy", "/terms", "/cookies", "/legal"];
+const LOCALIZED_ROUTES = ["/", "/pricing", "/careers", "/about", "/contact", "/privacy", "/terms", "/cookies", "/legal", "/job-match"];
 
 function currentPrefix(pathname: string): "fr" | "nl" | null {
   if (pathname === "/fr" || pathname.startsWith("/fr/")) return "fr";
@@ -45,6 +45,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
   const { lang, setLang } = useLanguage();
   const T = translations[lang].nav;
   const pathname = usePathname();
+  const jobMatchHref = lang === "fr" ? "/fr/job-match" : lang === "nl" ? "/nl/job-match" : "/job-match";
 
   function isActive(href: string): boolean {
     if (!href || href.startsWith("#") || href.startsWith("/#")) return false;
@@ -98,6 +99,9 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
         <div className="hidden items-center gap-8 sm:flex">
           <Link href={featuresHref} className={desktopLink(featuresHref)}>
             {T.features}
+          </Link>
+          <Link href={jobMatchHref} className={desktopLink(jobMatchHref)}>
+            {T.jobMatch}
           </Link>
           <Link href="/pricing" className={desktopLink("/pricing")}>
             {T.pricing}
@@ -184,6 +188,9 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           <nav className="flex flex-col gap-1">
             <Link href={featuresHref} onClick={() => setMobileOpen(false)} className={mobileLink(featuresHref)}>
               {T.features}
+            </Link>
+            <Link href={jobMatchHref} onClick={() => setMobileOpen(false)} className={mobileLink(jobMatchHref)}>
+              {T.jobMatch}
             </Link>
             <Link href="/pricing" onClick={() => setMobileOpen(false)} className={mobileLink("/pricing")}>
               {T.pricing}

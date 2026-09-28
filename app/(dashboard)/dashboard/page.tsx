@@ -12,7 +12,7 @@ import { Header } from "@/components/dashboard/Header";
 import { CVCard } from "@/components/dashboard/CVCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle } from "lucide-react";
+import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle, Crosshair } from "lucide-react";
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import { PassCountdown } from "@/components/dashboard/PassCountdown";
 import { translations } from "@/lib/translations";
@@ -48,6 +48,14 @@ export default async function DashboardPage({ searchParams }: Props) {
   const cvs = (dbUser?.cvs ?? []) as unknown as CV[];
   const sub = dbUser?.subscription;
   const isPro = isProUser(sub);
+
+  const lastJobMatch = dbUser
+    ? await prisma.jobMatch.findFirst({
+        where: { userId: dbUser.id },
+        orderBy: { createdAt: "desc" },
+        select: { id: true, jobTitle: true, score: true },
+      })
+    : null;
   const canCreateCV = isPro || cvs.length < 1;
 
   const { active: passActive, end: passEnd } = getPassState(sub);
@@ -143,6 +151,30 @@ export default async function DashboardPage({ searchParams }: Props) {
             </Badge>
           </div>
         )}
+
+        {/* Job Match card */}
+        <div className="mb-6 flex flex-col gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
+              <Crosshair className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">{T.jobMatchCard.title}</p>
+              <p className="text-sm text-gray-500">{T.jobMatchCard.subtitle}</p>
+              {lastJobMatch && (
+                <p className="mt-0.5 text-xs text-gray-400">
+                  {T.jobMatchCard.lastAnalysis}: {lastJobMatch.jobTitle || "—"} · {lastJobMatch.score}%
+                </p>
+              )}
+            </div>
+          </div>
+          <Link href="/job-match" className="shrink-0">
+            <Button size="sm" variant="outline" className="w-full gap-2 sm:w-auto">
+              <Target className="h-4 w-4" />
+              {lastJobMatch ? T.jobMatchCard.viewAnalysis : T.jobMatchCard.cta}
+            </Button>
+          </Link>
+        </div>
 
         {/* CV grid */}
         <div className="mb-8">

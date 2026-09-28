@@ -41,7 +41,7 @@ export function Testimonials() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.role}</p>
+                  {t.role && <p className="text-xs text-gray-500">{t.role}</p>}
                 </div>
               </div>
             </div>
