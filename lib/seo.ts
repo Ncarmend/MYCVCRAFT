@@ -6,7 +6,7 @@
  * and JSON-LD all point at www to avoid "canonical → redirect" signals.
  */
 export const SITE_URL = "https://www.cvixeo.com";
-export const SITE_NAME = "Cvixeo";
+export const SITE_NAME = "CVixeo";
 
 export type Locale = "en" | "fr" | "nl";
 
@@ -51,7 +51,10 @@ export const OG_DEFAULTS = {
       url: "/opengraph-image",
       width: 1200,
       height: 630,
-      alt: "Cvixeo — AI CV Builder & ATS Resume Optimizer",
+      alt: "CVixeo — AI CV Builder & ATS Resume Optimizer",
     },
   ],
 };
+
+/** For private or utility pages (auth, onboarding, dashboard): crawlable but never indexed. */
+export const NOINDEX = { index: false, follow: false } as const;

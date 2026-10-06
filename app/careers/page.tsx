@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
@@ -19,8 +20,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Career Advice & Resources | Cvixeo",
-    description: "Expert CV writing guides and job search advice from the Cvixeo team.",
+    title: "Career Advice & Resources | CVixeo",
+    description: "Expert CV writing guides and job search advice from the CVixeo team.",
     url: "https://www.cvixeo.com/careers",
   },
 };
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
 export default function CareersPage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <PageJsonLd lang="en" path="/careers" metadata={metadata} type="CollectionPage" />
       <NavbarServer />
       <CareersClient />
       <LandingFooter />

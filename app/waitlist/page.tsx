@@ -109,7 +109,7 @@ export default function WaitlistPage() {
               />
             </div>
 
-            {/* Texte Cvixeo */}
+            {/* Texte CVixeo */}
             <div className="flex items-baseline">
               <span className="text-4xl font-bold text-green-500 tracking-tight">CV</span>
               <span className="text-4xl font-medium text-slate-50 tracking-tight relative">
@@ -135,7 +135,7 @@ export default function WaitlistPage() {
           </h1>
 
           <p className="text-slate-400 text-center text-base leading-relaxed max-w-md">
-            Cvixeo optimise ton CV pour passer les filtres ATS et décrocher des entretiens.
+            CVixeo optimise ton CV pour passer les filtres ATS et décrocher des entretiens.
             Sois parmi les premiers à accéder à l'outil.
           </p>
         </div>
@@ -181,7 +181,7 @@ export default function WaitlistPage() {
               </button>
             </div>
             <p className="text-center text-xs text-slate-600 mt-3">
-              Aucun spam. Juste une notification quand Cvixeo est prêt.
+              Aucun spam. Juste une notification quand CVixeo est prêt.
             </p>
           </form>
         ) : (
@@ -189,7 +189,7 @@ export default function WaitlistPage() {
             <div className="text-2xl text-green-400 mb-2">✦</div>
             <p className="text-green-400 font-medium mb-1">Tu es sur la liste !</p>
             <p className="text-slate-500 text-sm">
-              On te prévient dès que Cvixeo est disponible.
+              On te prévient dès que CVixeo est disponible.
             </p>
           </div>
         )}

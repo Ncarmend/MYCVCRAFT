@@ -50,12 +50,12 @@ function TermsEN() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-amber-50 px-5 py-4 text-xs leading-relaxed text-amber-800 ring-1 ring-amber-100">
-        Please read these Terms of Use carefully before using <strong>cvixeo.com</strong> and any associated services provided by <strong>Cvixeo</strong> ("we," "us," or "our"). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.
+        Please read these Terms of Use carefully before using <strong>cvixeo.com</strong> and any associated services provided by <strong>CVixeo</strong> ("we," "us," or "our"). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.
       </div>
 
       <div className="space-y-8">
         <Section id="definitions" title="1. Definitions">
-          <p><strong>"Service"</strong> means the Cvixeo website at cvixeo.com, including all features, tools, templates, and AI-powered functions accessible thereon.</p>
+          <p><strong>"Service"</strong> means the CVixeo website at cvixeo.com, including all features, tools, templates, and AI-powered functions accessible thereon.</p>
           <p><strong>"User," "you,"</strong> or <strong>"your"</strong> means any individual who accesses or uses the Service.</p>
           <p><strong>"Content"</strong> means any information, text, data, or files you submit, upload, or create through the Service.</p>
           <p><strong>"Subscription"</strong> means a paid monthly or annual plan granting access to premium features.</p>
@@ -71,7 +71,7 @@ function TermsEN() {
         </Section>
 
         <Section id="description" title="3. Description of the Service">
-          <p>Cvixeo provides an AI-powered platform that allows users to create, edit, customise, and export professional resumes and CVs. Features include but are not limited to:</p>
+          <p>CVixeo provides an AI-powered platform that allows users to create, edit, customise, and export professional resumes and CVs. Features include but are not limited to:</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>AI-assisted content generation for resume sections</li>
             <li>ATS (Applicant Tracking System) optimisation scoring</li>
@@ -123,12 +123,12 @@ function TermsEN() {
         </Section>
 
         <Section id="intellectual-property" title="8. Intellectual Property">
-          <p><strong>Your Content:</strong> You retain full ownership of all Content you create or upload using the Service, including the text and structure of your CVs. You grant Cvixeo a limited, non-exclusive licence to store, process, and display your Content solely to the extent necessary to provide the Service to you.</p>
-          <p><strong>Cvixeo's Property:</strong> The Service, including its code, design, templates, AI models, algorithms, and branding, is owned by Cvixeo and protected by intellectual property law. You may not copy, modify, distribute, or create derivative works from any part of the Service without our prior written permission.</p>
+          <p><strong>Your Content:</strong> You retain full ownership of all Content you create or upload using the Service, including the text and structure of your CVs. You grant CVixeo a limited, non-exclusive licence to store, process, and display your Content solely to the extent necessary to provide the Service to you.</p>
+          <p><strong>CVixeo's Property:</strong> The Service, including its code, design, templates, AI models, algorithms, and branding, is owned by CVixeo and protected by intellectual property law. You may not copy, modify, distribute, or create derivative works from any part of the Service without our prior written permission.</p>
         </Section>
 
         <Section id="ai-content" title="9. AI-Generated Content">
-          <p>Cvixeo uses AI models to generate resume content, ATS suggestions, and cover letters. You acknowledge that:</p>
+          <p>CVixeo uses AI models to generate resume content, ATS suggestions, and cover letters. You acknowledge that:</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>AI-generated content is a tool to assist you, not a guarantee of employment outcomes.</li>
             <li>You are responsible for reviewing, editing, and verifying all AI-generated content before submitting it to employers.</li>
@@ -145,14 +145,14 @@ function TermsEN() {
           <ul className="ml-4 list-disc space-y-1">
             <li>The Service is provided "as is" and "as available" without warranties of any kind, express or implied.</li>
             <li>We do not warrant that the Service will be error-free, uninterrupted, or that it will produce specific employment results.</li>
-            <li>Cvixeo's total cumulative liability to you for any claim arising out of or relating to the Service shall not exceed the amount you paid to us in the 12 months preceding the claim.</li>
+            <li>CVixeo's total cumulative liability to you for any claim arising out of or relating to the Service shall not exceed the amount you paid to us in the 12 months preceding the claim.</li>
             <li>We are not liable for any indirect, incidental, special, consequential, or punitive damages.</li>
           </ul>
           <p>Nothing in these Terms excludes liability for fraud, death or personal injury caused by negligence, or any other liability that cannot be lawfully excluded under French or EU law.</p>
         </Section>
 
         <Section id="indemnification" title="12. Indemnification">
-          <p>You agree to indemnify and hold Cvixeo, its directors, employees, and agents harmless from any claims, damages, or expenses (including legal fees) arising out of your use of the Service, your violation of these Terms, or your infringement of any third party's rights.</p>
+          <p>You agree to indemnify and hold CVixeo, its directors, employees, and agents harmless from any claims, damages, or expenses (including legal fees) arising out of your use of the Service, your violation of these Terms, or your infringement of any third party's rights.</p>
         </Section>
 
         <Section id="termination" title="13. Termination">
@@ -186,12 +186,12 @@ function TermsFR() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-amber-50 px-5 py-4 text-xs leading-relaxed text-amber-800 ring-1 ring-amber-100">
-        Veuillez lire attentivement ces Conditions d'utilisation avant d'utiliser <strong>cvixeo.com</strong> et tout service associé fourni par <strong>Cvixeo</strong> (« nous », « notre »). En accédant au Service ou en l'utilisant, vous acceptez d'être lié par ces Conditions. Si vous n'êtes pas d'accord, n'utilisez pas le Service.
+        Veuillez lire attentivement ces Conditions d'utilisation avant d'utiliser <strong>cvixeo.com</strong> et tout service associé fourni par <strong>CVixeo</strong> (« nous », « notre »). En accédant au Service ou en l'utilisant, vous acceptez d'être lié par ces Conditions. Si vous n'êtes pas d'accord, n'utilisez pas le Service.
       </div>
 
       <div className="space-y-8">
         <Section id="definitions" title="1. Définitions">
-          <p><strong>« Service »</strong> désigne le site web Cvixeo à l'adresse cvixeo.com, y compris toutes les fonctionnalités, outils, modèles et fonctions basées sur l'IA qui y sont accessibles.</p>
+          <p><strong>« Service »</strong> désigne le site web CVixeo à l'adresse cvixeo.com, y compris toutes les fonctionnalités, outils, modèles et fonctions basées sur l'IA qui y sont accessibles.</p>
           <p><strong>« Utilisateur »</strong> ou <strong>« vous »</strong> désigne toute personne qui accède au Service ou l'utilise.</p>
           <p><strong>« Contenu »</strong> désigne toute information, texte, donnée ou fichier que vous soumettez, téléversez ou créez via le Service.</p>
           <p><strong>« Abonnement »</strong> désigne un forfait mensuel ou annuel payant donnant accès aux fonctionnalités premium.</p>
@@ -207,7 +207,7 @@ function TermsFR() {
         </Section>
 
         <Section id="description" title="3. Description du Service">
-          <p>Cvixeo propose une plateforme propulsée par l'IA permettant aux utilisateurs de créer, modifier, personnaliser et exporter des CV professionnels. Les fonctionnalités incluent notamment :</p>
+          <p>CVixeo propose une plateforme propulsée par l'IA permettant aux utilisateurs de créer, modifier, personnaliser et exporter des CV professionnels. Les fonctionnalités incluent notamment :</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>Génération de contenu assistée par IA pour les sections du CV</li>
             <li>Score d'optimisation ATS (système de suivi des candidatures)</li>
@@ -259,12 +259,12 @@ function TermsFR() {
         </Section>
 
         <Section id="intellectual-property" title="8. Propriété intellectuelle">
-          <p><strong>Votre Contenu :</strong> Vous conservez l'entière propriété de tout Contenu que vous créez ou téléversez via le Service, y compris le texte et la structure de vos CV. Vous accordez à Cvixeo une licence limitée et non exclusive pour stocker, traiter et afficher votre Contenu, dans la seule mesure nécessaire pour vous fournir le Service.</p>
-          <p><strong>Propriété de Cvixeo :</strong> Le Service, y compris son code, son design, ses modèles, ses modèles d'IA, ses algorithmes et son image de marque, appartient à Cvixeo et est protégé par le droit de la propriété intellectuelle. Vous ne pouvez copier, modifier, distribuer ou créer des œuvres dérivées d'aucune partie du Service sans notre autorisation écrite préalable.</p>
+          <p><strong>Votre Contenu :</strong> Vous conservez l'entière propriété de tout Contenu que vous créez ou téléversez via le Service, y compris le texte et la structure de vos CV. Vous accordez à CVixeo une licence limitée et non exclusive pour stocker, traiter et afficher votre Contenu, dans la seule mesure nécessaire pour vous fournir le Service.</p>
+          <p><strong>Propriété de CVixeo :</strong> Le Service, y compris son code, son design, ses modèles, ses modèles d'IA, ses algorithmes et son image de marque, appartient à CVixeo et est protégé par le droit de la propriété intellectuelle. Vous ne pouvez copier, modifier, distribuer ou créer des œuvres dérivées d'aucune partie du Service sans notre autorisation écrite préalable.</p>
         </Section>
 
         <Section id="ai-content" title="9. Contenu généré par IA">
-          <p>Cvixeo utilise des modèles d'IA pour générer du contenu de CV, des suggestions ATS et des lettres de motivation. Vous reconnaissez que :</p>
+          <p>CVixeo utilise des modèles d'IA pour générer du contenu de CV, des suggestions ATS et des lettres de motivation. Vous reconnaissez que :</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>Le contenu généré par IA est un outil d'assistance, pas une garantie de résultat en matière d'emploi.</li>
             <li>Vous êtes responsable de la relecture, de la modification et de la vérification de tout contenu généré par IA avant de le soumettre à des employeurs.</li>
@@ -281,14 +281,14 @@ function TermsFR() {
           <ul className="ml-4 list-disc space-y-1">
             <li>Le Service est fourni « tel quel » et « selon disponibilité », sans garantie d'aucune sorte, expresse ou implicite.</li>
             <li>Nous ne garantissons pas que le Service sera exempt d'erreurs, ininterrompu, ou qu'il produira des résultats d'emploi spécifiques.</li>
-            <li>La responsabilité cumulée totale de Cvixeo envers vous pour toute réclamation liée au Service ne pourra excéder le montant que vous nous avez versé au cours des 12 mois précédant la réclamation.</li>
+            <li>La responsabilité cumulée totale de CVixeo envers vous pour toute réclamation liée au Service ne pourra excéder le montant que vous nous avez versé au cours des 12 mois précédant la réclamation.</li>
             <li>Nous ne sommes pas responsables des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs.</li>
           </ul>
           <p>Rien dans ces Conditions n'exclut la responsabilité en cas de fraude, de décès ou de blessure corporelle causés par négligence, ni toute autre responsabilité qui ne peut être légalement exclue en vertu du droit français ou européen.</p>
         </Section>
 
         <Section id="indemnification" title="12. Indemnisation">
-          <p>Vous acceptez d'indemniser et de dégager de toute responsabilité Cvixeo, ses dirigeants, employés et agents, de toute réclamation, dommage ou dépense (y compris les frais juridiques) découlant de votre utilisation du Service, de votre violation de ces Conditions, ou de votre atteinte aux droits d'un tiers.</p>
+          <p>Vous acceptez d'indemniser et de dégager de toute responsabilité CVixeo, ses dirigeants, employés et agents, de toute réclamation, dommage ou dépense (y compris les frais juridiques) découlant de votre utilisation du Service, de votre violation de ces Conditions, ou de votre atteinte aux droits d'un tiers.</p>
         </Section>
 
         <Section id="termination" title="13. Résiliation">
@@ -322,12 +322,12 @@ function TermsNL() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-amber-50 px-5 py-4 text-xs leading-relaxed text-amber-800 ring-1 ring-amber-100">
-        Lees deze Gebruiksvoorwaarden zorgvuldig door voordat je <strong>cvixeo.com</strong> en de bijbehorende diensten van <strong>Cvixeo</strong> ("wij", "ons", "onze") gebruikt. Door de Dienst te openen of te gebruiken, ga je akkoord met deze Voorwaarden. Als je niet akkoord gaat, gebruik de Dienst dan niet.
+        Lees deze Gebruiksvoorwaarden zorgvuldig door voordat je <strong>cvixeo.com</strong> en de bijbehorende diensten van <strong>CVixeo</strong> ("wij", "ons", "onze") gebruikt. Door de Dienst te openen of te gebruiken, ga je akkoord met deze Voorwaarden. Als je niet akkoord gaat, gebruik de Dienst dan niet.
       </div>
 
       <div className="space-y-8">
         <Section id="definitions" title="1. Definities">
-          <p><strong>"Dienst"</strong> betekent de Cvixeo-website op cvixeo.com, inclusief alle functies, tools, sjablonen en AI-gestuurde functionaliteiten die daarop toegankelijk zijn.</p>
+          <p><strong>"Dienst"</strong> betekent de CVixeo-website op cvixeo.com, inclusief alle functies, tools, sjablonen en AI-gestuurde functionaliteiten die daarop toegankelijk zijn.</p>
           <p><strong>"Gebruiker"</strong> of <strong>"je"</strong> betekent elke persoon die de Dienst opent of gebruikt.</p>
           <p><strong>"Inhoud"</strong> betekent alle informatie, tekst, gegevens of bestanden die je via de Dienst indient, uploadt of creëert.</p>
           <p><strong>"Abonnement"</strong> betekent een betaald maandelijks of jaarlijks plan dat toegang geeft tot premiumfuncties.</p>
@@ -343,7 +343,7 @@ function TermsNL() {
         </Section>
 
         <Section id="description" title="3. Beschrijving van de Dienst">
-          <p>Cvixeo biedt een AI-gestuurd platform waarmee gebruikers professionele cv's kunnen aanmaken, bewerken, aanpassen en exporteren. De functies omvatten onder meer:</p>
+          <p>CVixeo biedt een AI-gestuurd platform waarmee gebruikers professionele cv's kunnen aanmaken, bewerken, aanpassen en exporteren. De functies omvatten onder meer:</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>AI-ondersteunde inhoudsgeneratie voor cv-secties</li>
             <li>ATS-optimalisatiescore (Applicant Tracking System)</li>
@@ -395,12 +395,12 @@ function TermsNL() {
         </Section>
 
         <Section id="intellectual-property" title="8. Intellectuele eigendom">
-          <p><strong>Jouw Inhoud:</strong> Je behoudt de volledige eigendom van alle Inhoud die je aanmaakt of uploadt via de Dienst, inclusief de tekst en structuur van je cv's. Je verleent Cvixeo een beperkte, niet-exclusieve licentie om je Inhoud op te slaan, te verwerken en weer te geven, uitsluitend voor zover nodig om je de Dienst te leveren.</p>
-          <p><strong>Eigendom van Cvixeo:</strong> De Dienst, met inbegrip van de code, het ontwerp, de sjablonen, de AI-modellen, de algoritmes en de merknaam, is eigendom van Cvixeo en beschermd door het intellectueel eigendomsrecht. Je mag geen enkel onderdeel van de Dienst kopiëren, wijzigen, verspreiden of er afgeleide werken van maken zonder onze voorafgaande schriftelijke toestemming.</p>
+          <p><strong>Jouw Inhoud:</strong> Je behoudt de volledige eigendom van alle Inhoud die je aanmaakt of uploadt via de Dienst, inclusief de tekst en structuur van je cv's. Je verleent CVixeo een beperkte, niet-exclusieve licentie om je Inhoud op te slaan, te verwerken en weer te geven, uitsluitend voor zover nodig om je de Dienst te leveren.</p>
+          <p><strong>Eigendom van CVixeo:</strong> De Dienst, met inbegrip van de code, het ontwerp, de sjablonen, de AI-modellen, de algoritmes en de merknaam, is eigendom van CVixeo en beschermd door het intellectueel eigendomsrecht. Je mag geen enkel onderdeel van de Dienst kopiëren, wijzigen, verspreiden of er afgeleide werken van maken zonder onze voorafgaande schriftelijke toestemming.</p>
         </Section>
 
         <Section id="ai-content" title="9. Door AI gegenereerde inhoud">
-          <p>Cvixeo gebruikt AI-modellen om cv-inhoud, ATS-suggesties en sollicitatiebrieven te genereren. Je erkent dat:</p>
+          <p>CVixeo gebruikt AI-modellen om cv-inhoud, ATS-suggesties en sollicitatiebrieven te genereren. Je erkent dat:</p>
           <ul className="ml-4 list-disc space-y-1">
             <li>Door AI gegenereerde inhoud een hulpmiddel is en geen garantie op een tewerkstellingsresultaat.</li>
             <li>Je verantwoordelijk bent voor het nalezen, bewerken en controleren van alle door AI gegenereerde inhoud voor je deze aan werkgevers bezorgt.</li>
@@ -417,14 +417,14 @@ function TermsNL() {
           <ul className="ml-4 list-disc space-y-1">
             <li>De Dienst wordt geleverd "zoals ze is" en "zoals beschikbaar", zonder enige garantie, uitdrukkelijk of impliciet.</li>
             <li>We garanderen niet dat de Dienst foutloos of ononderbroken zal zijn, of dat ze specifieke tewerkstellingsresultaten zal opleveren.</li>
-            <li>De totale cumulatieve aansprakelijkheid van Cvixeo jegens jou voor elke vordering die voortvloeit uit of verband houdt met de Dienst, zal het bedrag dat je ons betaalde in de 12 maanden voorafgaand aan de vordering niet overschrijden.</li>
+            <li>De totale cumulatieve aansprakelijkheid van CVixeo jegens jou voor elke vordering die voortvloeit uit of verband houdt met de Dienst, zal het bedrag dat je ons betaalde in de 12 maanden voorafgaand aan de vordering niet overschrijden.</li>
             <li>We zijn niet aansprakelijk voor indirecte, incidentele, bijzondere, gevolg- of punitieve schade.</li>
           </ul>
           <p>Niets in deze Voorwaarden sluit aansprakelijkheid uit voor fraude, overlijden of lichamelijk letsel veroorzaakt door nalatigheid, of enige andere aansprakelijkheid die niet wettelijk kan worden uitgesloten onder Frans of Europees recht.</p>
         </Section>
 
         <Section id="indemnification" title="12. Vrijwaring">
-          <p>Je gaat ermee akkoord Cvixeo, haar bestuurders, werknemers en agenten te vrijwaren van elke vordering, schade of kost (met inbegrip van juridische kosten) die voortvloeit uit je gebruik van de Dienst, je schending van deze Voorwaarden, of je inbreuk op de rechten van derden.</p>
+          <p>Je gaat ermee akkoord CVixeo, haar bestuurders, werknemers en agenten te vrijwaren van elke vordering, schade of kost (met inbegrip van juridische kosten) die voortvloeit uit je gebruik van de Dienst, je schending van deze Voorwaarden, of je inbreuk op de rechten van derden.</p>
         </Section>
 
         <Section id="termination" title="13. Beëindiging">

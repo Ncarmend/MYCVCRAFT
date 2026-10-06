@@ -1,33 +1,66 @@
-# Cvixeo
+# CVixeo
 
-> Cvixeo is an AI CV builder and ATS resume optimizer with job description matching. Users create or import a CV, improve it with AI, compare it with a specific job description to find missing skills and keywords, get a match score, and export a PDF. Available in English, French and Dutch.
+> CVixeo is an AI-powered CV and resume platform that helps job seekers create ATS-optimized resumes, analyze job descriptions, identify missing keywords, and tailor their CVs to specific job opportunities. It is a web application (no installation), available in English, French and Dutch, at https://www.cvixeo.com/.
 
-## What Cvixeo does
+## What is CVixeo?
 
-- AI CV builder: generates a professional summary and impact-focused bullet points from the user's experience.
-- ATS optimization: checks a CV against Applicant Tracking System criteria (structure, wording, keywords) and suggests improvements.
-- Job description matching: compares a CV with a pasted job description and returns a match score broken down by skills, experience, keywords, education and languages, plus matching/missing keywords and recommendations. The analysis can be re-run after editing.
-- CV import: PDF, DOCX or TXT, then AI improvement of the content.
-- 15 professional CV templates, PDF export.
-- AI cover letter generator tailored to a job description and company.
+An AI CV builder and ATS resume optimizer whose core feature is job description matching: it compares a CV with a specific job posting and shows which skills and keywords are missing. CVixeo is currently in beta.
 
-## What the score means
+## What does CVixeo do?
 
-The match score measures textual and structural alignment between a CV and a job description. It is not a hiring probability, not an interview probability and not a guarantee of ATS acceptance. Cvixeo is currently in beta.
+- AI CV builder: drafts a professional summary and achievement-focused bullet points from the information the user enters.
+- ATS optimization: templates use standard section headings and real text; the ATS check (Premium) gives a 0–100 score with 3–5 suggestions.
+- Job description matching (Premium): compares a CV with a pasted job description and returns a match score broken down by skills, experience, keywords, education and languages, plus matching/missing keywords and recommendations. The analysis can be re-run after editing.
+- CV analysis and keyword analysis: points out weak spots and the job-posting keywords not found in the CV.
+- CV improvement: imports an existing CV (PDF, DOCX or TXT) and rewrites the content with AI.
+- Cover letter generator (Premium): writes a cover letter from the CV, the job description and the company name.
+- 15 professional templates and PDF export (free-plan PDFs carry a watermark).
+
+## Who is CVixeo for?
+
+Job seekers applying online, students and graduates writing a first CV, career changers, multilingual candidates (notably in Belgium) applying in English, French or Dutch, and anyone updating an outdated CV.
+
+## What makes CVixeo different?
+
+- Built around the job description, not just text generation.
+- Consistent, explainable scoring: fixed weights — skills 40%, experience 25%, keywords 20%, education 10%, languages 5%.
+- No invented experience: recommendations are based only on detected matches and gaps in the user's own CV data.
+- Cross-language matching across English, French and Dutch.
+- Scores measure alignment with a job description; they are not a hiring probability and not a guarantee of passing an ATS.
 
 ## Pricing (EUR)
 
 - Free: 1 CV, 2 templates, watermarked PDF export.
 - 7-Day Premium Pass: €3.99 one-time.
-- Premium: €12/month, or €9/month billed annually (€108/year). Includes job description matching, cover letters, all templates, unlimited CVs and watermark-free PDFs.
+- Premium: €12/month, or €9/month billed annually (€108/year). Includes job description matching, the ATS score, cover letters, all templates, unlimited CVs and watermark-free PDFs.
+
+AI features are powered by Claude (Anthropic). Contact: support@cvixeo.com.
 
 ## Key pages
 
-- [Home (EN)](https://www.cvixeo.com/): AI CV builder, ATS optimization and job matching overview
-- [Accueil (FR)](https://www.cvixeo.com/fr)
-- [Home (NL)](https://www.cvixeo.com/nl)
-- [Job Match](https://www.cvixeo.com/job-match): compare a CV with a job description
+- [About CVixeo](https://www.cvixeo.com/about): what CVixeo is, what it does, who it's for, what makes it different
+- [Resume Tools](https://www.cvixeo.com/resume-tools): index of all tools
+- [AI CV Builder](https://www.cvixeo.com/ai-cv-builder)
+- [ATS Resume Builder](https://www.cvixeo.com/ats-cv-builder)
+- [AI Resume Builder](https://www.cvixeo.com/ai-resume-builder)
+- [Resume Optimizer](https://www.cvixeo.com/resume-optimizer)
+- [CV Checker & Optimizer](https://www.cvixeo.com/cv-optimizer)
+- [Job Description Matching](https://www.cvixeo.com/job-description-matching)
+- [Cover Letter Generator](https://www.cvixeo.com/cover-letter-generator)
+- [Job Match tool](https://www.cvixeo.com/job-match)
 - [Pricing](https://www.cvixeo.com/pricing)
-- [Career advice](https://www.cvixeo.com/careers): CV writing and job search articles
-- [About](https://www.cvixeo.com/about)
-- [Contact](https://www.cvixeo.com/contact): support@cvixeo.com
+- [Career advice](https://www.cvixeo.com/careers)
+
+## Pages in French
+
+- [À propos](https://www.cvixeo.com/fr/about)
+- [Outils CV](https://www.cvixeo.com/fr/outils-cv)
+- [Générateur de CV IA](https://www.cvixeo.com/fr/generateur-cv-ia)
+- [CV compatible ATS](https://www.cvixeo.com/fr/cv-ats)
+- [Adapter son CV à une offre](https://www.cvixeo.com/fr/cv-offre-emploi)
+- [Lettre de motivation IA](https://www.cvixeo.com/fr/lettre-motivation)
+
+## Pages in Dutch
+
+- [Home](https://www.cvixeo.com/nl)
+- [Over CVixeo](https://www.cvixeo.com/nl/about)

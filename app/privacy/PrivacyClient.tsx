@@ -50,14 +50,14 @@ function PrivacyEN() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-blue-50 px-5 py-4 text-xs leading-relaxed text-blue-800 ring-1 ring-blue-100">
-        This Privacy Policy explains how <strong>Cvixeo</strong> ("we," "us," or "our") collects, uses, and protects information about you when you use our website at <strong>cvixeo.com</strong> and our services (collectively, the "Service"). We are committed to full compliance with the European Union's General Data Protection Regulation (<strong>GDPR</strong>) — Regulation (EU) 2016/679.
+        This Privacy Policy explains how <strong>CVixeo</strong> ("we," "us," or "our") collects, uses, and protects information about you when you use our website at <strong>cvixeo.com</strong> and our services (collectively, the "Service"). We are committed to full compliance with the European Union's General Data Protection Regulation (<strong>GDPR</strong>) — Regulation (EU) 2016/679.
       </div>
 
       <div className="space-y-8">
         <Section id="controller" title="1. Data Controller">
           <p>The data controller responsible for your personal data is:</p>
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
-            <p><strong>Cvixeo</strong></p>
+            <p><strong>CVixeo</strong></p>
             <p>Website: cvixeo.com</p>
             <p>Contact: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
           </div>
@@ -106,7 +106,7 @@ function PrivacyEN() {
         </Section>
 
         <Section id="processors" title="6. Third-Party Data Processors">
-          <p>We use the following third-party services to operate Cvixeo. Each is bound by a Data Processing Agreement (DPA) consistent with GDPR requirements:</p>
+          <p>We use the following third-party services to operate CVixeo. Each is bound by a Data Processing Agreement (DPA) consistent with GDPR requirements:</p>
           <ul className="ml-4 list-disc space-y-1.5">
             <li><strong>Supabase</strong> (Supabase Inc.) — Authentication and database storage. Data hosted on AWS infrastructure with EU data centres available. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Our reseller and Merchant of Record for all purchases; handles payment processing, invoicing, and global sales tax / VAT. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
@@ -174,14 +174,14 @@ function PrivacyFR() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-blue-50 px-5 py-4 text-xs leading-relaxed text-blue-800 ring-1 ring-blue-100">
-        La présente Politique de confidentialité explique comment <strong>Cvixeo</strong> (« nous », « notre ») collecte, utilise et protège les informations vous concernant lorsque vous utilisez notre site <strong>cvixeo.com</strong> et nos services (collectivement, le « Service »). Nous nous engageons à respecter pleinement le Règlement Général sur la Protection des Données de l'Union européenne (<strong>RGPD</strong>) — Règlement (UE) 2016/679.
+        La présente Politique de confidentialité explique comment <strong>CVixeo</strong> (« nous », « notre ») collecte, utilise et protège les informations vous concernant lorsque vous utilisez notre site <strong>cvixeo.com</strong> et nos services (collectivement, le « Service »). Nous nous engageons à respecter pleinement le Règlement Général sur la Protection des Données de l'Union européenne (<strong>RGPD</strong>) — Règlement (UE) 2016/679.
       </div>
 
       <div className="space-y-8">
         <Section id="controller" title="1. Responsable du traitement">
           <p>Le responsable du traitement de vos données personnelles est :</p>
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
-            <p><strong>Cvixeo</strong></p>
+            <p><strong>CVixeo</strong></p>
             <p>Site web : cvixeo.com</p>
             <p>Contact : <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
           </div>
@@ -230,7 +230,7 @@ function PrivacyFR() {
         </Section>
 
         <Section id="processors" title="6. Sous-traitants tiers">
-          <p>Nous utilisons les services tiers suivants pour exploiter Cvixeo. Chacun est lié par un accord de traitement des données (DPA) conforme aux exigences du RGPD :</p>
+          <p>Nous utilisons les services tiers suivants pour exploiter CVixeo. Chacun est lié par un accord de traitement des données (DPA) conforme aux exigences du RGPD :</p>
           <ul className="ml-4 list-disc space-y-1.5">
             <li><strong>Supabase</strong> (Supabase Inc.) — Authentification et stockage de base de données. Données hébergées sur l'infrastructure AWS, avec des centres de données dans l'UE disponibles. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Notre revendeur et « Merchant of Record » pour tous les achats ; gère le traitement des paiements, la facturation, et la TVA / taxes de vente à l'échelle mondiale. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
@@ -298,14 +298,14 @@ function PrivacyNL() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-blue-50 px-5 py-4 text-xs leading-relaxed text-blue-800 ring-1 ring-blue-100">
-        Dit Privacybeleid legt uit hoe <strong>Cvixeo</strong> ("wij", "ons", "onze") informatie over jou verzamelt, gebruikt en beschermt wanneer je onze website <strong>cvixeo.com</strong> en onze diensten (samen de "Dienst") gebruikt. Wij zetten ons volledig in voor naleving van de Algemene Verordening Gegevensbescherming van de Europese Unie (<strong>AVG</strong>/GDPR) — Verordening (EU) 2016/679.
+        Dit Privacybeleid legt uit hoe <strong>CVixeo</strong> ("wij", "ons", "onze") informatie over jou verzamelt, gebruikt en beschermt wanneer je onze website <strong>cvixeo.com</strong> en onze diensten (samen de "Dienst") gebruikt. Wij zetten ons volledig in voor naleving van de Algemene Verordening Gegevensbescherming van de Europese Unie (<strong>AVG</strong>/GDPR) — Verordening (EU) 2016/679.
       </div>
 
       <div className="space-y-8">
         <Section id="controller" title="1. Verwerkingsverantwoordelijke">
           <p>De verwerkingsverantwoordelijke voor je persoonsgegevens is:</p>
           <div className="rounded-lg bg-slate-50 px-4 py-3 text-xs ring-1 ring-slate-100">
-            <p><strong>Cvixeo</strong></p>
+            <p><strong>CVixeo</strong></p>
             <p>Website: cvixeo.com</p>
             <p>Contact: <a href="mailto:support@cvixeo.com" className="text-green-700 underline">support@cvixeo.com</a></p>
           </div>
@@ -354,7 +354,7 @@ function PrivacyNL() {
         </Section>
 
         <Section id="processors" title="6. Externe verwerkers">
-          <p>We gebruiken de volgende externe diensten om Cvixeo te laten werken. Elk van hen is gebonden aan een verwerkersovereenkomst (DPA) die voldoet aan de vereisten van de AVG:</p>
+          <p>We gebruiken de volgende externe diensten om CVixeo te laten werken. Elk van hen is gebonden aan een verwerkersovereenkomst (DPA) die voldoet aan de vereisten van de AVG:</p>
           <ul className="ml-4 list-disc space-y-1.5">
             <li><strong>Supabase</strong> (Supabase Inc.) — Authenticatie en databaseopslag. Gegevens gehost op AWS-infrastructuur, met EU-datacenters beschikbaar. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Onze wederverkoper en "Merchant of Record" voor alle aankopen; verzorgt de betalingsverwerking, facturatie en btw / verkoopbelasting wereldwijd. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>

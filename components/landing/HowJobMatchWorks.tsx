@@ -1,10 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { LANDING_ROUTES } from "@/lib/landing-routes";
 
 export function HowJobMatchWorks() {
   const { lang } = useLanguage();
   const T = translations[lang].jobMatch.howItWorks;
+  // In-depth guide to the method (EN/FR only).
+  const guide = lang === "fr" ? LANDING_ROUTES["cv-offre-emploi"] : lang === "en" ? LANDING_ROUTES["job-description-matching"] : null;
 
   return (
     <section className="bg-white py-12 sm:py-16">
@@ -20,6 +24,13 @@ export function HowJobMatchWorks() {
             </div>
           ))}
         </div>
+        {guide && (
+          <p className="mt-6 text-center">
+            <Link href={guide.path} className="text-sm font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
+              {guide.label}
+            </Link>
+          </p>
+        )}
       </div>
     </section>
   );

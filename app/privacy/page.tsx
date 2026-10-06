@@ -5,7 +5,7 @@ import { PrivacyClient } from "./PrivacyClient";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Cvixeo collects, uses, and protects your personal data. GDPR-compliant privacy policy for European users.",
+  description: "How CVixeo collects, uses, and protects your personal data. GDPR-compliant privacy policy for European users.",
   alternates: {
     canonical: "https://www.cvixeo.com/privacy",
     languages: {

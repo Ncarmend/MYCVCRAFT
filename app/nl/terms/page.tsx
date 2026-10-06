@@ -6,7 +6,7 @@ import { TermsClient } from "../../terms/TermsClient";
 
 export const metadata: Metadata = {
   title: "Gebruiksvoorwaarden",
-  description: "De voorwaarden die je gebruik van Cvixeo's AI-gestuurde cv-generator en bijbehorende diensten regelen.",
+  description: "De voorwaarden die je gebruik van CVixeo's AI-gestuurde cv-generator en bijbehorende diensten regelen.",
   alternates: {
     canonical: "https://www.cvixeo.com/nl/terms",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Gebruiksvoorwaarden — Cvixeo",
-    description: "De voorwaarden die je gebruik van Cvixeo regelen.",
+    title: "Gebruiksvoorwaarden — CVixeo",
+    description: "De voorwaarden die je gebruik van CVixeo regelen.",
     url: "https://www.cvixeo.com/nl/terms",
     locale: "nl_BE",
   },

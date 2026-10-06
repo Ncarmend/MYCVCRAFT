@@ -25,8 +25,8 @@ export async function POST(request: NextRequest) {
 
     // ── Notify the support inbox ─────────────────────────────────────────────
     const { error: sendError } = await resend.emails.send({
-      //from: "Cvixeo Contact <onboarding@resend.dev>",
-      from: "Cvixeo Contact <noreply@cvixeo.com>",
+      //from: "CVixeo Contact <onboarding@resend.dev>",
+      from: "CVixeo Contact <noreply@cvixeo.com>",
       to: toAddress,
       replyTo: email,
       subject: `[Contact] ${subject}`,
@@ -60,11 +60,11 @@ export async function POST(request: NextRequest) {
 
     // ── Send confirmation to the user ────────────────────────────────────────
     await resend.emails.send({
-      //from: "Cvixeo Support <onboarding@resend.dev>",
-      from: "Cvixeo Support <noreply@cvixeo.com>",
+      //from: "CVixeo Support <onboarding@resend.dev>",
+      from: "CVixeo Support <noreply@cvixeo.com>",
       
       to: email,
-      subject: "We received your message — Cvixeo",
+      subject: "We received your message — CVixeo",
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
           <h2 style="color:#1e293b;">Thanks for reaching out, ${name}!</h2>
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
             If your request is urgent, you can also reach us directly at
             <a href="mailto:${toAddress}" style="color:#16a34a;">${toAddress}</a>.
           </p>
-          <p style="color:#94a3b8;font-size:12px;margin-top:24px;">— The Cvixeo team</p>
+          <p style="color:#94a3b8;font-size:12px;margin-top:24px;">— The CVixeo team</p>
         </div>
       `,
     });

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 // Default social share image for every route (generated at build time).
 // X/Twitter falls back to og:image, so no separate twitter-image is needed.
-export const alt = "Cvixeo — AI CV Builder & ATS Resume Optimizer";
+export const alt = "CVixeo — AI CV Builder & ATS Resume Optimizer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -26,7 +26,7 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ width: 48, height: 48, borderRadius: 12, background: "#064e3b" }} />
-          <div style={{ fontSize: 40, fontWeight: 800, color: "#064e3b" }}>Cvixeo</div>
+          <div style={{ fontSize: 40, fontWeight: 800, color: "#064e3b" }}>CVixeo</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>

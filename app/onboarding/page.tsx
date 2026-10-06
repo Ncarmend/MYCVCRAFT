@@ -111,7 +111,7 @@ export default function OnboardingPage() {
         {/* Card */}
         <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100">
           <h1 className="mb-2 text-2xl font-bold text-gray-900">
-            {step === 1 ? "Welcome to Cvixeo! 👋" : "What are you aiming for?"}
+            {step === 1 ? "Welcome to CVixeo! 👋" : "What are you aiming for?"}
           </h1>
           <p className="mb-4 text-xs text-gray-500">
             {step === 1

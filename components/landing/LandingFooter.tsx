@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Logo } from "@/components/ui/Logo";
 import { localePath } from "@/lib/seo";
-import { landingRoutesFor } from "@/lib/landing-routes";
+import { landingRoutesFor, TOOLS_HUB } from "@/lib/landing-routes";
 
 export function LandingFooter() {
   const { lang } = useLanguage();
@@ -45,9 +45,12 @@ export function LandingFooter() {
 
           {/* Tools (SEO landing pages) */}
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+            <Link
+              href={TOOLS_HUB[lang === "fr" ? "fr" : "en"].path}
+              className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 hover:text-white"
+            >
               {T.tools}
-            </p>
+            </Link>
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-slate-300">
               {tools.map((t) => (
                 <Link key={t.id} href={t.path} className="transition-colors duration-150 hover:text-white">{t.label}</Link>
@@ -74,7 +77,7 @@ export function LandingFooter() {
         {/* ── Bottom: copyright ── */}
         <div className="mt-10 border-t border-slate-600 pt-6 text-center">
           <p className="text-sm text-slate-400">
-            © {new Date().getFullYear()} Cvixeo. {T.rights}
+            © {new Date().getFullYear()} CVixeo. {T.rights}
           </p>
         </div>
       </div>

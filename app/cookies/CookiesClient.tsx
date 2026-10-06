@@ -57,7 +57,7 @@ function CookiesEN() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-green-50 px-5 py-4 text-xs leading-relaxed text-green-800 ring-1 ring-green-100">
-        <strong>The short version:</strong> Cvixeo uses only strictly necessary cookies to keep you logged in and remember your language preference. We do not use advertising cookies, social media tracking pixels, or any third-party analytics that track you across websites. No consent banner is required for strictly necessary cookies under the GDPR, but we explain everything here in full transparency.
+        <strong>The short version:</strong> CVixeo uses only strictly necessary cookies to keep you logged in and remember your language preference. We do not use advertising cookies, social media tracking pixels, or any third-party analytics that track you across websites. No consent banner is required for strictly necessary cookies under the GDPR, but we explain everything here in full transparency.
       </div>
 
       <div className="space-y-8">
@@ -67,7 +67,7 @@ function CookiesEN() {
         </Section>
 
         <Section id="how-we-use" title="2. How We Use Cookies">
-          <p>Cvixeo uses a minimal set of cookies, all of which are strictly necessary for the Service to function. We do not use cookies for advertising, behavioural tracking, or to build profiles about your browsing behaviour.</p>
+          <p>CVixeo uses a minimal set of cookies, all of which are strictly necessary for the Service to function. We do not use cookies for advertising, behavioural tracking, or to build profiles about your browsing behaviour.</p>
 
           <div className="overflow-hidden rounded-xl ring-1 ring-gray-200">
             <table className="w-full text-xs">
@@ -145,7 +145,7 @@ function CookiesFR() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-green-50 px-5 py-4 text-xs leading-relaxed text-green-800 ring-1 ring-green-100">
-        <strong>En bref :</strong> Cvixeo n'utilise que des cookies strictement nécessaires pour vous maintenir connecté et mémoriser votre préférence de langue. Nous n'utilisons pas de cookies publicitaires, de pixels de suivi des réseaux sociaux, ni aucun outil d'analyse tiers qui vous suit d'un site à l'autre. Aucune bannière de consentement n'est requise pour les cookies strictement nécessaires en vertu du RGPD, mais nous expliquons tout ici en toute transparence.
+        <strong>En bref :</strong> CVixeo n'utilise que des cookies strictement nécessaires pour vous maintenir connecté et mémoriser votre préférence de langue. Nous n'utilisons pas de cookies publicitaires, de pixels de suivi des réseaux sociaux, ni aucun outil d'analyse tiers qui vous suit d'un site à l'autre. Aucune bannière de consentement n'est requise pour les cookies strictement nécessaires en vertu du RGPD, mais nous expliquons tout ici en toute transparence.
       </div>
 
       <div className="space-y-8">
@@ -155,7 +155,7 @@ function CookiesFR() {
         </Section>
 
         <Section id="how-we-use" title="2. Comment nous utilisons les cookies">
-          <p>Cvixeo utilise un nombre minimal de cookies, tous strictement nécessaires au fonctionnement du Service. Nous n'utilisons pas de cookies à des fins publicitaires, de suivi comportemental, ou pour établir des profils sur votre navigation.</p>
+          <p>CVixeo utilise un nombre minimal de cookies, tous strictement nécessaires au fonctionnement du Service. Nous n'utilisons pas de cookies à des fins publicitaires, de suivi comportemental, ou pour établir des profils sur votre navigation.</p>
 
           <div className="overflow-hidden rounded-xl ring-1 ring-gray-200">
             <table className="w-full text-xs">
@@ -233,7 +233,7 @@ function CookiesNL() {
   return (
     <>
       <div className="mb-8 rounded-xl bg-green-50 px-5 py-4 text-xs leading-relaxed text-green-800 ring-1 ring-green-100">
-        <strong>Kort samengevat:</strong> Cvixeo gebruikt enkel strikt noodzakelijke cookies om je ingelogd te houden en je taalvoorkeur te onthouden. We gebruiken geen advertentiecookies, trackingpixels van sociale media, of externe analysetools die je volgen over verschillende websites heen. Voor strikt noodzakelijke cookies is onder de AVG geen toestemmingsbanner vereist, maar we leggen hier alles in volledige transparantie uit.
+        <strong>Kort samengevat:</strong> CVixeo gebruikt enkel strikt noodzakelijke cookies om je ingelogd te houden en je taalvoorkeur te onthouden. We gebruiken geen advertentiecookies, trackingpixels van sociale media, of externe analysetools die je volgen over verschillende websites heen. Voor strikt noodzakelijke cookies is onder de AVG geen toestemmingsbanner vereist, maar we leggen hier alles in volledige transparantie uit.
       </div>
 
       <div className="space-y-8">
@@ -243,7 +243,7 @@ function CookiesNL() {
         </Section>
 
         <Section id="how-we-use" title="2. Hoe we cookies gebruiken">
-          <p>Cvixeo gebruikt een minimale set cookies, die allemaal strikt noodzakelijk zijn voor de werking van de Dienst. We gebruiken geen cookies voor reclame, gedragsmatige tracking, of om profielen van je surfgedrag op te bouwen.</p>
+          <p>CVixeo gebruikt een minimale set cookies, die allemaal strikt noodzakelijk zijn voor de werking van de Dienst. We gebruiken geen cookies voor reclame, gedragsmatige tracking, of om profielen van je surfgedrag op te bouwen.</p>
 
           <div className="overflow-hidden rounded-xl ring-1 ring-gray-200">
             <table className="w-full text-xs">

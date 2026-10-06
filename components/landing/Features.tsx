@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
-import { LANDING_ROUTES, type LandingId } from "@/lib/landing-routes";
+import { LANDING_ROUTES, TOOLS_HUB, type LandingId } from "@/lib/landing-routes";
 
 // Order matches translations[lang].features.items.
 const icons = [Sparkles, Gauge, Target, SearchCheck, WandSparkles, LayoutTemplate, FileDown, PenLine];
@@ -78,6 +78,13 @@ export function Features() {
             );
           })}
         </div>
+        {lang !== "nl" && (
+          <p className="mt-8 text-center">
+            <Link href={TOOLS_HUB[lang].path} className="text-sm font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
+              {TOOLS_HUB[lang].label} →
+            </Link>
+          </p>
+        )}
       </div>
     </section>
   );

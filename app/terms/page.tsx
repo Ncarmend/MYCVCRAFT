@@ -5,7 +5,7 @@ import { TermsClient } from "./TermsClient";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "The terms and conditions that govern your use of Cvixeo's AI-powered CV builder and related services.",
+  description: "The terms and conditions that govern your use of CVixeo's AI-powered CV builder and related services.",
   alternates: {
     canonical: "https://www.cvixeo.com/terms",
     languages: {

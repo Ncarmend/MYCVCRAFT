@@ -6,7 +6,7 @@ import { LegalClient } from "../../legal/LegalClient";
 
 export const metadata: Metadata = {
   title: "Wettelijke vermeldingen",
-  description: "Wettelijke vermeldingen (mentions légales) voor Cvixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
+  description: "Wettelijke vermeldingen (mentions légales) voor CVixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
   alternates: {
     canonical: "https://www.cvixeo.com/nl/legal",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Wettelijke vermeldingen — Cvixeo",
-    description: "Wettelijke vermeldingen voor Cvixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
+    title: "Wettelijke vermeldingen — CVixeo",
+    description: "Wettelijke vermeldingen voor CVixeo — uitgeversinformatie, hostinggegevens en kennisgeving intellectuele eigendom.",
     url: "https://www.cvixeo.com/nl/legal",
     locale: "nl_BE",
   },

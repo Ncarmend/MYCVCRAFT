@@ -2,10 +2,14 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { OG_DEFAULTS } from "@/lib/seo";
 import Link from "next/link";
-import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
+import { Calendar, Clock, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
+import { graph, articleNode } from "@/lib/structured-data";
+import { SITE_URL } from "@/lib/seo";
 import { translations } from "@/lib/translations";
 import {
   articles,
@@ -75,26 +79,16 @@ export default async function ArticlePageNl({ params }: Props) {
   const related = getRelatedArticles(article, 3);
   const style = categoryStyle[article.category];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    datePublished: article.publishedAt,
-    dateModified: article.updatedAt ?? article.publishedAt,
-    inLanguage: "nl-BE",
-    author: { "@type": "Organization", name: "Cvixeo" },
-    publisher: { "@type": "Organization", name: "Cvixeo", url: "https://www.cvixeo.com" },
-    keywords: article.tags.join(", "),
-    url: `https://www.cvixeo.com/nl/careers/${article.slug}`,
-  };
+  const crumbs: Crumb[] = [
+    { name: "Home", href: "/nl" },
+    { name: translations.nl.careers.backLink, href: "/nl/careers" },
+    { name: article.title, href: "/nl/careers/${article.slug}" },
+  ];
+  const jsonLd = graph(articleNode(article, `${SITE_URL}/nl/careers/${article.slug}`, "nl"), breadcrumbJsonLd(crumbs));
 
   return (
     <div className="flex min-h-screen flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <NavbarServer />
 
@@ -109,13 +103,9 @@ export default async function ArticlePageNl({ params }: Props) {
             }}
           />
           <div className="relative mx-auto max-w-3xl px-6 py-16 text-white">
-            <Link
-              href="/nl/careers"
-              className="mb-6 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 transition-colors hover:text-white"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              {T.backLink}
-            </Link>
+            <div className="mb-6">
+              <Breadcrumbs items={crumbs} tone="dark" />
+            </div>
 
             <div className="mb-4">
               <span className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${style.badge}`}>

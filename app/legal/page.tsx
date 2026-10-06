@@ -5,7 +5,7 @@ import { LegalClient } from "./LegalClient";
 
 export const metadata: Metadata = {
   title: "Legal Notice",
-  description: "Legal notice (mentions légales) for Cvixeo — publisher information, hosting details, and intellectual property notice.",
+  description: "Legal notice (mentions légales) for CVixeo — publisher information, hosting details, and intellectual property notice.",
   alternates: {
     canonical: "https://www.cvixeo.com/legal",
     languages: {

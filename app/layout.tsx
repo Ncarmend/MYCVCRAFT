@@ -5,6 +5,8 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/landing/LanguageContext";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { graph, organizationNode, websiteNode } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const GTM_ID = "GTM-NHGQGDP7";
@@ -18,8 +20,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
-    template: "%s | Cvixeo",
+    default: "AI CV Builder & ATS Resume Optimizer | CVixeo",
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "Build an ATS-optimized CV with AI, match it to any job description, find missing keywords and get a match score. Free plan, 15 templates, PDF export.",
@@ -45,13 +47,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
+    title: "AI CV Builder & ATS Resume Optimizer | CVixeo",
     description:
       "Create an ATS-optimized CV with AI and match it to any job description: missing keywords, match score and concrete improvements.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
+    title: "AI CV Builder & ATS Resume Optimizer | CVixeo",
     description:
       "Create an ATS-optimized CV with AI and match it to any job description: missing keywords, match score and concrete improvements.",
   },
@@ -76,42 +78,14 @@ export default async function RootLayout({
   const locale = (await headers()).get("x-locale") ?? "en";
 
   // Site-wide entity graph (Organization + WebSite). Page-specific schemas
-  // (SoftwareApplication, FAQPage, Article) are emitted by the pages themselves.
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": `${SITE_URL}/#organization`,
-        name: SITE_NAME,
-        url: SITE_URL,
-        logo: `${SITE_URL}/logo.png`,
-        email: "support@cvixeo.com",
-        contactPoint: {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          email: "support@cvixeo.com",
-          availableLanguage: ["English", "French", "Dutch"],
-        },
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
-        name: SITE_NAME,
-        url: SITE_URL,
-        inLanguage: ["en", "fr", "nl"],
-        publisher: { "@id": `${SITE_URL}/#organization` },
-      },
-    ],
-  };
+  // (WebPage, SoftwareApplication, FAQPage, BreadcrumbList, Article) are
+  // emitted by the pages themselves via lib/structured-data.ts.
+  const jsonLd = graph(organizationNode(), websiteNode());
 
   return (
     <html lang={locale} className={`${inter.variable} h-full antialiased`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
       </head>
       <GoogleTagManager gtmId={GTM_ID} />
       <body className="min-h-full bg-white text-gray-900">

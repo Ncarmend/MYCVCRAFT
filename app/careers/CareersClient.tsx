@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { ArticleCard } from "@/components/careers/ArticleCard";
+import Link from "next/link";
+import { TOOLS_HUB } from "@/lib/landing-routes";
 import { articles, CATEGORIES, CATEGORIES_BE, CATEGORIES_FRANCE, type Category } from "@/lib/articles";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
@@ -137,6 +139,13 @@ export function CareersClient() {
           >
             {T.ctaBtn}
           </a>
+          {lang !== "nl" && (
+            <p className="mt-4">
+              <Link href={TOOLS_HUB[lang].path} className="text-sm font-medium text-slate-200 underline underline-offset-2 hover:text-white">
+                {TOOLS_HUB[lang].label}
+              </Link>
+            </p>
+          )}
         </section>
       </div>
     </main>

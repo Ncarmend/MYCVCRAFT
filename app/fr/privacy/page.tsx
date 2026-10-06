@@ -6,7 +6,7 @@ import { PrivacyClient } from "../../privacy/PrivacyClient";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
-  description: "Comment Cvixeo collecte, utilise et protège vos données personnelles. Politique de confidentialité conforme au RGPD pour les utilisateurs européens.",
+  description: "Comment CVixeo collecte, utilise et protège vos données personnelles. Politique de confidentialité conforme au RGPD pour les utilisateurs européens.",
   alternates: {
     canonical: "https://www.cvixeo.com/fr/privacy",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Politique de confidentialité — Cvixeo",
-    description: "Comment Cvixeo collecte, utilise et protège vos données personnelles.",
+    title: "Politique de confidentialité — CVixeo",
+    description: "Comment CVixeo collecte, utilise et protège vos données personnelles.",
     url: "https://www.cvixeo.com/fr/privacy",
     locale: "fr_FR",
   },

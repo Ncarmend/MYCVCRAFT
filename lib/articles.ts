@@ -109,7 +109,7 @@ export const articles: Article[] = [
       {
         heading: "Rule 6 — Test Before You Submit",
         body: `<p>Never submit a resume without testing it first. Run three checks: the plain-text paste test, a keyword gap analysis (compare your resume against the job description and identify missing terms), and a review of extracted content (does the parser correctly identify your job title, employer, and degree?).</p>
-<p>Cvixeo's built-in ATS checker performs all three automatically. It parses your resume, scores it against a specific job description, and provides a ranked list of missing keywords and improvement suggestions. Users who optimise their resume with the ATS checker report a 3× increase in interview callback rates versus their previous generic versions.</p>`,
+<p>CVixeo's built-in ATS checker performs all three automatically. It parses your resume, scores it against a specific job description, and provides a ranked list of missing keywords and improvement suggestions. Users who optimise their resume with the ATS checker report a 3× increase in interview callback rates versus their previous generic versions.</p>`,
       },
     ],
     conclusion: "Creating an ATS-optimised resume is not about gaming the system — it is about removing unnecessary barriers between you and the humans who will ultimately decide whether to hire you. The six rules in this guide — clean formatting, strategic keywords, quantified achievements, smart section structure, consistent tailoring, and pre-submission testing — form a complete framework. Apply them together. A beautifully keyworded resume in a two-column format will still fail parsing. A single-column resume with no keyword alignment will score poorly. The system rewards the whole package.",
@@ -225,7 +225,7 @@ export const articles: Article[] = [
       {
         heading: "Step 6 — Verify with an ATS Score",
         body: `<p>Before submitting any tailored resume, run it through an ATS check against the specific job description. This step catches keyword gaps you might have missed and gives you an objective score to evaluate your tailoring work against. Target an 80% or higher match score for roles where you meet the core requirements.</p>
-<p>Cvixeo's ATS matching tool compares your resume directly against any job description and provides a keyword gap report with specific suggestions. It is the fastest way to verify that your tailoring work has actually moved your score — and to identify the final adjustments that will maximise your chances before you submit.</p>`,
+<p>CVixeo's ATS matching tool compares your resume directly against any job description and provides a keyword gap report with specific suggestions. It is the fastest way to verify that your tailoring work has actually moved your score — and to identify the final adjustments that will maximise your chances before you submit.</p>`,
       },
     ],
     conclusion: "Tailoring is a habit, not a one-time effort. The most successful job seekers treat it as a non-negotiable part of every application. Once you have a strong master resume and a reliable process, tailoring takes less time than you expect and returns more results than almost any other investment in your job search. The rule is simple: if you are not willing to spend 15 minutes tailoring your resume for a role, ask yourself whether you are willing to spend 20 to 30 minutes on an interview that you are significantly less likely to get.",
@@ -268,7 +268,7 @@ export const articles: Article[] = [
       {
         heading: "Format, Length, and the AI Question",
         body: `<p>A cover letter should never exceed one page. Three to four tight paragraphs is the ideal. Match your font to your resume for a cohesive package. Submit as a PDF unless the application portal specifies otherwise. Address the letter to a specific person whenever possible — a quick LinkedIn search takes two minutes and personalises the letter in a way that "Dear Hiring Manager" cannot.</p>
-<p>On AI-generated cover letters: Cvixeo's generator can produce an excellent structural foundation and ensure keyword alignment. But the elements that make a cover letter genuinely compelling — your specific hook, your authentic knowledge of the company, your personal voice — cannot be generated from generic inputs. Use AI as a starting point, then inject the specific details that make your letter unique. A recruiter reading ten AI-generated cover letters will immediately recognise the one written by a person who actually cares about the role.</p>`,
+<p>On AI-generated cover letters: CVixeo's generator can produce an excellent structural foundation and ensure keyword alignment. But the elements that make a cover letter genuinely compelling — your specific hook, your authentic knowledge of the company, your personal voice — cannot be generated from generic inputs. Use AI as a starting point, then inject the specific details that make your letter unique. A recruiter reading ten AI-generated cover letters will immediately recognise the one written by a person who actually cares about the role.</p>`,
       },
       {
         heading: "Common Cover Letter Mistakes to Avoid",
@@ -675,7 +675,7 @@ export const articles: Article[] = [
       {
         heading: "Le CV doit-il passer un ATS ? Ce qui change en pratique",
         body: `<p>Les grandes entreprises belges et les filiales de groupes internationaux installés à Bruxelles utilisent de plus en plus des logiciels de gestion des candidatures (ATS) pour trier les CV avant leur lecture humaine. Les PME et administrations locales restent en général plus traditionnelles, avec une lecture humaine directe. Dans le doute, mieux vaut toujours produire un CV "ATS-friendly" : structure simple en une colonne, intitulés de rubriques standards, format PDF texte (jamais une image scannée), et vocabulaire aligné sur celui de l'offre d'emploi.</p>
-<p>Cvixeo génère automatiquement des CV structurés pour passer les filtres ATS tout en restant lisibles et soignés pour un recruteur humain — un équilibre particulièrement utile sur un marché belge où les deux modes de sélection coexistent selon la taille de l'entreprise.</p>`,
+<p>CVixeo génère automatiquement des CV structurés pour passer les filtres ATS tout en restant lisibles et soignés pour un recruteur humain — un équilibre particulièrement utile sur un marché belge où les deux modes de sélection coexistent selon la taille de l'entreprise.</p>`,
       },
       {
         heading: "Adapter son CV à chaque candidature",
@@ -690,7 +690,7 @@ export const articles: Article[] = [
 <p><strong>Un CV rédigé pour la France fonctionne-t-il tel quel en Belgique ?</strong><br/>En grande partie, mais il gagne à intégrer la présentation des langues selon le CECRL et la mention du permis de conduire, deux usages plus systématiques en Belgique.</p>`,
       },
     ],
-    conclusion: "Un CV professionnel réussi en Belgique combine une structure claire, une déclaration honnête et précise de vos compétences linguistiques, une longueur maîtrisée, et une adaptation systématique à chaque offre. Ces règles varient peu entre Bruxelles, la Wallonie et la Flandre francophone, mais leur poids relatif change selon la région et le secteur visé. Avant d'envoyer votre prochaine candidature, relisez votre CV à la lumière de ces cinq points — puis consultez nos guides sur <a href=\"/fr/careers/15-erreurs-a-eviter-cv-professionnel\">les 15 erreurs à éviter sur un CV professionnel</a>, la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation</a> et <a href=\"/fr/careers/mettre-en-valeur-competences-cv\">la mise en valeur de vos compétences</a> pour compléter votre dossier de candidature. Créez votre CV professionnel avec Cvixeo : la structure, le format ATS et la mise en page sont pris en charge automatiquement, vous vous concentrez sur le contenu.",
+    conclusion: "Un CV professionnel réussi en Belgique combine une structure claire, une déclaration honnête et précise de vos compétences linguistiques, une longueur maîtrisée, et une adaptation systématique à chaque offre. Ces règles varient peu entre Bruxelles, la Wallonie et la Flandre francophone, mais leur poids relatif change selon la région et le secteur visé. Avant d'envoyer votre prochaine candidature, relisez votre CV à la lumière de ces cinq points — puis consultez nos guides sur <a href=\"/fr/careers/15-erreurs-a-eviter-cv-professionnel\">les 15 erreurs à éviter sur un CV professionnel</a>, la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation</a> et <a href=\"/fr/careers/mettre-en-valeur-competences-cv\">la mise en valeur de vos compétences</a> pour compléter votre dossier de candidature. Créez votre CV professionnel avec CVixeo : la structure, le format ATS et la mise en page sont pris en charge automatiquement, vous vous concentrez sur le contenu.",
   },
 
   {
@@ -735,7 +735,7 @@ export const articles: Article[] = [
 <p><strong>Un CV fonctionnel (par compétences) est-il accepté en Belgique ?</strong><br/>Il reste rare et mal perçu, sauf pour des reconversions professionnelles marquées ; le format antichronologique demeure la norme.</p>`,
       },
     ],
-    conclusion: "Le CV belge n'est pas un exercice radicalement différent du CV français ou international — mais ignorer ces six règles locales revient à se priver d'un avantage compétitif simple à obtenir. Précision sur les langues, format antichronologique, longueur maîtrisée, mention du permis, photo réfléchie selon le secteur, et honnêteté vérifiable : appliquez ces principes systématiquement, puis adaptez le contenu à chaque offre pour maximiser vos chances. Créez votre CV avec Cvixeo et laissez la mise en forme professionnelle et le format ATS se charger automatiquement pendant que vous vous concentrez sur votre parcours.",
+    conclusion: "Le CV belge n'est pas un exercice radicalement différent du CV français ou international — mais ignorer ces six règles locales revient à se priver d'un avantage compétitif simple à obtenir. Précision sur les langues, format antichronologique, longueur maîtrisée, mention du permis, photo réfléchie selon le secteur, et honnêteté vérifiable : appliquez ces principes systématiquement, puis adaptez le contenu à chaque offre pour maximiser vos chances. Créez votre CV avec CVixeo et laissez la mise en forme professionnelle et le format ATS se charger automatiquement pendant que vous vous concentrez sur votre parcours.",
   },
 
   {
@@ -769,7 +769,7 @@ export const articles: Article[] = [
       {
         heading: "Étape 5 — Vérifier avant d'envoyer",
         body: `<p>Avant d'envoyer votre candidature, comparez une dernière fois votre CV adapté avec la liste de critères établie à l'étape 1. Chaque critère important de l'offre a-t-il une réponse visible dans votre CV ? Si un critère central reste sans réponse et que vous possédez réellement la compétence correspondante ailleurs dans votre parcours, c'est le signe qu'il manque encore une mention quelque part.</p>
-<p>Cvixeo permet de comparer directement votre CV à une offre d'emploi et de repérer les mots-clés manquants avant l'envoi — un moyen rapide de fiabiliser cette dernière vérification.</p>`,
+<p>CVixeo permet de comparer directement votre CV à une offre d'emploi et de repérer les mots-clés manquants avant l'envoi — un moyen rapide de fiabiliser cette dernière vérification.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -778,7 +778,7 @@ export const articles: Article[] = [
 <p><strong>Est-il risqué de trop répéter les mots-clés de l'offre ?</strong><br/>Oui si cela devient artificiel. L'objectif est d'utiliser le même vocabulaire que l'offre uniquement pour des compétences que vous possédez réellement.</p>`,
       },
     ],
-    conclusion: "Adapter son CV à chaque offre n'est pas une option réservée aux candidatures les plus importantes : c'est une discipline à appliquer systématiquement, dès lors que le poste vous intéresse réellement. La méthode en cinq étapes décrite ici — décortiquer l'offre, faire correspondre le vocabulaire, réordonner les réalisations, réécrire l'accroche, vérifier avant l'envoi — devient rapide une fois que l'habitude est prise. Complétez ce travail avec une lettre de motivation tout aussi ciblée : notre guide sur la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation pour un emploi en Belgique</a> détaille la méthode. Adaptez votre CV à votre prochaine offre d'emploi avec Cvixeo, en quelques minutes.",
+    conclusion: "Adapter son CV à chaque offre n'est pas une option réservée aux candidatures les plus importantes : c'est une discipline à appliquer systématiquement, dès lors que le poste vous intéresse réellement. La méthode en cinq étapes décrite ici — décortiquer l'offre, faire correspondre le vocabulaire, réordonner les réalisations, réécrire l'accroche, vérifier avant l'envoi — devient rapide une fois que l'habitude est prise. Complétez ce travail avec une lettre de motivation tout aussi ciblée : notre guide sur la <a href=\"/fr/careers/lettre-motivation-emploi-belgique\">lettre de motivation pour un emploi en Belgique</a> détaille la méthode. Adaptez votre CV à votre prochaine offre d'emploi avec CVixeo, en quelques minutes.",
   },
 
   {
@@ -829,7 +829,7 @@ export const articles: Article[] = [
 <p><strong>Comment vérifier qu'un CV est compatible avec un ATS ?</strong><br/>Copiez son contenu dans un éditeur de texte simple : s'il reste lisible et dans l'ordre logique, le format est correct.</p>`,
       },
     ],
-    conclusion: "Aucune de ces quinze erreurs n'est complexe à corriger individuellement — mais leur accumulation explique la majorité des candidatures qui n'obtiennent jamais de réponse. Reprenez votre CV actuel et confrontez-le méthodiquement à cette liste. Corrigez chaque erreur identifiée, adaptez le contenu à votre prochaine offre, puis faites relire le résultat par une personne de confiance avant l'envoi. Créez un CV professionnel avec Cvixeo : la mise en page cohérente et le format compatible ATS sont gérés automatiquement, ce qui élimine d'emblée plusieurs des erreurs les plus fréquentes.",
+    conclusion: "Aucune de ces quinze erreurs n'est complexe à corriger individuellement — mais leur accumulation explique la majorité des candidatures qui n'obtiennent jamais de réponse. Reprenez votre CV actuel et confrontez-le méthodiquement à cette liste. Corrigez chaque erreur identifiée, adaptez le contenu à votre prochaine offre, puis faites relire le résultat par une personne de confiance avant l'envoi. Créez un CV professionnel avec CVixeo : la mise en page cohérente et le format compatible ATS sont gérés automatiquement, ce qui élimine d'emblée plusieurs des erreurs les plus fréquentes.",
   },
 
   {
@@ -860,7 +860,7 @@ export const articles: Article[] = [
       {
         heading: "Comment trancher pour votre candidature",
         body: `<p>Trois questions permettent de trancher rapidement : Quel est le secteur visé — relationnel ou technique/international ? Quelle est la culture affichée de l'entreprise — traditionnelle ou alignée sur des standards internationaux de recrutement inclusif ? Disposez-vous d'une photo réellement professionnelle, ou seulement d'images de qualité inégale ? Si le secteur est relationnel, la culture traditionnelle et la photo de bonne qualité : incluez-la. Dans tous les autres cas, l'absence de photo reste le choix le plus sûr.</p>
-<p>Avec Cvixeo, vous pouvez générer deux versions de votre CV — avec et sans photo — en quelques clics, et choisir la version adaptée à chaque candidature.</p>`,
+<p>Avec CVixeo, vous pouvez générer deux versions de votre CV — avec et sans photo — en quelques clics, et choisir la version adaptée à chaque candidature.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -901,7 +901,7 @@ export const articles: Article[] = [
       {
         heading: "Longueur, format et erreurs à éviter",
         body: `<p>Une page maximum, trois à quatre paragraphes. Adaptez la police et la mise en page à celles de votre CV pour un ensemble cohérent. Soumettez au format PDF, sauf indication contraire de l'employeur. Les erreurs les plus fréquentes : une lettre non adaptée à l'offre, une réécriture pure et simple du CV, des formules de flatterie sans substance ("j'admire votre entreprise" sans préciser pourquoi), et bien sûr les fautes d'orthographe — encore plus disqualifiantes ici que sur un CV, puisque le texte entier est rédigé par vous.</p>
-<p>Cvixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
+<p>CVixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -910,7 +910,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il adresser la lettre à une personne nommée ?</strong><br/>C'est préférable dès que possible ; à défaut, "Madame, Monsieur," reste une formule acceptable.</p>`,
       },
     ],
-    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Elle prouve que vous avez pris le temps de comprendre le poste et l'entreprise — un effort de plus en plus rare, et donc de plus en plus remarqué. Associez-la à un CV bien structuré et adapté à l'offre : consultez notre guide pour <a href=\"/fr/careers/adapter-cv-offre-emploi-belgique\">adapter votre CV à une offre d'emploi en Belgique</a>. Générez votre lettre de motivation avec Cvixeo et gagnez un temps précieux sur chaque candidature.",
+    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Elle prouve que vous avez pris le temps de comprendre le poste et l'entreprise — un effort de plus en plus rare, et donc de plus en plus remarqué. Associez-la à un CV bien structuré et adapté à l'offre : consultez notre guide pour <a href=\"/fr/careers/adapter-cv-offre-emploi-belgique\">adapter votre CV à une offre d'emploi en Belgique</a>. Générez votre lettre de motivation avec CVixeo et gagnez un temps précieux sur chaque candidature.",
   },
 
   {
@@ -947,7 +947,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il adapter la liste de compétences à chaque offre ?</strong><br/>Oui, réordonner cette section selon les priorités de l'offre est l'un des ajustements les plus rapides et les plus efficaces.</p>`,
       },
     ],
-    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec Cvixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle alignée sur votre poste cible.",
+    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec CVixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle alignée sur votre poste cible.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -995,7 +995,7 @@ export const articles: Article[] = [
 <p><strong>Les institutions européennes recrutent-elles facilement des profils belges ?</strong><br/>Elles publient leurs propres portails de carrière avec des procédures de sélection spécifiques, souvent distinctes des canaux classiques de recrutement.</p>`,
       },
     ],
-    conclusion: "Trouver un emploi à Bruxelles en 2026 suppose de combiner plusieurs leviers : une inscription active auprès d'Actiris, une compréhension fine des secteurs qui recrutent réellement, une présentation honnête et stratégique de son niveau de langues, et une recherche qui ne se limite pas aux plateformes d'offres en ligne. La région offre une densité d'opportunités rare en Belgique — à condition d'adapter sa méthode à ses spécificités locales. Créez un CV professionnel adapté au marché bruxellois avec Cvixeo, et retrouvez nos guides sur Actiris, le premier emploi et les agences de recrutement pour compléter votre stratégie.",
+    conclusion: "Trouver un emploi à Bruxelles en 2026 suppose de combiner plusieurs leviers : une inscription active auprès d'Actiris, une compréhension fine des secteurs qui recrutent réellement, une présentation honnête et stratégique de son niveau de langues, et une recherche qui ne se limite pas aux plateformes d'offres en ligne. La région offre une densité d'opportunités rare en Belgique — à condition d'adapter sa méthode à ses spécificités locales. Créez un CV professionnel adapté au marché bruxellois avec CVixeo, et retrouvez nos guides sur Actiris, le premier emploi et les agences de recrutement pour compléter votre stratégie.",
   },
 
   {
@@ -1033,7 +1033,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il s'inscrire à Actiris dès la fin des études ?</strong><br/>C'est recommandé : cela donne accès à un accompagnement spécifique et peut conditionner certains droits sociaux.</p>`,
       },
     ],
-    conclusion: "Un premier emploi à Bruxelles se prépare avec la même rigueur qu'une candidature expérimentée, mais avec des leviers différents : compétences transférables issues des stages et jobs étudiants, formation valorisée en détail, et bilinguisme mis en avant chaque fois qu'il existe, même partiellement. La patience et le nombre de candidatures jouent également un rôle : un premier emploi demande souvent plus de candidatures qu'un poste ultérieur, simplement parce que le dossier est encore léger. Créez votre premier CV professionnel avec Cvixeo — la structure adaptée aux profils juniors est intégrée par défaut.",
+    conclusion: "Un premier emploi à Bruxelles se prépare avec la même rigueur qu'une candidature expérimentée, mais avec des leviers différents : compétences transférables issues des stages et jobs étudiants, formation valorisée en détail, et bilinguisme mis en avant chaque fois qu'il existe, même partiellement. La patience et le nombre de candidatures jouent également un rôle : un premier emploi demande souvent plus de candidatures qu'un poste ultérieur, simplement parce que le dossier est encore léger. Créez votre premier CV professionnel avec CVixeo — la structure adaptée aux profils juniors est intégrée par défaut.",
   },
 
   {
@@ -1071,7 +1071,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il arrêter de candidater ailleurs en attendant une réponse ?</strong><br/>Non, il est recommandé de continuer activement sa recherche pendant tout processus de recrutement, même avancé.</p>`,
       },
     ],
-    conclusion: "Réussir sa recherche d'emploi à Bruxelles demande de la méthode autant que des candidatures de qualité : structurez votre démarche, diversifiez vos sources d'offres, préparez sérieusement chaque entretien, et acceptez des délais parfois plus longs que dans d'autres régions. Ces principes, combinés à un CV et une lettre de motivation bien adaptés, maximisent vos chances sur un marché dense mais riche en opportunités. Créez votre CV professionnel avec Cvixeo et suivez nos guides sur Actiris et le premier emploi pour compléter votre préparation.",
+    conclusion: "Réussir sa recherche d'emploi à Bruxelles demande de la méthode autant que des candidatures de qualité : structurez votre démarche, diversifiez vos sources d'offres, préparez sérieusement chaque entretien, et acceptez des délais parfois plus longs que dans d'autres régions. Ces principes, combinés à un CV et une lettre de motivation bien adaptés, maximisent vos chances sur un marché dense mais riche en opportunités. Créez votre CV professionnel avec CVixeo et suivez nos guides sur Actiris et le premier emploi pour compléter votre préparation.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1117,7 +1117,7 @@ export const articles: Article[] = [
 <p><strong>Que se passe-t-il si mon dossier Actiris devient inactif ?</strong><br/>Cela peut interrompre l'accès à certains services et affecter des droits sociaux liés au statut de demandeur d'emploi ; une réinscription est alors nécessaire.</p>`,
       },
     ],
-    conclusion: "S'inscrire auprès d'Actiris est la première étape concrète d'une recherche d'emploi structurée à Bruxelles : elle ouvre l'accès aux offres, à l'accompagnement personnalisé et, selon votre situation, à certains droits sociaux. La démarche est gratuite et peut se faire intégralement en ligne pour la majorité des situations. Une fois inscrit, complétez votre dossier avec un CV professionnel et adapté : créez le vôtre avec Cvixeo et retrouvez notre guide complet pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+    conclusion: "S'inscrire auprès d'Actiris est la première étape concrète d'une recherche d'emploi structurée à Bruxelles : elle ouvre l'accès aux offres, à l'accompagnement personnalisé et, selon votre situation, à certains droits sociaux. La démarche est gratuite et peut se faire intégralement en ligne pour la majorité des situations. Une fois inscrit, complétez votre dossier avec un CV professionnel et adapté : créez le vôtre avec CVixeo et retrouvez notre guide complet pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
   },
 
   {
@@ -1158,7 +1158,7 @@ export const articles: Article[] = [
 <p><strong>Que se passe-t-il en cas de fin de droit ?</strong><br/>Il est recommandé de vérifier sa situation à l'avance, d'intensifier sa recherche d'emploi via son service régional, et de contacter le CPAS si les ressources deviennent insuffisantes.</p>`,
       },
     ],
-    conclusion: "L'ONEM reste l'institution de référence pour comprendre vos droits et obligations en tant que demandeur d'emploi indemnisé en Belgique, mais la réforme entrée en vigueur en mars 2026 a modifié en profondeur la durée maximale d'indemnisation. Si vous êtes concerné, vérifiez votre situation individuelle directement sur le site de l'ONEM ou auprès de votre organisme de paiement, les règles transitoires étant spécifiques à chaque situation. En parallèle de vos démarches administratives, structurez activement votre recherche d'emploi : consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a> et créez un CV professionnel avec Cvixeo pour candidater efficacement dès aujourd'hui.",
+    conclusion: "L'ONEM reste l'institution de référence pour comprendre vos droits et obligations en tant que demandeur d'emploi indemnisé en Belgique, mais la réforme entrée en vigueur en mars 2026 a modifié en profondeur la durée maximale d'indemnisation. Si vous êtes concerné, vérifiez votre situation individuelle directement sur le site de l'ONEM ou auprès de votre organisme de paiement, les règles transitoires étant spécifiques à chaque situation. En parallèle de vos démarches administratives, structurez activement votre recherche d'emploi : consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a> et créez un CV professionnel avec CVixeo pour candidater efficacement dès aujourd'hui.",
   },
 
   {
@@ -1202,7 +1202,7 @@ export const articles: Article[] = [
 <p><strong>Le fonctionnement diffère-t-il beaucoup entre les trois organismes ?</strong><br/>La mission est similaire (accompagnement, offres, formations), mais les priorités sectorielles reflètent le tissu économique propre à chaque région.</p>`,
       },
     ],
-    conclusion: "Le choix entre Forem, Actiris et VDAB n'est pas vraiment un choix : il découle directement de votre région de domicile. La bonne stratégie, si vous envisagez une mobilité inter-régionale, consiste à rester inscrit auprès de votre organisme de résidence tout en consultant activement les offres et ressources de la région visée. Une fois votre organisme identifié et votre inscription faite, structurez votre candidature : créez un CV professionnel avec Cvixeo, adapté à la région et au secteur que vous ciblez.",
+    conclusion: "Le choix entre Forem, Actiris et VDAB n'est pas vraiment un choix : il découle directement de votre région de domicile. La bonne stratégie, si vous envisagez une mobilité inter-régionale, consiste à rester inscrit auprès de votre organisme de résidence tout en consultant activement les offres et ressources de la région visée. Une fois votre organisme identifié et votre inscription faite, structurez votre candidature : créez un CV professionnel avec CVixeo, adapté à la région et au secteur que vous ciblez.",
   },
 
   {
@@ -1241,7 +1241,7 @@ export const articles: Article[] = [
 <p><strong>L'intérim peut-il mener à un contrat fixe ?</strong><br/>Oui, de nombreuses missions d'intérim débouchent sur une embauche définitive, en particulier via l'intérim dit "d'insertion".</p>`,
       },
     ],
-    conclusion: "Les agences d'intérim et de recrutement sont un complément utile, jamais un substitut, à une recherche d'emploi active et bien structurée. Utilisées en parallèle des services publics régionaux et de vos candidatures directes, elles élargissent vos points d'entrée sur le marché du travail belge, en particulier dans les secteurs où la rotation de personnel est élevée. Préparez un CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence — un dossier soigné dès le premier entretien avec un consultant facilite un placement plus rapide et plus pertinent.",
+    conclusion: "Les agences d'intérim et de recrutement sont un complément utile, jamais un substitut, à une recherche d'emploi active et bien structurée. Utilisées en parallèle des services publics régionaux et de vos candidatures directes, elles élargissent vos points d'entrée sur le marché du travail belge, en particulier dans les secteurs où la rotation de personnel est élevée. Préparez un CV professionnel avec CVixeo avant de vous inscrire auprès d'une agence — un dossier soigné dès le premier entretien avec un consultant facilite un placement plus rapide et plus pertinent.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1326,7 +1326,7 @@ export const articles: Article[] = [
 <p><strong>Que faire si mes allocations de chômage prennent fin ?</strong><br/>Vérifiez votre situation auprès de votre organisme de paiement, intensifiez votre recherche via votre service régional de l'emploi, et contactez le CPAS de votre commune si vos ressources deviennent insuffisantes.</p>`,
       },
     ],
-    conclusion: "Le chômage en Belgique se lit à travers plusieurs indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de Statbel (6,1% au deuxième trimestre 2026), le nombre de chômeurs indemnisés de l'ONEM (211 973 en mai 2026, en forte baisse), et des indicateurs régionaux spécifiques comme le taux administratif d'Actiris à Bruxelles. La réforme de l'assurance chômage entrée en vigueur le 1ᵉʳ mars 2026 explique une large part de l'évolution récente de ces chiffres, avec des mesures transitoires qui continueront à produire des effets statistiques dans les prochains mois. Cet article sera mis à jour à mesure que Statbel et l'ONEM publient de nouvelles données — retrouvez également notre article complémentaire <a href=\"/fr/careers/combien-chomeurs-belgique-2026\">combien y a-t-il de chômeurs en Belgique en 2026</a> pour le suivi mois par mois des chiffres. Si votre situation professionnelle est concernée par ces évolutions, la meilleure préparation reste une recherche d'emploi active et un dossier de candidature solide : créez votre CV professionnel avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+    conclusion: "Le chômage en Belgique se lit à travers plusieurs indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de Statbel (6,1% au deuxième trimestre 2026), le nombre de chômeurs indemnisés de l'ONEM (211 973 en mai 2026, en forte baisse), et des indicateurs régionaux spécifiques comme le taux administratif d'Actiris à Bruxelles. La réforme de l'assurance chômage entrée en vigueur le 1ᵉʳ mars 2026 explique une large part de l'évolution récente de ces chiffres, avec des mesures transitoires qui continueront à produire des effets statistiques dans les prochains mois. Cet article sera mis à jour à mesure que Statbel et l'ONEM publient de nouvelles données — retrouvez également notre article complémentaire <a href=\"/fr/careers/combien-chomeurs-belgique-2026\">combien y a-t-il de chômeurs en Belgique en 2026</a> pour le suivi mois par mois des chiffres. Si votre situation professionnelle est concernée par ces évolutions, la meilleure préparation reste une recherche d'emploi active et un dossier de candidature solide : créez votre CV professionnel avec CVixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
   },
 
   {
@@ -1369,7 +1369,7 @@ export const articles: Article[] = [
 <p><strong>Pourquoi les chiffres de l'ONEM et de Statbel sont-ils si différents ?</strong><br/>Parce qu'ils ne mesurent pas la même population : bénéficiaires effectifs d'une allocation pour l'ONEM, personnes sans emploi selon la définition internationale du BIT pour Statbel.</p>`,
       },
     ],
-    conclusion: "Répondre honnêtement à \"combien y a-t-il de chômeurs en Belgique en 2026\" suppose d'abord de préciser de quelle définition on parle, puis de citer un chiffre daté plutôt qu'une estimation approximative. À ce jour, les données officielles montrent une baisse marquée du nombre de chômeurs indemnisés, largement portée par la réforme entrée en vigueur en mars 2026, tandis que le taux de chômage BIT reste l'indicateur de référence pour les comparaisons internationales. Si votre recherche d'emploi est active en cette période de changement, un CV à jour reste votre meilleur atout : créez le vôtre avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
+    conclusion: "Répondre honnêtement à \"combien y a-t-il de chômeurs en Belgique en 2026\" suppose d'abord de préciser de quelle définition on parle, puis de citer un chiffre daté plutôt qu'une estimation approximative. À ce jour, les données officielles montrent une baisse marquée du nombre de chômeurs indemnisés, largement portée par la réforme entrée en vigueur en mars 2026, tandis que le taux de chômage BIT reste l'indicateur de référence pour les comparaisons internationales. Si votre recherche d'emploi est active en cette période de changement, un CV à jour reste votre meilleur atout : créez le vôtre avec CVixeo et consultez notre guide pour <a href=\"/fr/careers/trouver-emploi-bruxelles-guide-2026\">trouver un emploi à Bruxelles</a>.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1416,7 +1416,7 @@ export const articles: Article[] = [
       {
         heading: "Faut-il un CV différent pour chaque candidature ?",
         body: `<p>Envoyer le même CV générique à toutes les offres reste l'une des erreurs les plus fréquentes. Un CV adapté, qui reprend le vocabulaire précis de chaque annonce, obtient un score ATS plus élevé et retient davantage l'attention du recruteur. Ce travail prend une quinzaine de minutes une fois que votre CV de base est bien structuré.</p>
-<p>Cvixeo génère des CV structurés pour passer les filtres ATS tout en restant agréables à lire pour un recruteur humain, et permet de comparer directement votre CV à une offre d'emploi pour repérer les mots-clés manquants.</p>`,
+<p>CVixeo génère des CV structurés pour passer les filtres ATS tout en restant agréables à lire pour un recruteur humain, et permet de comparer directement votre CV à une offre d'emploi pour repérer les mots-clés manquants.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1425,7 +1425,7 @@ export const articles: Article[] = [
 <p><strong>Comment savoir si mon CV est réellement compatible ATS ?</strong><br/>Copiez son contenu dans un éditeur de texte simple : s'il reste lisible et ordonné, la structure est probablement correcte.</p>`,
       },
     ],
-    conclusion: "Un CV compatible ATS en France repose sur une mise en page simple, des intitulés standards, un format PDF texte, et un vocabulaire aligné sur celui de chaque offre. Ces règles ne s'opposent pas à un CV agréable à lire — au contraire, elles produisent généralement un document plus clair, y compris pour un recruteur humain. Consultez également nos guides sur <a href=\"/fr/careers/cv-avec-ou-sans-photo-france\">le CV avec ou sans photo</a> et <a href=\"/fr/careers/lettre-motivation-france\">la lettre de motivation</a> pour compléter votre candidature. Créez votre CV professionnel avec Cvixeo : la structure compatible ATS est prise en charge automatiquement.",
+    conclusion: "Un CV compatible ATS en France repose sur une mise en page simple, des intitulés standards, un format PDF texte, et un vocabulaire aligné sur celui de chaque offre. Ces règles ne s'opposent pas à un CV agréable à lire — au contraire, elles produisent généralement un document plus clair, y compris pour un recruteur humain. Consultez également nos guides sur <a href=\"/fr/careers/cv-avec-ou-sans-photo-france\">le CV avec ou sans photo</a> et <a href=\"/fr/careers/lettre-motivation-france\">la lettre de motivation</a> pour compléter votre candidature. Créez votre CV professionnel avec CVixeo : la structure compatible ATS est prise en charge automatiquement.",
   },
 
   {
@@ -1454,7 +1454,7 @@ export const articles: Article[] = [
       {
         heading: "Comment trancher pour votre candidature",
         body: `<p>Dans le doute, l'absence de photo reste le choix le plus sûr en France : elle est neutre dans la quasi-totalité des secteurs et évite tout risque de biais de sélection. Si le secteur visé est fortement relationnel et que vous disposez d'une photo réellement professionnelle, l'inclure reste acceptable, sans être un avantage décisif.</p>
-<p>Avec Cvixeo, vous pouvez générer votre CV avec ou sans photo en quelques clics selon la candidature visée.</p>`,
+<p>Avec CVixeo, vous pouvez générer votre CV avec ou sans photo en quelques clics selon la candidature visée.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1463,7 +1463,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il retirer la photo d'un CV existant ?</strong><br/>Si la photo est ancienne, de mauvaise qualité ou peu professionnelle, la retirer est généralement la meilleure option.</p>`,
       },
     ],
-    conclusion: "La photo de CV en France n'est ni interdite ni obligatoire : c'est un choix qui dépend du secteur visé et de la qualité de la photo disponible. En cas de doute, l'absence de photo reste l'option la plus sûre et la plus largement acceptée aujourd'hui. Complétez votre réflexion avec notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a> et créez le vôtre avec Cvixeo.",
+    conclusion: "La photo de CV en France n'est ni interdite ni obligatoire : c'est un choix qui dépend du secteur visé et de la qualité de la photo disponible. En cas de doute, l'absence de photo reste l'option la plus sûre et la plus largement acceptée aujourd'hui. Complétez votre réflexion avec notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a> et créez le vôtre avec CVixeo.",
   },
 
   {
@@ -1500,7 +1500,7 @@ export const articles: Article[] = [
 <p><strong>Les niveaux de langue doivent-ils être précisés ?</strong><br/>Oui, une échelle reconnue (par exemple le CECRL, de A1 à C2) est toujours plus crédible qu'une mention vague comme "bon niveau".</p>`,
       },
     ],
-    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec Cvixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle adaptée à votre poste cible.",
+    conclusion: "Une rubrique compétences efficace n'est jamais une liste de mots à la mode : c'est un résumé précis, organisé et démontrable de ce que vous savez réellement faire. Prenez le temps de vérifier, compétence par compétence, qu'elle est à la fois spécifique et illustrée ailleurs dans votre CV. Avec CVixeo, structurez vos compétences par catégorie et laissez l'outil vous suggérer une formulation professionnelle adaptée à votre poste cible.",
   },
 
   {
@@ -1531,7 +1531,7 @@ export const articles: Article[] = [
       {
         heading: "Longueur, format et erreurs à éviter",
         body: `<p>Une page maximum, trois à quatre paragraphes. Adaptez la police et la mise en page à celles de votre CV. Soumettez au format PDF, sauf indication contraire. Les erreurs les plus fréquentes : une lettre non adaptée à l'offre, une réécriture pure et simple du CV, des formules de flatterie sans substance, et bien sûr les fautes d'orthographe.</p>
-<p>Cvixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
+<p>CVixeo génère une base de lettre de motivation alignée sur votre CV, que vous pouvez ensuite personnaliser avec les détails spécifiques à chaque entreprise.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1540,7 +1540,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il citer des chiffres dans une lettre de motivation ?</strong><br/>Oui, un exemple chiffré rend votre argumentation nettement plus crédible qu'une affirmation générale.</p>`,
       },
     ],
-    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Associez-la à un CV bien structuré : consultez notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a>. Générez votre lettre de motivation avec Cvixeo et gagnez un temps précieux sur chaque candidature.",
+    conclusion: "Une lettre de motivation réussie ne compense pas un CV faible, mais elle fait souvent la différence entre deux candidatures autrement équivalentes. Associez-la à un CV bien structuré : consultez notre guide pour <a href=\"/fr/careers/cv-ats-compatible-france\">créer un CV compatible ATS</a>. Générez votre lettre de motivation avec CVixeo et gagnez un temps précieux sur chaque candidature.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1577,7 +1577,7 @@ export const articles: Article[] = [
       {
         heading: "Organiser sa recherche plutôt que la disperser",
         body: `<p>Utiliser cinq plateformes sans méthode conduit souvent à une dispersion inefficace. Un tableau de suivi simple (entreprise, poste, plateforme, date de candidature, statut) permet de garder une vision claire de sa recherche et d'éviter les candidatures en double. Privilégiez la qualité : dix candidatures réellement adaptées à l'offre valent mieux que cinquante candidatures génériques.</p>
-<p>Créez un CV professionnel avec Cvixeo et adaptez-le rapidement à chaque offre repérée sur ces différentes plateformes.</p>`,
+<p>Créez un CV professionnel avec CVixeo et adaptez-le rapidement à chaque offre repérée sur ces différentes plateformes.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1586,7 +1586,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il s'inscrire à France Travail même en poste ?</strong><br/>Non, l'inscription concerne les personnes en recherche active d'emploi ; en poste, les plateformes généralistes et le réseau restent les canaux les plus adaptés.</p>`,
       },
     ],
-    conclusion: "Trouver un emploi en France en 2026 suppose de combiner plusieurs canaux complémentaires plutôt que de miser sur un seul : France Travail pour l'accompagnement et les offres centralisées, les plateformes généralistes pour le volume, les sites spécialisés pour la pertinence, et la candidature spontanée pour accéder au marché caché de l'emploi. Consultez nos guides sur <a href=\"/fr/careers/inscription-france-travail-guide\">l'inscription à France Travail</a> et créez votre CV professionnel avec Cvixeo pour candidater efficacement.",
+    conclusion: "Trouver un emploi en France en 2026 suppose de combiner plusieurs canaux complémentaires plutôt que de miser sur un seul : France Travail pour l'accompagnement et les offres centralisées, les plateformes généralistes pour le volume, les sites spécialisés pour la pertinence, et la candidature spontanée pour accéder au marché caché de l'emploi. Consultez nos guides sur <a href=\"/fr/careers/inscription-france-travail-guide\">l'inscription à France Travail</a> et créez votre CV professionnel avec CVixeo pour candidater efficacement.",
   },
 
   {
@@ -1624,7 +1624,7 @@ export const articles: Article[] = [
 <p><strong>Dois-je être inscrit pour percevoir des allocations chômage ?</strong><br/>Oui, l'inscription et l'actualisation régulière sont des conditions nécessaires, mais non suffisantes, pour percevoir des allocations — l'éligibilité dépend aussi de votre parcours professionnel antérieur.</p>`,
       },
     ],
-    conclusion: "L'inscription à France Travail reste la première démarche concrète pour toute personne en recherche d'emploi en France, et elle s'est élargie depuis 2025 à un nombre croissant de situations. Une fois inscrit, structurez activement votre recherche : consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi</a> et créez un CV professionnel avec Cvixeo pour candidater efficacement dès aujourd'hui.",
+    conclusion: "L'inscription à France Travail reste la première démarche concrète pour toute personne en recherche d'emploi en France, et elle s'est élargie depuis 2025 à un nombre croissant de situations. Une fois inscrit, structurez activement votre recherche : consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi</a> et créez un CV professionnel avec CVixeo pour candidater efficacement dès aujourd'hui.",
   },
 
   {
@@ -1665,7 +1665,7 @@ export const articles: Article[] = [
 <p><strong>Un non-cadre peut-il consulter les offres de l'APEC ?</strong><br/>Les offres de l'APEC ciblent principalement des postes cadres ; les autres profils y trouveront un intérêt limité comparé à France Travail ou aux plateformes généralistes.</p>`,
       },
     ],
-    conclusion: "APEC et France Travail répondent à des besoins complémentaires plutôt que concurrents : le premier cible spécifiquement les cadres, le second reste le service public universel de référence. Pour un cadre en recherche active, s'inscrire aux deux reste la stratégie la plus efficace. Créez un CV professionnel avec Cvixeo, adapté à vos candidatures sur l'une ou l'autre de ces plateformes.",
+    conclusion: "APEC et France Travail répondent à des besoins complémentaires plutôt que concurrents : le premier cible spécifiquement les cadres, le second reste le service public universel de référence. Pour un cadre en recherche active, s'inscrire aux deux reste la stratégie la plus efficace. Créez un CV professionnel avec CVixeo, adapté à vos candidatures sur l'une ou l'autre de ces plateformes.",
   },
 
   {
@@ -1694,7 +1694,7 @@ export const articles: Article[] = [
       {
         heading: "Les limites à connaître",
         body: `<p>L'intérim n'offre pas la stabilité d'un contrat à durée indéterminée, et certaines missions restent de courte durée. Il reste néanmoins un moyen reconnu de générer rapidement des revenus, de démontrer sa valeur en situation réelle, et d'accéder parfois à une embauche définitive. Pour les profils juniors ou en reconversion, l'intérim peut également constituer une façon d'acquérir une première expérience concrète dans un nouveau secteur.</p>
-<p>Préparez un CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence — un dossier soigné facilite un placement plus rapide.</p>`,
+<p>Préparez un CV professionnel avec CVixeo avant de vous inscrire auprès d'une agence — un dossier soigné facilite un placement plus rapide.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1703,7 +1703,7 @@ export const articles: Article[] = [
 <p><strong>Peut-on refuser une mission proposée par son agence ?</strong><br/>Oui, mais un refus répété sans justification peut réduire le nombre de propositions ultérieures de l'agence.</p>`,
       },
     ],
-    conclusion: "Le travail temporaire reste un levier rapide et accessible pour retrouver une activité en France, en complément des candidatures classiques. Utilisé stratégiquement — plusieurs agences, disponibilité claire, réactivité — il peut aussi ouvrir la voie à une embauche durable. Consultez notre guide sur <a href=\"/fr/careers/sites-emploi-france-guide\">les sites d'emploi en France</a> pour compléter votre stratégie de recherche, et créez votre CV professionnel avec Cvixeo avant de vous inscrire auprès d'une agence.",
+    conclusion: "Le travail temporaire reste un levier rapide et accessible pour retrouver une activité en France, en complément des candidatures classiques. Utilisé stratégiquement — plusieurs agences, disponibilité claire, réactivité — il peut aussi ouvrir la voie à une embauche durable. Consultez notre guide sur <a href=\"/fr/careers/sites-emploi-france-guide\">les sites d'emploi en France</a> pour compléter votre stratégie de recherche, et créez votre CV professionnel avec CVixeo avant de vous inscrire auprès d'une agence.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1755,7 +1755,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Soutiens et démarches pour les personnes en recherche d'emploi",
-        body: `<p>Plusieurs institutions publiques accompagnent les personnes en recherche d'emploi en France : <a href="https://www.francetravail.fr/candidat/vos-droits-et-demarches.html" target="_blank" rel="noopener noreferrer">France Travail</a> pour l'inscription, l'accompagnement et les allocations chômage ; l'<a href="https://www.apec.fr" target="_blank" rel="noopener noreferrer">APEC</a> pour les cadres ; le <a href="https://www.travail-emploi.gouv.fr" target="_blank" rel="noopener noreferrer">ministère du Travail</a> pour les questions de droit du travail et les politiques publiques de l'emploi ; et <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F17556" target="_blank" rel="noopener noreferrer">Service-Public.fr</a> pour les démarches administratives liées à la recherche d'emploi. Si votre situation professionnelle est concernée par ces évolutions du marché du travail, structurez activement votre recherche : consultez notre guide pour <a href="/fr/careers/sites-emploi-france-guide">utiliser les sites d'emploi</a> et créez un CV professionnel adapté avec Cvixeo.</p>`,
+        body: `<p>Plusieurs institutions publiques accompagnent les personnes en recherche d'emploi en France : <a href="https://www.francetravail.fr/candidat/vos-droits-et-demarches.html" target="_blank" rel="noopener noreferrer">France Travail</a> pour l'inscription, l'accompagnement et les allocations chômage ; l'<a href="https://www.apec.fr" target="_blank" rel="noopener noreferrer">APEC</a> pour les cadres ; le <a href="https://www.travail-emploi.gouv.fr" target="_blank" rel="noopener noreferrer">ministère du Travail</a> pour les questions de droit du travail et les politiques publiques de l'emploi ; et <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F17556" target="_blank" rel="noopener noreferrer">Service-Public.fr</a> pour les démarches administratives liées à la recherche d'emploi. Si votre situation professionnelle est concernée par ces évolutions du marché du travail, structurez activement votre recherche : consultez notre guide pour <a href="/fr/careers/sites-emploi-france-guide">utiliser les sites d'emploi</a> et créez un CV professionnel adapté avec CVixeo.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1765,7 +1765,7 @@ export const articles: Article[] = [
 <p><strong>Où trouver les chiffres officiels et à jour du chômage en France ?</strong><br/>Sur les pages statistiques de <a href="https://www.insee.fr/fr/statistiques/4805248" target="_blank" rel="noopener noreferrer">l'INSEE</a> (trimestrielles) et de la <a href="https://dares.travail-emploi.gouv.fr/donnees/inscrits-france-travail-donnees-trimestrielles" target="_blank" rel="noopener noreferrer">DARES</a> (trimestrielles également, pour les inscrits à France Travail).</p>`,
       },
     ],
-    conclusion: "Le chômage en France se lit à travers deux indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de l'INSEE (8,3% au deuxième trimestre 2026, en hausse pour le cinquième trimestre consécutif) et le nombre de demandeurs d'emploi inscrits à France Travail suivi par la DARES, dont la lecture est actuellement compliquée par la réforme de l'inscription entrée en vigueur en 2025. Le marché du travail reste toutefois actif, avec 2,28 millions de projets de recrutement anticipés pour 2026 selon l'enquête BMO. Cet article sera mis à jour à mesure que l'INSEE et la DARES publient de nouvelles données. Si votre recherche d'emploi est active dans ce contexte, un CV à jour et bien ciblé reste votre meilleur atout : créez le vôtre avec Cvixeo et consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi en France</a>.",
+    conclusion: "Le chômage en France se lit à travers deux indicateurs complémentaires, jamais interchangeables : le taux de chômage BIT de l'INSEE (8,3% au deuxième trimestre 2026, en hausse pour le cinquième trimestre consécutif) et le nombre de demandeurs d'emploi inscrits à France Travail suivi par la DARES, dont la lecture est actuellement compliquée par la réforme de l'inscription entrée en vigueur en 2025. Le marché du travail reste toutefois actif, avec 2,28 millions de projets de recrutement anticipés pour 2026 selon l'enquête BMO. Cet article sera mis à jour à mesure que l'INSEE et la DARES publient de nouvelles données. Si votre recherche d'emploi est active dans ce contexte, un CV à jour et bien ciblé reste votre meilleur atout : créez le vôtre avec CVixeo et consultez notre guide pour <a href=\"/fr/careers/sites-emploi-france-guide\">utiliser les sites d'emploi en France</a>.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1801,7 +1801,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Les outils généralistes ont-ils leurs limites propres ?",
-        body: `<p>Des outils comme ChatGPT peuvent aider à reformuler du texte, mais ils ne sont pas conçus spécifiquement pour produire un CV structuré, compatible ATS et correctement mis en page — voir notre analyse détaillée dans <a href="/fr/careers/chatgpt-peut-il-creer-bon-cv">ChatGPT peut-il créer un bon CV</a>. Cvixeo, à l'inverse, combine génération de contenu assistée par IA et structure de CV pensée dès le départ pour la compatibilité ATS et la mise en page professionnelle — un CV créé avec Cvixeo n'a donc pas besoin d'une étape de reformatage a posteriori.</p>`,
+        body: `<p>Des outils comme ChatGPT peuvent aider à reformuler du texte, mais ils ne sont pas conçus spécifiquement pour produire un CV structuré, compatible ATS et correctement mis en page — voir notre analyse détaillée dans <a href="/fr/careers/chatgpt-peut-il-creer-bon-cv">ChatGPT peut-il créer un bon CV</a>. CVixeo, à l'inverse, combine génération de contenu assistée par IA et structure de CV pensée dès le départ pour la compatibilité ATS et la mise en page professionnelle — un CV créé avec CVixeo n'a donc pas besoin d'une étape de reformatage a posteriori.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
@@ -1810,7 +1810,7 @@ export const articles: Article[] = [
 <p><strong>Faut-il toujours relire un CV généré par IA ?</strong><br/>Oui, systématiquement : vérifiez chaque date, chiffre et intitulé avant tout envoi.</p>`,
       },
     ],
-    conclusion: "L'IA est un outil puissant pour accélérer la rédaction et l'adaptation d'un CV, à condition de garder le contrôle sur l'exactitude et la pertinence du contenu final. Utilisée pour reformuler, comparer à une offre et structurer une première version, elle fait gagner un temps précieux ; utilisée sans relecture, elle produit des candidatures génériques ou risquées. Créez votre CV avec Cvixeo, où la génération assistée par IA et la structure professionnelle sont pensées ensemble dès le départ.",
+    conclusion: "L'IA est un outil puissant pour accélérer la rédaction et l'adaptation d'un CV, à condition de garder le contrôle sur l'exactitude et la pertinence du contenu final. Utilisée pour reformuler, comparer à une offre et structurer une première version, elle fait gagner un temps précieux ; utilisée sans relecture, elle produit des candidatures génériques ou risquées. Créez votre CV avec CVixeo, où la génération assistée par IA et la structure professionnelle sont pensées ensemble dès le départ.",
   },
 
   {
@@ -1842,16 +1842,16 @@ export const articles: Article[] = [
       },
       {
         heading: "Étape 5 — Relire l'ensemble avant l'envoi",
-        body: `<p>Une dernière relecture complète reste indispensable : vérifiez la cohérence du ton, l'exactitude de chaque information, et l'absence de formulations trop génériques qui trahiraient un contenu non retravaillé. Cvixeo intègre directement cette comparaison entre votre CV et une offre d'emploi, avec un score de correspondance et des suggestions de mots-clés, sans quitter l'outil de création de CV.</p>`,
+        body: `<p>Une dernière relecture complète reste indispensable : vérifiez la cohérence du ton, l'exactitude de chaque information, et l'absence de formulations trop génériques qui trahiraient un contenu non retravaillé. CVixeo intègre directement cette comparaison entre votre CV et une offre d'emploi, avec un score de correspondance et des suggestions de mots-clés, sans quitter l'outil de création de CV.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
         body: `<p><strong>Combien de temps prend l'adaptation d'un CV avec l'IA ?</strong><br/>Environ cinq à dix minutes une fois la méthode maîtrisée, contre quinze à vingt minutes pour un travail manuel complet.</p>
 <p><strong>L'IA peut-elle se tromper sur les mots-clés à ajouter ?</strong><br/>Oui, c'est pourquoi chaque suggestion doit être vérifiée individuellement avant d'être intégrée au CV.</p>
-<p><strong>Faut-il utiliser un outil d'IA générale ou un outil spécialisé CV ?</strong><br/>Un outil pensé spécifiquement pour les CV, comme Cvixeo, évite une étape de reformatage supplémentaire après la génération du texte.</p>`,
+<p><strong>Faut-il utiliser un outil d'IA générale ou un outil spécialisé CV ?</strong><br/>Un outil pensé spécifiquement pour les CV, comme CVixeo, évite une étape de reformatage supplémentaire après la génération du texte.</p>`,
       },
     ],
-    conclusion: "L'IA transforme l'adaptation d'un CV d'une tâche fastidieuse en un processus rapide, à condition de garder un contrôle humain sur chaque suggestion. Cette méthode en cinq étapes — contexte complet, analyse des mots-clés, vérification honnête, reformulation ciblée, relecture finale — permet d'adapter efficacement chaque candidature sans sacrifier l'exactitude. Comparez directement votre CV à une offre d'emploi avec Cvixeo et identifiez en quelques secondes les ajustements à apporter. Retrouvez notre panorama complet dans <a href=\"/fr/careers/cv-intelligence-artificielle-optimiser-candidature\">CV et intelligence artificielle : comment optimiser sa candidature</a>.",
+    conclusion: "L'IA transforme l'adaptation d'un CV d'une tâche fastidieuse en un processus rapide, à condition de garder un contrôle humain sur chaque suggestion. Cette méthode en cinq étapes — contexte complet, analyse des mots-clés, vérification honnête, reformulation ciblée, relecture finale — permet d'adapter efficacement chaque candidature sans sacrifier l'exactitude. Comparez directement votre CV à une offre d'emploi avec CVixeo et identifiez en quelques secondes les ajustements à apporter. Retrouvez notre panorama complet dans <a href=\"/fr/careers/cv-intelligence-artificielle-optimiser-candidature\">CV et intelligence artificielle : comment optimiser sa candidature</a>.",
   },
 
   {
@@ -1879,16 +1879,16 @@ export const articles: Article[] = [
       },
       {
         heading: "Un outil de contenu, pas un outil de CV complet",
-        body: `<p>La distinction essentielle : ChatGPT est un outil de génération de texte, pas un outil de création de CV. Il peut utilement contribuer à la phase de rédaction, mais la structure, la mise en page, la compatibilité ATS et l'export final restent des besoins distincts, mieux couverts par un outil spécifiquement conçu pour cet usage. Cvixeo combine la génération de contenu assistée par IA avec une structure de CV pensée dès le départ pour la compatibilité ATS et un rendu professionnel — sans étape de reformatage manuelle après la génération du texte.</p>`,
+        body: `<p>La distinction essentielle : ChatGPT est un outil de génération de texte, pas un outil de création de CV. Il peut utilement contribuer à la phase de rédaction, mais la structure, la mise en page, la compatibilité ATS et l'export final restent des besoins distincts, mieux couverts par un outil spécifiquement conçu pour cet usage. CVixeo combine la génération de contenu assistée par IA avec une structure de CV pensée dès le départ pour la compatibilité ATS et un rendu professionnel — sans étape de reformatage manuelle après la génération du texte.</p>`,
       },
       {
         heading: "Foire aux questions (FAQ)",
         body: `<p><strong>Peut-on envoyer directement un CV généré par ChatGPT ?</strong><br/>Ce n'est pas recommandé sans reformatage : le texte généré nécessite une mise en page adaptée et une vérification complète de son exactitude avant tout envoi.</p>
 <p><strong>ChatGPT connaît-il les attentes spécifiques des recruteurs français ?</strong><br/>Il peut produire du texte en français correct, mais il ne connaît pas les codes spécifiques d'un secteur ou d'une entreprise sans qu'on les lui précise explicitement.</p>
-<p><strong>Quelle est la différence avec un outil comme Cvixeo ?</strong><br/>Cvixeo associe génération de contenu par IA et structure de CV compatible ATS dans un seul outil, évitant l'étape de mise en forme manuelle nécessaire après une génération via ChatGPT.</p>`,
+<p><strong>Quelle est la différence avec un outil comme CVixeo ?</strong><br/>CVixeo associe génération de contenu par IA et structure de CV compatible ATS dans un seul outil, évitant l'étape de mise en forme manuelle nécessaire après une génération via ChatGPT.</p>`,
       },
     ],
-    conclusion: "ChatGPT peut être un allié utile pour la phase de rédaction d'un CV, mais il n'a pas été conçu pour produire un document final structuré, compatible ATS et prêt à l'envoi. La meilleure approche consiste à l'utiliser pour générer des idées de formulation, puis à transférer ce contenu vérifié vers un outil spécialisé. Créez directement votre CV avec Cvixeo, où génération de contenu par IA et mise en page professionnelle compatible ATS sont intégrées dans un seul et même outil.",
+    conclusion: "ChatGPT peut être un allié utile pour la phase de rédaction d'un CV, mais il n'a pas été conçu pour produire un document final structuré, compatible ATS et prêt à l'envoi. La meilleure approche consiste à l'utiliser pour générer des idées de formulation, puis à transférer ce contenu vérifié vers un outil spécialisé. Créez directement votre CV avec CVixeo, où génération de contenu par IA et mise en page professionnelle compatible ATS sont intégrées dans un seul et même outil.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1926,7 +1926,7 @@ export const articles: Article[] = [
       {
         heading: "Moet je cv door een ATS geraken? Wat dit in de praktijk betekent",
         body: `<p>Grote Belgische bedrijven en filialen van internationale groepen gebruiken steeds vaker sollicitatiesoftware (ATS) om cv's te sorteren voor menselijke lezing. KMO's en lokale overheden blijven doorgaans traditioneler, met een rechtstreekse menselijke lezing. In geval van twijfel is het altijd beter een "ATS-vriendelijk" cv te maken — zie onze gids <a href="/nl/careers/ats-vriendelijk-cv-maken">hoe maak je een ATS-vriendelijk cv</a> voor de volledige methode.</p>
-<p>Cvixeo genereert automatisch gestructureerde cv's die ATS-filters doorstaan en toch leesbaar en verzorgd blijven voor een menselijke rekruteerder — een evenwicht dat bijzonder nuttig is op een Belgische markt waar beide selectiemethodes naast elkaar bestaan.</p>`,
+<p>CVixeo genereert automatisch gestructureerde cv's die ATS-filters doorstaan en toch leesbaar en verzorgd blijven voor een menselijke rekruteerder — een evenwicht dat bijzonder nuttig is op een Belgische markt waar beide selectiemethodes naast elkaar bestaan.</p>`,
       },
       {
         heading: "Je cv aanpassen aan elke sollicitatie",
@@ -1940,7 +1940,7 @@ export const articles: Article[] = [
 <p><strong>Moet mijn cv anders zijn per Belgische regio?</strong><br/>De basisregels blijven identiek; enkel het relatieve belang van tweetaligheid en professioneel Engels verschilt per regio en sector.</p>`,
       },
     ],
-    conclusion: "Een geslaagd professioneel cv in België combineert een duidelijke structuur, een eerlijke en precieze vermelding van je talenkennis, een beheerste lengte, en een systematische aanpassing aan elke vacature. Herbekijk je cv in het licht van deze punten voor je je volgende sollicitatie verstuurt — en raadpleeg onze gidsen over de sollicitatiebrief, <a href=\"/nl/careers/job-vinden-zonder-ervaring\">een job vinden zonder ervaring</a> en het aanpassen van je cv om je sollicitatiedossier te vervolledigen. Maak je professioneel cv met Cvixeo: de structuur, het ATS-formaat en de opmaak worden automatisch verzorgd, jij focust op de inhoud.",
+    conclusion: "Een geslaagd professioneel cv in België combineert een duidelijke structuur, een eerlijke en precieze vermelding van je talenkennis, een beheerste lengte, en een systematische aanpassing aan elke vacature. Herbekijk je cv in het licht van deze punten voor je je volgende sollicitatie verstuurt — en raadpleeg onze gidsen over de sollicitatiebrief, <a href=\"/nl/careers/job-vinden-zonder-ervaring\">een job vinden zonder ervaring</a> en het aanpassen van je cv om je sollicitatiedossier te vervolledigen. Maak je professioneel cv met CVixeo: de structuur, het ATS-formaat en de opmaak worden automatisch verzorgd, jij focust op de inhoud.",
   },
 
   {
@@ -1971,7 +1971,7 @@ export const articles: Article[] = [
       {
         heading: "Lengte, formaat en fouten om te vermijden",
         body: `<p>Maximaal één pagina, drie tot vier alinea's. Pas het lettertype en de opmaak aan die van je cv aan voor een coherent geheel. Verstuur als pdf, tenzij anders aangegeven. De meest voorkomende fouten: een brief die niet is aangepast aan de vacature, een pure herschrijving van het cv, loze complimenten zonder inhoud, en natuurlijk spel- en grammaticafouten.</p>
-<p>Cvixeo genereert een basis sollicitatiebrief afgestemd op je cv, die je vervolgens kan personaliseren met de specifieke details van elk bedrijf.</p>`,
+<p>CVixeo genereert een basis sollicitatiebrief afgestemd op je cv, die je vervolgens kan personaliseren met de specifieke details van elk bedrijf.</p>`,
       },
       {
         heading: "Veelgestelde vragen (FAQ)",
@@ -1980,7 +1980,7 @@ export const articles: Article[] = [
 <p><strong>Moet ik cijfers vermelden in mijn sollicitatiebrief?</strong><br/>Ja, een becijferd voorbeeld maakt je argumentatie veel geloofwaardiger dan een algemene bewering.</p>`,
       },
     ],
-    conclusion: "Een geslaagde sollicitatiebrief compenseert geen zwak cv, maar maakt vaak het verschil tussen twee verder gelijkwaardige kandidaturen. Ze bewijst dat je de tijd genomen hebt om de functie en het bedrijf te begrijpen — een steeds zeldzamere en dus steeds meer opgemerkte inspanning. Combineer ze met een goed gestructureerd cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>, en onze <a href=\"/nl/careers/solliciteren-belgie-tips-kandidatuur\">tips voor een succesvolle kandidatuur</a>. Genereer je sollicitatiebrief met Cvixeo en bespaar kostbare tijd bij elke sollicitatie.",
+    conclusion: "Een geslaagde sollicitatiebrief compenseert geen zwak cv, maar maakt vaak het verschil tussen twee verder gelijkwaardige kandidaturen. Ze bewijst dat je de tijd genomen hebt om de functie en het bedrijf te begrijpen — een steeds zeldzamere en dus steeds meer opgemerkte inspanning. Combineer ze met een goed gestructureerd cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>, en onze <a href=\"/nl/careers/solliciteren-belgie-tips-kandidatuur\">tips voor een succesvolle kandidatuur</a>. Genereer je sollicitatiebrief met CVixeo en bespaar kostbare tijd bij elke sollicitatie.",
   },
 
   {
@@ -2026,7 +2026,7 @@ export const articles: Article[] = [
 <p><strong>Hoe weet ik zeker of mijn cv ATS-compatibel is?</strong><br/>Kopieer de inhoud naar een eenvoudige teksteditor: blijft het leesbaar en in logische volgorde, dan is de structuur waarschijnlijk correct.</p>`,
       },
     ],
-    conclusion: "Een ATS-vriendelijk cv in België steunt op een eenvoudige opmaak, standaard rubriektitels, een pdf-tekstformaat en woordenschat afgestemd op elke vacature. Deze regels staan een aangenaam leesbaar cv niet in de weg — integendeel, ze leveren doorgaans een duidelijker document op, ook voor een menselijke rekruteerder. Maak je cv met Cvixeo: de ATS-compatibele structuur wordt automatisch verzorgd.",
+    conclusion: "Een ATS-vriendelijk cv in België steunt op een eenvoudige opmaak, standaard rubriektitels, een pdf-tekstformaat en woordenschat afgestemd op elke vacature. Deze regels staan een aangenaam leesbaar cv niet in de weg — integendeel, ze leveren doorgaans een duidelijker document op, ook voor een menselijke rekruteerder. Maak je cv met CVixeo: de ATS-compatibele structuur wordt automatisch verzorgd.",
   },
 
   {
@@ -2064,7 +2064,7 @@ export const articles: Article[] = [
 <p><strong>Hoeveel sollicitaties zijn er gemiddeld nodig voor een eerste job?</strong><br/>Doorgaans meer dan voor een latere functie, precies omdat het dossier nog lichter is — geduld en volume blijven belangrijk.</p>`,
       },
     ],
-    conclusion: "Een job vinden zonder ervaring vraagt om andere hefbomen dan een klassieke jobzoektocht: overdraagbare vaardigheden uit stages en studentenjobs, een sterk uitgewerkte opleidingsrubriek, en talenkennis die systematisch in de verf gezet wordt, ook als ze nog beperkt is. Maak je eerste professioneel cv met Cvixeo — de structuur aangepast aan starterprofielen is standaard voorzien.",
+    conclusion: "Een job vinden zonder ervaring vraagt om andere hefbomen dan een klassieke jobzoektocht: overdraagbare vaardigheden uit stages en studentenjobs, een sterk uitgewerkte opleidingsrubriek, en talenkennis die systematisch in de verf gezet wordt, ook als ze nog beperkt is. Maak je eerste professioneel cv met CVixeo — de structuur aangepast aan starterprofielen is standaard voorzien.",
   },
 
   {
@@ -2097,7 +2097,7 @@ export const articles: Article[] = [
       {
         heading: "Blijf actief solliciteren tijdens een lopend proces",
         body: `<p>Zelfs na een positief eerste gesprek is het aan te raden je jobzoektocht niet stop te zetten tot je een schriftelijk aanbod hebt ontvangen. Sollicitatieprocessen kunnen langer duren dan verwacht, vooral bij grote structuren of de overheid, zonder dat dit een gebrek aan interesse van de werkgever betekent.</p>
-<p>Maak je professioneel cv met Cvixeo en pas het snel aan voor elke nieuwe vacature die je tegenkomt tijdens je zoektocht.</p>`,
+<p>Maak je professioneel cv met CVixeo en pas het snel aan voor elke nieuwe vacature die je tegenkomt tijdens je zoektocht.</p>`,
       },
       {
         heading: "Veelgestelde vragen (FAQ)",
@@ -2106,7 +2106,7 @@ export const articles: Article[] = [
 <p><strong>Wat als een werkgever een specifiek sollicitatieplatform vraagt?</strong><br/>Volg dit altijd nauwkeurig op — het niet respecteren van deze instructie wordt vaak negatief geïnterpreteerd.</p>`,
       },
     ],
-    conclusion: "Een succesvolle sollicitatie in België is het resultaat van zorgvuldigheid in elke fase: een aangepaste kandidatuur, correcte opvolging van instructies, professionele opvolging, en grondige voorbereiding op het gesprek. Combineer deze tips met een sterk cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>. Maak je cv met Cvixeo en verstuur je volgende sollicitatie met vertrouwen.",
+    conclusion: "Een succesvolle sollicitatie in België is het resultaat van zorgvuldigheid in elke fase: een aangepaste kandidatuur, correcte opvolging van instructies, professionele opvolging, en grondige voorbereiding op het gesprek. Combineer deze tips met een sterk cv: bekijk onze gids om <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv te maken in België</a>. Maak je cv met CVixeo en verstuur je volgende sollicitatie met vertrouwen.",
   },
 
   {
@@ -2139,7 +2139,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Stap 5 — Controleer voor je verstuurt",
-        body: `<p>Vergelijk je aangepaste cv een laatste keer met de criterialijst uit stap 1. Heeft elk belangrijk criterium uit de vacature een zichtbaar antwoord in je cv? Cvixeo laat toe je cv rechtstreeks te vergelijken met een vacature en ontbrekende sleutelwoorden op te sporen voor je verstuurt — een snelle manier om deze laatste controle te betrouwbaarder te maken.</p>`,
+        body: `<p>Vergelijk je aangepaste cv een laatste keer met de criterialijst uit stap 1. Heeft elk belangrijk criterium uit de vacature een zichtbaar antwoord in je cv? CVixeo laat toe je cv rechtstreeks te vergelijken met een vacature en ontbrekende sleutelwoorden op te sporen voor je verstuurt — een snelle manier om deze laatste controle te betrouwbaarder te maken.</p>`,
       },
       {
         heading: "Veelgestelde vragen (FAQ)",
@@ -2148,7 +2148,7 @@ export const articles: Article[] = [
 <p><strong>Is het riskant om te veel sleutelwoorden uit de vacature over te nemen?</strong><br/>Ja, als dit kunstmatig wordt. Het doel is dezelfde woordenschat als de vacature te gebruiken, enkel voor vaardigheden die je écht bezit.</p>`,
       },
     ],
-    conclusion: "Je cv aanpassen aan elke vacature is geen optie voorbehouden voor de belangrijkste sollicitaties: het is een discipline om systematisch toe te passen, zodra de functie je echt interesseert. De methode in vijf stappen — vacature ontleden, vocabulaire matchen, verwezenlijkingen herordenen, profiel herschrijven, controleren voor verzending — wordt snel een gewoonte. Pas je cv aan je volgende vacature aan met Cvixeo, in enkele minuten.",
+    conclusion: "Je cv aanpassen aan elke vacature is geen optie voorbehouden voor de belangrijkste sollicitaties: het is een discipline om systematisch toe te passen, zodra de functie je echt interesseert. De methode in vijf stappen — vacature ontleden, vocabulaire matchen, verwezenlijkingen herordenen, profiel herschrijven, controleren voor verzending — wordt snel een gewoonte. Pas je cv aan je volgende vacature aan met CVixeo, in enkele minuten.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -2195,7 +2195,7 @@ export const articles: Article[] = [
 <p><strong>Rekruteren de Europese instellingen gemakkelijk Belgische profielen?</strong><br/>Ze publiceren hun eigen carrièreportalen met specifieke selectieprocedures, vaak verschillend van klassieke wervingskanalen.</p>`,
       },
     ],
-    conclusion: "Een job vinden in Brussel vraagt om meerdere hefbomen te combineren: een actieve inschrijving bij Actiris, een goed begrip van de sectoren die écht aanwerven, een eerlijke en strategische presentatie van je talenkennis, en een zoektocht die zich niet beperkt tot online vacatureplatforms. De regio biedt een dichtheid aan kansen die zeldzaam is in België — op voorwaarde dat je je methode aanpast aan de lokale eigenheden. Maak een professioneel cv aangepast aan de Brusselse markt met Cvixeo, en lees ook onze gids over <a href=\"/nl/careers/vdab-job-vinden-vlaanderen\">VDAB en werk zoeken in Vlaanderen</a>.",
+    conclusion: "Een job vinden in Brussel vraagt om meerdere hefbomen te combineren: een actieve inschrijving bij Actiris, een goed begrip van de sectoren die écht aanwerven, een eerlijke en strategische presentatie van je talenkennis, en een zoektocht die zich niet beperkt tot online vacatureplatforms. De regio biedt een dichtheid aan kansen die zeldzaam is in België — op voorwaarde dat je je methode aanpast aan de lokale eigenheden. Maak een professioneel cv aangepast aan de Brusselse markt met CVixeo, en lees ook onze gids over <a href=\"/nl/careers/vdab-job-vinden-vlaanderen\">VDAB en werk zoeken in Vlaanderen</a>.",
   },
 
   {
@@ -2232,7 +2232,7 @@ export const articles: Article[] = [
 <p><strong>Kan ik bij VDAB terecht als ik in Brussel woon maar in Vlaanderen wil werken?</strong><br/>Ja, VDAB heeft een specifieke werking voor Brusselaars die in Vlaanderen willen werken, terwijl je hoofdinschrijving bij Actiris blijft.</p>`,
       },
     ],
-    conclusion: "VDAB blijft het centrale aanspreekpunt voor elke jobzoektocht in Vlaanderen: gratis inschrijving, gecentraliseerde vacatures, persoonlijke begeleiding en gratis opleidingen. Zodra je ingeschreven bent, structureer je zoektocht actief met onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>. Maak een professioneel cv met Cvixeo om elke kans die je bij VDAB vindt optimaal te benutten.",
+    conclusion: "VDAB blijft het centrale aanspreekpunt voor elke jobzoektocht in Vlaanderen: gratis inschrijving, gecentraliseerde vacatures, persoonlijke begeleiding en gratis opleidingen. Zodra je ingeschreven bent, structureer je zoektocht actief met onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>. Maak een professioneel cv met CVixeo om elke kans die je bij VDAB vindt optimaal te benutten.",
   },
 
   {
@@ -2266,7 +2266,7 @@ export const articles: Article[] = [
       {
         heading: "Stap 5 — Structureer je zoektocht als een project",
         body: `<p>Kandidaten die hun zoektocht structureren — een lijst van doelbedrijven, opvolging van verstuurde sollicitaties, geplande opvolgmomenten — behalen doorgaans betere resultaten dan wie ongeorganiseerd solliciteert. Focus op kwaliteit boven kwantiteit: tien écht aangepaste sollicitaties zijn meer waard dan vijftig generieke verzendingen — zie onze gids om <a href="/nl/careers/cv-aanpassen-aan-vacature">je cv aan te passen aan een vacature</a>.</p>
-<p>Maak een professioneel cv met Cvixeo en pas het snel aan voor elke vacature die je op deze verschillende kanalen tegenkomt.</p>`,
+<p>Maak een professioneel cv met CVixeo en pas het snel aan voor elke vacature die je op deze verschillende kanalen tegenkomt.</p>`,
       },
       {
         heading: "Veelgestelde vragen (FAQ)",
@@ -2275,7 +2275,7 @@ export const articles: Article[] = [
 <p><strong>Hoeveel sollicitaties per week zijn aan te raden?</strong><br/>Tien tot vijftien écht gerichte sollicitaties zijn doeltreffender dan een veel groter aantal generieke verzendingen.</p>`,
       },
     ],
-    conclusion: "Werk zoeken in België vraagt om verschillende kanalen te combineren: inschrijving bij de juiste gewestelijke dienst, gebruik van algemene en gespecialiseerde vacatureplatforms, uitzendarbeid als versneller, en spontane sollicitaties om de verborgen arbeidsmarkt te bereiken. Een gestructureerde aanpak maakt uiteindelijk het verschil. Maak je professioneel cv met Cvixeo en lees ook onze gidsen over <a href=\"/nl/careers/job-vinden-brussel\">werk zoeken in Brussel</a>, <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv maken</a> en <a href=\"/nl/careers/werkloosheid-belgie-cijfers-regels\">werkloosheid in België</a>.",
+    conclusion: "Werk zoeken in België vraagt om verschillende kanalen te combineren: inschrijving bij de juiste gewestelijke dienst, gebruik van algemene en gespecialiseerde vacatureplatforms, uitzendarbeid als versneller, en spontane sollicitaties om de verborgen arbeidsmarkt te bereiken. Een gestructureerde aanpak maakt uiteindelijk het verschil. Maak je professioneel cv met CVixeo en lees ook onze gidsen over <a href=\"/nl/careers/job-vinden-brussel\">werk zoeken in Brussel</a>, <a href=\"/nl/careers/professioneel-cv-maken-belgie\">een professioneel cv maken</a> en <a href=\"/nl/careers/werkloosheid-belgie-cijfers-regels\">werkloosheid in België</a>.",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -2355,7 +2355,7 @@ export const articles: Article[] = [
 <p><strong>Wat als mijn werkloosheidsuitkering afloopt?</strong><br/>Controleer je situatie bij je uitbetalingsinstelling, intensifieer je jobzoektocht via je gewestelijke dienst, en contacteer het OCMW van je gemeente als je middelen ontoereikend worden.</p>`,
       },
     ],
-    conclusion: "Werkloosheid in België wordt gemeten via meerdere aanvullende indicatoren, die nooit onderling verwisselbaar zijn: de IAB-werkloosheidsgraad van Statbel (6,1% in het tweede kwartaal van 2026), het aantal uitkeringsgerechtigde werklozen van de RVA (211.973 in mei 2026, sterk dalend), en gewestelijke indicatoren zoals de administratieve graad van Actiris in Brussel. De hervorming van de werkloosheidsverzekering die op 1 maart 2026 in werking trad, verklaart een groot deel van de recente evolutie van deze cijfers, met overgangsmaatregelen die de komende maanden nog effect zullen hebben. Dit artikel wordt bijgewerkt naarmate Statbel en de RVA nieuwe gegevens publiceren. Is je professionele situatie betrokken bij deze evoluties, dan blijft een actieve jobzoektocht met een sterk sollicitatiedossier je beste voorbereiding: maak je professioneel cv met Cvixeo en bekijk onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>.",
+    conclusion: "Werkloosheid in België wordt gemeten via meerdere aanvullende indicatoren, die nooit onderling verwisselbaar zijn: de IAB-werkloosheidsgraad van Statbel (6,1% in het tweede kwartaal van 2026), het aantal uitkeringsgerechtigde werklozen van de RVA (211.973 in mei 2026, sterk dalend), en gewestelijke indicatoren zoals de administratieve graad van Actiris in Brussel. De hervorming van de werkloosheidsverzekering die op 1 maart 2026 in werking trad, verklaart een groot deel van de recente evolutie van deze cijfers, met overgangsmaatregelen die de komende maanden nog effect zullen hebben. Dit artikel wordt bijgewerkt naarmate Statbel en de RVA nieuwe gegevens publiceren. Is je professionele situatie betrokken bij deze evoluties, dan blijft een actieve jobzoektocht met een sterk sollicitatiedossier je beste voorbereiding: maak je professioneel cv met CVixeo en bekijk onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>.",
   },
 
 ];

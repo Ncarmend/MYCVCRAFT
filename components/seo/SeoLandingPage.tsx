@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, ChevronRight, X, BookOpen } from "lucide-react";
+import { ArrowRight, CheckCircle, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { FAQSection } from "@/components/landing/FAQSection";
 import { LANDING_PAGES, type LandingSection } from "@/lib/landing-pages";
-import { LANDING_ROUTES, type LandingId } from "@/lib/landing-routes";
+import { LANDING_ROUTES, TOOLS_HUB, type LandingId } from "@/lib/landing-routes";
 import { getArticleBySlug } from "@/lib/articles";
 import { JOB_MATCH_WEIGHTS } from "@/lib/jobMatch";
 import { translations } from "@/lib/translations";
-import { OG_DEFAULTS, OG_LOCALE, SITE_URL, localePath } from "@/lib/seo";
+import { OG_DEFAULTS, OG_LOCALE, SITE_NAME, SITE_URL, localePath } from "@/lib/seo";
+import { graph, webPageNode, faqPageNode, SOFTWARE_ID } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Rich, plain } from "@/components/seo/Rich";
+import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
 
 const UI = {
   en: {
@@ -22,7 +25,7 @@ const UI = {
     faqLabel: "FAQ",
     faqHeading: "Frequently asked questions",
     illustrative: "Illustrative example",
-    weightsNote: "Weights used by Cvixeo's job match engine.",
+    weightsNote: "Weights used by CVixeo's job match engine.",
   },
   fr: {
     home: "Accueil",
@@ -32,40 +35,9 @@ const UI = {
     faqLabel: "FAQ",
     faqHeading: "Questions fréquentes",
     illustrative: "Exemple illustratif",
-    weightsNote: "Pondérations utilisées par le moteur de correspondance Cvixeo.",
+    weightsNote: "Pondérations utilisées par le moteur de correspondance CVixeo.",
   },
 } as const;
-
-// ── Inline markup: [anchor](/path), **bold**, *italic* ──────────────────────
-const INLINE = /\[([^\]]+)\]\((\/[^)\s]*)\)|\*\*([^*]+)\*\*|\*([^*]+)\*/g;
-
-function Rich({ text }: { text: string }) {
-  const out: ReactNode[] = [];
-  let last = 0;
-  for (const m of text.matchAll(INLINE)) {
-    const i = m.index ?? 0;
-    if (i > last) out.push(text.slice(last, i));
-    if (m[1] && m[2]) {
-      out.push(
-        <Link key={i} href={m[2]} className="font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
-          {m[1]}
-        </Link>,
-      );
-    } else if (m[3]) {
-      out.push(<strong key={i} className="font-semibold text-gray-900">{m[3]}</strong>);
-    } else if (m[4]) {
-      out.push(<em key={i}>{m[4]}</em>);
-    }
-    last = i + m[0].length;
-  }
-  if (last < text.length) out.push(text.slice(last));
-  return <>{out}</>;
-}
-
-/** Same text with inline markup removed — for meta tags and JSON-LD. */
-function plain(text: string): string {
-  return text.replace(INLINE, (_m, a, _h, b, c) => a ?? b ?? c ?? "");
-}
 
 function pageUrl(id: LandingId): string {
   return `${SITE_URL}${LANDING_ROUTES[id].path}`;
@@ -93,59 +65,38 @@ export function landingMetadata(id: LandingId): Metadata {
     alternates: { canonical: url, ...(languages ? { languages } : {}) },
     openGraph: {
       ...OG_DEFAULTS,
-      title: `${page.metaTitle} | Cvixeo`,
+      title: `${page.metaTitle} | ${SITE_NAME}`,
       description: page.metaDescription,
       url,
       locale: OG_LOCALE[route.lang],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${page.metaTitle} | Cvixeo`,
+      title: `${page.metaTitle} | ${SITE_NAME}`,
       description: page.metaDescription,
     },
   };
+}
+
+/** Home → Resume Tools → page. Shared by the visible trail and BreadcrumbList. */
+export function landingCrumbs(id: LandingId): Crumb[] {
+  const route = LANDING_ROUTES[id];
+  return [
+    { name: UI[route.lang].home, href: localePath(route.lang, "/") },
+    { name: TOOLS_HUB[route.lang].label, href: TOOLS_HUB[route.lang].path },
+    { name: route.label, href: route.path },
+  ];
 }
 
 function landingJsonLd(id: LandingId) {
   const route = LANDING_ROUTES[id];
   const page = LANDING_PAGES[id];
   const url = pageUrl(id);
-  const homeUrl = `${SITE_URL}${localePath(route.lang, "/")}`.replace(/\/$/, "");
-
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": url,
-        url,
-        name: page.h1,
-        description: page.metaDescription,
-        inLanguage: route.lang,
-        isPartOf: { "@id": `${SITE_URL}/#website` },
-        about: { "@id": `${SITE_URL}/#software` },
-        breadcrumb: { "@id": `${url}#breadcrumb` },
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${url}#breadcrumb`,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: UI[route.lang].home, item: homeUrl },
-          { "@type": "ListItem", position: 2, name: route.label, item: url },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${url}#faq`,
-        inLanguage: route.lang,
-        mainEntity: page.faq.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: plain(f.a) },
-        })),
-      },
-    ],
-  };
+  return graph(
+    webPageNode({ url, name: page.h1, description: page.metaDescription, lang: route.lang, breadcrumb: true, about: SOFTWARE_ID }),
+    breadcrumbJsonLd(landingCrumbs(id)),
+    faqPageNode(url, route.lang, page.faq.map((f) => ({ q: f.q, a: plain(f.a) }))),
+  );
 }
 
 // ── Section blocks ──────────────────────────────────────────────────────────
@@ -280,7 +231,6 @@ export function SeoLandingPage({ id }: { id: LandingId }) {
   const page = LANDING_PAGES[id];
   const lang = route.lang;
   const ui = UI[lang];
-  const homeHref = localePath(lang, "/");
   const careersPrefix = lang === "fr" ? "/fr/careers" : "/careers";
   const articles = page.articles
     .map((slug) => getArticleBySlug(slug))
@@ -288,10 +238,7 @@ export function SeoLandingPage({ id }: { id: LandingId }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(landingJsonLd(id)).replace(/</g, "\\u003c") }}
-      />
+      <JsonLd data={landingJsonLd(id)} />
       <NavbarServer />
 
       <main className="flex-1">
@@ -301,11 +248,7 @@ export function SeoLandingPage({ id }: { id: LandingId }) {
             <div className="absolute -top-40 -right-40 h-120 w-120 rounded-full bg-emerald-50 opacity-70 blur-3xl" />
           </div>
           <div className="mx-auto max-w-5xl px-6 pb-12 pt-8 sm:pt-12">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-gray-400">
-              <Link href={homeHref} className="hover:text-gray-700">{ui.home}</Link>
-              <ChevronRight className="h-3 w-3" />
-              <span className="text-gray-600">{route.label}</span>
-            </nav>
+            <Breadcrumbs items={landingCrumbs(id)} />
 
             <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-emerald-800">{page.eyebrow}</p>
             <h1 className="mt-2 max-w-3xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">

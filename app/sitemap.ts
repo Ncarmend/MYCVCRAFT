@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/seo";
-import { LANDING_IDS, LANDING_ROUTES } from "@/lib/landing-routes";
+import { LANDING_IDS, LANDING_ROUTES, TOOLS_HUB } from "@/lib/landing-routes";
 
 const BASE = SITE_URL;
 
@@ -70,5 +70,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...localizedPages, ...landingPages, ...articlePages];
+  // "Resume Tools" hub (EN/FR pair) that links every landing page.
+  const hubLanguages = {
+    en: `${BASE}${TOOLS_HUB.en.path}`,
+    fr: `${BASE}${TOOLS_HUB.fr.path}`,
+    "x-default": `${BASE}${TOOLS_HUB.en.path}`,
+  };
+  const hubPages: MetadataRoute.Sitemap = (["en", "fr"] as const).map((l) => ({
+    url: `${BASE}${TOOLS_HUB[l].path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+    alternates: { languages: hubLanguages },
+  }));
+
+  // Private and utility routes (dashboard, /cv/*, auth, onboarding, waitlist,
+  // API) are intentionally absent: only indexable public pages belong here.
+  return [...localizedPages, ...hubPages, ...landingPages, ...articlePages];
 }

@@ -6,7 +6,7 @@ import { CookiesClient } from "../../cookies/CookiesClient";
 
 export const metadata: Metadata = {
   title: "Cookiebeleid",
-  description: "Hoe Cvixeo cookies gebruikt en hoe je je voorkeuren beheert. AVG-conform cookiebeleid voor Europese gebruikers.",
+  description: "Hoe CVixeo cookies gebruikt en hoe je je voorkeuren beheert. AVG-conform cookiebeleid voor Europese gebruikers.",
   alternates: {
     canonical: "https://www.cvixeo.com/nl/cookies",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Cookiebeleid — Cvixeo",
-    description: "Hoe Cvixeo cookies gebruikt en hoe je je voorkeuren beheert.",
+    title: "Cookiebeleid — CVixeo",
+    description: "Hoe CVixeo cookies gebruikt en hoe je je voorkeuren beheert.",
     url: "https://www.cvixeo.com/nl/cookies",
     locale: "nl_BE",
   },

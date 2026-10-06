@@ -1,5 +1,5 @@
 /**
- * Shared logo component — single source of truth for the Cvixeo brand mark.
+ * Shared logo component — single source of truth for the CVixeo brand mark.
  *
  * variant="light" (default): for white/light backgrounds.
  *   Uses mix-blend-mode:multiply so the logo's white background becomes
@@ -25,7 +25,7 @@ export function Logo({ variant = "light", height = 32, className = "" }: LogoPro
       >
         <img
           src="/logo.png"
-          alt="Cvixeo"
+          alt="CVixeo"
           style={{ height: `${height}px`, width: "auto" }}
           className="object-contain"
         />
@@ -36,7 +36,7 @@ export function Logo({ variant = "light", height = 32, className = "" }: LogoPro
   return (
     <img
       src="/logo.png"
-      alt="Cvixeo"
+      alt="CVixeo"
       style={{ height: `${height}px`, width: "auto", mixBlendMode: "multiply" }}
       className={`object-contain ${className}`}
     />

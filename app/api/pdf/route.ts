@@ -451,7 +451,7 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
     .two-col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:4px;}
     .two-col div{color:#334155;font-size:10pt;}`;
 
-  const wmDiv = watermark ? `<div class="watermark">Cvixeo Free</div>` : "";
+  const wmDiv = watermark ? `<div class="watermark">CVixeo Free</div>` : "";
 
   const contactSpans = (
     [
@@ -569,7 +569,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
   const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
   const css = getTemplateStyles(template, watermark);
-  const wm = watermark ? `<div class="watermark">Cvixeo Free</div>` : "";
+  const wm = watermark ? `<div class="watermark">CVixeo Free</div>` : "";
 
   // Two-column templates with sidebar
   const twoColumnTemplates = ["MODERN", "TECH", "SLATE", "PHOTO"] as const;

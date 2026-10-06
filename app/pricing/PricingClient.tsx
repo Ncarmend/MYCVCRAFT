@@ -207,7 +207,7 @@ export function PricingClient() {
           <p className="mt-1 text-sm font-semibold text-slate-900">{T.previewTitle}</p>
         </div>
 
-        <div className="-mx-6 overflow-x-auto px-6 sm:mx-0 sm:overflow-x-visible sm:px-0">
+        <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-x-visible sm:px-0">
           <div className="min-w-105 sm:min-w-0">
             <div className="relative mx-auto max-w-5xl rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
               <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">

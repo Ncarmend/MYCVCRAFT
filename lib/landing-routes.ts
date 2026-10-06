@@ -111,6 +111,29 @@ export const LANDING_ROUTES: Record<LandingId, LandingRoute> = {
 
 export const LANDING_IDS = Object.keys(LANDING_ROUTES) as LandingId[];
 
+/**
+ * "Resume Tools" hub: lists every landing page for a language and is the
+ * middle level of their breadcrumbs (Home → Resume Tools → page).
+ */
+export const TOOLS_HUB: Record<"en" | "fr", { path: string; label: string }> = {
+  en: { path: "/resume-tools", label: "Resume Tools" },
+  fr: { path: "/fr/outils-cv", label: "Outils CV" },
+};
+
+/** Hub groupings, in display order. */
+export const TOOL_GROUPS: Record<"en" | "fr", { title: string; ids: LandingId[] }[]> = {
+  en: [
+    { title: "Create", ids: ["ai-cv-builder", "ai-resume-builder"] },
+    { title: "Check and optimize", ids: ["ats-cv-builder", "cv-optimizer", "resume-optimizer"] },
+    { title: "Target and apply", ids: ["job-description-matching", "cover-letter-generator"] },
+  ],
+  fr: [
+    { title: "Créer", ids: ["creer-cv", "generateur-cv-ia"] },
+    { title: "Vérifier et optimiser", ids: ["cv-ats", "analyser-cv", "optimiser-cv"] },
+    { title: "Cibler et postuler", ids: ["cv-offre-emploi", "lettre-motivation"] },
+  ],
+};
+
 export function landingRoutesFor(lang: "en" | "fr" | "nl"): LandingRoute[] {
   return LANDING_IDS.map((id) => LANDING_ROUTES[id]).filter((r) => r.lang === lang);
 }
@@ -124,6 +147,9 @@ export function findLandingByPath(pathname: string): LandingRoute | undefined {
  * Used by the language switcher so /ai-cv-builder ⇄ /fr/generateur-cv-ia.
  */
 export function landingAlternatePath(pathname: string, target: "en" | "fr" | "nl"): string | null {
+  if (pathname === TOOLS_HUB.en.path || pathname === TOOLS_HUB.fr.path) {
+    return target === "nl" ? "/nl" : TOOLS_HUB[target].path;
+  }
   const route = findLandingByPath(pathname);
   if (!route) return null;
   if (route.lang === target) return route.path;

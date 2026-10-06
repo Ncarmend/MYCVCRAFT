@@ -21,8 +21,8 @@ const DEFAULTS: Record<"en" | "fr", LandingId[]> = {
 };
 
 const COPY = {
-  en: { heading: "Put it into practice with Cvixeo" },
-  fr: { heading: "Passez à la pratique avec Cvixeo" },
+  en: { heading: "Put it into practice with CVixeo" },
+  fr: { heading: "Passez à la pratique avec CVixeo" },
 };
 
 function pickTools(article: Article, lang: "en" | "fr"): LandingId[] {

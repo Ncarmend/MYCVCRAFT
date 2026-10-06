@@ -27,7 +27,7 @@ export interface LandingSection {
 }
 
 export interface LandingPageContent {
-  /** Without brand: the root layout template appends "| Cvixeo". */
+  /** Without brand: the root layout template appends "| CVixeo". */
   metaTitle: string;
   metaDescription: string;
   eyebrow: string;
@@ -56,7 +56,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "AI CV Builder",
     h1: "Build a Professional CV with AI, Step by Step",
     intro:
-      "Cvixeo's AI CV builder turns your experience into a structured, well-written CV. You provide the facts — roles, dates, skills, results — and the AI drafts clear sections you can review, edit and export as a PDF.",
+      "CVixeo's AI CV builder turns your experience into a structured, well-written CV. You provide the facts — roles, dates, skills, results — and the AI drafts clear sections you can review, edit and export as a PDF.",
     highlights: ["AI-written summary and bullet points", "15 professional templates", "ATS-friendly structure", "PDF export"],
     primaryCta: { label: "Build my CV for free", href: "/signup" },
     secondaryCta: { label: "See pricing", href: "/pricing" },
@@ -65,7 +65,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
         heading: "How an AI CV builder works",
         paragraphs: [
           "A blank page is the hardest part of writing a CV. An AI CV generator removes it: you fill in a guided form (or import an existing CV), and the AI turns your raw information into professional wording with strong action verbs and a consistent tone.",
-          "The important word is *your*. Cvixeo works from the information you enter. It improves phrasing and structure, but you remain the author: review every line and remove anything that doesn't reflect your real experience before you send it.",
+          "The important word is *your*. CVixeo works from the information you enter. It improves phrasing and structure, but you remain the author: review every line and remove anything that doesn't reflect your real experience before you send it.",
         ],
       },
       {
@@ -80,7 +80,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       {
         heading: "A professional structure, by default",
         paragraphs: [
-          "Recruiters skim. A predictable structure lets them find what they need in seconds: contact details, summary, work experience in reverse-chronological order, education, skills and languages. Cvixeo's editor follows this order so you don't have to think about layout while writing.",
+          "Recruiters skim. A predictable structure lets them find what they need in seconds: contact details, summary, work experience in reverse-chronological order, education, skills and languages. CVixeo's editor follows this order so you don't have to think about layout while writing.",
           "The same structure also helps applicant tracking systems parse your CV correctly. If you want to understand why, read our guide to the [ATS resume builder](/ats-cv-builder).",
         ],
       },
@@ -108,7 +108,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       { q: "Will the AI invent experience I don't have?", a: "It works from what you enter, but any AI can phrase things more strongly than reality. Treat the output as a draft: check every claim, figure and date before using your CV." },
       { q: "Can recruiters tell that AI wrote my CV?", a: "Generic AI text is easy to spot. That's why you should add specifics only you know — project names, tools, results — and edit the draft in your own voice." },
       { q: "What's the difference between a CV and a resume?", a: "In much of Europe \"CV\" is the standard term; in the US and Canada \"resume\" usually means a shorter, more concise document. See our [AI resume builder](/ai-resume-builder) page for resume-specific advice." },
-      { q: "Which languages can I write my CV in?", a: "Cvixeo is available in English, French and Dutch, and the AI can write your content in any of these three languages." },
+      { q: "Which languages can I write my CV in?", a: "CVixeo is available in English, French and Dutch, and the AI can write your content in any of these three languages." },
     ],
     related: ["ats-cv-builder", "resume-optimizer", "job-description-matching", "cover-letter-generator"],
     articles: ["10-resume-mistakes-that-prevent-interview", "one-page-vs-two-page-resume"],
@@ -145,7 +145,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
           "Never copy hidden text or keyword lists — recruiters read the CV too, and it damages trust.",
         ],
         outro: [
-          "Finding the right keywords by hand is slow. Cvixeo's [job description matching](/job-description-matching) lists the skills and keywords from a posting that weren't found in your CV.",
+          "Finding the right keywords by hand is slow. CVixeo's [job description matching](/job-description-matching) lists the skills and keywords from a posting that weren't found in your CV.",
         ],
       },
       {
@@ -179,14 +179,14 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       {
         heading: "Analyze and optimize your resume for ATS",
         paragraphs: [
-          "Cvixeo's templates use standard headings and real text, so your content stays readable. With Premium, the ATS check gives your CV a score from 0 to 100 with three to five concrete suggestions; for a deeper review, see the [CV optimizer](/cv-optimizer).",
+          "CVixeo's templates use standard headings and real text, so your content stays readable. With Premium, the ATS check gives your CV a score from 0 to 100 with three to five concrete suggestions; for a deeper review, see the [CV optimizer](/cv-optimizer).",
           "Remember that an ATS score is an indicator of readability and keyword alignment — not a guarantee. A CV that scores well still needs to show real, relevant results to a human reader.",
         ],
       },
     ],
     faq: [
       { q: "Is a PDF ATS-friendly?", a: "A text-based PDF (one where you can select the text) is read correctly by most modern ATS. Image-only PDFs, such as scans, are not. If a posting explicitly asks for a Word file, follow the instruction." },
-      { q: "What is an ATS score?", a: "It's an estimate of how readable and keyword-aligned your CV is for screening software. Cvixeo's score (0–100) comes with suggestions; it's a guide for improvement, not a prediction of whether you'll be hired." },
+      { q: "What is an ATS score?", a: "It's an estimate of how readable and keyword-aligned your CV is for screening software. CVixeo's score (0–100) comes with suggestions; it's a guide for improvement, not a prediction of whether you'll be hired." },
       { q: "Do all companies use an ATS?", a: "No. Many small businesses read applications directly. But an ATS-friendly CV is also clearer for humans, so the same rules are worth following everywhere." },
       { q: "Should I use a one-column template?", a: "A clear reading order matters more than the number of columns. Avoid putting essential information in sidebars made of images or text boxes, and check how your content reads top to bottom." },
       { q: "How is the ATS score different from the job match score?", a: "The ATS score looks at your CV on its own. The job match score compares your CV with one specific job description. Use the first to fix general issues and the second before each application." },
@@ -203,7 +203,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "AI Resume Builder",
     h1: "Write a Concise, Achievement-Focused Resume with AI",
     intro:
-      "A resume has one job: show a recruiter in a few seconds that you can deliver results in the role. Cvixeo's AI resume builder helps you turn duties into achievements and keep the whole document focused.",
+      "A resume has one job: show a recruiter in a few seconds that you can deliver results in the role. CVixeo's AI resume builder helps you turn duties into achievements and keep the whole document focused.",
     highlights: ["Achievement-based bullet points", "Sharp professional summary", "Clean, readable layout", "Tailored for each job"],
     primaryCta: { label: "Write my resume", href: "/signup" },
     secondaryCta: { label: "Improve an existing resume", href: "/resume-optimizer" },
@@ -238,7 +238,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
         },
         bullets: [
           "The numbers must be yours. If you don't have exact figures, describe scope (team size, budget, number of clients) instead of inventing results.",
-          "With Premium, Cvixeo's AI bullet-point tool suggests achievement-style rewrites for each role.",
+          "With Premium, CVixeo's AI bullet-point tool suggests achievement-style rewrites for each role.",
         ],
       },
       {
@@ -266,7 +266,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "AI Resume Optimizer",
     h1: "Improve Your Existing Resume with an AI Resume Optimizer",
     intro:
-      "You don't need to start over. Import the resume you already have, and Cvixeo extracts its content into an editable structure, improves the wording, and helps you bring it up to date for the jobs you want now.",
+      "You don't need to start over. Import the resume you already have, and CVixeo extracts its content into an editable structure, improves the wording, and helps you bring it up to date for the jobs you want now.",
     highlights: ["Import PDF, DOCX or TXT", "AI rewrite of summary and experience", "Structured, editable result", "Ready for any template"],
     primaryCta: { label: "Optimize my resume", href: "/signup" },
     secondaryCta: { label: "How job matching works", href: "/job-description-matching" },
@@ -331,7 +331,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "CV Checker & Optimizer",
     h1: "Check Your CV and Fix What Holds It Back",
     intro:
-      "Before you rewrite anything, find out what actually needs fixing. Cvixeo's CV optimizer gives your CV an ATS score with targeted suggestions, and this page gives you the checklist recruiters effectively use.",
+      "Before you rewrite anything, find out what actually needs fixing. CVixeo's CV optimizer gives your CV an ATS score with targeted suggestions, and this page gives you the checklist recruiters effectively use.",
     highlights: ["ATS score from 0 to 100", "3–5 targeted suggestions", "Section-by-section checklist", "Re-check after each edit"],
     primaryCta: { label: "Check my CV", href: "/signup" },
     secondaryCta: { label: "See Premium", href: "/pricing" },
@@ -339,7 +339,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       {
         heading: "What the CV check gives you",
         paragraphs: [
-          "With Premium, Cvixeo analyzes your CV for ATS compatibility and returns a score from 0 to 100 together with three to five concrete improvement tips — for example a missing section, vague wording or skills that aren't stated explicitly.",
+          "With Premium, CVixeo analyzes your CV for ATS compatibility and returns a score from 0 to 100 together with three to five concrete improvement tips — for example a missing section, vague wording or skills that aren't stated explicitly.",
           "Edit, run the check again and see whether the score moves. It's a fast feedback loop, not a verdict: the score reflects readability and alignment, not your value as a candidate.",
         ],
       },
@@ -390,7 +390,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Job Description Matching",
     h1: "Match Your Resume to a Job Description",
     intro:
-      "Every job posting is a checklist. Cvixeo reads the posting, compares it with your CV and shows you exactly which skills and keywords match, which are missing, and what to change before you apply.",
+      "Every job posting is a checklist. CVixeo reads the posting, compares it with your CV and shows you exactly which skills and keywords match, which are missing, and what to change before you apply.",
     highlights: ["Missing skills and keywords", "Match score by category", "Recommendations you can act on", "Works across English, French and Dutch"],
     primaryCta: { label: "Match my CV to a job", href: "/job-match" },
     secondaryCta: { label: "Create a CV first", href: "/signup" },
@@ -453,7 +453,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Cover Letter Generator",
     h1: "Generate a Cover Letter Tailored to the Job and the Company",
     intro:
-      "A good cover letter connects your experience to one specific job. Cvixeo's AI cover letter generator starts from your CV and the job description, so the first draft is already about this role — not a generic template.",
+      "A good cover letter connects your experience to one specific job. CVixeo's AI cover letter generator starts from your CV and the job description, so the first draft is already about this role — not a generic template.",
     highlights: ["Based on your CV", "Uses the job description", "Personalized for the company", "Editable before you send it"],
     primaryCta: { label: "Generate my cover letter", href: "/signup" },
     secondaryCta: { label: "See pricing", href: "/pricing" },
@@ -511,7 +511,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Créateur de CV",
     h1: "Créer un CV professionnel en ligne, étape par étape",
     intro:
-      "Que ce soit votre premier CV ou une reprise complète, un CV efficace suit des règles simples. Ce guide vous donne la structure, les rubriques et la méthode — et le créateur de CV Cvixeo vous accompagne à chaque étape.",
+      "Que ce soit votre premier CV ou une reprise complète, un CV efficace suit des règles simples. Ce guide vous donne la structure, les rubriques et la méthode — et le créateur de CV CVixeo vous accompagne à chaque étape.",
     highlights: ["Rubriques indispensables", "Ordre et longueur", "15 modèles professionnels", "Export PDF"],
     primaryCta: { label: "Créer mon CV gratuitement", href: "/signup" },
     secondaryCta: { label: "Voir les tarifs", href: "/fr/pricing" },
@@ -536,7 +536,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
         ],
       },
       {
-        heading: "Faire son CV avec Cvixeo en 5 étapes",
+        heading: "Faire son CV avec CVixeo en 5 étapes",
         steps: [
           { title: "Renseignez votre parcours", body: "Remplissez le formulaire guidé ou importez un ancien CV (PDF, DOCX ou TXT)." },
           { title: "Laissez l'IA rédiger", body: "Le [générateur de CV IA](/fr/generateur-cv-ia) propose une formulation professionnelle de votre profil et de vos expériences." },
@@ -566,10 +566,10 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       },
     ],
     faq: [
-      { q: "Créer un CV sur Cvixeo est-il gratuit ?", a: "Oui : l'offre gratuite permet de créer 1 CV avec 2 modèles et un export PDF avec filigrane. Premium débloque tous les modèles, le score ATS, l'analyse d'offre et la lettre de motivation." },
-      { q: "Quelle est la différence avec un générateur de CV IA ?", a: "Créer un CV, c'est construire le document ; le [générateur de CV IA](/fr/generateur-cv-ia) rédige les contenus pour vous à partir de vos informations. Sur Cvixeo, les deux se font dans le même éditeur." },
+      { q: "Créer un CV sur CVixeo est-il gratuit ?", a: "Oui : l'offre gratuite permet de créer 1 CV avec 2 modèles et un export PDF avec filigrane. Premium débloque tous les modèles, le score ATS, l'analyse d'offre et la lettre de motivation." },
+      { q: "Quelle est la différence avec un générateur de CV IA ?", a: "Créer un CV, c'est construire le document ; le [générateur de CV IA](/fr/generateur-cv-ia) rédige les contenus pour vous à partir de vos informations. Sur CVixeo, les deux se font dans le même éditeur." },
       { q: "Faut-il un CV différent pour chaque offre ?", a: "Idéalement oui. Gardez une base commune, puis ajustez l'accroche, les compétences et l'ordre des réalisations pour chaque poste." },
-      { q: "Puis-je créer mon CV en néerlandais ou en anglais ?", a: "Oui, Cvixeo fonctionne en français, en anglais et en néerlandais — pratique pour postuler en Belgique ou à l'international." },
+      { q: "Puis-je créer mon CV en néerlandais ou en anglais ?", a: "Oui, CVixeo fonctionne en français, en anglais et en néerlandais — pratique pour postuler en Belgique ou à l'international." },
     ],
     related: ["generateur-cv-ia", "cv-ats", "cv-offre-emploi", "lettre-motivation"],
     articles: ["cv-professionnel-belgique-guide-2026", "15-erreurs-a-eviter-cv-professionnel"],
@@ -583,7 +583,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Générateur de CV IA",
     h1: "Le générateur de CV IA pour créer, améliorer et adapter votre CV",
     intro:
-      "L'intelligence artificielle ne remplace pas votre parcours : elle vous aide à le présenter. Avec Cvixeo, l'IA rédige, reformule, vérifie la compatibilité ATS et compare votre CV aux offres qui vous intéressent.",
+      "L'intelligence artificielle ne remplace pas votre parcours : elle vous aide à le présenter. Avec CVixeo, l'IA rédige, reformule, vérifie la compatibilité ATS et compare votre CV aux offres qui vous intéressent.",
     highlights: ["Rédaction par l'IA", "Amélioration d'un CV existant", "Optimisation ATS", "Adaptation à une offre d'emploi"],
     primaryCta: { label: "Générer mon CV", href: "/signup" },
     secondaryCta: { label: "Voir les tarifs", href: "/fr/pricing" },
@@ -604,13 +604,13 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       {
         heading: "3. Optimiser votre CV pour les ATS",
         paragraphs: [
-          "Les logiciels de recrutement (ATS) lisent votre CV avant le recruteur. Avec Premium, Cvixeo attribue à votre CV un score ATS de 0 à 100 accompagné de suggestions concrètes. Pour comprendre les règles, lisez notre guide du [CV compatible ATS](/fr/cv-ats).",
+          "Les logiciels de recrutement (ATS) lisent votre CV avant le recruteur. Avec Premium, CVixeo attribue à votre CV un score ATS de 0 à 100 accompagné de suggestions concrètes. Pour comprendre les règles, lisez notre guide du [CV compatible ATS](/fr/cv-ats).",
         ],
       },
       {
         heading: "4. Adapter votre CV à une offre d'emploi",
         paragraphs: [
-          "Collez une offre : Cvixeo identifie les compétences et mots-clés attendus, les compare à votre CV et calcule un score de correspondance. Vous savez exactement quoi ajouter ou clarifier. C'est la fonctionnalité qui fait la différence : voir [adapter son CV à une offre](/fr/cv-offre-emploi).",
+          "Collez une offre : CVixeo identifie les compétences et mots-clés attendus, les compare à votre CV et calcule un score de correspondance. Vous savez exactement quoi ajouter ou clarifier. C'est la fonctionnalité qui fait la différence : voir [adapter son CV à une offre](/fr/cv-offre-emploi).",
         ],
       },
       {
@@ -721,8 +721,8 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       },
     ],
     faq: [
-      { q: "Qu'est-ce qu'un score ATS ?", a: "C'est une estimation de la lisibilité de votre CV et de l'alignement de ses mots-clés pour un logiciel de recrutement. Chez Cvixeo, il va de 0 à 100 et s'accompagne de suggestions. Ce n'est pas une probabilité d'embauche." },
-      { q: "Les modèles Cvixeo sont-ils compatibles ATS ?", a: "Ils utilisent des rubriques standards et du texte réel, ce qui facilite la lecture par les ATS. La compatibilité dépend aussi du contenu : mots-clés, dates et intitulés." },
+      { q: "Qu'est-ce qu'un score ATS ?", a: "C'est une estimation de la lisibilité de votre CV et de l'alignement de ses mots-clés pour un logiciel de recrutement. Chez CVixeo, il va de 0 à 100 et s'accompagne de suggestions. Ce n'est pas une probabilité d'embauche." },
+      { q: "Les modèles CVixeo sont-ils compatibles ATS ?", a: "Ils utilisent des rubriques standards et du texte réel, ce qui facilite la lecture par les ATS. La compatibilité dépend aussi du contenu : mots-clés, dates et intitulés." },
       { q: "Toutes les entreprises utilisent-elles un ATS ?", a: "Non, surtout parmi les petites structures. Mais un CV compatible ATS est aussi plus clair pour un humain : les mêmes règles valent partout." },
       { q: "Faut-il un CV différent pour la France et la Belgique ?", a: "Les règles ATS sont les mêmes ; les usages varient (photo, langues). Notre article [CV compatible ATS en France](/fr/careers/cv-ats-compatible-france) détaille les spécificités françaises." },
     ],
@@ -738,13 +738,13 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Optimiser son CV",
     h1: "Optimiser votre CV existant avec l'IA",
     intro:
-      "Vous avez déjà un CV, mais il ne décroche pas d'entretiens ? Inutile de repartir de zéro. Importez-le, et Cvixeo le restructure et le reformule pour qu'il mette réellement en valeur votre parcours.",
+      "Vous avez déjà un CV, mais il ne décroche pas d'entretiens ? Inutile de repartir de zéro. Importez-le, et CVixeo le restructure et le reformule pour qu'il mette réellement en valeur votre parcours.",
     highlights: ["Import PDF, DOCX ou TXT", "Reformulation par l'IA", "Rubriques structurées", "Nouveau modèle en un clic"],
     primaryCta: { label: "Optimiser mon CV", href: "/signup" },
     secondaryCta: { label: "Analyser mon CV d'abord", href: "/fr/analyser-cv" },
     sections: [
       {
-        heading: "Comment optimiser son CV avec Cvixeo",
+        heading: "Comment optimiser son CV avec CVixeo",
         steps: [
           { title: "Importez votre CV", body: "Au format PDF, DOCX ou TXT." },
           { title: "Extraction automatique", body: "L'IA lit votre CV et remplit les rubriques : coordonnées, expériences, formation, compétences, langues." },
@@ -802,7 +802,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Analyse de CV",
     h1: "Analyser votre CV pour savoir exactement quoi améliorer",
     intro:
-      "Avant de réécrire, diagnostiquez. L'analyse de CV Cvixeo vous donne un score ATS et des suggestions ciblées ; cette page vous fournit la grille de lecture qu'utilisent, de fait, les recruteurs.",
+      "Avant de réécrire, diagnostiquez. L'analyse de CV CVixeo vous donne un score ATS et des suggestions ciblées ; cette page vous fournit la grille de lecture qu'utilisent, de fait, les recruteurs.",
     highlights: ["Score ATS de 0 à 100", "3 à 5 suggestions concrètes", "Grille rubrique par rubrique", "Nouvelle analyse après chaque modification"],
     primaryCta: { label: "Analyser mon CV", href: "/signup" },
     secondaryCta: { label: "Voir Premium", href: "/fr/pricing" },
@@ -810,7 +810,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
       {
         heading: "Ce que vous apporte l'analyse",
         paragraphs: [
-          "Avec Premium, Cvixeo évalue la compatibilité ATS de votre CV et renvoie un score de 0 à 100 accompagné de trois à cinq conseils concrets : rubrique manquante, formulation trop vague, compétence non explicitée…",
+          "Avec Premium, CVixeo évalue la compatibilité ATS de votre CV et renvoie un score de 0 à 100 accompagné de trois à cinq conseils concrets : rubrique manquante, formulation trop vague, compétence non explicitée…",
           "Modifiez, relancez l'analyse, observez l'évolution. Le score mesure la lisibilité et l'alignement de votre CV, pas votre valeur en tant que candidat.",
         ],
       },
@@ -858,7 +858,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "CV et offre d'emploi",
     h1: "Adapter votre CV à une offre d'emploi, compétence par compétence",
     intro:
-      "Chaque offre d'emploi est une liste d'attentes. Cvixeo analyse l'annonce, la compare à votre CV et vous montre précisément ce qui correspond, ce qui manque et ce qu'il faut modifier avant de postuler.",
+      "Chaque offre d'emploi est une liste d'attentes. CVixeo analyse l'annonce, la compare à votre CV et vous montre précisément ce qui correspond, ce qui manque et ce qu'il faut modifier avant de postuler.",
     highlights: ["Compétences et mots-clés manquants", "Score détaillé par catégorie", "Recommandations concrètes", "Offres en FR, NL ou EN"],
     primaryCta: { label: "Comparer mon CV à une offre", href: "/fr/job-match" },
     secondaryCta: { label: "Créer mon CV d'abord", href: "/signup" },
@@ -933,7 +933,7 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     eyebrow: "Lettre de motivation IA",
     h1: "Une lettre de motivation IA adaptée à l'offre et à l'entreprise",
     intro:
-      "Une bonne lettre de motivation relie votre parcours à un poste précis. Le générateur de Cvixeo part de votre CV et de l'annonce : le premier jet parle déjà de ce poste, pas d'un modèle générique.",
+      "Une bonne lettre de motivation relie votre parcours à un poste précis. Le générateur de CVixeo part de votre CV et de l'annonce : le premier jet parle déjà de ce poste, pas d'un modèle générique.",
     highlights: ["Basée sur votre CV", "Construite à partir de l'offre", "Personnalisée pour l'entreprise", "Modifiable avant envoi"],
     primaryCta: { label: "Générer ma lettre", href: "/signup" },
     secondaryCta: { label: "Voir les tarifs", href: "/fr/pricing" },

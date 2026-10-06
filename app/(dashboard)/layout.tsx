@@ -9,6 +9,14 @@ import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { isProUser } from "@/lib/isPro";
+import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
+
+// Private, auth-only area: never indexed.
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: NOINDEX,
+};
 
 export default async function DashboardLayout({
   children,

@@ -6,7 +6,7 @@ import { PrivacyClient } from "../../privacy/PrivacyClient";
 
 export const metadata: Metadata = {
   title: "Privacybeleid",
-  description: "Hoe Cvixeo je persoonsgegevens verzamelt, gebruikt en beschermt. AVG-conform privacybeleid voor Europese gebruikers.",
+  description: "Hoe CVixeo je persoonsgegevens verzamelt, gebruikt en beschermt. AVG-conform privacybeleid voor Europese gebruikers.",
   alternates: {
     canonical: "https://www.cvixeo.com/nl/privacy",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Privacybeleid — Cvixeo",
-    description: "Hoe Cvixeo je persoonsgegevens verzamelt, gebruikt en beschermt.",
+    title: "Privacybeleid — CVixeo",
+    description: "Hoe CVixeo je persoonsgegevens verzamelt, gebruikt en beschermt.",
     url: "https://www.cvixeo.com/nl/privacy",
     locale: "nl_BE",
   },

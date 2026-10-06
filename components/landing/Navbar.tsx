@@ -8,7 +8,7 @@ import { useLanguage, translations } from "@/components/landing/LanguageContext"
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 import { localePath } from "@/lib/seo";
-import { landingAlternatePath } from "@/lib/landing-routes";
+import { landingAlternatePath, TOOLS_HUB } from "@/lib/landing-routes";
 
 const langActive   = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
@@ -52,6 +52,8 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
   const T = translations[lang].nav;
   const pathname = usePathname();
   const jobMatchHref = lang === "fr" ? "/fr/job-match" : lang === "nl" ? "/nl/job-match" : "/job-match";
+  // Resume Tools hub exists in EN and FR only.
+  const toolsHref = lang === "nl" ? null : TOOLS_HUB[lang].path;
 
   function isActive(href: string): boolean {
     if (!href || href.startsWith("#") || href.startsWith("/#")) return false;
@@ -110,6 +112,11 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           <Link href={jobMatchHref} className={desktopLink(jobMatchHref)}>
             {T.jobMatch}
           </Link>
+          {toolsHref && (
+            <Link href={toolsHref} className={desktopLink(toolsHref)}>
+              {T.tools}
+            </Link>
+          )}
           <Link href={localePath(lang, "/pricing")} className={desktopLink(localePath(lang, "/pricing"))}>
             {T.pricing}
           </Link>
@@ -199,6 +206,11 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
             <Link href={jobMatchHref} onClick={() => setMobileOpen(false)} className={mobileLink(jobMatchHref)}>
               {T.jobMatch}
             </Link>
+            {toolsHref && (
+              <Link href={toolsHref} onClick={() => setMobileOpen(false)} className={mobileLink(toolsHref)}>
+                {T.tools}
+              </Link>
+            )}
             <Link href={localePath(lang, "/pricing")} onClick={() => setMobileOpen(false)} className={mobileLink(localePath(lang, "/pricing"))}>
               {T.pricing}
             </Link>

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ContactClient } from "./ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact – Support and Questions",
   description:
-    "Get in touch with the Cvixeo team. We're here to help with any questions about our AI-powered CV builder.",
+    "Get in touch with the CVixeo team. We're here to help with any questions about our AI-powered CV builder.",
   alternates: {
     canonical: "https://www.cvixeo.com/contact",
     languages: {
@@ -19,8 +20,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Contact | Cvixeo",
-    description: "Reach out to the Cvixeo team — we'd love to hear from you.",
+    title: "Contact | CVixeo",
+    description: "Reach out to the CVixeo team — we'd love to hear from you.",
     url: "https://www.cvixeo.com/contact",
   },
 };
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <PageJsonLd lang="en" path="/contact" metadata={metadata} type="ContactPage" />
       <NavbarServer />
       <ContactClient />
       <LandingFooter />

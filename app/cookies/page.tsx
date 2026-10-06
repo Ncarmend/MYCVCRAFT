@@ -5,7 +5,7 @@ import { CookiesClient } from "./CookiesClient";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
-  description: "How Cvixeo uses cookies and how to manage your preferences. GDPR-compliant cookie policy for European users.",
+  description: "How CVixeo uses cookies and how to manage your preferences. GDPR-compliant cookie policy for European users.",
   alternates: {
     canonical: "https://www.cvixeo.com/cookies",
     languages: {

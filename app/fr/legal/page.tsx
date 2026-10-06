@@ -6,7 +6,7 @@ import { LegalClient } from "../../legal/LegalClient";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
-  description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
+  description: "Mentions légales pour CVixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
   alternates: {
     canonical: "https://www.cvixeo.com/fr/legal",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...OG_DEFAULTS,
-    title: "Mentions légales — Cvixeo",
-    description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
+    title: "Mentions légales — CVixeo",
+    description: "Mentions légales pour CVixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
     url: "https://www.cvixeo.com/fr/legal",
     locale: "fr_FR",
   },
