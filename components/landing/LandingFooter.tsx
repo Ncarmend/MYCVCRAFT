@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Logo } from "@/components/ui/Logo";
+import { localePath } from "@/lib/seo";
 
 export function LandingFooter() {
   const { lang } = useLanguage();
   const T = translations[lang].footer;
+  const href = (path: string) => localePath(lang, path);
 
   return (
     <footer className="border-t border-slate-500 bg-slate-700">
@@ -16,11 +18,11 @@ export function LandingFooter() {
 
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center">
+            <Link href={href("/")} className="flex items-center">
               <Logo variant="dark" height={22} />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-400">
-              AI-powered CV builder for ambitious professionals. Create ATS-optimised resumes in minutes.
+              {T.tagline}
             </p>
           </div>
 
@@ -30,9 +32,10 @@ export function LandingFooter() {
               {T.product}
             </p>
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-slate-300">
-              <Link href="/pricing"   className="transition-colors duration-150 hover:text-white">{T.pricing}</Link>
-              <Link href="#features"  className="transition-colors duration-150 hover:text-white">{T.features}</Link>
-              <Link href="/careers"   className="transition-colors duration-150 hover:text-white">{T.careers}</Link>
+              <Link href={href("/#features")}  className="transition-colors duration-150 hover:text-white">{T.features}</Link>
+              <Link href={href("/job-match")}  className="transition-colors duration-150 hover:text-white">{T.jobMatch}</Link>
+              <Link href={href("/pricing")}    className="transition-colors duration-150 hover:text-white">{T.pricing}</Link>
+              <Link href={href("/careers")}    className="transition-colors duration-150 hover:text-white">{T.careers}</Link>
               <Link href="/login"     className="transition-colors duration-150 hover:text-white">{T.signIn}</Link>
             </div>
           </div>
@@ -43,11 +46,11 @@ export function LandingFooter() {
               {T.legal}
             </p>
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-slate-300">
-              <Link href="/about"    className="transition-colors duration-150 hover:text-white">{T.about}</Link>
-              <Link href="/privacy"  className="transition-colors duration-150 hover:text-white">{T.privacy}</Link>
-              <Link href="/terms"    className="transition-colors duration-150 hover:text-white">{T.terms}</Link>
-              <Link href="/cookies"  className="transition-colors duration-150 hover:text-white">{T.cookies}</Link>
-              <Link href="/legal"    className="transition-colors duration-150 hover:text-white">{T.legalNotice}</Link>
+              <Link href={href("/about")} className="transition-colors duration-150 hover:text-white">{T.about}</Link>
+              <Link href={href("/privacy")} className="transition-colors duration-150 hover:text-white">{T.privacy}</Link>
+              <Link href={href("/terms")} className="transition-colors duration-150 hover:text-white">{T.terms}</Link>
+              <Link href={href("/cookies")} className="transition-colors duration-150 hover:text-white">{T.cookies}</Link>
+              <Link href={href("/legal")} className="transition-colors duration-150 hover:text-white">{T.legalNotice}</Link>
             </div>
           </div>
 

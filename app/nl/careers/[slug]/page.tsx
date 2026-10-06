@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import Link from "next/link";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
@@ -29,13 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article || article.lang !== "nl") return { title: "Artikel niet gevonden" };
 
   const title = article.title;
-  const url = `https://cvixeo.com/nl/careers/${article.slug}`;
+  const url = `https://www.cvixeo.com/nl/careers/${article.slug}`;
 
   return {
     title,
     description: article.description,
     keywords: article.tags.join(", "),
     openGraph: {
+      ...OG_DEFAULTS,
       title,
       description: article.description,
       url,
@@ -82,9 +84,9 @@ export default async function ArticlePageNl({ params }: Props) {
     dateModified: article.updatedAt ?? article.publishedAt,
     inLanguage: "nl-BE",
     author: { "@type": "Organization", name: "Cvixeo" },
-    publisher: { "@type": "Organization", name: "Cvixeo", url: "https://cvixeo.com" },
+    publisher: { "@type": "Organization", name: "Cvixeo", url: "https://www.cvixeo.com" },
     keywords: article.tags.join(", "),
-    url: `https://cvixeo.com/nl/careers/${article.slug}`,
+    url: `https://www.cvixeo.com/nl/careers/${article.slug}`,
   };
 
   return (

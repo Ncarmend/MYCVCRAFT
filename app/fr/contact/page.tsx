@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ContactClient } from "../../contact/ContactClient";
@@ -8,18 +9,19 @@ export const metadata: Metadata = {
   description:
     "Contactez l'équipe Cvixeo. Nous sommes là pour répondre à toutes vos questions sur notre générateur de CV propulsé par l'IA.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/contact",
+    canonical: "https://www.cvixeo.com/fr/contact",
     languages: {
-      en: "https://cvixeo.com/contact",
-      fr: "https://cvixeo.com/fr/contact",
-      nl: "https://cvixeo.com/nl/contact",
-      "x-default": "https://cvixeo.com/contact",
+      en: "https://www.cvixeo.com/contact",
+      fr: "https://www.cvixeo.com/fr/contact",
+      nl: "https://www.cvixeo.com/nl/contact",
+      "x-default": "https://www.cvixeo.com/contact",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Contact | Cvixeo",
     description: "Contactez l'équipe Cvixeo — nous serions ravis de vous entendre.",
-    url: "https://cvixeo.com/fr/contact",
+    url: "https://www.cvixeo.com/fr/contact",
     locale: "fr_FR",
   },
 };

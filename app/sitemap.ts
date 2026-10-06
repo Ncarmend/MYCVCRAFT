@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE = "https://cvixeo.com";
+const BASE = SITE_URL;
 
 // Routes available in English (unprefixed), French (/fr prefix) and Dutch (/nl prefix),
 // each with matching content in lib/translations.ts.

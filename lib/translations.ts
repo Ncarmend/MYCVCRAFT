@@ -15,20 +15,21 @@ export const translations = {
 
     // ── Hero ─────────────────────────────────────────────────────────────────
     hero: {
-      badge: "Cvixeo — Be seen. Be chosen.",
-      headline1: "Does your CV really match",
-      headline2: "the job you're applying for?",
+      badge: "AI CV Builder · ATS Optimization · Job Matching",
+      headline1: "Create an AI-Powered CV",
+      headline2: "That Matches the Job",
       subtext:
-        "Create your professional CV with AI, compare it with a specific job offer and discover exactly what you can improve.",
+        "Create a professional, ATS-optimized resume with AI. Compare your resume with any job description, discover missing keywords, and improve your chances of getting noticed.",
       highlights: [
-        "ATS-optimized in one click",
-        "AI bullet point generation",
-        "PDF export included",
+        "ATS-friendly templates",
+        "Job description matching",
+        "Missing keyword analysis",
+        "PDF export & cover letters",
       ],
       stats: [
-        { value: "10,000+", label: "CVs created" },
-        { value: "94%",     label: "ATS pass rate" },
-        { value: "3×",      label: "More interviews" },
+        { value: "15", label: "CV templates" },
+        { value: "3", label: "Languages: EN · FR · NL" },
+        { value: "€0", label: "To get started" },
       ],
       ctaPrimary: "Create my CV for free",
       ctaSecondary: "Analyze a job offer",
@@ -52,43 +53,59 @@ export const translations = {
     // ── Features ─────────────────────────────────────────────────────────────
     features: {
       sectionLabel: "Features",
-      headline: "Everything you need to land the job, Create a professional resume with AI, optimize it for ATS, and land more interviews",
+      headline: "AI CV builder, ATS optimizer and job matching in one place",
       subtext:
-        "From first draft to final PDF — Cvixeo handles the heavy lifting so you can focus on what matters. CVIXEO is an AI-powered resume-building platform. Import your old resume, automatically enhance your work experience, tailor your application to each job posting, and download a professional resume thats ready to impress recruiters.",
+        "Cvixeo is an AI resume builder that goes beyond generating text: import your existing CV, improve it with AI, check it against ATS criteria and tailor it to each job description before you apply.",
       items: [
-        { title: "AI-Powered Generation",      description: "Describe your experience and let GPT-4 write a compelling, professional CV tailored to your target role." },
-        { title: "ATS Optimization",           description: "Score your CV against Applicant Tracking Systems and get specific suggestions to pass automated screening." },
-        { title: "Job Description Matching",   description: "Paste any job listing and get a match score plus a list of improvements to tailor your CV perfectly." },
-        { title: "Beautiful Templates",        description: "Choose from professionally designed templates. Switch between styles instantly without losing your data." },
-        { title: "One-Click PDF Export",       description: "Download pixel-perfect PDFs that look great on screen and in print. Pro plan removes watermarks." },
-        { title: "Cover Letter Generator",     description: "Automatically generate personalized cover letters matched to specific job descriptions and companies." },
+        { title: "AI CV Builder", description: "Describe your experience and let AI write a clear, professional CV with a summary and impact-focused bullet points for your target role." },
+        { title: "ATS Optimization", description: "Check your CV against Applicant Tracking System criteria and get specific suggestions on structure, wording and keywords." },
+        { title: "Job Description Matching", description: "Paste any job description to see how well your CV matches it, with a score broken down by skills, experience, keywords, education and languages." },
+        { title: "Missing Keyword Analysis", description: "See which skills and keywords from the job offer were not found in your CV, so you know exactly what to add or clarify." },
+        { title: "AI CV Improvement", description: "Import your existing CV (PDF, DOCX or TXT) and let AI rewrite your summary and experience to make them sharper." },
+        { title: "Professional Templates", description: "Choose from 15 professionally designed templates and switch styles instantly without losing your content." },
+        { title: "PDF Export", description: "Download a clean, print-ready PDF. Premium removes the watermark." },
+        { title: "Cover Letter Generator", description: "Generate a cover letter tailored to a specific job description and company." },
       ],
     },
 
-    // ── Testimonials ─────────────────────────────────────────────────────────
-    // Note: previous items here were fabricated named testimonials attributed
-    // to real companies (Google, Stripe, Figma, OpenAI...) — replaced with
-    // neutral, non-attributed feature statements rather than invented quotes.
+    // Transparency / trust section (rendered by Testimonials.tsx). Previous items
+    // were fabricated testimonials, then feature statements styled as 5-star
+    // reviews — replaced with verifiable statements about how the product works.
     testimonials: {
-      sectionLabel: "What you can do",
-      headline: "Built around what actually helps your job search",
+      sectionLabel: "Transparency",
+      headline: "Honest tools, no inflated promises",
       items: [
-        { name: "Job Match",         role: "", avatar: "JM", content: "Compare your CV with a specific job offer and see exactly which skills and keywords are missing." },
-        { name: "ATS Optimization",  role: "", avatar: "ATS", content: "Score your CV against Applicant Tracking Systems and get concrete suggestions to improve it." },
-        { name: "Templates",         role: "", avatar: "TP", content: "Choose from professionally designed templates and switch between them without losing your data." },
-        { name: "PDF Export",        role: "", avatar: "PDF", content: "Export a clean, print-ready PDF in one click." },
-        { name: "Cover Letters",     role: "", avatar: "CL", content: "Generate a cover letter tailored to a specific job description." },
-        { name: "Track Your Score",  role: "", avatar: "SC", content: "Re-run your Job Match analysis after editing your CV and see your score change." },
+        { title: "A score, not a promise", content: "The match score measures how well your CV aligns with a job description. It is not a hiring probability and does not guarantee ATS acceptance." },
+        { title: "Explained results", content: "Every analysis shows the matching and missing skills and keywords behind the score, so you can judge the suggestions yourself." },
+        { title: "You stay in control", content: "AI suggestions are a starting point. You review and edit every line before downloading your CV." },
+        { title: "Your data, your choice", content: "You can delete your account and your CVs at any time from your settings." },
+        { title: "Built for 3 languages", content: "Create and analyze CVs in English, French and Dutch." },
+        { title: "Actively improved", content: "Cvixeo is in beta and improves continuously based on user feedback." },
       ],
     },
 
     // ── CTA ──────────────────────────────────────────────────────────────────
     cta: {
       headline:  "Ready to land your dream job?",
-      subtext:   "Join 10,000+ professionals who have already leveled up their job search with Cvixeo. Start free, upgrade when you need.",
+      subtext:   "Build your CV with AI, match it to the jobs you want and fix what's missing before you apply. Start free, upgrade when you need.",
       primary:   "Get started for free",
       secondary: "See all plans",
       footnote:  "No credit card required · Cancel anytime · from €9/month",
+    },
+
+    // ── Homepage FAQ (also emitted as FAQPage JSON-LD) ─────────────────────
+    faq: {
+      sectionLabel: "FAQ",
+      headline: "Frequently asked questions",
+      items: [
+        { q: "What is Cvixeo?", a: "Cvixeo is an AI CV builder and ATS resume optimizer. It helps you create a professional CV with AI, check it against ATS criteria and match it to a specific job description to see which skills and keywords are missing." },
+        { q: "How does job description matching work?", a: "Paste the job description and select your CV. Cvixeo's AI compares skills, experience, keywords, education and languages, then shows a match score, the missing keywords and concrete recommendations. After editing your CV, you can run the analysis again." },
+        { q: "What is an ATS score?", a: "Many employers use Applicant Tracking Systems (ATS) to sort applications. Cvixeo's score measures how well your CV's content and structure align with a job description. It is an analytical indicator, not a hiring probability or a guarantee that your CV will pass a given ATS." },
+        { q: "Is Cvixeo free?", a: "Yes, you can start for free: the free plan includes 1 CV, 2 templates and a watermarked PDF export. Job matching, cover letters, all templates and watermark-free PDFs are part of Premium (€12/month, or €9/month billed annually) or a one-time 7-day pass (€3.99)." },
+        { q: "Can I import my existing CV?", a: "Yes. You can import a PDF, DOCX or TXT file, then improve the content with AI and pick a new template." },
+        { q: "Can Cvixeo write a cover letter?", a: "Yes. With Premium, Cvixeo generates a cover letter tailored to a specific job description and company, which you can edit before using it." },
+        { q: "Which languages are supported?", a: "The website and editor are available in English, French and Dutch, and the job match analysis handles job descriptions in these three languages." },
+      ],
     },
 
     // ── Footer ───────────────────────────────────────────────────────────────
@@ -105,6 +122,8 @@ export const translations = {
       terms:       "Terms of Use",
       cookies:     "Cookie Policy",
       legalNotice: "Legal Notice",
+      jobMatch:    "Job Match",
+      tagline:     "AI CV builder, ATS resume optimizer and job description matching. Create, tailor and download your CV in minutes.",
     },
 
     // ── Pricing page ─────────────────────────────────────────────────────────
@@ -536,7 +555,7 @@ export const translations = {
     jobMatch: {
       metaTitle: "Job Match – Match Your CV to a Job Offer | CVIXEO",
       metaDescription: "Compare your CV with a job offer, measure your match score, and discover which skills and keywords to improve with CVIXEO.",
-      pageTitle: "Job Match",
+      pageTitle: "Match Your CV to Any Job Description",
       pageSubtitle: "Does your CV really match this job offer? Create a professional CV, compare it with a specific job offer and discover what you can improve.",
       scoreLabel: "CV / Job Match Score",
       scoreCaption: "An analytical matching score — not a hiring probability.",
@@ -610,7 +629,17 @@ export const translations = {
       },
 
       demo: {
-        title: "Adapt your CV to every job offer",
+        title: "Match Your Resume to Any Job",
+        subtitle: "Paste a job description and Cvixeo compares it with your CV: you see which skills and keywords match, which are missing, and what to change to improve your match score.",
+        steps: [
+          { title: "Your CV", body: "Create it with AI or import an existing one." },
+          { title: "Job description", body: "Paste the offer you want to apply for." },
+          { title: "AI analysis", body: "Skills, experience, keywords, education and languages are compared." },
+          { title: "Missing keywords", body: "See what the offer asks for that your CV doesn't show." },
+          { title: "ATS match score", body: "Get a score with a breakdown by category." },
+          { title: "Improve", body: "Apply the recommendations and run the analysis again." },
+        ],
+        cta: "Try Job Match",
         illustrativeNote: "Illustrative example — not a real analysis result.",
         before: "Match Score",
         after: "After improvements",
@@ -725,10 +754,10 @@ export const translations = {
       },
       vision: {
         stats: [
-          { stat: "10,000+", label: "CVs created on the platform" },
-          { stat: "94%", label: "ATS pass rate for optimised resumes" },
-          { stat: "3×", label: "More interview callbacks vs. unoptimised" },
-          { stat: "< 5 min", label: "Average time to a complete, polished CV" },
+          { stat: "15", label: "Professional CV templates" },
+          { stat: "3", label: "Languages: English, French, Dutch" },
+          { stat: "5", label: "Criteria compared in each job match" },
+          { stat: "€0", label: "To create your first CV" },
         ],
         badge: "Our Vision",
         heading: "A world where the best candidate always gets the interview",
@@ -795,20 +824,21 @@ export const translations = {
     },
 
     hero: {
-      badge:     "Cvixeo — Sois vu. Sois choisi.",
-      headline1: "Votre CV correspond-il vraiment",
-      headline2: "à l'offre que vous visez ?",
+      badge: "Créateur de CV IA · Optimisation ATS · Matching d'offres",
+      headline1: "Créez un CV avec l'IA",
+      headline2: "adapté à chaque offre d'emploi",
       subtext:
-        "Créez votre CV professionnel avec l'IA, comparez-le à une offre d'emploi précise et découvrez exactement ce que vous pouvez améliorer.",
+        "Créez un CV professionnel optimisé pour les ATS grâce à l'IA. Comparez-le à n'importe quelle offre d'emploi, découvrez les mots-clés manquants et augmentez vos chances d'être remarqué.",
       highlights: [
-        "ATS-optimisé en un clic",
-        "Génération IA de points clés",
-        "Export PDF inclus",
+        "Modèles compatibles ATS",
+        "Matching CV / offre d'emploi",
+        "Analyse des mots-clés manquants",
+        "Export PDF & lettres de motivation",
       ],
       stats: [
-        { value: "10 000+", label: "CV créés" },
-        { value: "94 %",    label: "Taux ATS" },
-        { value: "3×",      label: "Plus d'entretiens" },
+        { value: "15", label: "modèles de CV" },
+        { value: "3", label: "langues : FR · EN · NL" },
+        { value: "0 €", label: "pour commencer" },
       ],
       ctaPrimary:   "Créer mon CV gratuitement",
       ctaSecondary: "Analyser une offre",
@@ -831,40 +861,58 @@ export const translations = {
 
     features: {
       sectionLabel: "Fonctionnalités",
-      headline:     "Tout ce qu'il vous faut pour décrocher le poste",
+      headline: "Créateur de CV IA, optimisation ATS et matching d'offres réunis",
       subtext:
-        "Du premier jet au PDF final — Cvixeo s'occupe du plus dur pour que vous puissiez vous concentrer sur ce qui compte.",
+        "Cvixeo est un créateur de CV IA qui va plus loin que la simple génération de texte : importez votre CV existant, améliorez-le avec l'IA, vérifiez-le face aux critères ATS et adaptez-le à chaque offre d'emploi avant de postuler.",
       items: [
-        { title: "Génération IA",                     description: "Décrivez votre parcours et laissez GPT-4 rédiger un CV convaincant et professionnel adapté à votre cible." },
-        { title: "Optimisation ATS",                  description: "Scorez votre CV face aux systèmes de suivi des candidatures et obtenez des suggestions précises pour passer les filtres automatiques." },
-        { title: "Matching Offre d'emploi",           description: "Collez n'importe quelle offre et obtenez un score de correspondance ainsi qu'une liste d'améliorations pour adapter parfaitement votre CV." },
-        { title: "Modèles Élégants",                  description: "Choisissez parmi des modèles conçus par des professionnels. Changez de style instantanément sans perdre vos données." },
-        { title: "Export PDF en un clic",             description: "Téléchargez des PDF pixel-perfect parfaits à l'écran et à l'impression. Le plan Pro supprime les filigranes." },
-        { title: "Générateur de Lettre de Motivation", description: "Générez automatiquement des lettres de motivation personnalisées adaptées à des offres et entreprises spécifiques." },
+        { title: "Créateur de CV IA", description: "Décrivez votre parcours et laissez l'IA rédiger un CV clair et professionnel, avec un résumé et des réalisations percutantes adaptés au poste visé." },
+        { title: "Optimisation ATS", description: "Vérifiez votre CV face aux critères des logiciels de recrutement (ATS) et obtenez des suggestions précises sur la structure, la formulation et les mots-clés." },
+        { title: "Matching CV / offre d'emploi", description: "Collez n'importe quelle offre pour voir à quel point votre CV y correspond, avec un score détaillé : compétences, expérience, mots-clés, formation et langues." },
+        { title: "Analyse des mots-clés manquants", description: "Identifiez les compétences et mots-clés de l'offre absents de votre CV pour savoir exactement quoi ajouter ou clarifier." },
+        { title: "Amélioration de CV par l'IA", description: "Importez votre CV existant (PDF, DOCX ou TXT) et laissez l'IA reformuler votre résumé et vos expériences pour les rendre plus percutants." },
+        { title: "Modèles professionnels", description: "Choisissez parmi 15 modèles conçus par des professionnels et changez de style instantanément sans perdre votre contenu." },
+        { title: "Export PDF", description: "Téléchargez un PDF propre, prêt à imprimer. Premium supprime le filigrane." },
+        { title: "Lettre de motivation IA", description: "Générez une lettre de motivation adaptée à une offre et à une entreprise précises." },
       ],
     },
 
-    // Note: fabricated named testimonials attributed to real companies
-    // replaced with neutral, non-attributed feature statements.
+    // Transparency / trust section (rendered by Testimonials.tsx). Previous items
+    // were fabricated testimonials, then feature statements styled as 5-star
+    // reviews — replaced with verifiable statements about how the product works.
     testimonials: {
-      sectionLabel: "Ce que vous pouvez faire",
-      headline:     "Conçu autour de ce qui aide vraiment votre recherche d'emploi",
+      sectionLabel: "Transparence",
+      headline: "Des outils honnêtes, sans promesses exagérées",
       items: [
-        { name: "Job Match",             role: "", avatar: "JM",  content: "Comparez votre CV à une offre d'emploi précise et voyez exactement quelles compétences et quels mots-clés manquent." },
-        { name: "Optimisation ATS",      role: "", avatar: "ATS", content: "Évaluez votre CV face aux systèmes de suivi des candidatures et recevez des suggestions concrètes pour l'améliorer." },
-        { name: "Modèles",               role: "", avatar: "TP",  content: "Choisissez parmi des modèles conçus par des professionnels et changez de style sans perdre vos données." },
-        { name: "Export PDF",            role: "", avatar: "PDF", content: "Téléchargez un PDF propre et prêt à l'emploi en un clic." },
-        { name: "Lettre de motivation",  role: "", avatar: "CL",  content: "Générez une lettre de motivation adaptée à une offre d'emploi précise." },
-        { name: "Suivez votre score",    role: "", avatar: "SC",  content: "Relancez votre analyse Job Match après avoir modifié votre CV et suivez l'évolution de votre score." },
+        { title: "Un score, pas une promesse", content: "Le score de correspondance mesure l'alignement entre votre CV et une offre. Ce n'est ni une probabilité d'embauche ni une garantie de passage des ATS." },
+        { title: "Des résultats expliqués", content: "Chaque analyse détaille les compétences et mots-clés trouvés ou manquants derrière le score, pour que vous puissiez juger les suggestions vous-même." },
+        { title: "Vous gardez le contrôle", content: "Les suggestions de l'IA sont un point de départ. Vous relisez et modifiez chaque ligne avant de télécharger votre CV." },
+        { title: "Vos données, votre choix", content: "Vous pouvez supprimer votre compte et vos CV à tout moment depuis vos paramètres." },
+        { title: "Conçu en 3 langues", content: "Créez et analysez vos CV en français, anglais et néerlandais." },
+        { title: "En amélioration continue", content: "Cvixeo est en version bêta et s'améliore en continu grâce aux retours des utilisateurs." },
       ],
     },
 
     cta: {
       headline:  "Prêt à décrocher l'emploi de vos rêves ?",
-      subtext:   "Rejoignez plus de 10 000 professionnels qui ont déjà boosté leur recherche d'emploi avec Cvixeo. Commencez gratuitement, évoluez selon vos besoins.",
+      subtext:   "Créez votre CV avec l'IA, comparez-le aux offres qui vous intéressent et corrigez ce qui manque avant de postuler. Commencez gratuitement, évoluez selon vos besoins.",
       primary:   "Commencer gratuitement",
       secondary: "Voir les offres",
       footnote:  "Sans carte bancaire · Résiliation facile · à partir de 9 €/mois",
+    },
+
+    // ── Homepage FAQ (also emitted as FAQPage JSON-LD) ─────────────────────
+    faq: {
+      sectionLabel: "FAQ",
+      headline: "Questions fréquentes",
+      items: [
+        { q: "Qu'est-ce que Cvixeo ?", a: "Cvixeo est un créateur de CV IA et un outil d'optimisation ATS. Il vous aide à créer un CV professionnel avec l'IA, à le vérifier face aux critères ATS et à le comparer à une offre d'emploi précise pour identifier les compétences et mots-clés manquants." },
+        { q: "Comment fonctionne le matching CV / offre d'emploi ?", a: "Collez l'offre d'emploi et sélectionnez votre CV. L'IA de Cvixeo compare les compétences, l'expérience, les mots-clés, la formation et les langues, puis affiche un score de correspondance, les mots-clés manquants et des recommandations concrètes. Après modification de votre CV, vous pouvez relancer l'analyse." },
+        { q: "Qu'est-ce qu'un score ATS ?", a: "De nombreux recruteurs utilisent des logiciels de suivi des candidatures (ATS) pour trier les CV. Le score de Cvixeo mesure l'alignement du contenu et de la structure de votre CV avec une offre d'emploi. C'est un indicateur d'analyse, pas une probabilité d'embauche ni une garantie de passage d'un ATS." },
+        { q: "Cvixeo est-il gratuit ?", a: "Oui, vous pouvez commencer gratuitement : l'offre gratuite comprend 1 CV, 2 modèles et un export PDF avec filigrane. Le matching d'offres, les lettres de motivation, tous les modèles et les PDF sans filigrane sont inclus dans Premium (12 €/mois, ou 9 €/mois en facturation annuelle) ou dans un pass de 7 jours sans abonnement (3,99 €)." },
+        { q: "Puis-je importer mon CV existant ?", a: "Oui. Importez un fichier PDF, DOCX ou TXT, améliorez son contenu avec l'IA et choisissez un nouveau modèle." },
+        { q: "Cvixeo peut-il rédiger une lettre de motivation ?", a: "Oui. Avec Premium, Cvixeo génère une lettre de motivation adaptée à une offre et à une entreprise précises, que vous pouvez modifier avant de l'utiliser." },
+        { q: "Quelles langues sont disponibles ?", a: "Le site et l'éditeur sont disponibles en français, anglais et néerlandais, et l'analyse de correspondance prend en charge les offres rédigées dans ces trois langues." },
+      ],
     },
 
     footer: {
@@ -880,6 +928,8 @@ export const translations = {
       terms:       "Conditions d'utilisation",
       cookies:     "Politique de cookies",
       legalNotice: "Mentions légales",
+      jobMatch:    "Job Match",
+      tagline:     "Créateur de CV IA, optimisation ATS et matching d'offres d'emploi. Créez, adaptez et téléchargez votre CV en quelques minutes.",
     },
 
     pricing: {
@@ -1308,7 +1358,7 @@ export const translations = {
     jobMatch: {
       metaTitle: "Job Match – Adaptez votre CV à une offre d'emploi | CVIXEO",
       metaDescription: "Comparez votre CV à une offre d'emploi, mesurez votre score de correspondance et découvrez les compétences et mots-clés à améliorer avec CVIXEO.",
-      pageTitle: "Job Match",
+      pageTitle: "Comparez votre CV à une offre d’emploi",
       pageSubtitle: "Votre CV correspond-il vraiment à cette offre d'emploi ? Créez un CV professionnel, comparez-le à une offre d'emploi précise et découvrez ce que vous pouvez améliorer.",
       scoreLabel: "Score de correspondance CV / offre",
       scoreCaption: "Un score d'analyse de correspondance — pas une probabilité d'embauche.",
@@ -1382,7 +1432,17 @@ export const translations = {
       },
 
       demo: {
-        title: "Adaptez votre CV à chaque offre",
+        title: "Adaptez votre CV à n'importe quelle offre",
+        subtitle: "Collez une offre d'emploi et Cvixeo la compare à votre CV : vous voyez les compétences et mots-clés présents, ceux qui manquent, et quoi modifier pour améliorer votre score de correspondance.",
+        steps: [
+          { title: "Votre CV", body: "Créez-le avec l'IA ou importez un CV existant." },
+          { title: "Offre d'emploi", body: "Collez l'offre à laquelle vous voulez postuler." },
+          { title: "Analyse IA", body: "Compétences, expérience, mots-clés, formation et langues sont comparés." },
+          { title: "Mots-clés manquants", body: "Voyez ce que l'offre demande et que votre CV ne montre pas." },
+          { title: "Score ATS", body: "Obtenez un score détaillé par catégorie." },
+          { title: "Améliorer", body: "Appliquez les recommandations et relancez l'analyse." },
+        ],
+        cta: "Essayer le Job Match",
         illustrativeNote: "Exemple illustratif — pas un résultat d'analyse réel.",
         before: "Score de correspondance",
         after: "Après améliorations",
@@ -1497,10 +1557,10 @@ export const translations = {
       },
       vision: {
         stats: [
-          { stat: "10 000+", label: "CV créés sur la plateforme" },
-          { stat: "94 %", label: "Taux de réussite ATS pour les CV optimisés" },
-          { stat: "3×", label: "Plus de retours d'entretien qu'un CV non optimisé" },
-          { stat: "< 5 min", label: "Temps moyen pour un CV complet et soigné" },
+          { stat: "15", label: "Modèles de CV professionnels" },
+          { stat: "3", label: "Langues : français, anglais, néerlandais" },
+          { stat: "5", label: "Critères comparés à chaque analyse" },
+          { stat: "0 €", label: "Pour créer votre premier CV" },
         ],
         badge: "Notre vision",
         heading: "Un monde où le meilleur candidat obtient toujours l'entretien",
@@ -1569,20 +1629,21 @@ export const translations = {
 
     // ── Hero ─────────────────────────────────────────────────────────────────
     hero: {
-      badge: "Cvixeo — Word gezien. Word gekozen.",
-      headline1: "Sluit je cv echt aan",
-      headline2: "bij de vacature die je wil?",
+      badge: "AI cv-maker · ATS-optimalisatie · Vacature-matching",
+      headline1: "Maak met AI een cv",
+      headline2: "dat past bij de vacature",
       subtext:
-        "Maak je professionele cv met AI, vergelijk het met een specifieke vacature en ontdek precies wat je kan verbeteren.",
+        "Maak met AI een professioneel, ATS-geoptimaliseerd cv. Vergelijk je cv met eender welke vacature, ontdek ontbrekende zoekwoorden en vergroot je kans om op te vallen.",
       highlights: [
-        "ATS-geoptimaliseerd met één klik",
-        "AI-gegenereerde bullet points",
-        "Pdf-export inbegrepen",
+        "ATS-vriendelijke sjablonen",
+        "Vacature-matching",
+        "Analyse van ontbrekende zoekwoorden",
+        "Pdf-export & sollicitatiebrieven",
       ],
       stats: [
-        { value: "10.000+", label: "cv's aangemaakt" },
-        { value: "94%",     label: "ATS-slaagpercentage" },
-        { value: "3×",      label: "meer sollicitatiegesprekken" },
+        { value: "15", label: "cv-sjablonen" },
+        { value: "3", label: "talen: NL · FR · EN" },
+        { value: "€0", label: "om te starten" },
       ],
       ctaPrimary: "Maak gratis mijn cv",
       ctaSecondary: "Analyseer een vacature",
@@ -1606,42 +1667,59 @@ export const translations = {
     // ── Features ─────────────────────────────────────────────────────────────
     features: {
       sectionLabel: "Functies",
-      headline: "Alles wat je nodig hebt om de job te vinden — maak een professioneel cv met AI, optimaliseer het voor ATS en krijg meer sollicitatiegesprekken",
+      headline: "AI cv-maker, ATS-optimalisatie en vacature-matching op één plek",
       subtext:
-        "Van eerste opzet tot definitieve pdf — Cvixeo neemt het zware werk uit handen, zodat jij je kunt focussen op wat telt. CVIXEO is een AI-platform voor het opstellen van cv's. Importeer je oude cv, verbeter automatisch je werkervaring, stem je sollicitatie af op elke vacature en download een professioneel cv dat indruk maakt op rekruteerders.",
+        "Cvixeo is een AI cv-maker die verder gaat dan tekst genereren: importeer je bestaande cv, verbeter het met AI, toets het aan ATS-criteria en stem het af op elke vacature voor je solliciteert.",
       items: [
-        { title: "AI-gestuurde generatie",        description: "Beschrijf je ervaring en laat GPT-4 een overtuigend, professioneel cv schrijven, afgestemd op je doelfunctie." },
-        { title: "ATS-optimalisatie",              description: "Beoordeel je cv tegenover Applicant Tracking Systems en krijg concrete suggesties om de automatische screening te doorstaan." },
-        { title: "Vacature-matching",              description: "Plak eender welke vacature en ontvang een matchscore plus een lijst met verbeteringen om je cv perfect af te stemmen." },
-        { title: "Mooie sjablonen",                 description: "Kies uit professioneel ontworpen sjablonen. Wissel meteen van stijl zonder je gegevens te verliezen." },
-        { title: "Pdf-export met één klik",         description: "Download pixelperfecte pdf's die er goed uitzien op scherm en op papier. Het Pro-plan verwijdert het watermerk." },
-        { title: "Generator voor sollicitatiebrieven", description: "Genereer automatisch persoonlijke sollicitatiebrieven, afgestemd op specifieke vacatures en bedrijven." },
+        { title: "AI cv-maker", description: "Beschrijf je ervaring en laat AI een helder, professioneel cv schrijven, met een samenvatting en sterke bullet points voor je doelfunctie." },
+        { title: "ATS-optimalisatie", description: "Toets je cv aan de criteria van Applicant Tracking Systems en krijg concrete suggesties over structuur, formulering en zoekwoorden." },
+        { title: "Vacature-matching", description: "Plak eender welke vacature en zie hoe goed je cv erbij past, met een score per onderdeel: vaardigheden, ervaring, zoekwoorden, opleiding en talen." },
+        { title: "Analyse van ontbrekende zoekwoorden", description: "Zie welke vaardigheden en zoekwoorden uit de vacature niet in je cv gevonden werden, zodat je precies weet wat je moet toevoegen of verduidelijken." },
+        { title: "Cv verbeteren met AI", description: "Importeer je bestaande cv (PDF, DOCX of TXT) en laat AI je samenvatting en ervaring scherper herschrijven." },
+        { title: "Professionele sjablonen", description: "Kies uit 15 professioneel ontworpen sjablonen en wissel meteen van stijl zonder je inhoud te verliezen." },
+        { title: "Pdf-export", description: "Download een nette, afdrukklare pdf. Premium verwijdert het watermerk." },
+        { title: "Sollicitatiebrief-generator", description: "Genereer een sollicitatiebrief afgestemd op een specifieke vacature en een specifiek bedrijf." },
       ],
     },
 
-    // ── Testimonials ─────────────────────────────────────────────────────────
-    // Note: fabricated named testimonials attributed to real companies
-    // replaced with neutral, non-attributed feature statements.
+    // Transparency / trust section (rendered by Testimonials.tsx). Previous items
+    // were fabricated testimonials, then feature statements styled as 5-star
+    // reviews — replaced with verifiable statements about how the product works.
     testimonials: {
-      sectionLabel: "Wat je kan doen",
-      headline: "Gebouwd rond wat je zoektocht echt vooruit helpt",
+      sectionLabel: "Transparantie",
+      headline: "Eerlijke tools, geen overdreven beloftes",
       items: [
-        { name: "Job Match",          role: "", avatar: "JM",  content: "Vergelijk je cv met een specifieke vacature en zie precies welke vaardigheden en zoekwoorden ontbreken." },
-        { name: "ATS-optimalisatie",  role: "", avatar: "ATS", content: "Beoordeel je cv tegenover Applicant Tracking Systems en krijg concrete suggesties om het te verbeteren." },
-        { name: "Sjablonen",          role: "", avatar: "TP",  content: "Kies uit professioneel ontworpen sjablonen en wissel van stijl zonder je gegevens te verliezen." },
-        { name: "Pdf-export",         role: "", avatar: "PDF", content: "Download een nette, afdrukklare pdf met één klik." },
-        { name: "Sollicitatiebrief",  role: "", avatar: "CL",  content: "Genereer een sollicitatiebrief afgestemd op een specifieke vacature." },
-        { name: "Volg je score",      role: "", avatar: "SC",  content: "Voer je Job Match-analyse opnieuw uit na het bijwerken van je cv en volg hoe je score verandert." },
+        { title: "Een score, geen belofte", content: "De matchscore meet hoe goed je cv aansluit bij een vacature. Het is geen kans op aanwerving en geen garantie dat je door een ATS raakt." },
+        { title: "Uitgelegde resultaten", content: "Elke analyse toont de gevonden en ontbrekende vaardigheden en zoekwoorden achter de score, zodat je de suggesties zelf kan beoordelen." },
+        { title: "Jij houdt de controle", content: "AI-suggesties zijn een vertrekpunt. Je leest en bewerkt elke regel voor je je cv downloadt." },
+        { title: "Jouw gegevens, jouw keuze", content: "Je kan je account en je cv's op elk moment verwijderen via je instellingen." },
+        { title: "Gebouwd voor 3 talen", content: "Maak en analyseer cv's in het Nederlands, Frans en Engels." },
+        { title: "Voortdurend verbeterd", content: "Cvixeo is in bèta en wordt continu verbeterd op basis van feedback van gebruikers." },
       ],
     },
 
     // ── CTA ──────────────────────────────────────────────────────────────────
     cta: {
       headline:  "Klaar om je droomjob te vinden?",
-      subtext:   "Sluit je aan bij 10.000+ professionals die hun jobzoektocht al naar een hoger niveau tilden met Cvixeo. Start gratis, upgrade wanneer je wil.",
+      subtext:   "Maak je cv met AI, vergelijk het met de vacatures die je wil en vul aan wat ontbreekt voor je solliciteert. Start gratis, upgrade wanneer je wil.",
       primary:   "Start gratis",
       secondary: "Bekijk alle plannen",
       footnote:  "Geen kredietkaart nodig · Op elk moment opzegbaar · vanaf €9/maand",
+    },
+
+    // ── Homepage FAQ (also emitted as FAQPage JSON-LD) ─────────────────────
+    faq: {
+      sectionLabel: "FAQ",
+      headline: "Veelgestelde vragen",
+      items: [
+        { q: "Wat is Cvixeo?", a: "Cvixeo is een AI cv-maker en ATS cv-optimalisatietool. Je maakt er met AI een professioneel cv mee, toetst het aan ATS-criteria en vergelijkt het met een specifieke vacature om te zien welke vaardigheden en zoekwoorden ontbreken." },
+        { q: "Hoe werkt vacature-matching?", a: "Plak de vacature en kies je cv. De AI van Cvixeo vergelijkt vaardigheden, ervaring, zoekwoorden, opleiding en talen, en toont een matchscore, de ontbrekende zoekwoorden en concrete aanbevelingen. Na het aanpassen van je cv kan je de analyse opnieuw uitvoeren." },
+        { q: "Wat is een ATS-score?", a: "Veel werkgevers gebruiken Applicant Tracking Systems (ATS) om sollicitaties te sorteren. De score van Cvixeo meet hoe goed de inhoud en structuur van je cv aansluiten bij een vacature. Het is een analytische indicator, geen kans op aanwerving en geen garantie dat je cv door een bepaald ATS raakt." },
+        { q: "Is Cvixeo gratis?", a: "Ja, je kan gratis starten: het gratis plan bevat 1 cv, 2 sjablonen en een pdf-export met watermerk. Vacature-matching, sollicitatiebrieven, alle sjablonen en pdf's zonder watermerk zitten in Premium (€12/maand, of €9/maand bij jaarlijkse betaling) of in een eenmalige 7-dagenpas (€3,99)." },
+        { q: "Kan ik mijn bestaande cv importeren?", a: "Ja. Importeer een PDF-, DOCX- of TXT-bestand, verbeter de inhoud met AI en kies een nieuw sjabloon." },
+        { q: "Kan Cvixeo een sollicitatiebrief schrijven?", a: "Ja. Met Premium genereert Cvixeo een sollicitatiebrief afgestemd op een specifieke vacature en een specifiek bedrijf, die je kan aanpassen voor je hem gebruikt." },
+        { q: "Welke talen worden ondersteund?", a: "De website en de editor zijn beschikbaar in het Nederlands, Frans en Engels, en de matchanalyse werkt met vacatures in die drie talen." },
+      ],
     },
 
     // ── Footer ───────────────────────────────────────────────────────────────
@@ -1658,6 +1736,8 @@ export const translations = {
       terms:       "Gebruiksvoorwaarden",
       cookies:     "Cookiebeleid",
       legalNotice: "Wettelijke vermeldingen",
+      jobMatch:    "Job Match",
+      tagline:     "AI cv-maker, ATS-optimalisatie en vacature-matching. Maak, personaliseer en download je cv in enkele minuten.",
     },
 
     // ── Pricing page ─────────────────────────────────────────────────────────
@@ -2089,7 +2169,7 @@ export const translations = {
     jobMatch: {
       metaTitle: "Job Match – Stem je cv af op een vacature | CVIXEO",
       metaDescription: "Vergelijk je cv met een vacature, meet je matchingsscore en ontdek welke vaardigheden en zoekwoorden je kan verbeteren met CVIXEO.",
-      pageTitle: "Job Match",
+      pageTitle: "Vergelijk je cv met een vacature",
       pageSubtitle: "Sluit je cv echt aan bij deze vacature? Maak een professioneel cv, vergelijk het met een specifieke vacature en ontdek wat je kan verbeteren.",
       scoreLabel: "Cv / Vacature matchingsscore",
       scoreCaption: "Een analytische matchingsscore — geen kans op aanwerving.",
@@ -2164,6 +2244,16 @@ export const translations = {
 
       demo: {
         title: "Stem je cv af op elke vacature",
+        subtitle: "Plak een vacature en Cvixeo vergelijkt ze met je cv: je ziet welke vaardigheden en zoekwoorden overeenkomen, welke ontbreken en wat je kan aanpassen om je matchscore te verbeteren.",
+        steps: [
+          { title: "Jouw cv", body: "Maak het met AI of importeer een bestaand cv." },
+          { title: "Vacature", body: "Plak de vacature waarop je wil solliciteren." },
+          { title: "AI-analyse", body: "Vaardigheden, ervaring, zoekwoorden, opleiding en talen worden vergeleken." },
+          { title: "Ontbrekende zoekwoorden", body: "Zie wat de vacature vraagt en je cv niet toont." },
+          { title: "ATS-matchscore", body: "Krijg een score met een opsplitsing per categorie." },
+          { title: "Verbeteren", body: "Pas de aanbevelingen toe en voer de analyse opnieuw uit." },
+        ],
+        cta: "Probeer Job Match",
         illustrativeNote: "Illustratief voorbeeld — geen echt analyseresultaat.",
         before: "Matchingsscore",
         after: "Na verbeteringen",
@@ -2278,10 +2368,10 @@ export const translations = {
       },
       vision: {
         stats: [
-          { stat: "10.000+", label: "cv's aangemaakt op het platform" },
-          { stat: "94%", label: "ATS-slaagpercentage voor geoptimaliseerde cv's" },
-          { stat: "3×", label: "meer sollicitatiegesprekken t.o.v. niet-geoptimaliseerd" },
-          { stat: "< 5 min", label: "gemiddelde tijd tot een volledig, afgewerkt cv" },
+          { stat: "15", label: "Professionele cv-sjablonen" },
+          { stat: "3", label: "Talen: Nederlands, Frans, Engels" },
+          { stat: "5", label: "Criteria vergeleken bij elke match" },
+          { stat: "€0", label: "Om je eerste cv te maken" },
         ],
         badge: "Onze visie",
         heading: "Een wereld waarin de beste kandidaat altijd het sollicitatiegesprek krijgt",

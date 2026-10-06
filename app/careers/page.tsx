@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { CareersClient } from "./CareersClient";
@@ -8,18 +9,19 @@ export const metadata: Metadata = {
   description:
     "Expert career tips, CV writing guides, and job search advice to help you land your dream job faster.",
   alternates: {
-    canonical: "https://cvixeo.com/careers",
+    canonical: "https://www.cvixeo.com/careers",
     languages: {
-      en: "https://cvixeo.com/careers",
-      fr: "https://cvixeo.com/fr/careers",
-      nl: "https://cvixeo.com/nl/careers",
-      "x-default": "https://cvixeo.com/careers",
+      en: "https://www.cvixeo.com/careers",
+      fr: "https://www.cvixeo.com/fr/careers",
+      nl: "https://www.cvixeo.com/nl/careers",
+      "x-default": "https://www.cvixeo.com/careers",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Career Advice & Resources | Cvixeo",
     description: "Expert CV writing guides and job search advice from the Cvixeo team.",
-    url: "https://cvixeo.com/careers",
+    url: "https://www.cvixeo.com/careers",
   },
 };
 

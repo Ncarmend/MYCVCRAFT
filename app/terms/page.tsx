@@ -4,15 +4,15 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { TermsClient } from "./TermsClient";
 
 export const metadata: Metadata = {
-  title: "Terms of Use — Cvixeo",
+  title: "Terms of Use",
   description: "The terms and conditions that govern your use of Cvixeo's AI-powered CV builder and related services.",
   alternates: {
-    canonical: "https://cvixeo.com/terms",
+    canonical: "https://www.cvixeo.com/terms",
     languages: {
-      en: "https://cvixeo.com/terms",
-      fr: "https://cvixeo.com/fr/terms",
-      nl: "https://cvixeo.com/nl/terms",
-      "x-default": "https://cvixeo.com/terms",
+      en: "https://www.cvixeo.com/terms",
+      fr: "https://www.cvixeo.com/fr/terms",
+      nl: "https://www.cvixeo.com/nl/terms",
+      "x-default": "https://www.cvixeo.com/terms",
     },
   },
 };

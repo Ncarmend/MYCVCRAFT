@@ -1,0 +1,33 @@
+# Cvixeo
+
+> Cvixeo is an AI CV builder and ATS resume optimizer with job description matching. Users create or import a CV, improve it with AI, compare it with a specific job description to find missing skills and keywords, get a match score, and export a PDF. Available in English, French and Dutch.
+
+## What Cvixeo does
+
+- AI CV builder: generates a professional summary and impact-focused bullet points from the user's experience.
+- ATS optimization: checks a CV against Applicant Tracking System criteria (structure, wording, keywords) and suggests improvements.
+- Job description matching: compares a CV with a pasted job description and returns a match score broken down by skills, experience, keywords, education and languages, plus matching/missing keywords and recommendations. The analysis can be re-run after editing.
+- CV import: PDF, DOCX or TXT, then AI improvement of the content.
+- 15 professional CV templates, PDF export.
+- AI cover letter generator tailored to a job description and company.
+
+## What the score means
+
+The match score measures textual and structural alignment between a CV and a job description. It is not a hiring probability, not an interview probability and not a guarantee of ATS acceptance. Cvixeo is currently in beta.
+
+## Pricing (EUR)
+
+- Free: 1 CV, 2 templates, watermarked PDF export.
+- 7-Day Premium Pass: €3.99 one-time.
+- Premium: €12/month, or €9/month billed annually (€108/year). Includes job description matching, cover letters, all templates, unlimited CVs and watermark-free PDFs.
+
+## Key pages
+
+- [Home (EN)](https://www.cvixeo.com/): AI CV builder, ATS optimization and job matching overview
+- [Accueil (FR)](https://www.cvixeo.com/fr)
+- [Home (NL)](https://www.cvixeo.com/nl)
+- [Job Match](https://www.cvixeo.com/job-match): compare a CV with a job description
+- [Pricing](https://www.cvixeo.com/pricing)
+- [Career advice](https://www.cvixeo.com/careers): CV writing and job search articles
+- [About](https://www.cvixeo.com/about)
+- [Contact](https://www.cvixeo.com/contact): support@cvixeo.com

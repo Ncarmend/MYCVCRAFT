@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { localePath } from "@/lib/seo";
 
 export function CTA() {
   const { lang } = useLanguage();
@@ -35,7 +36,7 @@ export function CTA() {
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/pricing">
+          <Link href={localePath(lang, "/pricing")}>
             <Button
               size="md"
               variant="ghost"

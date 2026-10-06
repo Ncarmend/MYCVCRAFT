@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description:
     "Cvixeo's mission is to help every job seeker land more interviews using AI. Learn about our product vision, core values, and the team behind the platform.",
   alternates: {
-    canonical: "https://cvixeo.com/about",
+    canonical: "https://www.cvixeo.com/about",
     languages: {
-      en: "https://cvixeo.com/about",
-      fr: "https://cvixeo.com/fr/about",
-      nl: "https://cvixeo.com/nl/about",
-      "x-default": "https://cvixeo.com/about",
+      en: "https://www.cvixeo.com/about",
+      fr: "https://www.cvixeo.com/fr/about",
+      nl: "https://www.cvixeo.com/nl/about",
+      "x-default": "https://www.cvixeo.com/about",
     },
   },
 };

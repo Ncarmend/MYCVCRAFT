@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { AboutClient } from "../../about/AboutClient";
@@ -8,18 +9,19 @@ export const metadata: Metadata = {
   description:
     "La mission de Cvixeo est d'aider chaque candidat à décrocher plus d'entretiens grâce à l'IA. Découvrez notre vision produit, nos valeurs fondamentales et l'équipe derrière la plateforme.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/about",
+    canonical: "https://www.cvixeo.com/fr/about",
     languages: {
-      en: "https://cvixeo.com/about",
-      fr: "https://cvixeo.com/fr/about",
-      nl: "https://cvixeo.com/nl/about",
-      "x-default": "https://cvixeo.com/about",
+      en: "https://www.cvixeo.com/about",
+      fr: "https://www.cvixeo.com/fr/about",
+      nl: "https://www.cvixeo.com/nl/about",
+      "x-default": "https://www.cvixeo.com/about",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "À propos de Cvixeo",
     description: "La mission de Cvixeo est d'aider chaque candidat à décrocher plus d'entretiens grâce à l'IA.",
-    url: "https://cvixeo.com/fr/about",
+    url: "https://www.cvixeo.com/fr/about",
     locale: "fr_FR",
   },
 };

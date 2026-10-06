@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LegalClient } from "../../legal/LegalClient";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Cvixeo",
+  title: "Mentions légales",
   description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/legal",
+    canonical: "https://www.cvixeo.com/fr/legal",
     languages: {
-      en: "https://cvixeo.com/legal",
-      fr: "https://cvixeo.com/fr/legal",
-      nl: "https://cvixeo.com/nl/legal",
-      "x-default": "https://cvixeo.com/legal",
+      en: "https://www.cvixeo.com/legal",
+      fr: "https://www.cvixeo.com/fr/legal",
+      nl: "https://www.cvixeo.com/nl/legal",
+      "x-default": "https://www.cvixeo.com/legal",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Mentions légales — Cvixeo",
     description: "Mentions légales pour Cvixeo — informations sur l'éditeur, l'hébergement et la propriété intellectuelle.",
-    url: "https://cvixeo.com/fr/legal",
+    url: "https://www.cvixeo.com/fr/legal",
     locale: "fr_FR",
   },
 };

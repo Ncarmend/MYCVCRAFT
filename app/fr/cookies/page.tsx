@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { CookiesClient } from "../../cookies/CookiesClient";
 
 export const metadata: Metadata = {
-  title: "Politique de cookies — Cvixeo",
+  title: "Politique de cookies",
   description: "Comment Cvixeo utilise les cookies et comment gérer vos préférences. Politique de cookies conforme au RGPD pour les utilisateurs européens.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/cookies",
+    canonical: "https://www.cvixeo.com/fr/cookies",
     languages: {
-      en: "https://cvixeo.com/cookies",
-      fr: "https://cvixeo.com/fr/cookies",
-      nl: "https://cvixeo.com/nl/cookies",
-      "x-default": "https://cvixeo.com/cookies",
+      en: "https://www.cvixeo.com/cookies",
+      fr: "https://www.cvixeo.com/fr/cookies",
+      nl: "https://www.cvixeo.com/nl/cookies",
+      "x-default": "https://www.cvixeo.com/cookies",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Politique de cookies — Cvixeo",
     description: "Comment Cvixeo utilise les cookies et comment gérer vos préférences.",
-    url: "https://cvixeo.com/fr/cookies",
+    url: "https://www.cvixeo.com/fr/cookies",
     locale: "fr_FR",
   },
 };

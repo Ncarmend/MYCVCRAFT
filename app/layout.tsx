@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/landing/LanguageContext";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const GTM_ID = "GTM-NHGQGDP7";
@@ -15,33 +16,55 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cvixeo.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Cvixeo — AI-Powered CV Generator",
+    default: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
     template: "%s | Cvixeo",
   },
   description:
-    "Create professional, ATS-optimized CVs in minutes with AI. Stand out from the crowd with beautiful templates and intelligent career insights.",
-  keywords: ["CV generator", "resume builder", "AI CV", "ATS optimization", "job application"],
-  authors: [{ name: "Cvixeo" }],
-  creator: "Cvixeo",
+    "Build an ATS-optimized CV with AI, match it to any job description, find missing keywords and get a match score. Free plan, 15 templates, PDF export.",
+  applicationName: SITE_NAME,
+  keywords: [
+    "AI CV builder",
+    "AI resume builder",
+    "AI CV generator",
+    "ATS CV builder",
+    "ATS resume optimizer",
+    "CV optimizer",
+    "job description matching",
+    "tailor CV to job description",
+    "ATS score",
+    "cover letter generator",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "Productivity",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://cvixeo.com",
-    siteName: "Cvixeo",
-    title: "Cvixeo — AI-Powered CV Generator",
-    description: "Create professional, ATS-optimized CVs in minutes with AI.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
+    description:
+      "Create an ATS-optimized CV with AI and match it to any job description: missing keywords, match score and concrete improvements.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cvixeo — AI-Powered CV Generator",
-    description: "Create professional, ATS-optimized CVs in minutes with AI.",
+    title: "AI CV Builder & ATS Resume Optimizer | Cvixeo",
+    description:
+      "Create an ATS-optimized CV with AI and match it to any job description: missing keywords, match score and concrete improvements.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -52,20 +75,36 @@ export default async function RootLayout({
 }) {
   const locale = (await headers()).get("x-locale") ?? "en";
 
+  // Site-wide entity graph (Organization + WebSite). Page-specific schemas
+  // (SoftwareApplication, FAQPage, Article) are emitted by the pages themselves.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Cvixeo",
-    url: "https://cvixeo.com",
-    description: "Create professional, ATS-optimized CVs in minutes with AI.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://cvixeo.com/careers?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.png`,
+        email: "support@cvixeo.com",
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          email: "support@cvixeo.com",
+          availableLanguage: ["English", "French", "Dutch"],
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        inLanguage: ["en", "fr", "nl"],
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+    ],
   };
 
-  
   return (
     <html lang={locale} className={`${inter.variable} h-full antialiased`}>
       <head>

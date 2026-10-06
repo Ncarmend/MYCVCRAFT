@@ -4,15 +4,15 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { PrivacyClient } from "./PrivacyClient";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Cvixeo",
+  title: "Privacy Policy",
   description: "How Cvixeo collects, uses, and protects your personal data. GDPR-compliant privacy policy for European users.",
   alternates: {
-    canonical: "https://cvixeo.com/privacy",
+    canonical: "https://www.cvixeo.com/privacy",
     languages: {
-      en: "https://cvixeo.com/privacy",
-      fr: "https://cvixeo.com/fr/privacy",
-      nl: "https://cvixeo.com/nl/privacy",
-      "x-default": "https://cvixeo.com/privacy",
+      en: "https://www.cvixeo.com/privacy",
+      fr: "https://www.cvixeo.com/fr/privacy",
+      nl: "https://www.cvixeo.com/nl/privacy",
+      "x-default": "https://www.cvixeo.com/privacy",
     },
   },
 };

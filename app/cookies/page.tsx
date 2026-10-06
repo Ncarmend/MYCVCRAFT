@@ -4,15 +4,15 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { CookiesClient } from "./CookiesClient";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy — Cvixeo",
+  title: "Cookie Policy",
   description: "How Cvixeo uses cookies and how to manage your preferences. GDPR-compliant cookie policy for European users.",
   alternates: {
-    canonical: "https://cvixeo.com/cookies",
+    canonical: "https://www.cvixeo.com/cookies",
     languages: {
-      en: "https://cvixeo.com/cookies",
-      fr: "https://cvixeo.com/fr/cookies",
-      nl: "https://cvixeo.com/nl/cookies",
-      "x-default": "https://cvixeo.com/cookies",
+      en: "https://www.cvixeo.com/cookies",
+      fr: "https://www.cvixeo.com/fr/cookies",
+      nl: "https://www.cvixeo.com/nl/cookies",
+      "x-default": "https://www.cvixeo.com/cookies",
     },
   },
 };

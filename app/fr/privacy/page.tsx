@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { PrivacyClient } from "../../privacy/PrivacyClient";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Cvixeo",
+  title: "Politique de confidentialité",
   description: "Comment Cvixeo collecte, utilise et protège vos données personnelles. Politique de confidentialité conforme au RGPD pour les utilisateurs européens.",
   alternates: {
-    canonical: "https://cvixeo.com/fr/privacy",
+    canonical: "https://www.cvixeo.com/fr/privacy",
     languages: {
-      en: "https://cvixeo.com/privacy",
-      fr: "https://cvixeo.com/fr/privacy",
-      nl: "https://cvixeo.com/nl/privacy",
-      "x-default": "https://cvixeo.com/privacy",
+      en: "https://www.cvixeo.com/privacy",
+      fr: "https://www.cvixeo.com/fr/privacy",
+      nl: "https://www.cvixeo.com/nl/privacy",
+      "x-default": "https://www.cvixeo.com/privacy",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Politique de confidentialité — Cvixeo",
     description: "Comment Cvixeo collecte, utilise et protège vos données personnelles.",
-    url: "https://cvixeo.com/fr/privacy",
+    url: "https://www.cvixeo.com/fr/privacy",
     locale: "fr_FR",
   },
 };

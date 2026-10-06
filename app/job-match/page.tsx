@@ -1,25 +1,27 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { JobMatchClient } from "@/components/job-match/JobMatchClient";
 
 export const metadata: Metadata = {
-  title: "Job Match – Match Your CV to a Job Offer | CVIXEO",
+  title: "Job Description Matching – Tailor Your CV to Any Job",
   description:
     "Compare your CV with a job offer, measure your match score, and discover which skills and keywords to improve with CVIXEO.",
   alternates: {
-    canonical: "https://cvixeo.com/job-match",
+    canonical: "https://www.cvixeo.com/job-match",
     languages: {
-      en: "https://cvixeo.com/job-match",
-      fr: "https://cvixeo.com/fr/job-match",
-      nl: "https://cvixeo.com/nl/job-match",
-      "x-default": "https://cvixeo.com/job-match",
+      en: "https://www.cvixeo.com/job-match",
+      fr: "https://www.cvixeo.com/fr/job-match",
+      nl: "https://www.cvixeo.com/nl/job-match",
+      "x-default": "https://www.cvixeo.com/job-match",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Job Match – Match Your CV to a Job Offer | CVIXEO",
     description: "Compare your CV with a job offer and see exactly what to improve.",
-    url: "https://cvixeo.com/job-match",
+    url: "https://www.cvixeo.com/job-match",
   },
 };
 

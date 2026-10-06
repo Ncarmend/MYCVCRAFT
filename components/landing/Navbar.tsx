@@ -7,6 +7,7 @@ import { Menu, X, User } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
+import { localePath } from "@/lib/seo";
 
 const langActive   = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
@@ -66,7 +67,8 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
       isActive(href) ? "bg-green-50 text-green-800" : "text-slate-900 hover:text-green-800",
     );
 
-  const featuresHref = pathname === "/" ? "#features" : "/#features";
+  const homeHref = localePath(lang, "/");
+  const featuresHref = pathname === homeHref ? "#features" : localePath(lang, "/#features");
 
   const LangToggle = ({ mobile }: { mobile?: boolean }) => (
     <div className="flex items-center rounded-lg border border-gray-200 p-0.5">
@@ -91,7 +93,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href={localePath(lang, "/")} className="flex items-center">
           <Logo height={36} />
         </Link>
 
@@ -103,13 +105,13 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           <Link href={jobMatchHref} className={desktopLink(jobMatchHref)}>
             {T.jobMatch}
           </Link>
-          <Link href="/pricing" className={desktopLink("/pricing")}>
+          <Link href={localePath(lang, "/pricing")} className={desktopLink(localePath(lang, "/pricing"))}>
             {T.pricing}
           </Link>
-          <Link href="/careers" className={desktopLink("/careers")}>
+          <Link href={localePath(lang, "/careers")} className={desktopLink(localePath(lang, "/careers"))}>
             {T.careers}
           </Link>
-          <Link href="/contact" className={desktopLink("/contact")}>
+          <Link href={localePath(lang, "/contact")} className={desktopLink(localePath(lang, "/contact"))}>
             {T.contact}
           </Link>
           {isLoggedIn && (
@@ -192,13 +194,13 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
             <Link href={jobMatchHref} onClick={() => setMobileOpen(false)} className={mobileLink(jobMatchHref)}>
               {T.jobMatch}
             </Link>
-            <Link href="/pricing" onClick={() => setMobileOpen(false)} className={mobileLink("/pricing")}>
+            <Link href={localePath(lang, "/pricing")} onClick={() => setMobileOpen(false)} className={mobileLink(localePath(lang, "/pricing"))}>
               {T.pricing}
             </Link>
-            <Link href="/careers" onClick={() => setMobileOpen(false)} className={mobileLink("/careers")}>
+            <Link href={localePath(lang, "/careers")} onClick={() => setMobileOpen(false)} className={mobileLink(localePath(lang, "/careers"))}>
               {T.careers}
             </Link>
-            <Link href="/contact" onClick={() => setMobileOpen(false)} className={mobileLink("/contact")}>
+            <Link href={localePath(lang, "/contact")} onClick={() => setMobileOpen(false)} className={mobileLink(localePath(lang, "/contact"))}>
               {T.contact}
             </Link>
 

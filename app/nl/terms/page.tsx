@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
+import { OG_DEFAULTS } from "@/lib/seo";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { TermsClient } from "../../terms/TermsClient";
 
 export const metadata: Metadata = {
-  title: "Gebruiksvoorwaarden — Cvixeo",
+  title: "Gebruiksvoorwaarden",
   description: "De voorwaarden die je gebruik van Cvixeo's AI-gestuurde cv-generator en bijbehorende diensten regelen.",
   alternates: {
-    canonical: "https://cvixeo.com/nl/terms",
+    canonical: "https://www.cvixeo.com/nl/terms",
     languages: {
-      en: "https://cvixeo.com/terms",
-      fr: "https://cvixeo.com/fr/terms",
-      nl: "https://cvixeo.com/nl/terms",
-      "x-default": "https://cvixeo.com/terms",
+      en: "https://www.cvixeo.com/terms",
+      fr: "https://www.cvixeo.com/fr/terms",
+      nl: "https://www.cvixeo.com/nl/terms",
+      "x-default": "https://www.cvixeo.com/terms",
     },
   },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Gebruiksvoorwaarden — Cvixeo",
     description: "De voorwaarden die je gebruik van Cvixeo regelen.",
-    url: "https://cvixeo.com/nl/terms",
+    url: "https://www.cvixeo.com/nl/terms",
     locale: "nl_BE",
   },
 };
