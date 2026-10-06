@@ -6,6 +6,7 @@ import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
+import { ArticleToolLinks } from "@/components/seo/ArticleToolLinks";
 import {
   articles,
   getArticleBySlug,
@@ -184,6 +185,8 @@ export default async function ArticlePage({ params }: Props) {
               </p>
             ))}
           </div>
+
+          <ArticleToolLinks article={article} lang="en" />
 
           {/* Tags */}
           <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-6">

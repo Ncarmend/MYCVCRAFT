@@ -10,6 +10,12 @@ const PROTECTED_ROUTES = ["/dashboard", "/cv", "/onboarding", "/account"];
 // Routes that should redirect authenticated users away
 const AUTH_ROUTES = ["/login", "/signup"];
 
+// Segment-aware prefix match: "/cv" matches "/cv" and "/cv/123" but not the
+// public "/cv-optimizer" landing page.
+function matchesRoute(pathname: string, route: string): boolean {
+  return pathname === route || pathname.startsWith(route + "/");
+}
+
 export async function proxy(request: NextRequest) {
   // Tag the request with the URL-derived locale so the root layout can set
   // <html lang> correctly. Read-only signal — never redirects or rewrites.
@@ -47,7 +53,7 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Redirect unauthenticated users away from protected routes
-  if (PROTECTED_ROUTES.some((route) => pathname.startsWith(route)) && !user) {
+  if (PROTECTED_ROUTES.some((route) => matchesRoute(pathname, route)) && !user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
     redirectUrl.searchParams.set("redirectTo", pathname);
@@ -55,7 +61,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Redirect authenticated users away from auth pages
-  if (AUTH_ROUTES.some((route) => pathname.startsWith(route)) && user) {
+  if (AUTH_ROUTES.some((route) => matchesRoute(pathname, route)) && user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
     return NextResponse.redirect(redirectUrl);

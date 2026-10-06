@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/seo";
+import { LANDING_IDS, LANDING_ROUTES } from "@/lib/landing-routes";
 
 const BASE = SITE_URL;
 
@@ -49,5 +50,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...localizedPages, ...articlePages];
+  // SEO landing pages (EN unprefixed, FR under /fr). Same-intent EN/FR pairs
+  // get reciprocal hreflang alternates; unpaired pages are listed on their own.
+  const landingPages: MetadataRoute.Sitemap = LANDING_IDS.map((id) => {
+    const route = LANDING_ROUTES[id];
+    const url = `${BASE}${route.path}`;
+    const alt = route.alternate ? LANDING_ROUTES[route.alternate] : null;
+    const languages = alt
+      ? route.lang === "en"
+        ? { en: url, fr: `${BASE}${alt.path}`, "x-default": url }
+        : { en: `${BASE}${alt.path}`, fr: url, "x-default": `${BASE}${alt.path}` }
+      : undefined;
+    return {
+      url,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: id === "job-description-matching" || id === "cv-offre-emploi" ? 0.9 : 0.8,
+      ...(languages ? { alternates: { languages } } : {}),
+    };
+  });
+
+  return [...localizedPages, ...landingPages, ...articlePages];
 }

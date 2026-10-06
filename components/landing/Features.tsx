@@ -10,11 +10,20 @@ import {
   WandSparkles,
   PenLine,
 } from "lucide-react";
+import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { LANDING_ROUTES, type LandingId } from "@/lib/landing-routes";
 
 // Order matches translations[lang].features.items.
 const icons = [Sparkles, Gauge, Target, SearchCheck, WandSparkles, LayoutTemplate, FileDown, PenLine];
 const colors = ["indigo", "purple", "emerald", "violet", "indigo", "blue", "sky", "emerald"];
+
+// Landing page for each feature card (same order). Dutch has no landing pages
+// yet, so Dutch cards stay unlinked rather than pointing to English content.
+const featureLinks: Record<"en" | "fr", (LandingId | null)[]> = {
+  en: ["ai-cv-builder", "ats-cv-builder", "job-description-matching", "job-description-matching", "resume-optimizer", null, null, "cover-letter-generator"],
+  fr: ["generateur-cv-ia", "cv-ats", "cv-offre-emploi", "cv-offre-emploi", "optimiser-cv", null, null, "lettre-motivation"],
+};
 
 const colorMap: Record<string, string> = {
   indigo: "bg-indigo-50 text-indigo-600 ring-indigo-100",
@@ -46,6 +55,7 @@ export function Features() {
           {T.items.map((feature, i) => {
             const Icon = icons[i % icons.length];
             const color = colors[i % colors.length];
+            const linkId = lang === "nl" ? null : featureLinks[lang][i] ?? null;
             return (
               <div
                 key={feature.title}
@@ -54,7 +64,15 @@ export function Features() {
                 <div className={`inline-flex rounded-xl p-3 ring-1 ${colorMap[color]}`}>
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-base font-semibold text-gray-900">{feature.title}</h3>
+                <h3 className="mt-4 text-base font-semibold text-gray-900">
+                  {linkId ? (
+                    <Link href={LANDING_ROUTES[linkId].path} className="hover:text-emerald-800 hover:underline">
+                      {feature.title}
+                    </Link>
+                  ) : (
+                    feature.title
+                  )}
+                </h3>
                 <p className="mt-2 text-xs leading-relaxed text-gray-500">{feature.description}</p>
               </div>
             );

@@ -5,7 +5,7 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { JobMatchClient } from "@/components/job-match/JobMatchClient";
 
 export const metadata: Metadata = {
-  title: "Comparer son CV à une offre d'emploi – Matching & score ATS",
+  title: "Outil Job Match – Score de correspondance CV / offre",
   description:
     "Comparez votre CV à une offre d'emploi, mesurez votre score de correspondance et découvrez les compétences et mots-clés à améliorer avec CVIXEO.",
   alternates: {

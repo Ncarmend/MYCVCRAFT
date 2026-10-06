@@ -123,6 +123,7 @@ export const translations = {
       cookies:     "Cookie Policy",
       legalNotice: "Legal Notice",
       jobMatch:    "Job Match",
+      tools:       "Tools",
       tagline:     "AI CV builder, ATS resume optimizer and job description matching. Create, tailor and download your CV in minutes.",
     },
 
@@ -929,6 +930,7 @@ export const translations = {
       cookies:     "Politique de cookies",
       legalNotice: "Mentions légales",
       jobMatch:    "Job Match",
+      tools:       "Outils",
       tagline:     "Créateur de CV IA, optimisation ATS et matching d'offres d'emploi. Créez, adaptez et téléchargez votre CV en quelques minutes.",
     },
 
@@ -1737,6 +1739,7 @@ export const translations = {
       cookies:     "Cookiebeleid",
       legalNotice: "Wettelijke vermeldingen",
       jobMatch:    "Job Match",
+      tools:       "Tools",
       tagline:     "AI cv-maker, ATS-optimalisatie en vacature-matching. Maak, personaliseer en download je cv in enkele minuten.",
     },
 

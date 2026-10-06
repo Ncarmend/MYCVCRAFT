@@ -8,6 +8,7 @@ import { useLanguage, translations } from "@/components/landing/LanguageContext"
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 import { localePath } from "@/lib/seo";
+import { landingAlternatePath } from "@/lib/landing-routes";
 
 const langActive   = "bg-emerald-950 text-white";
 const langInactive = "text-slate-600 hover:bg-green-700 hover:text-white";
@@ -25,6 +26,10 @@ function currentPrefix(pathname: string): "fr" | "nl" | null {
 }
 
 function localizedHref(pathname: string, target: "en" | "fr" | "nl"): string {
+  // SEO landing pages have per-language slugs (/ai-cv-builder ⇄ /fr/generateur-cv-ia).
+  const landing = landingAlternatePath(pathname, target);
+  if (landing) return landing;
+
   const prefix = currentPrefix(pathname);
   const unprefixed = prefix ? (pathname === `/${prefix}` ? "/" : pathname.slice(1 + prefix.length)) : pathname;
 

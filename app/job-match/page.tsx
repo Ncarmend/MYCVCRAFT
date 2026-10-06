@@ -5,7 +5,7 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { JobMatchClient } from "@/components/job-match/JobMatchClient";
 
 export const metadata: Metadata = {
-  title: "Job Description Matching – Tailor Your CV to Any Job",
+  title: "Job Match Tool – Compare Your CV with a Job Offer",
   description:
     "Compare your CV with a job offer, measure your match score, and discover which skills and keywords to improve with CVIXEO.",
   alternates: {

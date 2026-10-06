@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { localePath } from "@/lib/seo";
+import { LANDING_ROUTES } from "@/lib/landing-routes";
 
 // Resume → Job Description → AI Analysis → Missing Keywords → ATS Score → Improve.
 // Order matches translations[lang].jobMatch.demo.steps.
@@ -44,6 +45,8 @@ function SkillRow({ label, state }: { label: string; state: "match" | "unclear" 
 export function JobMatchDemo() {
   const { lang } = useLanguage();
   const T = translations[lang].jobMatch.demo;
+  // In-depth guide page (EN/FR only).
+  const guide = lang === "fr" ? LANDING_ROUTES["cv-offre-emploi"] : lang === "en" ? LANDING_ROUTES["job-description-matching"] : null;
 
   return (
     <section className="bg-slate-50/60 py-12 sm:py-16" id="job-match">
@@ -78,13 +81,18 @@ export function JobMatchDemo() {
           })}
         </ol>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-col items-center gap-3">
           <Link href={localePath(lang, "/job-match")}>
             <Button size="lg" className="gap-2 px-8">
               {T.cta}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
+          {guide && (
+            <Link href={guide.path} className="text-sm font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
+              {guide.label}
+            </Link>
+          )}
         </div>
 
         {/* Illustrative example card */}
