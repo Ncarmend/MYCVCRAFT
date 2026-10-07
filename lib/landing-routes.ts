@@ -21,7 +21,9 @@ export type LandingId =
   | "optimiser-cv"
   | "analyser-cv"
   | "cv-offre-emploi"
-  | "lettre-motivation";
+  | "lettre-motivation"
+  // French guide pillars (children of the careers section, not the tools hub)
+  | "cv-belgique";
 
 export interface LandingRoute {
   id: LandingId;
@@ -33,6 +35,8 @@ export interface LandingRoute {
   label: string;
   /** One-line description used on related-page cards. */
   blurb: string;
+  /** Guide pillar that sits under Career resources instead of the Resume Tools hub. */
+  parent?: "careers";
 }
 
 export const LANDING_ROUTES: Record<LandingId, LandingRoute> = {
@@ -107,6 +111,12 @@ export const LANDING_ROUTES: Record<LandingId, LandingRoute> = {
     label: "Lettre de motivation IA",
     blurb: "Générez une lettre de motivation adaptée à l'offre et à l'entreprise.",
   },
+
+  "cv-belgique": {
+    id: "cv-belgique", lang: "fr", path: "/fr/cv-belgique", parent: "careers",
+    label: "CV en Belgique",
+    blurb: "Ce qui change vraiment pour un CV en Belgique : langues, Bruxelles, néerlandais.",
+  },
 };
 
 export const LANDING_IDS = Object.keys(LANDING_ROUTES) as LandingId[];
@@ -134,8 +144,9 @@ export const TOOL_GROUPS: Record<"en" | "fr", { title: string; ids: LandingId[] 
   ],
 };
 
+/** Tool landing pages for a language (guide pillars excluded). */
 export function landingRoutesFor(lang: "en" | "fr" | "nl"): LandingRoute[] {
-  return LANDING_IDS.map((id) => LANDING_ROUTES[id]).filter((r) => r.lang === lang);
+  return LANDING_IDS.map((id) => LANDING_ROUTES[id]).filter((r) => r.lang === lang && !r.parent);
 }
 
 export function findLandingByPath(pathname: string): LandingRoute | undefined {

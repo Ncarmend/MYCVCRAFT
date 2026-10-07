@@ -995,4 +995,101 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
     articles: ["lettre-motivation-france", "lettre-motivation-emploi-belgique"],
     closing: { heading: "Une lettre pertinente, en quelques minutes", body: "Partez de votre CV et de l'offre, puis faites-la vôtre." },
   },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FRENCH — guide pillars
+  // Rule: only present something as Belgian when it is a verifiable fact
+  // (official languages, regional institutions). Everything else is framed as
+  // general good practice.
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  "cv-belgique": {
+    metaTitle: "CV en Belgique – Guide pour Bruxelles, Wallonie, Flandre",
+    metaDescription:
+      "Faire son CV pour la Belgique : ce qui change vraiment (langues, Bruxelles bilingue, CV en néerlandais ou en anglais), ce qui ne change pas, et nos guides par situation.",
+    eyebrow: "CV en Belgique",
+    h1: "Faire son CV pour la Belgique : ce qui change vraiment",
+    intro:
+      "Il n'existe pas de « CV belge » officiel. Les principes d'un bon CV sont les mêmes qu'ailleurs en Europe ; ce qui distingue surtout le contexte belge, c'est le multilinguisme. Ce guide fait le tri entre ce qui tient réellement à la Belgique et ce qui relève des bonnes pratiques générales, puis vous oriente vers nos articles selon votre situation.",
+    highlights: ["Langues et niveaux européens", "CV pour Bruxelles", "CV en néerlandais ou en anglais", "Étudiants et premier emploi"],
+    primaryCta: { label: "Créer mon CV gratuitement", href: "/signup" },
+    secondaryCta: { label: "Comparer mon CV à une offre", href: "/fr/cv-offre-emploi" },
+    sections: [
+      {
+        heading: "Ce qui tient réellement au contexte belge",
+        paragraphs: [
+          "La Belgique compte trois langues officielles — le néerlandais, le français et l'allemand — et la Région de Bruxelles-Capitale est officiellement bilingue français-néerlandais. Conséquence directe pour votre CV : les langues sont souvent un critère de sélection, et leur niveau doit être indiqué avec précision.",
+          "Le service public de l'emploi est régionalisé : Actiris à Bruxelles, le Forem en Wallonie, le VDAB en Flandre et l'ADG en Communauté germanophone. Les offres et l'accompagnement passent par l'organisme de votre région — voir [Forem, Actiris ou VDAB : quel organisme choisir ?](/fr/careers/forem-actiris-vdab-quel-organisme-choisir)",
+          "Enfin, dans une même ville, vous pouvez croiser des offres rédigées en français, en néerlandais ou en anglais. Savoir dans quelle langue rédiger votre CV fait donc partie de la candidature.",
+        ],
+      },
+      {
+        heading: "Ce qui n'est pas spécifiquement belge",
+        paragraphs: [
+          "On lit souvent des listes de « règles du CV belge ». En réalité, la plupart relèvent de bonnes pratiques générales, valables aussi en France ou ailleurs en Europe :",
+        ],
+        bullets: [
+          "Un ordre antichronologique, de l'expérience la plus récente à la plus ancienne.",
+          "Une à deux pages selon l'expérience.",
+          "Une photo facultative, plus ou moins courante selon les secteurs — voir [CV avec ou sans photo](/fr/careers/cv-belge-avec-ou-sans-photo).",
+          "Le permis de conduire, à mentionner lorsqu'il est utile pour le poste.",
+          "Une mise en page sobre, lisible par les [logiciels ATS](/fr/cv-ats) utilisés par de nombreuses grandes entreprises.",
+        ],
+      },
+      {
+        heading: "Présenter ses langues",
+        paragraphs: [
+          "Indiquez un niveau pour chaque langue plutôt qu'un « bon niveau » invérifiable. L'échelle la plus lisible est celle du Cadre européen commun de référence (CECRL), de A1 à C2 : c'est un standard européen, pas une spécificité belge, mais il est largement compris par les recruteurs.",
+          "Restez honnête : un entretien peut basculer dans l'autre langue sans prévenir. Si vous disposez d'un certificat ou d'un test de langue, mentionnez-le.",
+        ],
+        example: {
+          beforeLabel: "Vague",
+          before: "Langues : français, néerlandais, anglais (bon niveau).",
+          afterLabel: "Précis",
+          after: "Français : langue maternelle · Néerlandais : B2 · Anglais : C1",
+        },
+      },
+      {
+        heading: "Un CV pour travailler à Bruxelles",
+        paragraphs: [
+          "Bruxelles concentre des employeurs très variés : administrations, institutions européennes et internationales, entreprises privées, secteur associatif. De nombreuses offres demandent le français et le néerlandais, et l'anglais est courant dans les organisations internationales. Lisez attentivement la rubrique « profil » de chaque offre : c'est elle qui dit quelles langues sont exigées.",
+          "Pour certains emplois publics, la connaissance de la seconde langue doit être attestée par un certificat linguistique ; vérifiez les conditions indiquées dans chaque offre. Nos guides [trouver un emploi à Bruxelles](/fr/careers/trouver-emploi-bruxelles-guide-2026) et [premier emploi à Bruxelles](/fr/careers/premier-emploi-bruxelles-cv-candidature) détaillent la recherche d'emploi sur place.",
+        ],
+      },
+      {
+        heading: "Un CV en néerlandais ou en anglais",
+        paragraphs: [
+          "Sauf indication contraire, rédigez votre CV dans la langue de l'offre : c'est la façon la plus simple de montrer que vous la maîtrisez. Pensez à traduire aussi les titres de rubriques.",
+          "Faites relire une version traduite : les intitulés de postes et de diplômes ne se traduisent pas toujours mot à mot. CVixeo vous permet de rédiger votre CV en français, en néerlandais ou en anglais, et l'[analyse CV / offre](/fr/cv-offre-emploi) compare les compétences selon leur sens, même quand l'offre et le CV ne sont pas dans la même langue.",
+        ],
+        cards: [
+          { title: "En néerlandais", body: "Werkervaring · Opleiding · Vaardigheden · Talen" },
+          { title: "En anglais", body: "Work Experience · Education · Skills · Languages" },
+          { title: "En français", body: "Expérience professionnelle · Formation · Compétences · Langues" },
+        ],
+      },
+      {
+        heading: "Étudiants et candidats sans expérience",
+        paragraphs: [
+          "Sans expérience professionnelle, misez sur la formation, les projets, les stages, les jobs étudiants et l'engagement associatif, présentés comme de vraies expériences. Notre guide du [CV sans expérience](/fr/careers/cv-sans-experience) donne une structure type et des exemples ; pour l'adapter à chaque offre, suivez notre méthode pour [analyser une offre d'emploi](/fr/careers/analyser-offre-emploi).",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Existe-t-il un modèle de CV belge officiel ?", a: "Non. Il n'existe pas de format imposé : les recruteurs attendent un CV clair et structuré, comme ailleurs en Europe, avec une attention particulière portée aux langues." },
+      { q: "Faut-il mettre une photo sur un CV en Belgique ?", a: "Ce n'est pas obligatoire. Sa pratique varie selon les secteurs et les employeurs ; si vous en mettez une, choisissez une photo sobre et professionnelle." },
+      { q: "Dans quelle langue rédiger son CV en Belgique ?", a: "Dans la langue de l'offre, sauf indication contraire. Si l'offre est bilingue ou en anglais, choisissez la langue dans laquelle vous êtes le plus à l'aise et indiquez clairement vos niveaux dans les autres." },
+      { q: "Faut-il parler néerlandais pour travailler à Bruxelles ?", a: "Pas systématiquement, mais de nombreuses offres le demandent et certains postes publics exigent un certificat linguistique. Vérifiez les exigences de chaque offre." },
+    ],
+    related: ["cv-offre-emploi", "cv-ats", "generateur-cv-ia", "lettre-motivation"],
+    articles: [
+      "cv-professionnel-belgique-guide-2026",
+      "regles-cv-belge",
+      "cv-belge-avec-ou-sans-photo",
+      "adapter-cv-offre-emploi-belgique",
+      "lettre-motivation-emploi-belgique",
+      "premier-emploi-bruxelles-cv-candidature",
+    ],
+    closing: { heading: "Votre CV pour la Belgique, dans la bonne langue", body: "Créez votre CV gratuitement en français, en néerlandais ou en anglais." },
+  },
 };

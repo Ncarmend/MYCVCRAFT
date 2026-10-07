@@ -1,20 +1,20 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { OG_DEFAULTS } from "@/lib/seo";
-import Link from "next/link";
 import { Calendar, Clock, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
-import { graph, articleNode } from "@/lib/structured-data";
+import { graph, articleNode, faqPageNode } from "@/lib/structured-data";
+import { getClusterRelated } from "@/lib/content-clusters";
+import { ArticleSummary, ArticleFaq, ArticleCta, ArticlePillarLink } from "@/components/careers/ArticleExtras";
 import { SITE_URL } from "@/lib/seo";
 import { translations } from "@/lib/translations";
 import {
   articles,
   getArticleBySlug,
-  getRelatedArticles,
   categoryStyle,
 } from "@/lib/articles";
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticleBySlug(slug);
   if (!article || article.lang !== "nl") return { title: "Artikel niet gevonden" };
 
-  const title = article.title;
+  const title = article.seoTitle ?? article.title;
   const url = `https://www.cvixeo.com/nl/careers/${article.slug}`;
 
   return {
@@ -76,7 +76,7 @@ export default async function ArticlePageNl({ params }: Props) {
     notFound();
   }
 
-  const related = getRelatedArticles(article, 3);
+  const related = getClusterRelated(article, 3);
   const style = categoryStyle[article.category];
 
   const crumbs: Crumb[] = [
@@ -84,7 +84,12 @@ export default async function ArticlePageNl({ params }: Props) {
     { name: translations.nl.careers.backLink, href: "/nl/careers" },
     { name: article.title, href: "/nl/careers/${article.slug}" },
   ];
-  const jsonLd = graph(articleNode(article, `${SITE_URL}/nl/careers/${article.slug}`, "nl"), breadcrumbJsonLd(crumbs));
+  const articleUrl = `${SITE_URL}/nl/careers/${article.slug}`;
+  const jsonLd = graph(
+    articleNode(article, articleUrl, "nl"),
+    breadcrumbJsonLd(crumbs),
+    ...(article.faq?.length ? [faqPageNode(articleUrl, "nl", article.faq)] : []),
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -142,6 +147,9 @@ export default async function ArticlePageNl({ params }: Props) {
         {/* ── Article body ── */}
         <div className="mx-auto max-w-3xl px-6 py-12">
 
+          <ArticleSummary article={article} lang="nl" />
+          <ArticlePillarLink article={article} lang="nl" />
+
           {/* Introduction */}
           <div className="mb-10 rounded-xl bg-slate-50 px-6 py-5 ring-1 ring-slate-100">
             {article.intro.split("\n\n").map((para, i) => (
@@ -186,6 +194,8 @@ export default async function ArticlePageNl({ params }: Props) {
             ))}
           </div>
 
+          <ArticleFaq article={article} lang="nl" />
+
           {/* Tags */}
           <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-6">
             <Tag className="h-3.5 w-3.5 text-slate-400" />
@@ -199,19 +209,8 @@ export default async function ArticlePageNl({ params }: Props) {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="mt-10 rounded-2xl bg-slate-800 px-8 py-8 text-center text-white">
-            <p className="text-base font-bold">{T.articleCta.heading}</p>
-            <p className="mt-1 text-xs text-slate-300">
-              {T.articleCta.subtext}
-            </p>
-            <Link
-              href="/signup"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
-            >
-              {T.articleCta.btn}
-            </Link>
-          </div>
+          {/* CTA — chosen from the article's topic cluster */}
+          <ArticleCta article={article} />
         </div>
 
         {/* ── Related articles ── */}

@@ -1,21 +1,21 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { OG_DEFAULTS } from "@/lib/seo";
-import Link from "next/link";
 import { Calendar, Clock, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
-import { graph, articleNode } from "@/lib/structured-data";
+import { graph, articleNode, faqPageNode } from "@/lib/structured-data";
+import { getClusterRelated } from "@/lib/content-clusters";
+import { ArticleSummary, ArticleFaq, ArticleCta, ArticlePillarLink } from "@/components/careers/ArticleExtras";
 import { SITE_URL } from "@/lib/seo";
 import { ArticleToolLinks } from "@/components/seo/ArticleToolLinks";
 import { translations } from "@/lib/translations";
 import {
   articles,
   getArticleBySlug,
-  getRelatedArticles,
   categoryStyle,
 } from "@/lib/articles";
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article || article.lang !== "fr") return { title: "Article introuvable" };
 
   // Root layout's title template already appends "| CVixeo" — don't double it here.
-  const title = article.title;
+  const title = article.seoTitle ?? article.title;
   const url = `https://www.cvixeo.com/fr/careers/${article.slug}`;
 
   return {
@@ -78,7 +78,7 @@ export default async function ArticlePageFr({ params }: Props) {
     notFound();
   }
 
-  const related = getRelatedArticles(article, 3);
+  const related = getClusterRelated(article, 3);
   const style = categoryStyle[article.category];
 
   const crumbs: Crumb[] = [
@@ -86,7 +86,12 @@ export default async function ArticlePageFr({ params }: Props) {
     { name: translations.fr.careers.backLink, href: "/fr/careers" },
     { name: article.title, href: "/fr/careers/${article.slug}" },
   ];
-  const jsonLd = graph(articleNode(article, `${SITE_URL}/fr/careers/${article.slug}`, "fr"), breadcrumbJsonLd(crumbs));
+  const articleUrl = `${SITE_URL}/fr/careers/${article.slug}`;
+  const jsonLd = graph(
+    articleNode(article, articleUrl, "fr"),
+    breadcrumbJsonLd(crumbs),
+    ...(article.faq?.length ? [faqPageNode(articleUrl, "fr", article.faq)] : []),
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -144,6 +149,9 @@ export default async function ArticlePageFr({ params }: Props) {
         {/* ── Article body ── */}
         <div className="mx-auto max-w-3xl px-6 py-12">
 
+          <ArticleSummary article={article} lang="fr" />
+          <ArticlePillarLink article={article} lang="fr" />
+
           {/* Introduction */}
           <div className="mb-10 rounded-xl bg-slate-50 px-6 py-5 ring-1 ring-slate-100">
             {article.intro.split("\n\n").map((para, i) => (
@@ -188,6 +196,8 @@ export default async function ArticlePageFr({ params }: Props) {
             ))}
           </div>
 
+          <ArticleFaq article={article} lang="fr" />
+
           <ArticleToolLinks article={article} lang="fr" />
 
           {/* Tags */}
@@ -203,19 +213,8 @@ export default async function ArticlePageFr({ params }: Props) {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="mt-10 rounded-2xl bg-slate-800 px-8 py-8 text-center text-white">
-            <p className="text-base font-bold">{T.articleCta.heading}</p>
-            <p className="mt-1 text-xs text-slate-300">
-              {T.articleCta.subtext}
-            </p>
-            <Link
-              href="/signup"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
-            >
-              {T.articleCta.btn}
-            </Link>
-          </div>
+          {/* CTA — chosen from the article's topic cluster */}
+          <ArticleCta article={article} />
         </div>
 
         {/* ── Related articles ── */}

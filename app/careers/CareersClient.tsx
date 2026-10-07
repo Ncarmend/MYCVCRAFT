@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { ArticleCard } from "@/components/careers/ArticleCard";
 import Link from "next/link";
-import { TOOLS_HUB } from "@/lib/landing-routes";
+import { TOOLS_HUB, LANDING_ROUTES } from "@/lib/landing-routes";
 import { articles, CATEGORIES, CATEGORIES_BE, CATEGORIES_FRANCE, type Category } from "@/lib/articles";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
@@ -18,8 +18,13 @@ export function CareersClient() {
     () => articles.filter((a) => (a.lang ?? "en") === lang),
     [lang]
   );
-  const visibleCategories =
+  const localeCategories =
     lang === "fr" ? [...CATEGORIES_BE, ...CATEGORIES_FRANCE] : lang === "nl" ? CATEGORIES_BE : CATEGORIES;
+  // Also offer generic categories (Resume, ATS…) when articles in this language use them.
+  const visibleCategories = [
+    ...localeCategories,
+    ...CATEGORIES.filter((c) => !localeCategories.includes(c) && localeArticles.some((a) => a.category === c)),
+  ];
 
   const featured = useMemo(() => localeArticles.filter((a) => a.featured), [localeArticles]);
 
@@ -140,10 +145,15 @@ export function CareersClient() {
             {T.ctaBtn}
           </a>
           {lang !== "nl" && (
-            <p className="mt-4">
+            <p className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
               <Link href={TOOLS_HUB[lang].path} className="text-sm font-medium text-slate-200 underline underline-offset-2 hover:text-white">
                 {TOOLS_HUB[lang].label}
               </Link>
+              {lang === "fr" && (
+                <Link href={LANDING_ROUTES["cv-belgique"].path} className="text-sm font-medium text-slate-200 underline underline-offset-2 hover:text-white">
+                  {LANDING_ROUTES["cv-belgique"].label}
+                </Link>
+              )}
             </p>
           )}
         </section>

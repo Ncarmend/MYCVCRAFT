@@ -81,9 +81,14 @@ export function landingMetadata(id: LandingId): Metadata {
 /** Home → Resume Tools → page. Shared by the visible trail and BreadcrumbList. */
 export function landingCrumbs(id: LandingId): Crumb[] {
   const route = LANDING_ROUTES[id];
+  // Guide pillars sit under Career resources; tool pages under the Resume Tools hub.
+  const middle =
+    route.parent === "careers"
+      ? { name: translations[route.lang].careers.backLink, href: localePath(route.lang, "/careers") }
+      : { name: TOOLS_HUB[route.lang].label, href: TOOLS_HUB[route.lang].path };
   return [
     { name: UI[route.lang].home, href: localePath(route.lang, "/") },
-    { name: TOOLS_HUB[route.lang].label, href: TOOLS_HUB[route.lang].path },
+    middle,
     { name: route.label, href: route.path },
   ];
 }
@@ -93,7 +98,15 @@ function landingJsonLd(id: LandingId) {
   const page = LANDING_PAGES[id];
   const url = pageUrl(id);
   return graph(
-    webPageNode({ url, name: page.h1, description: page.metaDescription, lang: route.lang, breadcrumb: true, about: SOFTWARE_ID }),
+    webPageNode({
+      url,
+      name: page.h1,
+      description: page.metaDescription,
+      lang: route.lang,
+      breadcrumb: true,
+      // Tool pages describe the product; guide pillars describe a topic.
+      about: route.parent ? undefined : SOFTWARE_ID,
+    }),
     breadcrumbJsonLd(landingCrumbs(id)),
     faqPageNode(url, route.lang, page.faq.map((f) => ({ q: f.q, a: plain(f.a) }))),
   );

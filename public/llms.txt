@@ -50,6 +50,9 @@ AI features are powered by Claude (Anthropic). Contact: support@cvixeo.com.
 - [Job Match tool](https://www.cvixeo.com/job-match)
 - [Pricing](https://www.cvixeo.com/pricing)
 - [Career advice](https://www.cvixeo.com/careers)
+- [What is an ATS?](https://www.cvixeo.com/careers/what-is-an-ats)
+- [Resume keywords](https://www.cvixeo.com/careers/resume-keywords)
+- [How to analyze a job posting](https://www.cvixeo.com/careers/how-to-analyze-job-posting)
 
 ## Pages in French
 
@@ -59,6 +62,7 @@ AI features are powered by Claude (Anthropic). Contact: support@cvixeo.com.
 - [CV compatible ATS](https://www.cvixeo.com/fr/cv-ats)
 - [Adapter son CV à une offre](https://www.cvixeo.com/fr/cv-offre-emploi)
 - [Lettre de motivation IA](https://www.cvixeo.com/fr/lettre-motivation)
+- [CV en Belgique](https://www.cvixeo.com/fr/cv-belgique): ce qui change vraiment pour un CV en Belgique
 
 ## Pages in Dutch
 

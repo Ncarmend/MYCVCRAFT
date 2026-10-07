@@ -48,6 +48,12 @@ export interface Article {
   intro: string;
   sections: ArticleSection[];
   conclusion: string;
+  /** Shorter <title> when `title` (the H1) is too long for search results (~60 chars max with the brand). */
+  seoTitle?: string;
+  /** "Key takeaways" box shown before the introduction. */
+  summary?: string[];
+  /** Rendered as a visible FAQ and emitted as FAQPage JSON-LD. Plain text answers. */
+  faq?: { q: string; a: string }[];
 }
 
 export const articles: Article[] = [
@@ -57,13 +63,14 @@ export const articles: Article[] = [
   {
     slug: "how-to-create-ats-friendly-resume-2026",
     title: "How to Create a Resume That Passes ATS Screening in 2026",
-    description: "Applicant Tracking Systems reject up to 75% of resumes before a human reads them. Learn the exact techniques to beat the filter and land in front of recruiters.",
+    seoTitle: "How to Create an ATS-Friendly Resume (2026)",
+    description: "How applicant tracking systems read your resume, why well-qualified candidates get overlooked, and the concrete rules for an ATS-friendly resume in 2026.",
     category: "ATS",
     publishedAt: "2026-07-01",
     readingTime: 8,
     featured: true,
     tags: ["ATS", "resume", "applicant tracking system", "job search", "2026"],
-    intro: "You spent hours polishing your resume. You tailored it to the job. You hit submit — and heard nothing back. The cause might not be your qualifications. Research consistently shows that between 70 and 98 percent of large employers use Applicant Tracking Systems (ATS) to filter applications automatically before a single human being reads them. A perfectly qualified candidate can be rejected by a machine before a recruiter ever sees their name.\n\nUnderstanding how ATS works is no longer optional — it is a fundamental career skill for 2026. This guide walks you through exactly what these systems look for, the most common reasons resumes fail, and a step-by-step framework for writing a resume that passes every time.",
+    intro: "You spent hours polishing your resume. You tailored it to the job. You hit submit — and heard nothing back. The cause might not be your qualifications. Most large employers receive applications through an Applicant Tracking System (ATS), software that stores, parses and ranks resumes so recruiters can search and filter them. If the software can't read your resume properly, or if it doesn't contain the terms the recruiter searches for, a qualified candidate can end up far down the list.\n\nUnderstanding how ATS works is no longer optional — it is a fundamental career skill for 2026. This guide walks you through exactly what these systems look for, the most common reasons resumes fail, and a step-by-step framework for writing a resume that both software and recruiters can read easily.",
     sections: [
       {
         heading: "What Is an ATS and How Does It Work?",
@@ -103,13 +110,13 @@ export const articles: Article[] = [
       },
       {
         heading: "Rule 5 — Tailor for Every Application",
-        body: `<p>One resume for every application is a strategy that was marginal in 2015 and is ineffective in 2026. Sending the same document to 100 companies while your competitors tailor each application is a significant self-imposed disadvantage. The research is clear: tailored resumes generate 40 to 60% more interview callbacks than generic versions sent to the same roles.</p>
+        body: `<p>One resume for every application is a strategy that was marginal in 2015 and is ineffective in 2026. Sending the same document to 100 companies while your competitors tailor each application is a significant self-imposed disadvantage. A tailored resume makes it obvious, in seconds, that you match what this employer asked for — a generic one leaves the recruiter to work it out.</p>
 <p>The tailoring process does not mean rewriting your entire resume. It means making strategic adjustments: a revised professional summary that mirrors the specific role, a reordered skills section that leads with the most relevant qualifications, and bullet points that emphasise work most relevant to this particular position. With a well-structured master resume, this process takes 10 to 15 minutes per application.</p>`,
       },
       {
         heading: "Rule 6 — Test Before You Submit",
         body: `<p>Never submit a resume without testing it first. Run three checks: the plain-text paste test, a keyword gap analysis (compare your resume against the job description and identify missing terms), and a review of extracted content (does the parser correctly identify your job title, employer, and degree?).</p>
-<p>CVixeo's built-in ATS checker performs all three automatically. It parses your resume, scores it against a specific job description, and provides a ranked list of missing keywords and improvement suggestions. Users who optimise their resume with the ATS checker report a 3× increase in interview callback rates versus their previous generic versions.</p>`,
+<p>CVixeo can help with the last two: the <a href="/cv-optimizer">ATS check</a> scores your resume from 0 to 100 with concrete suggestions, and <a href="/job-description-matching">job description matching</a> compares it with a specific posting and lists the skills and keywords that weren't found. Both are Premium features; neither can guarantee an interview, but they show you what to fix.</p>`,
       },
     ],
     conclusion: "Creating an ATS-optimised resume is not about gaming the system — it is about removing unnecessary barriers between you and the humans who will ultimately decide whether to hire you. The six rules in this guide — clean formatting, strategic keywords, quantified achievements, smart section structure, consistent tailoring, and pre-submission testing — form a complete framework. Apply them together. A beautifully keyworded resume in a two-column format will still fail parsing. A single-column resume with no keyword alignment will score poorly. The system rewards the whole package.",
@@ -121,6 +128,7 @@ export const articles: Article[] = [
   {
     slug: "10-resume-mistakes-that-prevent-interview",
     title: "The 10 Mistakes That Prevent Your Resume from Landing an Interview",
+    seoTitle: "10 Resume Mistakes That Cost You Interviews",
     description: "Most resumes fail for the same predictable, fixable reasons. Discover the 10 critical mistakes recruiters see every day — and exactly how to fix each one.",
     category: "Resume",
     publishedAt: "2026-06-20",
@@ -174,10 +182,10 @@ export const articles: Article[] = [
       },
       {
         heading: "Mistake #10 — Not Tailoring Per Application",
-        body: `<p>A <a href="https://hbr.org" target="_blank" rel="noopener noreferrer">Harvard Business Review</a> study found that resumes tailored to a specific job posting were 40 to 60% more likely to result in an interview than the same candidate's generic resume sent to the same role. The objection is always time. The solution is a system: a master resume with your complete history, from which you make four to six targeted changes per application in 10 to 15 minutes. Those minutes pay extraordinary dividends in callback rate.</p>`,
+        body: `<p>A generic resume forces the recruiter to guess whether you fit this particular role; a tailored one answers the question in the first few lines. The objection is always time. The solution is a system: a master resume with your complete history, from which you make four to six targeted changes per application in 10 to 15 minutes. Those minutes pay extraordinary dividends in callback rate.</p>`,
       },
     ],
-    conclusion: "These ten mistakes are not exotic or difficult to fix. They are common, predictable, and entirely within your control. The candidates who consistently get interviews are not necessarily the most qualified in the applicant pool — they are the ones whose resumes communicate their qualifications most clearly. Work through your current resume against this list systematically. Fix each mistake. Then tailor to a specific job description and run an ATS check. The combination will put you in the top 10% of applicants for most roles.",
+    conclusion: "These ten mistakes are not exotic or difficult to fix. They are common, predictable, and entirely within your control. The candidates who consistently get interviews are not necessarily the most qualified in the applicant pool — they are the ones whose resumes communicate their qualifications most clearly. Work through your current resume against this list systematically. Fix each mistake. Then tailor to a specific job description and run an ATS check. The combination makes your qualifications much easier for both software and recruiters to see.",
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -186,7 +194,7 @@ export const articles: Article[] = [
   {
     slug: "how-to-tailor-resume-to-job-posting",
     title: "How to Tailor Your Resume to Any Job Posting",
-    description: "Generic resumes get generic results. Learn the step-by-step process for customising your resume to a specific job — and why it multiplies your interview rate by 3×.",
+    description: "Generic resumes get generic results. A step-by-step process to tailor your resume to a specific job in about 15 minutes, without rewriting everything.",
     category: "Resume",
     publishedAt: "2026-06-10",
     readingTime: 6,
@@ -224,7 +232,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Step 6 — Verify with an ATS Score",
-        body: `<p>Before submitting any tailored resume, run it through an ATS check against the specific job description. This step catches keyword gaps you might have missed and gives you an objective score to evaluate your tailoring work against. Target an 80% or higher match score for roles where you meet the core requirements.</p>
+        body: `<p>Before submitting any tailored resume, run it through an ATS check against the specific job description. This step catches keyword gaps you might have missed and gives you an objective score to evaluate your tailoring work against. Don't chase a perfect score: the goal is that every requirement you genuinely meet is clearly visible. A match score measures alignment with the posting, not your chances of being hired.</p>
 <p>CVixeo's ATS matching tool compares your resume directly against any job description and provides a keyword gap report with specific suggestions. It is the fastest way to verify that your tailoring work has actually moved your score — and to identify the final adjustments that will maximise your chances before you submit.</p>`,
       },
     ],
@@ -290,13 +298,14 @@ export const articles: Article[] = [
   {
     slug: "how-to-optimize-linkedin-profile",
     title: "How to Optimise Your LinkedIn Profile for Recruiter Searches",
-    description: "87% of recruiters use LinkedIn to find candidates. Learn how to transform your profile from a digital resume into a job-search engine that works for you 24/7.",
+    seoTitle: "How to Optimize Your LinkedIn Profile for Recruiters",
+    description: "Recruiters search LinkedIn every day. Learn how to turn your profile from a digital resume into a profile that recruiters actually find and contact.",
     category: "LinkedIn",
     publishedAt: "2026-05-15",
     readingTime: 8,
     featured: true,
     tags: ["LinkedIn", "LinkedIn optimisation", "personal branding", "recruiter", "job search", "networking"],
-    intro: "In 2026, your LinkedIn profile is not a supplement to your job search — it is your job search. 87% of recruiters use LinkedIn as their primary sourcing tool. Most large organisations have dedicated sourcers whose entire job is to search LinkedIn for candidates — not to wait for applications. Every day, companies fill roles by proactively finding candidates whose profiles appear in recruiter searches, long before those roles are ever publicly posted.\n\nThe difference between a profile that generates three recruiter messages per month and one that generates thirty is not the quality of your underlying experience. It is how effectively that experience is communicated to LinkedIn's search algorithm and to the human beings reading your profile.",
+    intro: "In 2026, your LinkedIn profile is not a supplement to your job search — it is your job search. LinkedIn is one of the main tools recruiters use to find candidates, and many large organisations have dedicated sourcers whose entire job is to search LinkedIn for candidates — not to wait for applications. Every day, companies fill roles by proactively finding candidates whose profiles appear in recruiter searches, long before those roles are ever publicly posted.\n\nThe difference between a profile that generates three recruiter messages per month and one that generates thirty is not the quality of your underlying experience. It is how effectively that experience is communicated to LinkedIn's search algorithm and to the human beings reading your profile.",
     sections: [
       {
         heading: "Understanding LinkedIn's Search Algorithm",
@@ -314,7 +323,7 @@ export const articles: Article[] = [
         heading: "Your Headline — Beyond Your Job Title",
         body: `<p>Your LinkedIn headline is the most visible, most-searched, and least-optimised element on most professionals' profiles. By default, LinkedIn populates it with your current job title and company name — which is accurate but does nothing to communicate value or capture keywords beyond your exact title. You have 220 characters. Use them.</p>
 <p>The formula that consistently performs well: [What you do] | [How you do it or who you do it for] | [What makes you distinctive]. Example: "B2B SaaS Marketing Manager | Demand Generation and Paid Acquisition | Building revenue engines for early-stage startups." Include the keywords recruiters in your target roles are most likely to search.</p>
-<p>For candidates actively seeking, consider LinkedIn's built-in "Open to Work" feature, which signals availability only to recruiters (not your current employer, if you prefer discretion). The feature consistently increases recruiter messages by more than 30% for active candidates.</p>`,
+<p>For candidates actively seeking, consider LinkedIn's built-in "Open to Work" feature, which signals availability only to recruiters (not your current employer, if you prefer discretion). It's a simple way to make yourself more visible to recruiters while you're actively looking.</p>`,
       },
       {
         heading: "The About Section — Your Professional Narrative",
@@ -352,15 +361,15 @@ export const articles: Article[] = [
       {
         heading: "The Meta-Skill of 2026 — AI Fluency",
         body: `<p>AI fluency is not a single skill — it is a meta-capability that now underlies almost every professional role. In 2026, the question is not whether you use AI tools, but how effectively you use them and whether you understand their limitations well enough to produce reliable outputs. For knowledge workers, AI fluency means using tools like Claude, GPT-4, Gemini, and domain-specific AI platforms to accomplish in minutes what previously took hours — while critically evaluating outputs and knowing when human judgment must override the model.</p>
-<p>Prompt engineering — writing effective instructions for AI systems to produce high-quality, relevant outputs — is a distinct and increasingly valued skill. LinkedIn job posting data shows that roles explicitly requiring prompt engineering skills have grown over 400% in the past year, with that growth extending well beyond technical roles into marketing, customer success, and operations.</p>`,
+<p>Prompt engineering — writing effective instructions for AI systems to produce high-quality, relevant outputs — is a distinct and increasingly valued skill. More and more job postings mention working with AI tools, and not only in technical roles — marketing, customer success and operations postings increasingly list it too.</p>`,
       },
       {
         heading: "Most In-Demand Technical Skills",
         body: `<ul>
 <li><strong>Data Analysis (SQL, Python, Excel):</strong> Every function is becoming more data-driven. SQL in particular has become a near-universal baseline in analytical roles, expected of marketing managers, HR leaders, and operations professionals who would have been purely qualitative five years ago.</li>
 <li><strong>Machine Learning and MLOps:</strong> Moving from building models to deploying and maintaining them in production is where the talent shortage is most acute. Tools: MLflow, Kubeflow, DataBricks, cloud ML services on AWS, GCP, and Azure.</li>
-<li><strong>Cloud Infrastructure:</strong> AWS, Azure, and GCP certifications command salary premiums of 15 to 25%. Solutions Architect and DevOps roles on cloud platforms are among the highest-growth technical job categories globally.</li>
-<li><strong>Cybersecurity:</strong> The global cybersecurity talent gap exceeds 3 million professionals. CISSP, CEH, and CompTIA Security+ certifications consistently produce salary premiums of 20 to 35%.</li>
+<li><strong>Cloud Infrastructure:</strong> AWS, Azure and GCP certifications are widely requested in job postings. Solutions Architect and DevOps roles on cloud platforms are among the highest-growth technical job categories globally.</li>
+<li><strong>Cybersecurity:</strong> Demand for security skills remains high, and certifications such as CISSP, CEH and CompTIA Security+ are frequently listed in job postings.</li>
 <li><strong>TypeScript and Modern Frontend:</strong> TypeScript proficiency has moved from "preferred" to "required" at most serious technology companies. React, Next.js, and Vue continue to dominate frontend hiring.</li>
 </ul>`,
       },
@@ -519,17 +528,18 @@ export const articles: Article[] = [
   {
     slug: "how-to-negotiate-salary",
     title: "How to Negotiate Your Salary: Scripts and Strategies That Work",
-    description: "85% of hiring managers have room to negotiate but most candidates never ask. Learn the research methods, timing tactics, and exact phrases that get you more.",
+    seoTitle: "How to Negotiate Your Salary: Scripts That Work",
+    description: "Many candidates accept the first offer without asking. Learn how to research your market value, when to negotiate, and the exact phrases that help you get more.",
     category: "Career",
     publishedAt: "2026-03-18",
     readingTime: 8,
     tags: ["salary negotiation", "compensation", "job offer", "career", "salary", "negotiation"],
-    intro: "Only 37% of workers always negotiate their salary when receiving a job offer. 18% never negotiate at all. Yet research across thousands of hiring managers consistently shows that 85% had budget to increase an initial offer — they were simply waiting to be asked. The gap between what was offered and what was available existed not because the company could not pay more, but because most candidates accepted the first number.\n\nThis dynamic has a compounding effect that most professionals dramatically underestimate. A successful negotiation adding €5,000 to your first-year salary means €5,000 more every subsequent year. Raises, bonuses, and future job offers are all anchored to your current compensation. Over a 10-year career, a single successful negotiation can represent €80,000 to €150,000 in additional cumulative earnings. The stakes are high. The techniques are learnable.",
+    intro: "Many people accept the first salary they are offered. Yet employers often leave some room in their initial offer, expecting a candidate to ask. When that room goes unused, it isn't because the company couldn't pay more — it's because nobody asked.\n\nThis dynamic has a compounding effect that most professionals dramatically underestimate. A successful negotiation adding €5,000 to your first-year salary means €5,000 more every subsequent year. Raises, bonuses, and future job offers are all anchored to your current compensation. Over a whole career, a single successful negotiation can add up to a significant amount. The stakes are high. The techniques are learnable.",
     sections: [
       {
         heading: "The Psychology of Salary Negotiation",
         body: `<p>Understanding the psychology behind salary negotiation helps explain why most people do not do it effectively. The first psychological barrier is discomfort: asking for more money feels presumptuous, as if you are implying the offer is unfair. This feeling is understandable but unwarranted. Negotiation is a standard business practice that hiring managers expect and respect. A candidate who does not negotiate can actually appear uncertain of their own market value.</p>
-<p>The second barrier is fear of rejection — specifically, fear that negotiating will cause the company to rescind the offer. This is extremely rare. Companies invest weeks or months in the hiring process. Walking away from a candidate over a reasonable counter-offer is costly in time, money, and reputation. Research consistently shows that fewer than 1% of companies rescind offers in response to reasonable salary negotiation.</p>
+<p>The second barrier is fear of rejection — specifically, fear that negotiating will cause the company to rescind the offer. This is rare. Companies invest weeks or months in the hiring process, and walking away from a candidate over a reasonable, politely worded counter-offer is costly in time, money and reputation.</p>
 <p>The third barrier is anchoring bias — the tendency to accept the first number as a fixed reference point and feel that asking significantly more is unreasonable. In fact, the first number offered is itself an anchor, typically set at the lower range of what the company is willing to pay. A counter-offer 10 to 20% above the initial offer is normal and rarely offensive when grounded in market data and delivered professionally.</p>`,
       },
       {
@@ -584,7 +594,7 @@ export const articles: Article[] = [
   {
     slug: "best-practices-career-change",
     title: "Best Practices for a Successful Career Change",
-    description: "Changing careers is more achievable than ever — but it requires strategy. Learn how to leverage transferable skills, build credibility fast, and land your first role in a new field.",
+    description: "Changing careers takes strategy. How to use transferable skills, build credibility quickly in a new field, and present your experience to land your first role there.",
     category: "Career",
     publishedAt: "2026-03-01",
     readingTime: 9,
@@ -620,7 +630,7 @@ export const articles: Article[] = [
         heading: "Building Your Target Network",
         body: `<p>Most career changers focus on applying for jobs before they have built any relationships in the new field. This is backwards. Employers are significantly more likely to take a chance on a career changer who comes recommended by someone in the organisation than one who appears cold through an online portal. Building your target network before you start applying dramatically improves your success rate.</p>
 <p>Identify 15 to 25 people who currently work in roles similar to your target role. Connect on LinkedIn with a personalised message that explains your transition interest honestly: "I am transitioning into [field] from [current career] and am particularly interested in your experience at [company]. Would you be open to a 20-minute conversation to share your perspective on how to break in?"</p>
-<p>Many people will not respond — but some do, and those conversations are enormously valuable. They provide market intelligence, often surface job leads before they are posted, and occasionally result in internal referrals that bypass standard screening. An internal referral increases the probability of a first-round interview from roughly 2% (cold application) to 20-30% according to multiple research studies. Attend industry events, meetups, and conferences. The goal is to stop being a stranger before you start asking for opportunities.</p>`,
+<p>Many people will not respond — but some do, and those conversations are enormously valuable. They provide market intelligence, often surface job leads before they are posted, and occasionally result in internal referrals that bypass standard screening. A referral from someone inside the company usually gets your application read with more attention than a cold application. Attend industry events, meetups, and conferences. The goal is to stop being a stranger before you start asking for opportunities.</p>`,
       },
       {
         heading: "Restructuring Your Resume for the Transition",
@@ -646,6 +656,7 @@ export const articles: Article[] = [
   {
     slug: "cv-professionnel-belgique-guide-2026",
     title: "Comment Créer un CV Professionnel en Belgique en 2026 : le Guide Complet",
+    seoTitle: "Créer un CV professionnel en Belgique (guide 2026)",
     description: "Structure, longueur, photo, langues, ATS : découvrez comment rédiger un CV professionnel efficace en Belgique en 2026 et décrocher plus d'entretiens.",
     category: "CVBelgique",
     lang: "fr",
@@ -653,7 +664,7 @@ export const articles: Article[] = [
     readingTime: 9,
     featured: true,
     tags: ["CV professionnel Belgique", "rédiger un CV", "CV Belgique 2026", "recherche d'emploi Belgique", "CV ATS"],
-    intro: "En résumé : un CV belge efficace en 2026 tient sur une à deux pages, présente vos expériences en ordre antichronologique, indique clairement votre niveau dans chaque langue selon le cadre européen (A1 à C2), et reste sobre dans sa mise en forme — surtout s'il doit passer par un logiciel de tri automatique (ATS) avant d'atteindre un recruteur.\n\nLe marché de l'emploi belge a ses codes propres, à mi-chemin entre les usages français et anglo-saxons. Un CV qui fonctionne à Paris ou à Londres ne convainc pas toujours un recruteur à Bruxelles, à Liège ou à Charleroi — et inversement. Ce guide rassemble les règles concrètes à connaître pour construire un CV qui correspond aux attentes des employeurs belges, qu'il s'agisse d'une PME wallonne, d'une administration publique ou d'une multinationale installée à Bruxelles.",
+    intro: "En résumé : un CV belge efficace en 2026 tient sur une à deux pages, présente vos expériences en ordre antichronologique, indique clairement votre niveau dans chaque langue selon le cadre européen (A1 à C2), et reste sobre dans sa mise en forme — surtout s'il doit passer par un logiciel de tri automatique (ATS) avant d'atteindre un recruteur.\n\nLes usages du CV en Belgique sont proches de ceux des autres pays européens, avec une attention particulière portée aux langues, du fait du multilinguisme du pays. Ce guide rassemble les bonnes pratiques à connaître pour construire un CV qui correspond aux attentes des employeurs belges, qu'il s'agisse d'une PME wallonne, d'une administration publique ou d'une multinationale installée à Bruxelles.",
     sections: [
       {
         heading: "La structure attendue par les recruteurs belges",
@@ -663,14 +674,14 @@ export const articles: Article[] = [
       },
       {
         heading: "Les langues : l'élément le plus scruté d'un CV belge",
-        body: `<p>La Belgique est un pays à trois langues officielles (néerlandais, français, allemand), et la maîtrise des langues est souvent le premier filtre appliqué par les recruteurs — avant même les compétences techniques. Un candidat bilingue français-néerlandais dispose d'un avantage concret sur le marché bruxellois, où de nombreuses offres exigent explicitement une connaissance fonctionnelle des deux langues nationales principales.</p>
+        body: `<p>La Belgique est un pays à trois langues officielles (néerlandais, français, allemand), et la maîtrise des langues est un critère important pour de nombreux postes, en particulier à Bruxelles. Un candidat bilingue français-néerlandais dispose d'un avantage concret sur le marché bruxellois, où de nombreuses offres exigent explicitement une connaissance fonctionnelle des deux langues nationales principales.</p>
 <p>Indiquez votre niveau selon le Cadre européen commun de référence pour les langues (CECRL), de A1 (débutant) à C2 (maîtrise proche de la langue maternelle). Cette échelle est immédiatement reconnue par les recruteurs belges et évite les formulations vagues comme "notions" ou "courant", dont l'interprétation varie d'une personne à l'autre. Si vous ne maîtrisez pas le néerlandais, ne le cachez pas : indiquez honnêtement votre niveau (même A1 ou A2) plutôt que de l'omettre, ce qui peut être perçu comme une tentative de dissimulation lors de l'entretien.</p>
 <p>Pour les postes à Bruxelles en particulier, consultez notre guide pour <a href="/fr/careers/trouver-emploi-bruxelles-guide-2026">trouver un emploi à Bruxelles</a>, qui détaille l'impact réel du bilinguisme sur vos chances d'être convoqué en entretien.</p>`,
       },
       {
         heading: "Faut-il une photo, et quelles autres informations personnelles inclure ?",
-        body: `<p>La question de la photo revient systématiquement en Belgique — la pratique y est plus répandue qu'au Royaume-Uni ou aux Pays-Bas, sans être obligatoire. Elle reste courante dans les secteurs en contact avec la clientèle (vente, hôtellerie, accueil) et moins systématique dans l'IT ou les fonctions publiques. Nous consacrons un article entier à cette question : <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a></p>
-<p>Concernant les autres informations personnelles : indiquez votre nom, une adresse e-mail professionnelle, un numéro de téléphone et votre commune de résidence (le numéro de rue complet n'est pas indispensable). La mention du permis de conduire ("Permis B") est un standard belge très apprécié dès lors qu'il est pertinent pour le poste ou la mobilité. La date de naissance et la nationalité peuvent être incluses, mais restent facultatives — de plus en plus de candidats les omettent volontairement pour limiter les biais inconscients à la lecture.</p>`,
+        body: `<p>La question de la photo revient souvent : elle n'est pas obligatoire et sa pratique varie selon les secteurs. Elle reste courante dans les secteurs en contact avec la clientèle (vente, hôtellerie, accueil) et moins systématique dans l'IT ou les fonctions publiques. Nous consacrons un article entier à cette question : <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a></p>
+<p>Concernant les autres informations personnelles : indiquez votre nom, une adresse e-mail professionnelle, un numéro de téléphone et votre commune de résidence (le numéro de rue complet n'est pas indispensable). La mention du permis de conduire ("Permis B") est utile dès lors qu'elle est pertinente pour le poste ou la mobilité. La date de naissance et la nationalité peuvent être incluses, mais restent facultatives — de plus en plus de candidats les omettent volontairement pour limiter les biais inconscients à la lecture.</p>`,
       },
       {
         heading: "Le CV doit-il passer un ATS ? Ce qui change en pratique",
@@ -695,37 +706,38 @@ export const articles: Article[] = [
 
   {
     slug: "regles-cv-belge",
-    title: "CV Belge : les Règles à Connaître pour Décrocher un Emploi",
-    description: "Longueur, langues, permis, photo, mise en page : les règles concrètes et les usages du CV belge que les recruteurs attendent, région par région.",
+    title: "CV en Belgique : les Usages à Connaître pour Décrocher un Emploi",
+    seoTitle: "CV en Belgique : les usages à connaître",
+    description: "Langues, longueur, permis, photo : les usages courants du CV en Belgique, et ce qui tient vraiment au contexte belge plutôt qu'aux bonnes pratiques générales.",
     category: "CVBelgique",
     lang: "fr",
     publishedAt: "2026-08-12",
     readingTime: 7,
     tags: ["CV belge", "règles CV Belgique", "usages CV", "candidature Belgique", "recruteur"],
-    intro: "En résumé : le CV belge suit des règles proches du CV français, avec trois différences marquantes — l'importance donnée aux langues (français, néerlandais, allemand, anglais), l'usage fréquent de la mention du permis de conduire, et une tolérance plus grande à la photo selon les secteurs. Les usages varient aussi légèrement entre Bruxelles, la Wallonie et la Flandre.\n\nSi vous avez déjà rédigé un CV pour le marché français ou pour un poste à l'étranger, la plupart des principes de base restent valables en Belgique. Mais quelques règles locales, souvent ignorées par les candidats venant d'un autre pays ou changeant de région, peuvent faire la différence entre un CV ignoré et un CV qui obtient un appel.",
+    intro: "En résumé : il n'existe pas de norme officielle du « CV belge ». Les usages sont très proches de ceux du CV français ; ce qui distingue surtout le contexte belge, c'est le multilinguisme — trois langues officielles et une Région de Bruxelles-Capitale bilingue — qui rend la présentation précise de vos langues particulièrement importante. Le reste relève de bonnes pratiques que l'on retrouve aussi ailleurs.\n\nSi vous avez déjà rédigé un CV pour le marché français ou pour un poste à l'étranger, la plupart des principes restent valables en Belgique. Voici les usages à connaître, en distinguant ce qui tient au contexte belge de ce qui relève des bonnes pratiques générales.",
     sections: [
       {
-        heading: "Règle n°1 — La présentation des langues doit être précise",
-        body: `<p>C'est la règle la plus spécifiquement belge : n'écrivez jamais simplement "néerlandais" ou "anglais" sans préciser de niveau. Utilisez systématiquement l'échelle du Cadre européen commun de référence pour les langues (CECRL) : A1, A2 (utilisateur élémentaire), B1, B2 (utilisateur indépendant), C1, C2 (utilisateur expérimenté). Un recruteur bruxellois qui lit "néerlandais : B2" sait immédiatement à quoi s'attendre en entretien ; "néerlandais : bon niveau" ne veut rien dire de vérifiable.</p>`,
+        heading: "Usage n°1 — La présentation des langues doit être précise",
+        body: `<p>C'est le point le plus important dans le contexte multilingue belge : n'écrivez jamais simplement "néerlandais" ou "anglais" sans préciser de niveau. Utilisez l'échelle du Cadre européen commun de référence pour les langues (CECRL) — un standard européen, pas spécifiquement belge, mais largement compris par les recruteurs : A1, A2 (utilisateur élémentaire), B1, B2 (utilisateur indépendant), C1, C2 (utilisateur expérimenté). Un recruteur bruxellois qui lit "néerlandais : B2" sait immédiatement à quoi s'attendre en entretien ; "néerlandais : bon niveau" ne veut rien dire de vérifiable.</p>`,
       },
       {
-        heading: "Règle n°2 — Le format antichronologique est la norme absolue",
+        heading: "Usage n°2 — Le format antichronologique reste la référence",
         body: `<p>Le CV fonctionnel (organisé par compétences plutôt que par dates) est rarement bien perçu en Belgique, sauf pour des reconversions très marquées. Les recruteurs veulent voir votre parcours dans l'ordre, du poste le plus récent au plus ancien, avec les dates de début et de fin clairement indiquées (mois et année). Une expérience sans date précise, ou un CV qui semble vouloir dissimuler une période, est immédiatement perçu comme un signal négatif.</p>`,
       },
       {
-        heading: "Règle n°3 — Une page pour les profils juniors, deux maximum au-delà",
+        heading: "Usage n°3 — Une page pour les profils juniors, deux maximum au-delà",
         body: `<p>Un jeune diplômé ou un profil avec moins de sept ans d'expérience doit viser une seule page. Un profil confirmé ou senior peut légitimement occuper deux pages, mais jamais trois. La discipline d'édition — choisir ce qui reste et ce qui disparaît — est elle-même perçue positivement par les recruteurs, qui y voient un signe de capacité de synthèse.</p>`,
       },
       {
-        heading: "Règle n°4 — Le permis de conduire, une mention plus importante qu'ailleurs",
-        body: `<p>En France ou dans d'autres pays francophones, mentionner son permis de conduire est optionnel et souvent secondaire. En Belgique, la mention "Permis B" est un standard largement répandu sur les CV, y compris pour des postes qui ne semblent pas directement liés à la conduite — car elle est aussi lue comme un indicateur général de mobilité et d'autonomie, particulièrement utile dans un pays où de nombreuses zones d'activité économique sont mal desservies par les transports en commun.</p>`,
+        heading: "Usage n°4 — Le permis de conduire, à mentionner quand il est utile",
+        body: `<p>Mentionner son permis de conduire ("Permis B") est courant sur les CV en Belgique, comme dans de nombreux pays. C'est surtout utile lorsque le poste implique des déplacements ou que le lieu de travail est difficile d'accès en transports en commun : dans ce cas, indiquez-le clairement. Pour un poste sédentaire et bien desservi, c'est une information secondaire.</p>`,
       },
       {
-        heading: "Règle n°5 — La photo dépend fortement du secteur et de la région",
+        heading: "Usage n°5 — La photo dépend fortement du secteur et de la région",
         body: `<p>La photo professionnelle reste courante en Belgique francophone, notamment dans la vente, l'hôtellerie-restauration et l'accueil, mais elle recule dans l'IT, la finance et les grandes entreprises internationales installées à Bruxelles, qui adoptent des pratiques de recrutement plus proches des standards anglo-saxons pour limiter les biais de sélection. Le sujet mérite un traitement à part entière : consultez notre article <a href="/fr/careers/cv-belge-avec-ou-sans-photo">CV belge : avec ou sans photo ?</a> pour trancher selon votre situation.</p>`,
       },
       {
-        heading: "Règle n°6 — Les nuances régionales existent, mais restent limitées",
+        heading: "Usage n°6 — Les nuances régionales existent, mais restent limitées",
         body: `<p>À Bruxelles, le bilinguisme français-néerlandais est un critère de sélection fréquent, même pour des postes qui ne le mentionnent pas explicitement dans l'offre — notre guide pour <a href="/fr/careers/trouver-emploi-bruxelles-guide-2026">trouver un emploi à Bruxelles</a> détaille cet aspect. En Wallonie, l'anglais professionnel prend une importance croissante dans l'industrie, la logistique et les fonctions à vocation internationale. Dans tous les cas, le CV doit rester factuel et vérifiable : n'indiquez jamais un niveau de langue ou une compétence que vous ne pourriez pas démontrer en situation réelle lors d'un entretien.</p>`,
       },
       {
@@ -741,6 +753,7 @@ export const articles: Article[] = [
   {
     slug: "adapter-cv-offre-emploi-belgique",
     title: "Comment Adapter votre CV à une Offre d'Emploi en Belgique ?",
+    seoTitle: "Adapter son CV à une offre d'emploi en Belgique",
     description: "Une méthode en cinq étapes pour adapter votre CV à chaque offre d'emploi belge et augmenter vos chances d'être convoqué en entretien.",
     category: "CVBelgique",
     lang: "fr",
@@ -875,6 +888,7 @@ export const articles: Article[] = [
   {
     slug: "lettre-motivation-emploi-belgique",
     title: "Comment Rédiger une Lettre de Motivation pour un Emploi en Belgique ?",
+    seoTitle: "Lettre de motivation pour un emploi en Belgique",
     description: "Structure, ton, longueur : la méthode complète pour écrire une lettre de motivation efficace et adaptée aux attentes des recruteurs en Belgique.",
     category: "CVBelgique",
     lang: "fr",
@@ -956,6 +970,7 @@ export const articles: Article[] = [
   {
     slug: "trouver-emploi-bruxelles-guide-2026",
     title: "Comment Trouver un Emploi à Bruxelles en 2026 ? Le Guide Complet",
+    seoTitle: "Trouver un emploi à Bruxelles : le guide 2026",
     description: "Actiris, bilinguisme, secteurs porteurs, réseaux : le guide complet pour trouver un emploi à Bruxelles en 2026, étape par étape.",
     category: "EmploiBruxelles",
     lang: "fr",
@@ -1001,6 +1016,7 @@ export const articles: Article[] = [
   {
     slug: "premier-emploi-bruxelles-cv-candidature",
     title: "Premier Emploi à Bruxelles : Comment Préparer son CV et sa Candidature ?",
+    seoTitle: "Premier emploi à Bruxelles : CV et candidature",
     description: "Sans expérience professionnelle significative, comment construire un CV crédible et une candidature convaincante pour décrocher un premier emploi à Bruxelles.",
     category: "EmploiBruxelles",
     lang: "fr",
@@ -1039,6 +1055,7 @@ export const articles: Article[] = [
   {
     slug: "travailler-bruxelles-reussir-recherche-emploi",
     title: "Travailler à Bruxelles : Comment Réussir sa Recherche d'Emploi ?",
+    seoTitle: "Travailler à Bruxelles : organiser sa recherche",
     description: "Organisation de la recherche, sources d'offres, entretiens, délais réalistes : la méthode complète pour mener une recherche d'emploi efficace à Bruxelles.",
     category: "EmploiBruxelles",
     lang: "fr",
@@ -1080,6 +1097,7 @@ export const articles: Article[] = [
   {
     slug: "actiris-inscription-trouver-emploi-bruxelles",
     title: "Actiris : Comment s'Inscrire et Trouver un Emploi à Bruxelles ?",
+    seoTitle: "Actiris : s'inscrire et trouver un emploi",
     description: "Qui doit s'inscrire à Actiris, comment le faire en ligne ou en agence, et comment utiliser ses services pour trouver un emploi à Bruxelles.",
     category: "OrganismesEmploi",
     lang: "fr",
@@ -1123,6 +1141,7 @@ export const articles: Article[] = [
   {
     slug: "onem-demarches-demandeurs-emploi-belgique",
     title: "ONEM : Quelles Démarches pour les Demandeurs d'Emploi en Belgique ?",
+    seoTitle: "ONEM : les démarches des demandeurs d'emploi",
     description: "Le rôle de l'ONEM, les démarches à connaître pour percevoir des allocations de chômage, et les changements introduits par la réforme entrée en vigueur en mars 2026.",
     category: "OrganismesEmploi",
     lang: "fr",
@@ -1164,6 +1183,7 @@ export const articles: Article[] = [
   {
     slug: "forem-actiris-vdab-quel-organisme-choisir",
     title: "Le Forem, Actiris ou VDAB : Quel Service Choisir pour votre Recherche d'Emploi ?",
+    seoTitle: "Forem, Actiris ou VDAB : quel organisme choisir ?",
     description: "Trois régions, trois services publics de l'emploi : comment savoir lequel vous concerne, et comment les utiliser si vous cherchez un emploi hors de votre région.",
     category: "OrganismesEmploi",
     lang: "fr",
@@ -1208,6 +1228,7 @@ export const articles: Article[] = [
   {
     slug: "agences-interim-recrutement-belgique",
     title: "Agences d'Intérim et de Recrutement en Belgique : Comment les Utiliser pour Trouver un Emploi ?",
+    seoTitle: "Agences d'intérim et de recrutement en Belgique",
     description: "Le rôle des agences d'intérim et de recrutement en Belgique, comment s'y inscrire, et comment les utiliser efficacement en complément de sa recherche d'emploi.",
     category: "OrganismesEmploi",
     lang: "fr",
@@ -1250,6 +1271,7 @@ export const articles: Article[] = [
   {
     slug: "chomage-belgique-2026-taux-statistiques-mesures",
     title: "Chômage en Belgique en 2026 : Taux de Chômage, Statistiques et Mesures Gouvernementales",
+    seoTitle: "Chômage en Belgique 2026 : taux et statistiques",
     description: "Taux de chômage BIT, nombre de chômeurs indemnisés, réforme de l'assurance chômage : les chiffres officiels de Statbel et de l'ONEM, expliqués et mis à jour.",
     category: "ChomageBelgique",
     lang: "fr",
@@ -1431,6 +1453,7 @@ export const articles: Article[] = [
   {
     slug: "cv-avec-ou-sans-photo-france",
     title: "CV Avec ou Sans Photo : Quelles Sont les Meilleures Pratiques en France ?",
+    seoTitle: "CV avec ou sans photo en France ?",
     description: "La photo sur un CV français : une pratique en net recul mais pas totalement absente. Quand l'inclure, quand l'éviter, et comment décider.",
     category: "CVFrance",
     lang: "fr",
@@ -1506,6 +1529,7 @@ export const articles: Article[] = [
   {
     slug: "lettre-motivation-france",
     title: "Comment Rédiger une Lettre de Motivation Efficace en France ?",
+    seoTitle: "Rédiger une lettre de motivation en France",
     description: "Structure, ton, longueur : la méthode complète pour écrire une lettre de motivation qui complète efficacement votre CV et retient l'attention du recruteur.",
     category: "CVFrance",
     lang: "fr",
@@ -1549,6 +1573,7 @@ export const articles: Article[] = [
   {
     slug: "sites-emploi-france-guide",
     title: "Comment Utiliser les Sites d'Emploi pour Trouver un Emploi en France ?",
+    seoTitle: "Sites d'emploi en France : comment les utiliser",
     description: "France Travail, LinkedIn, Indeed, APEC : comment utiliser efficacement les principaux sites d'emploi et éviter de vous y perdre.",
     category: "RechercheEmploiFrance",
     lang: "fr",
@@ -1592,6 +1617,7 @@ export const articles: Article[] = [
   {
     slug: "inscription-france-travail-guide",
     title: "Comment s'Inscrire à France Travail ? Le Guide du Demandeur d'Emploi",
+    seoTitle: "S'inscrire à France Travail : le guide",
     description: "Étapes, documents nécessaires, droits associés : le guide complet pour s'inscrire à France Travail et comprendre ce que cette démarche implique.",
     category: "RechercheEmploiFrance",
     lang: "fr",
@@ -1630,6 +1656,7 @@ export const articles: Article[] = [
   {
     slug: "apec-ou-france-travail",
     title: "APEC ou France Travail : Quel Service Utiliser pour votre Recherche d'Emploi ?",
+    seoTitle: "APEC ou France Travail : quel service choisir ?",
     description: "Deux organismes, deux publics : comment choisir entre l'APEC et France Travail selon votre profil, et pourquoi les deux ne sont pas exclusifs.",
     category: "RechercheEmploiFrance",
     lang: "fr",
@@ -1671,6 +1698,7 @@ export const articles: Article[] = [
   {
     slug: "interim-france-trouver-mission-rapidement",
     title: "Travail Temporaire en France : Comment Trouver une Mission Rapidement ?",
+    seoTitle: "Intérim en France : trouver une mission rapidement",
     description: "Le fonctionnement de l'intérim en France, comment s'inscrire auprès d'une agence, et comment l'utiliser pour retrouver rapidement une activité.",
     category: "RechercheEmploiFrance",
     lang: "fr",
@@ -1712,6 +1740,7 @@ export const articles: Article[] = [
   {
     slug: "chomage-france-2026-taux-statistiques-tendances",
     title: "Chômage en France en 2026 : Taux de Chômage, Chiffres et Tendances",
+    seoTitle: "Chômage en France 2026 : chiffres et tendances",
     description: "Taux de chômage BIT, demandeurs d'emploi inscrits, chômage des jeunes : les chiffres officiels de l'INSEE et de la DARES, expliqués et mis à jour.",
     category: "ChomageFrance",
     lang: "fr",
@@ -1774,6 +1803,7 @@ export const articles: Article[] = [
   {
     slug: "cv-intelligence-artificielle-optimiser-candidature",
     title: "CV et Intelligence Artificielle : Comment Optimiser sa Candidature ?",
+    seoTitle: "CV et intelligence artificielle : bien s'en servir",
     description: "Ce que l'IA peut vraiment améliorer sur un CV — et ce qu'elle ne remplace pas. Un guide pratique et honnête pour utiliser l'IA dans sa recherche d'emploi.",
     category: "IAEtCV",
     lang: "fr",
@@ -1816,6 +1846,7 @@ export const articles: Article[] = [
   {
     slug: "ia-adapter-cv-offre-emploi",
     title: "Comment Utiliser l'IA pour Adapter son CV à une Offre d'Emploi ?",
+    seoTitle: "Adapter son CV avec l'IA : méthode et limites",
     description: "Une méthode concrète pour utiliser l'intelligence artificielle et adapter rapidement votre CV à chaque offre d'emploi, sans perdre en exactitude.",
     category: "IAEtCV",
     lang: "fr",
@@ -1857,6 +1888,7 @@ export const articles: Article[] = [
   {
     slug: "chatgpt-peut-il-creer-bon-cv",
     title: "ChatGPT Peut-il Créer un Bon CV ? Le Guide pour les Candidats",
+    seoTitle: "ChatGPT peut-il créer un bon CV ?",
     description: "Ce que ChatGPT fait bien pour un CV, ce qu'il fait mal, et pourquoi un outil spécialisé reste souvent plus efficace pour un résultat prêt à envoyer.",
     category: "IAEtCV",
     lang: "fr",
@@ -2070,6 +2102,7 @@ export const articles: Article[] = [
   {
     slug: "solliciteren-belgie-tips-kandidatuur",
     title: "Solliciteren in België: Tips voor een Succesvolle Kandidatuur",
+    seoTitle: "Solliciteren in België: tips voor je kandidatuur",
     description: "Praktische tips om je sollicitatie te structureren, fouten te vermijden en je kandidatuur op te volgen op de Belgische arbeidsmarkt.",
     category: "CVBelgique",
     lang: "nl",
@@ -2157,7 +2190,7 @@ export const articles: Article[] = [
   {
     slug: "job-vinden-brussel",
     title: "Hoe Vind je een Job in Brussel?",
-    description: "Actiris, tweetaligheid, sterke sectoren: de complete gids om stap voor stap een job te vinden in Brussel.",
+    description: "Actiris, tweetaligheid, sterke sectoren en netwerken: de complete gids om stap voor stap een job te vinden in Brussel, ook als je er nieuw bent.",
     category: "EmploiBruxelles",
     lang: "nl",
     publishedAt: "2026-08-24",
@@ -2284,6 +2317,7 @@ export const articles: Article[] = [
   {
     slug: "werkloosheid-belgie-cijfers-regels",
     title: "Werkloosheid in België: Cijfers, Regels en Nuttige Informatie",
+    seoTitle: "Werkloosheid in België: cijfers en regels",
     description: "Werkloosheidsgraad, aantal uitkeringsgerechtigden, hervorming van de werkloosheidsverzekering: de officiële cijfers van Statbel en de RVA, uitgelegd en bijgewerkt.",
     category: "ChomageBelgique",
     lang: "nl",
@@ -2358,6 +2392,596 @@ export const articles: Article[] = [
     conclusion: "Werkloosheid in België wordt gemeten via meerdere aanvullende indicatoren, die nooit onderling verwisselbaar zijn: de IAB-werkloosheidsgraad van Statbel (6,1% in het tweede kwartaal van 2026), het aantal uitkeringsgerechtigde werklozen van de RVA (211.973 in mei 2026, sterk dalend), en gewestelijke indicatoren zoals de administratieve graad van Actiris in Brussel. De hervorming van de werkloosheidsverzekering die op 1 maart 2026 in werking trad, verklaart een groot deel van de recente evolutie van deze cijfers, met overgangsmaatregelen die de komende maanden nog effect zullen hebben. Dit artikel wordt bijgewerkt naarmate Statbel en de RVA nieuwe gegevens publiceren. Is je professionele situatie betrokken bij deze evoluties, dan blijft een actieve jobzoektocht met een sterk sollicitatiedossier je beste voorbereiding: maak je professioneel cv met CVixeo en bekijk onze gids om <a href=\"/nl/careers/werk-zoeken-belgie-complete-gids\">werk te zoeken in België</a>.",
   },
 
+
+  // ═════════════════════════════════════════════════════════════════════════════
+  // Editorial batch 2026-10 — cluster gap-fillers (see docs/seo-content-plan.md)
+  // ═════════════════════════════════════════════════════════════════════════════
+  {
+    slug: "what-is-an-ats",
+    title: "What Is an ATS? How Applicant Tracking Systems Read Your Resume",
+    seoTitle: "What Is an ATS? How Applicant Tracking Systems Work",
+    description: "An applicant tracking system stores, parses and ranks job applications. Here is what it really does with your resume — and what that means for how you write it.",
+    category: "ATS",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["ATS", "applicant tracking system", "resume parsing", "job search"],
+    summary: [
+      "An ATS (applicant tracking system) is software employers use to collect, store, search and manage job applications.",
+      "It extracts the text of your resume into fields — name, job titles, employers, dates, skills — that recruiters then search and filter.",
+      "An ATS rarely \"rejects\" a resume by itself, but a resume that is parsed badly or lacks the right terms can be hard to find.",
+      "Standard headings, real text and the job posting's own vocabulary make your resume easier to read for both software and people.",
+    ],
+    intro: "If you have ever applied for a job through a company's careers page, your application almost certainly went into an applicant tracking system, or ATS. For candidates, it is an invisible step — and a source of many myths.\n\nThis guide explains what an ATS actually does with your resume, what it doesn't do, and the practical consequences for how you should write and format your CV.",
+    sections: [
+      {
+        heading: "What an applicant tracking system does",
+        body: `<p>An ATS is the database behind a company's hiring process. Well-known examples include Workday, SAP SuccessFactors, Greenhouse, Lever and iCIMS. Whatever the brand, most systems do the same core jobs:</p>
+<ul>
+<li><strong>Collect</strong> applications from the careers site, job boards and email.</li>
+<li><strong>Parse</strong> each resume: extract its text and sort it into structured fields.</li>
+<li><strong>Store</strong> candidates so recruiters can find them again, sometimes for other roles months later.</li>
+<li><strong>Search and filter</strong> candidates by keywords, job titles, location, availability or answers to screening questions.</li>
+<li><strong>Manage the workflow</strong>: stages, notes, interview scheduling and emails to candidates.</li>
+</ul>
+<p>In other words, the ATS is mostly an organisation tool for recruiters. Decisions about who gets an interview are, in the large majority of cases, still made by people.</p>`,
+      },
+      {
+        heading: "How an ATS reads your resume",
+        body: `<p>When you upload your file, the parser extracts the text and tries to recognise each part of your resume. A well-parsed resume becomes something like this in the recruiter's database:</p>
+<blockquote>Name: Sarah Martin · Current title: Marketing Coordinator · Employer: Northwind Ltd · Dates: 03/2022 – present · Skills: Google Analytics, HubSpot, SEO, copywriting · Languages: English (native), French (B2)</blockquote>
+<p>Parsing works best when your resume is predictable. It struggles when:</p>
+<ul>
+<li>important information is inside an <strong>image</strong>, an icon or a chart (skill bars, logos, a photo of your contact details);</li>
+<li>section headings are <strong>unusual</strong> ("My journey" instead of "Work experience");</li>
+<li><strong>dates</strong> are missing or written in different formats across the document;</li>
+<li>the file is a <strong>scanned image</strong> rather than a text-based PDF or Word document;</li>
+<li>contact details only appear in the page <strong>header or footer</strong>, which some parsers ignore.</li>
+</ul>
+<p>When parsing fails, the information still exists in your file — but it may be missing from the fields recruiters search.</p>`,
+      },
+      {
+        heading: "How recruiters search and filter candidates",
+        body: `<p>A recruiter facing 200 applications rarely reads them in arrival order. They search the ATS for terms such as a job title ("account manager"), a tool ("Salesforce"), a certification or a language, and they filter on criteria like location or work authorisation. Some systems also rank candidates by how closely their profile matches the posting.</p>
+<p>This is why <a href="/careers/resume-keywords">keywords</a> matter: if the posting asks for "stakeholder management" and your resume only says "worked with other teams", a search for the posting's term won't find you.</p>
+<p>You may have read that ATS software automatically rejects most resumes, often quoted as "75%". That figure has no reliable published source. Automatic rejection does exist — typically through <strong>knockout questions</strong> ("Do you have a valid work permit for this country?") or filters the employer chose — but the more common problem is simpler: a resume that is hard to find or hard to read.</p>`,
+      },
+      {
+        heading: "What this means for your resume",
+        body: `<ol>
+<li><strong>Use standard section headings</strong>: Work Experience, Education, Skills, Languages.</li>
+<li><strong>Keep key information in real text</strong>, not in images, icons or skill bars.</li>
+<li><strong>Use one date format</strong> throughout, with month and year.</li>
+<li><strong>Mirror the posting's vocabulary</strong> where it honestly describes your experience — exact job title, tools, methods.</li>
+<li><strong>Send a text-based PDF</strong> unless the employer asks for Word.</li>
+<li><strong>Write for the human reader too</strong>: after the search, a recruiter reads your resume in a few seconds.</li>
+</ol>
+<p>Our step-by-step guide on <a href="/careers/how-to-create-ats-friendly-resume-2026">how to create an ATS-friendly resume</a> goes through each rule in detail, and the <a href="/ats-cv-builder">ATS resume builder</a> page explains how CVixeo's templates apply them.</p>`,
+      },
+      {
+        heading: "How to check your resume before you apply",
+        body: `<p>Two quick manual tests catch most problems:</p>
+<ul>
+<li><strong>The plain-text test</strong>: copy all the text from your PDF and paste it into a plain text editor. If sections appear in a strange order, words are merged or your contact details are missing, a parser may struggle too.</li>
+<li><strong>The keyword test</strong>: list the skills and tools named in the posting and check that each one you genuinely have appears in your resume, in the same words.</li>
+</ul>
+<p>With CVixeo Premium, the <a href="/cv-optimizer">ATS check</a> gives your resume a score from 0 to 100 with concrete suggestions, and <a href="/job-description-matching">job description matching</a> lists the skills and keywords from a specific posting that weren't found. For a full walkthrough, see <a href="/careers/does-my-resume-pass-ats">how to know if your resume will pass an ATS</a>.</p>`,
+      },
+    ],
+    conclusion: "An ATS is less a gatekeeper than a filing and search system. Your goal isn't to trick it, but to make sure that everything you offer can be read and found: clear structure, real text, consistent dates and the vocabulary of the job you want. Do that, and the same resume will work for the software and for the recruiter who reads it next.",
+    faq: [
+      { q: "Do all companies use an ATS?", a: "No. Large and mid-size employers and recruitment agencies usually do; many small businesses still read applications by email. Writing an ATS-friendly resume costs nothing and also makes it clearer for human readers." },
+      { q: "Can an ATS read a PDF?", a: "Most modern systems read text-based PDFs (where you can select the text) without problems. Scanned or image-only PDFs can't be parsed. If the posting asks for a Word file, send one." },
+      { q: "Does an ATS reject resumes automatically?", a: "Only when the employer sets it up to, typically through knockout questions or filters such as work authorisation. In most cases the ATS stores and ranks applications and people make the decisions." },
+      { q: "Is an ATS score the same in every system?", a: "No. Each ATS works differently, and scores from resume tools — including CVixeo's — are indicators of readability and keyword alignment, not a prediction of any specific system's behaviour." },
+    ],
+  },
+
+  {
+    slug: "does-my-resume-pass-ats",
+    title: "How to Know If Your Resume Will Pass an ATS (and What an ATS Score Means)",
+    seoTitle: "Will My Resume Pass an ATS? How to Check It",
+    description: "A practical checklist to test whether ATS software can read your resume, what an ATS score really measures, and the mistakes that cause the most problems.",
+    category: "ATS",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["ATS", "ATS score", "ATS check", "resume test", "resume mistakes"],
+    summary: [
+      "No tool can tell you with certainty how a specific employer's ATS will handle your resume — but you can catch most problems before you apply.",
+      "Run three checks: can the text be extracted cleanly, are the sections recognisable, and does it contain the posting's key terms?",
+      "An ATS score measures readability and keyword alignment. It's a guide for improvement, not a hiring prediction.",
+      "The most common problems are text in images, unusual headings, missing dates and a resume that isn't tailored to the job.",
+    ],
+    intro: "\"Will my resume pass the ATS?\" is one of the most common questions job seekers ask — and one of the hardest to answer honestly. Every applicant tracking system is different, and employers configure them differently.\n\nWhat you can do is remove the problems that make resumes hard to read and hard to find. This guide gives you a practical checklist, explains what an ATS score actually measures, and lists the mistakes that cause the most trouble.",
+    sections: [
+      {
+        heading: "Check 1 — Can the text be extracted cleanly?",
+        body: `<p>Open your PDF, select all the text, copy it and paste it into a plain text editor (Notepad, TextEdit in plain-text mode). Then read it from top to bottom.</p>
+<ul>
+<li>Is your <strong>name and contact information</strong> there?</li>
+<li>Do sections appear in a <strong>logical order</strong>, or are columns mixed together line by line?</li>
+<li>Are any words <strong>merged</strong>, cut or replaced by strange symbols?</li>
+<li>Is anything <strong>missing</strong> — typically skills shown as icons or bars?</li>
+</ul>
+<p>If the pasted text is hard to follow, a parser may struggle too. The fix is usually a simpler layout with information in real text.</p>`,
+      },
+      {
+        heading: "Check 2 — Are your sections recognisable?",
+        body: `<p>Parsers rely on headings to know where each part of your resume starts. Compare your headings with the standard ones:</p>
+<blockquote>Work Experience · Education · Skills · Languages · Certifications</blockquote>
+<p>Creative alternatives such as "Where I've been" or "My toolbox" read well to a person but may not be recognised by software. For every role, make sure the job title, employer and dates (month and year) are present and written consistently.</p>`,
+      },
+      {
+        heading: "Check 3 — Does it contain the posting's key terms?",
+        body: `<p>Take the job description and highlight the required skills, tools, certifications and the job title itself. Then search your resume for each term. Every requirement you genuinely meet should appear in your resume, ideally in the same words — "Search Engine Optimization (SEO)" rather than only "web visibility".</p>
+<p>This check is specific to each application, which is why a resume that "passes" for one job can perform poorly for another. Our guide to <a href="/careers/resume-keywords">resume keywords</a> explains how to find and place them, and <a href="/job-description-matching">job description matching</a> does this comparison for you.</p>`,
+      },
+      {
+        heading: "What an ATS score really measures",
+        body: `<p>Many resume tools, including CVixeo, give your resume an ATS score. It's useful — as long as you know what it is:</p>
+<ul>
+<li>It estimates how <strong>readable and well-structured</strong> your resume is for screening software, and how well its <strong>keywords</strong> align.</li>
+<li>It is <strong>not</strong> the score a particular employer's ATS will calculate — each system works differently, and many don't score at all.</li>
+<li>It is <strong>not</strong> a probability of getting an interview.</li>
+</ul>
+<p>Use the score to prioritise fixes, re-check after editing, and stop once the suggestions no longer point to real problems. With Premium, CVixeo's <a href="/cv-optimizer">CV checker</a> returns a score from 0 to 100 with three to five concrete suggestions.</p>`,
+      },
+      {
+        heading: "The mistakes that most often cause problems",
+        body: `<ol>
+<li><strong>Key information in images</strong>: skill bars, icons, logos or a picture of your contact details.</li>
+<li><strong>Unusual section headings</strong> that software doesn't recognise.</li>
+<li><strong>Missing or inconsistent dates</strong>, which make it hard to calculate your experience.</li>
+<li><strong>Contact details only in the header or footer.</strong></li>
+<li><strong>A scanned PDF</strong> instead of a text-based file.</li>
+<li><strong>Skills listed but never shown</strong> in your experience — readable by software, unconvincing to people.</li>
+<li><strong>One generic resume for every job</strong>, missing the terms each posting uses.</li>
+</ol>
+<p>For the full method, read <a href="/careers/how-to-create-ats-friendly-resume-2026">how to create an ATS-friendly resume</a>.</p>`,
+      },
+    ],
+    conclusion: "There is no certificate that says a resume \"passes the ATS\". But if your text extracts cleanly, your sections are recognisable and your resume contains the terms of the job you want, you have removed the problems that keep most qualified candidates from being found. Re-run the keyword check for every application — that is the part that changes each time.",
+    faq: [
+      { q: "Is there a free way to test my resume for ATS?", a: "Yes: the plain-text copy-paste test and a manual keyword comparison with the job posting cost nothing and catch most problems. Automated scores are a convenience, not a requirement." },
+      { q: "What is a good ATS score?", a: "There is no universal threshold, because each tool calculates its score differently. Focus on fixing the issues the tool points out rather than on reaching a particular number." },
+      { q: "Can two-column resumes pass an ATS?", a: "Many can, but some parsers read columns line by line and mix them up. Run the plain-text test: if the extracted text is in a logical order, the layout is probably fine." },
+      { q: "Should I send a PDF or a Word document?", a: "Follow the employer's instructions. Otherwise, a text-based PDF is read correctly by most modern systems and keeps your layout intact." },
+    ],
+  },
+
+  {
+    slug: "resume-keywords",
+    title: "Resume Keywords: How to Find the Right Ones for Each Job",
+    seoTitle: "Resume Keywords: How to Find and Use the Right Ones",
+    description: "Which keywords to use in your resume, where to find them in the job posting, where to place them, and how to avoid keyword stuffing — with concrete examples.",
+    category: "ATS",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["resume keywords", "ATS keywords", "job description", "skills", "resume tips"],
+    summary: [
+      "Resume keywords are the specific terms recruiters search for: job titles, hard skills, tools, certifications, methods and domain vocabulary.",
+      "The best source is the job posting itself — especially the requirements and anything mentioned more than once.",
+      "Place keywords where they make sense: headline, summary, skills section and, above all, experience bullet points.",
+      "Use the posting's exact wording when it truthfully describes your experience. Never add skills you don't have.",
+    ],
+    intro: "Recruiters don't read every resume in full. They search, scan and filter — and the words they search for come straight from the job description. If your resume describes the right experience in different words, it can be overlooked by software and people alike.\n\nThis guide explains which keywords matter, how to find them in a job posting, where to put them, and how to do it without turning your resume into a list of buzzwords.",
+    sections: [
+      {
+        heading: "What counts as a resume keyword",
+        body: `<p>A keyword is a term that identifies a qualification precisely. The most useful categories are:</p>
+<ul>
+<li><strong>Job titles</strong>: "Account Executive", "Data Analyst", "Office Manager".</li>
+<li><strong>Hard skills and methods</strong>: "financial modelling", "SEO", "Agile", "budget forecasting".</li>
+<li><strong>Tools and software</strong>: "Salesforce", "Excel (pivot tables)", "Figma", "SAP".</li>
+<li><strong>Certifications and degrees</strong>: "PMP", "CPA", "Bachelor's in Computer Science".</li>
+<li><strong>Languages</strong>, with a level: "Dutch (C1)".</li>
+<li><strong>Domain vocabulary</strong>: "B2B SaaS", "supply chain", "GDPR compliance".</li>
+</ul>
+<p>Soft skills like "team player" or "communicative" are rarely searched for and convince no one on their own. Show them through results instead.</p>`,
+      },
+      {
+        heading: "Where to find keywords: the job posting first",
+        body: `<p>Read the posting with a highlighter. Here is an illustrative excerpt for a Data Analyst role, with the keywords extracted:</p>
+<blockquote>"You will build <strong>dashboards in Power BI</strong>, write <strong>SQL</strong> queries against our <strong>data warehouse</strong>, and present insights to <strong>stakeholders</strong>. You have 2+ years of experience in <strong>data analysis</strong>, strong <strong>Excel</strong> skills, and ideally some <strong>Python</strong>."</blockquote>
+<p>Keywords: Power BI, dashboards, SQL, data warehouse, stakeholder communication, data analysis, Excel — plus Python as a nice-to-have.</p>
+<p>Pay special attention to terms in the <strong>requirements</strong>, terms that appear <strong>more than once</strong>, and the <strong>exact job title</strong>. Looking at three or four similar postings helps you see which terms are standard for the role. Our guide on <a href="/careers/how-to-analyze-job-posting">how to analyze a job posting</a> explains how to separate must-haves from nice-to-haves.</p>`,
+      },
+      {
+        heading: "Where to place keywords in your resume",
+        body: `<ul>
+<li><strong>Headline or title</strong>: use the target job title if it matches your experience.</li>
+<li><strong>Summary</strong>: two or three of the most important skills for the role.</li>
+<li><strong>Skills section</strong>: the tools and methods you master, named exactly.</li>
+<li><strong>Experience bullet points</strong>: the most convincing place, because the keyword comes with proof.</li>
+</ul>
+<p>Compare a skills list with a bullet point:</p>
+<blockquote>Skills: SQL, Power BI<br/>→ "Built 6 Power BI dashboards from SQL queries on the sales data warehouse, used weekly by the regional sales team."</blockquote>
+<p>The second version contains the same keywords and answers the recruiter's real question: what did you do with them?</p>`,
+      },
+      {
+        heading: "Exact wording, acronyms and variants",
+        body: `<p>Search is often literal. A few habits make you findable whichever term the recruiter uses:</p>
+<ul>
+<li>Write acronyms in full once: "Search Engine Optimization (SEO)", "Customer Relationship Management (CRM)".</li>
+<li>Use the posting's version of a term when both are accurate: "stakeholder management" rather than "working with other departments".</li>
+<li>Keep official names of tools and certifications: "Microsoft Excel", "Google Ads", "PRINCE2".</li>
+</ul>`,
+      },
+      {
+        heading: "What not to do",
+        body: `<ul>
+<li><strong>Keyword stuffing</strong>: repeating terms or listing every buzzword. People read your resume after the search.</li>
+<li><strong>Hidden text</strong>, such as white keywords on a white background. Many ATS display the extracted text to recruiters, where hidden words become visible.</li>
+<li><strong>Claiming skills you don't have.</strong> It may get you an interview, then fail you in it.</li>
+<li><strong>Copying sentences from the posting.</strong> Use its vocabulary, not its paragraphs.</li>
+</ul>`,
+      },
+      {
+        heading: "Check which keywords are missing",
+        body: `<p>Manually, list the posting's keywords in one column and tick each one that appears in your resume. For each missing term, ask: do I have this? If yes, add it where it naturally belongs. If not, leave it out — and consider addressing the gap in your cover letter.</p>
+<p>CVixeo's <a href="/job-description-matching">job description matching</a> automates this step: it extracts the required skills and keywords from the posting, compares them with your CV and lists what wasn't found. It works across English, French and Dutch, so a Dutch posting can be compared with an English CV.</p>`,
+      },
+    ],
+    conclusion: "Good keywords are not tricks; they are precise names for what you can do. Take them from the posting, place them where they come with evidence, and keep the wording honest. Then repeat the comparison for every application — the right keywords for one job are rarely exactly the right ones for the next.",
+    faq: [
+      { q: "How many keywords should a resume contain?", a: "There is no ideal number. Aim to cover every requirement in the posting that you genuinely meet, each in the posting's wording, without repeating terms unnaturally." },
+      { q: "Should I include soft skills as keywords?", a: "Only when the posting stresses them, and preferably shown through an example (\"led weekly meetings with 3 departments\") rather than as a standalone word." },
+      { q: "Are keywords the same for every ATS?", a: "The keywords come from the job and the recruiter's search, not from the software. That's why they change with every posting." },
+      { q: "Can I use keywords from the job posting word for word?", a: "Yes for single terms and skill names when they're accurate. Don't copy whole sentences or describe experience you don't have." },
+    ],
+  },
+
+  {
+    slug: "how-to-analyze-job-posting",
+    title: "How to Analyze a Job Posting Before You Apply",
+    description: "A step-by-step method to read a job posting, separate must-haves from nice-to-haves, identify the required skills and decide what your resume needs to prove.",
+    category: "Resume",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["job description", "job posting", "required skills", "resume tailoring", "job search"],
+    summary: [
+      "A job posting tells you what the employer will look for in your resume — if you read it systematically.",
+      "Sort every requirement into must-have, nice-to-have and context (team, tools, environment).",
+      "Identify required skills by their wording: \"required\", \"you have\" and \"must\" versus \"a plus\", \"ideally\" and \"bonus\".",
+      "Turn your analysis into a short list of points your resume must prove, then tailor your summary, skills and bullet points to them.",
+    ],
+    intro: "Most candidates read a job posting once, decide whether they like it, and send their usual resume. Ten minutes of structured analysis does more for your chances than an hour spent polishing generic wording.\n\nThis guide gives you a repeatable method to analyze any job posting and identify the required skills — and shows how to turn that analysis into a resume tailored to the role.",
+    sections: [
+      {
+        heading: "Step 1 — Read the posting three times, with three questions",
+        body: `<ol>
+<li><strong>What is the job, really?</strong> Ignore the title for a moment and read the responsibilities. What will this person do every week?</li>
+<li><strong>What must the candidate already have?</strong> Skills, experience, education, languages, certifications, location or work authorisation.</li>
+<li><strong>What problem is the team trying to solve?</strong> Growth, a new product, a backlog, a new system? The answer tells you which of your experiences to put first.</li>
+</ol>`,
+      },
+      {
+        heading: "Step 2 — Separate must-haves from nice-to-haves",
+        body: `<p>The wording of a posting usually signals how important a requirement is:</p>
+<ul>
+<li><strong>Must-haves</strong>: "required", "you have", "must", "minimum", "proven experience in".</li>
+<li><strong>Nice-to-haves</strong>: "a plus", "ideally", "bonus", "preferred", "familiarity with".</li>
+<li><strong>Context</strong>: the tools the team uses, the size of the company, the market — useful for your summary and cover letter.</li>
+</ul>
+<p>Postings are often wish lists. Not meeting every nice-to-have is normal; not meeting several must-haves is a stronger signal to reconsider.</p>`,
+      },
+      {
+        heading: "Step 3 — Identify the required skills",
+        body: `<p>Here is an illustrative excerpt for a Customer Success Manager role, analyzed:</p>
+<blockquote>"You manage a portfolio of <strong>B2B SaaS</strong> accounts, drive <strong>renewals and upsells</strong>, and run <strong>onboarding</strong> for new customers. <strong>Required</strong>: 3+ years in customer success or account management, fluent <strong>English and French</strong>, experience with a <strong>CRM (HubSpot or Salesforce)</strong>. <strong>A plus</strong>: knowledge of <strong>SQL</strong>."</blockquote>
+<ul>
+<li>Must-haves: 3+ years in customer success / account management · English and French · CRM experience.</li>
+<li>Responsibilities to prove: portfolio management · renewals and upsells · onboarding.</li>
+<li>Nice-to-have: SQL.</li>
+<li>Context: B2B SaaS.</li>
+</ul>
+<p>Write the list down. It becomes the checklist for your resume — and the vocabulary to use, as explained in our guide to <a href="/careers/resume-keywords">resume keywords</a>.</p>`,
+      },
+      {
+        heading: "Step 4 — Decide what your resume must prove",
+        body: `<p>For each must-have and each main responsibility, find one line in your experience that proves it — ideally with a result:</p>
+<p>An illustrative example:</p>
+<blockquote>Renewals and upsells → "Managed 40 SMB accounts and renewed 92% of contracts up for renewal in 2025, including 6 upsells to the Pro plan."</blockquote>
+<p>If you can't find proof for a must-have, either the experience is missing from your resume (add it) or you don't have it (be honest, and consider whether to address it in your cover letter).</p>`,
+      },
+      {
+        heading: "Step 5 — Tailor your resume to the analysis",
+        body: `<ul>
+<li>Adapt your <strong>headline and summary</strong> to the role and its main problem.</li>
+<li>Reorder your <strong>skills</strong> so the must-haves come first.</li>
+<li>Move the most relevant <strong>bullet points</strong> to the top of each role.</li>
+<li>Use the posting's <strong>terms</strong> wherever they honestly describe your work.</li>
+</ul>
+<p>Our guide on <a href="/careers/how-to-tailor-resume-to-job-posting">how to tailor your resume to a job posting</a> covers this step in detail. CVixeo's <a href="/job-description-matching">job description matching</a> performs the analysis for you: it extracts required and nice-to-have skills, minimum experience, education, languages and keywords from the posting, then shows which ones your CV covers.</p>`,
+      },
+    ],
+    conclusion: "Analyzing a job posting turns a vague \"I think I fit\" into a precise checklist: what must be proven, in which words, and in what order. It takes ten minutes, it works for any role, and it makes every other part of your application — resume, cover letter, interview — more focused.",
+    faq: [
+      { q: "Should I apply if I don't meet every requirement?", a: "Often, yes. Many postings mix essentials with wishes. If you meet the must-haves and can show progress on the rest, applying is reasonable. If several must-haves are missing, focus on roles that fit better." },
+      { q: "How do I identify the most important skills in a posting?", a: "Look at what is labelled as required, what appears more than once, what is listed first, and what is directly linked to the main responsibilities." },
+      { q: "Is it worth analyzing similar postings?", a: "Yes. Comparing three or four postings for the same role shows which skills are standard for the job and which are specific to one employer." },
+    ],
+  },
+
+  {
+    slug: "how-to-use-ai-to-write-resume",
+    title: "How to Use AI to Write and Improve Your Resume (Without Sounding Generic)",
+    seoTitle: "How to Use AI to Write and Improve Your Resume",
+    description: "A practical method to create or improve your resume with AI: what to give it, how to edit the output, how to tailor it to each job, and the mistakes to avoid.",
+    category: "Resume",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["AI resume", "AI CV builder", "resume writing", "AI tools", "resume tips"],
+    summary: [
+      "AI is good at structure, wording and consistency. It can't know your results — you have to provide the facts.",
+      "Give it specifics (tools, scope, numbers, outcomes), not adjectives. Specific input produces specific output.",
+      "Always edit the draft in your own voice and check every claim, figure and date.",
+      "Use AI to improve an existing resume and to tailor it to each posting, not just to generate a first draft.",
+    ],
+    intro: "AI can turn hours of resume writing into minutes. It can also produce documents that all sound the same — polished, vague and easy for recruiters to spot.\n\nThe difference lies in how you use it. This guide shows how to create or improve your resume with AI, step by step, so the result is faster to write and still unmistakably yours.",
+    sections: [
+      {
+        heading: "What AI is good at — and what it isn't",
+        body: `<ul>
+<li><strong>Good at</strong>: turning notes into clear sentences, finding strong action verbs, keeping a consistent tone and tense, structuring sections, shortening long descriptions.</li>
+<li><strong>Not good at</strong>: knowing what you actually achieved, choosing which experience matters for a particular job, or being careful with facts. Language models can phrase things more strongly than reality — or invent a figure that sounds plausible.</li>
+</ul>
+<p>So the rule is simple: you supply the facts and the judgement; AI supplies the wording.</p>`,
+      },
+      {
+        heading: "Step 1 — Give AI facts, not adjectives",
+        body: `<p>Compare two inputs for the same role:</p>
+<blockquote>Weak input: "Marketing assistant, good at social media, hard-working."</blockquote>
+<blockquote>Strong input: "Marketing assistant at a 20-person e-commerce company, 2023–2025. Ran Instagram and LinkedIn accounts. Planned a weekly content calendar. Grew Instagram from 4,000 to 11,000 followers in 12 months. Used Canva and Meta Business Suite."</blockquote>
+<p>The first produces generic text. The second produces a bullet point a recruiter can believe:</p>
+<blockquote>"Planned and published weekly content for Instagram and LinkedIn, growing Instagram followers from 4,000 to 11,000 in 12 months (Canva, Meta Business Suite)."</blockquote>`,
+      },
+      {
+        heading: "Step 2 — Generate, then edit in your own voice",
+        body: `<p>Treat every AI output as a draft. Read each line and ask:</p>
+<ul>
+<li>Is it <strong>true</strong>? Remove anything you can't back up in an interview.</li>
+<li>Is it <strong>specific</strong>? Replace phrases like "dynamic professional" or "passionate about results" with facts.</li>
+<li>Does it <strong>sound like me</strong>? Recruiters notice when a summary could describe anyone.</li>
+</ul>
+<p>An <a href="/ai-cv-builder">AI CV builder</a> such as CVixeo drafts content directly inside a structured editor and template, so you edit the real document rather than copy-pasting between a chatbot and a word processor.</p>`,
+      },
+      {
+        heading: "Step 3 — Improve an existing resume",
+        body: `<p>If you already have a resume, you don't need to start from scratch. Import it, let AI rewrite the weakest parts, then review:</p>
+<blockquote>Before: "Responsible for customer orders and follow-up."<br/>After: "Managed the full order cycle for a portfolio of B2B customers, from quotation to invoicing, in coordination with logistics."</blockquote>
+<p>Notice that the improved version is clearer but adds no invented numbers. If you know your results (number of customers, delays reduced), add them yourself. CVixeo's <a href="/resume-optimizer">resume optimizer</a> imports PDF, DOCX or TXT files and rewrites the summary and experience.</p>`,
+      },
+      {
+        heading: "Step 4 — Tailor the resume to each posting",
+        body: `<p>The biggest gain from AI is not the first draft — it's tailoring. For each application, compare your resume with the posting, identify the missing skills and keywords you genuinely have, and adjust your summary and bullet points.</p>
+<p>See <a href="/careers/how-to-tailor-resume-to-job-posting">how to tailor your resume to a job posting</a> for the manual method, or use CVixeo's <a href="/job-description-matching">job description matching</a>, which lists the missing skills and keywords and recommends changes based only on what is in your CV — it won't suggest claiming experience you don't have.</p>`,
+      },
+      {
+        heading: "Mistakes to avoid",
+        body: `<ul>
+<li><strong>Accepting invented figures.</strong> If the AI adds "increased sales by 30%" and you never measured it, delete it.</li>
+<li><strong>Buzzword soup.</strong> "Results-driven, dynamic, innovative" says nothing. Cut it.</li>
+<li><strong>One AI resume for every job.</strong> A generic draft stays generic, however well written.</li>
+<li><strong>Skipping the final read.</strong> AI can mistranslate job titles, degrees or company names.</li>
+<li><strong>Pasting sensitive data carelessly.</strong> Only share personal information with tools whose privacy terms you accept.</li>
+</ul>`,
+      },
+    ],
+    conclusion: "Used well, AI removes the slowest parts of resume writing — the blank page, the phrasing, the formatting — and leaves you more time for what matters: choosing the right experience and proving it. Give it facts, edit its output, and tailor every version to the job in front of you.",
+    faq: [
+      { q: "Is it acceptable to use AI to write my resume?", a: "Yes, as long as the content is accurate and you can discuss every line in an interview. Recruiters care about what your resume says, not which tool helped you write it." },
+      { q: "Can recruiters tell a resume was written by AI?", a: "Generic AI wording is easy to recognise. Specific facts, concrete results and your own phrasing make the difference." },
+      { q: "Can AI invent experience on my resume?", a: "It can phrase things too strongly or add plausible-sounding details. Always check every claim, number and date before sending." },
+      { q: "Which AI does CVixeo use?", a: "CVixeo's AI features are powered by Claude, a language model developed by Anthropic." },
+    ],
+  },
+
+  {
+    slug: "resume-no-experience",
+    title: "How to Write a Resume With No Work Experience (Students, Graduates, First Job)",
+    seoTitle: "Resume With No Experience: Students and First Jobs",
+    description: "What to put on a resume with no work experience: education, projects, internships, volunteering and student jobs, with a structure and before/after examples.",
+    category: "Resume",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["resume no experience", "student resume", "first job resume", "graduate resume", "entry level"],
+    summary: [
+      "\"No experience\" rarely means nothing to show: studies, projects, internships, volunteering, part-time jobs and associations all count.",
+      "Put education and projects first, followed by any experience, skills and languages — on one page.",
+      "Describe each activity with what you did and what it produced, exactly like a job.",
+      "Tailor even your first resume to the posting: the skills it asks for decide which activities you highlight.",
+    ],
+    intro: "Writing your first resume feels like a paradox: you need experience to get a job, and a job to get experience. In practice, employers hiring students and graduates don't expect a long career — they expect evidence that you can learn, deliver and work with others.\n\nThis guide shows what to put on a resume when you have no formal work experience, how to structure it, and how to turn everyday activities into convincing proof.",
+    sections: [
+      {
+        heading: "What to put instead of work experience",
+        body: `<ul>
+<li><strong>Education</strong>: degree, school, years, and relevant courses or a thesis topic if they relate to the job.</li>
+<li><strong>Projects</strong>: academic, group or personal projects — a website, a market study, an app, an event.</li>
+<li><strong>Internships and placements</strong>, even short ones.</li>
+<li><strong>Part-time and student jobs</strong>: retail, hospitality, tutoring, delivery. They prove reliability and customer skills.</li>
+<li><strong>Volunteering and associations</strong>: roles with responsibility (treasurer, event organiser, team captain) are especially valuable.</li>
+<li><strong>Certifications and online courses</strong> related to the role.</li>
+</ul>`,
+      },
+      {
+        heading: "A structure for a first resume",
+        body: `<ol>
+<li><strong>Header</strong>: name, target job or field, email, phone, city, LinkedIn or portfolio.</li>
+<li><strong>Summary</strong>: two lines on what you're studying or have just finished and what you're looking for.</li>
+<li><strong>Education</strong>: first, because it's currently your main qualification.</li>
+<li><strong>Projects</strong>: two or three, chosen for the job.</li>
+<li><strong>Experience</strong>: internships, student jobs, volunteering.</li>
+<li><strong>Skills and languages</strong>: precise tools and levels.</li>
+</ol>
+<p>Keep it to one page. If you're unsure about length, see our article on <a href="/careers/one-page-vs-two-page-resume">one-page vs two-page resumes</a>.</p>`,
+      },
+      {
+        heading: "Turn activities into evidence",
+        body: `<p>Describe each activity the way you would describe a job: an action, what you did, and what it produced.</p>
+<blockquote>Before: "Member of the student association."<br/>After: "Treasurer of a 60-member student association: managed a €4,000 annual budget and organised the yearly fundraising event."</blockquote>
+<blockquote>Before: "Group project in marketing."<br/>After: "Led a 4-person team on a market study for a local business; presented recommendations to the owner, who adopted two of them."</blockquote>
+<blockquote>Before: "Cashier at a supermarket."<br/>After: "Handled checkout and customer questions during peak hours, 15 hours a week alongside full-time studies."</blockquote>
+<p>These examples are illustrative — use your own facts and numbers, and only the ones you can explain.</p>`,
+      },
+      {
+        heading: "Skills: show, don't just list",
+        body: `<p>List hard skills precisely ("Excel: pivot tables", "Python basics", "Canva"), state language levels clearly, and let soft skills appear through your activities. "Organised" is a claim; "organised a 150-person event" is proof.</p>`,
+      },
+      {
+        heading: "Tailor your first resume too",
+        body: `<p>Entry-level postings still list specific skills. Read the posting, note what it asks for (our guide on <a href="/careers/how-to-analyze-job-posting">how to analyze a job posting</a> helps), and choose the projects and activities that prove those skills. Two well-chosen projects beat six unrelated ones.</p>
+<p>CVixeo's <a href="/ai-cv-builder">AI CV builder</a> helps you structure a first resume and phrase your activities professionally, and it's free to start.</p>`,
+      },
+    ],
+    conclusion: "A first resume isn't judged on the length of your career but on the evidence you provide. Choose the activities that match the job, describe them with concrete actions and results, and keep everything on one clear page. That is enough to get the conversation started.",
+    faq: [
+      { q: "Should I include part-time or student jobs that aren't related to the role?", a: "Yes, briefly. They show reliability, time management and customer contact. Put the details on the experiences most relevant to the job." },
+      { q: "Should I put my grades on my resume?", a: "Include them if they are strong or if the employer asks. Otherwise, relevant courses, projects or a thesis topic are usually more useful." },
+      { q: "Do I need a summary on a first resume?", a: "A short one helps: two lines stating your field, your level and the kind of role you're looking for orient the recruiter immediately." },
+      { q: "Should I add a photo?", a: "It depends on the country and the employer. In the US, UK and Canada, photos are generally left off; in parts of Europe they are common but optional." },
+    ],
+  },
+
+  {
+    slug: "cv-sans-experience",
+    title: "CV sans expérience : comment le rédiger quand on est étudiant ou jeune diplômé",
+    seoTitle: "CV sans expérience : étudiant, premier emploi",
+    description: "Que mettre sur un CV sans expérience professionnelle : formation, projets, stages, jobs étudiants, bénévolat — avec une structure type et des exemples avant/après.",
+    category: "Resume",
+    lang: "fr",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["CV sans expérience", "CV étudiant", "premier emploi", "jeune diplômé", "CV"],
+    summary: [
+      "« Sans expérience » ne veut pas dire « sans rien à montrer » : études, projets, stages, jobs étudiants et engagement associatif comptent.",
+      "Placez la formation et les projets en premier, puis les expériences, les compétences et les langues — sur une page.",
+      "Décrivez chaque activité comme un poste : ce que vous avez fait et ce que cela a produit.",
+      "Adaptez même votre premier CV à l'offre : les compétences demandées décident des activités à mettre en avant.",
+    ],
+    intro: "Rédiger son premier CV ressemble à un paradoxe : il faut de l'expérience pour trouver un emploi, et un emploi pour avoir de l'expérience. En réalité, un recruteur qui embauche un étudiant ou un jeune diplômé n'attend pas une longue carrière : il cherche des preuves que vous savez apprendre, vous organiser et travailler avec d'autres.\n\nCe guide explique quoi mettre sur un CV sans expérience professionnelle, comment le structurer et comment transformer vos activités en arguments concrets.",
+    sections: [
+      {
+        heading: "Que mettre à la place de l'expérience professionnelle ?",
+        body: `<ul>
+<li><strong>La formation</strong> : diplôme, établissement, années, et les cours ou le mémoire en lien avec le poste.</li>
+<li><strong>Les projets</strong> : projets de cours, de groupe ou personnels — un site web, une étude de marché, une application, un événement.</li>
+<li><strong>Les stages</strong>, même courts.</li>
+<li><strong>Les jobs étudiants</strong> : vente, restauration, cours particuliers, livraison. Ils prouvent votre fiabilité et votre sens du contact.</li>
+<li><strong>Le bénévolat et la vie associative</strong> : les rôles à responsabilité (trésorier, organisateur d'événement, capitaine d'équipe) sont particulièrement parlants.</li>
+<li><strong>Les certifications et formations en ligne</strong> liées au poste.</li>
+</ul>`,
+      },
+      {
+        heading: "Une structure type pour un premier CV",
+        body: `<ol>
+<li><strong>En-tête</strong> : nom, poste ou domaine visé, e-mail, téléphone, ville, LinkedIn ou portfolio.</li>
+<li><strong>Accroche</strong> : deux lignes sur vos études et le type de poste recherché.</li>
+<li><strong>Formation</strong> : en premier, car c'est aujourd'hui votre principal atout.</li>
+<li><strong>Projets</strong> : deux ou trois, choisis en fonction du poste.</li>
+<li><strong>Expériences</strong> : stages, jobs étudiants, bénévolat.</li>
+<li><strong>Compétences et langues</strong> : outils précis et niveaux clairs (par exemple selon l'échelle européenne A1 à C2).</li>
+</ol>
+<p>Tenez-vous à une page. Pour les rubriques et la mise en page, voyez aussi notre guide pour <a href="/fr/creer-cv">créer un CV</a>.</p>`,
+      },
+      {
+        heading: "Transformer vos activités en preuves",
+        body: `<p>Décrivez chaque activité comme un poste : une action, ce que vous avez fait, ce que cela a produit.</p>
+<blockquote>Avant : « Membre d'une association étudiante. »<br/>Après : « Trésorier d'une association de 60 membres : gestion d'un budget annuel de 4 000 € et organisation de l'événement de collecte de fonds. »</blockquote>
+<blockquote>Avant : « Projet de groupe en marketing. »<br/>Après : « Pilotage d'une équipe de 4 étudiants pour une étude de marché réalisée pour un commerce local ; deux de nos recommandations ont été retenues par le gérant. »</blockquote>
+<blockquote>Avant : « Job étudiant en supermarché. »<br/>Après : « Tenue de caisse et accueil client en heures de pointe, 15 heures par semaine en parallèle des études. »</blockquote>
+<p>Ces exemples sont illustratifs : utilisez vos propres faits et chiffres, uniquement ceux que vous pouvez expliquer en entretien.</p>`,
+      },
+      {
+        heading: "Les compétences : montrer plutôt que lister",
+        body: `<p>Nommez les compétences techniques avec précision (« Excel : tableaux croisés dynamiques », « bases de Python », « Canva »), indiquez un niveau pour chaque langue et laissez les qualités humaines apparaître à travers vos activités. « Organisé » est une affirmation ; « organisation d'un événement de 150 personnes » est une preuve. Notre article sur la façon de <a href="/fr/careers/mettre-en-valeur-competences-cv">mettre en valeur ses compétences</a> va plus loin.</p>`,
+      },
+      {
+        heading: "Adapter son premier CV à chaque offre",
+        body: `<p>Les offres de premier emploi listent elles aussi des compétences précises. Lisez l'annonce, notez ce qu'elle demande — notre méthode pour <a href="/fr/careers/analyser-offre-emploi">analyser une offre d'emploi</a> vous y aide — et choisissez les projets et activités qui le prouvent. Deux projets bien choisis valent mieux que six sans rapport avec le poste.</p>
+<p>Le <a href="/fr/generateur-cv-ia">générateur de CV IA</a> de CVixeo vous aide à structurer un premier CV et à formuler vos activités de façon professionnelle, gratuitement pour commencer.</p>`,
+      },
+    ],
+    conclusion: "Un premier CV n'est pas jugé sur la longueur de votre parcours, mais sur les preuves que vous apportez. Choisissez les activités qui correspondent au poste, décrivez-les avec des actions et des résultats concrets, et présentez le tout sur une page claire : c'est suffisant pour ouvrir la discussion.",
+    faq: [
+      { q: "Faut-il mentionner un job étudiant sans rapport avec le poste ?", a: "Oui, brièvement. Il montre votre fiabilité, votre capacité à concilier travail et études et votre sens du contact. Détaillez davantage les expériences les plus proches du poste visé." },
+      { q: "Faut-il indiquer ses notes ou sa moyenne ?", a: "Seulement si elles sont bonnes ou si l'employeur les demande. Sinon, des cours pertinents, des projets ou le sujet de votre mémoire sont généralement plus utiles." },
+      { q: "Une accroche est-elle utile sur un premier CV ?", a: "Oui, si elle est courte : deux lignes indiquant votre domaine, votre niveau d'études et le poste recherché orientent immédiatement le recruteur." },
+      { q: "Faut-il mettre une photo ?", a: "Elle n'est obligatoire ni en France ni en Belgique. Si vous en mettez une, choisissez une photo sobre et professionnelle ; pour une candidature internationale, il est souvent préférable de s'en passer." },
+    ],
+  },
+
+  {
+    slug: "analyser-offre-emploi",
+    title: "Comment analyser une offre d'emploi avant de postuler ?",
+    seoTitle: "Analyser une offre d'emploi : la méthode en 5 étapes",
+    description: "Une méthode en 5 étapes pour lire une offre d'emploi, distinguer exigences obligatoires et atouts, et savoir exactement quoi prouver dans votre CV.",
+    category: "Resume",
+    lang: "fr",
+    publishedAt: "2026-10-07",
+    readingTime: 7,
+    tags: ["offre d'emploi", "analyser une offre", "compétences requises", "adapter son CV", "candidature"],
+    summary: [
+      "Une offre d'emploi indique ce que le recruteur cherchera dans votre CV — à condition de la lire méthodiquement.",
+      "Classez chaque exigence : obligatoire, souhaitée ou simple contexte (équipe, outils, environnement).",
+      "Repérez les compétences requises grâce au vocabulaire : « requis », « vous maîtrisez », « indispensable » contre « un plus », « idéalement », « apprécié ».",
+      "Transformez votre analyse en une courte liste de points que votre CV doit prouver, puis adaptez accroche, compétences et expériences.",
+    ],
+    intro: "La plupart des candidats lisent une offre une fois, décident si elle leur plaît, puis envoient leur CV habituel. Dix minutes d'analyse structurée font pourtant davantage pour vos chances qu'une heure passée à peaufiner des formulations génériques.\n\nCe guide vous donne une méthode reproductible pour analyser n'importe quelle offre d'emploi, identifier les compétences demandées et en tirer un CV adapté au poste.",
+    sections: [
+      {
+        heading: "Étape 1 — Lire l'offre trois fois, avec trois questions",
+        body: `<ol>
+<li><strong>En quoi consiste vraiment le poste ?</strong> Oubliez un instant l'intitulé et lisez les missions : que fera cette personne chaque semaine ?</li>
+<li><strong>Que doit déjà posséder le candidat ?</strong> Compétences, expérience, diplôme, langues, certifications, permis, mobilité.</li>
+<li><strong>Quel problème l'équipe cherche-t-elle à résoudre ?</strong> Croissance, nouveau produit, retard à rattraper, changement d'outil ? La réponse indique quelles expériences mettre en avant.</li>
+</ol>`,
+      },
+      {
+        heading: "Étape 2 — Distinguer l'obligatoire du souhaité",
+        body: `<p>Le vocabulaire de l'annonce signale généralement l'importance d'une exigence :</p>
+<ul>
+<li><strong>Obligatoire</strong> : « requis », « indispensable », « vous maîtrisez », « minimum », « expérience confirmée en ».</li>
+<li><strong>Souhaité</strong> : « un plus », « idéalement », « apprécié », « une connaissance de ».</li>
+<li><strong>Contexte</strong> : outils de l'équipe, taille de l'entreprise, marché — utile pour votre accroche et votre lettre de motivation.</li>
+</ul>
+<p>Les offres sont souvent des listes de souhaits : ne pas cocher tous les « plus » est normal. Ne pas remplir plusieurs exigences obligatoires est en revanche un signal à prendre au sérieux.</p>`,
+      },
+      {
+        heading: "Étape 3 — Identifier les compétences demandées",
+        body: `<p>Voici un extrait illustratif d'offre de chargé(e) de clientèle B2B, analysé :</p>
+<blockquote>« Vous gérez un <strong>portefeuille de clients professionnels</strong>, assurez le <strong>suivi des commandes</strong> et la <strong>fidélisation</strong>. <strong>Requis</strong> : 2 ans d'expérience en <strong>relation client</strong>, maîtrise d'un <strong>CRM</strong>, <strong>français et néerlandais</strong> courants. <strong>Un plus</strong> : connaissance de <strong>SAP</strong>. »</blockquote>
+<ul>
+<li>Obligatoire : 2 ans en relation client · CRM · français et néerlandais.</li>
+<li>Missions à prouver : gestion de portefeuille · suivi de commandes · fidélisation.</li>
+<li>Souhaité : SAP.</li>
+</ul>
+<p>Notez cette liste : elle devient la checklist de votre CV et le vocabulaire à reprendre, dans la mesure où il décrit fidèlement votre expérience.</p>`,
+      },
+      {
+        heading: "Étape 4 — Décider ce que votre CV doit prouver",
+        body: `<p>Pour chaque exigence obligatoire et chaque mission principale, trouvez une ligne de votre parcours qui la démontre, idéalement avec un résultat :</p>
+<blockquote>Fidélisation → « Suivi d'un portefeuille de 40 clients professionnels, avec un rendez-vous de bilan annuel pour chacun. » (exemple illustratif)</blockquote>
+<p>Si aucune preuve n'existe pour une exigence obligatoire, soit l'expérience manque dans votre CV (ajoutez-la), soit vous ne l'avez pas (restez honnête, et voyez s'il faut l'aborder dans votre lettre de motivation).</p>`,
+      },
+      {
+        heading: "Étape 5 — Adapter votre CV à l'analyse",
+        body: `<ul>
+<li>Ajustez le <strong>titre et l'accroche</strong> au poste et à son enjeu principal.</li>
+<li>Réordonnez vos <strong>compétences</strong> pour faire apparaître les exigences obligatoires en premier.</li>
+<li>Remontez les <strong>réalisations</strong> les plus pertinentes en tête de chaque expérience.</li>
+<li>Reprenez les <strong>termes de l'offre</strong> lorsqu'ils décrivent fidèlement votre travail — cela aide aussi les <a href="/fr/cv-ats">logiciels ATS</a>.</li>
+</ul>
+<p>L'<a href="/fr/cv-offre-emploi">analyse CV / offre d'emploi</a> de CVixeo réalise ce travail pour vous : elle extrait de l'annonce les compétences obligatoires et souhaitées, l'expérience minimale, la formation, les langues et les mots-clés, puis indique ce que votre CV couvre déjà. Elle fonctionne en français, en néerlandais et en anglais, même si votre CV n'est pas rédigé dans la langue de l'offre.</p>`,
+      },
+    ],
+    conclusion: "Analyser une offre transforme un vague « je pense correspondre » en une checklist précise : ce qu'il faut prouver, avec quels mots et dans quel ordre. Cela prend dix minutes, fonctionne pour tous les postes, et rend chaque étape de votre candidature — CV, lettre, entretien — plus ciblée.",
+    faq: [
+      { q: "Faut-il postuler si l'on ne remplit pas tous les critères ?", a: "Souvent, oui. Les offres mélangent exigences essentielles et souhaits. Si vous remplissez les critères obligatoires et pouvez montrer votre progression sur le reste, postuler est raisonnable." },
+      { q: "Comment repérer les compétences les plus importantes ?", a: "Regardez ce qui est indiqué comme requis, ce qui revient plusieurs fois, ce qui est cité en premier et ce qui est directement lié aux missions principales." },
+      { q: "Est-ce utile de comparer plusieurs offres pour un même poste ?", a: "Oui : trois ou quatre offres similaires montrent quelles compétences sont standards pour le métier et lesquelles sont propres à un employeur." },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
