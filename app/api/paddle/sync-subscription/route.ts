@@ -46,10 +46,33 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ synced: false, reason: "transaction_not_found" });
   }
 
+  // SECURITY: the transaction ID comes from the browser and is not proof of
+  // anything on its own. Every checkout is created server-side with
+  // customData.userId (see createCheckoutTransaction), so require that it
+  // belongs to the caller — otherwise any Paddle transaction ID (someone
+  // else's, or an abandoned checkout) could be used to grant Premium.
+  if (transaction.customData?.userId !== dbUser.id) {
+    console.warn("[paddle:sync] Transaction does not belong to caller", { transactionId: transaction.id, userId: dbUser.id });
+    return NextResponse.json({ synced: false, reason: "forbidden" }, { status: 403 });
+  }
+
+  // Only paid transactions grant access. A checkout that was opened but not
+  // paid ("draft"/"ready") must not unlock anything; if payment is still being
+  // processed, the signed transaction.completed webhook will finish the job.
+  if (transaction.status !== "paid" && transaction.status !== "completed") {
+    return NextResponse.json({ synced: false, reason: "not_paid" });
+  }
+
   const isPass = transaction.customData?.productType === "PREMIUM_PASS";
 
   if (isPass) {
-    const passEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    // Date the 7 days from the payment, not from "now": otherwise the same
+    // transaction ID could be re-submitted every week to extend the pass forever.
+    const paidAt = new Date(transaction.billedAt ?? transaction.createdAt);
+    const passEnd = new Date(paidAt.getTime() + 7 * 24 * 60 * 60 * 1000);
+    if (passEnd <= new Date()) {
+      return NextResponse.json({ synced: false, reason: "pass_expired" });
+    }
     await prisma.subscription.upsert({
       where: { userId: dbUser.id },
       create: {
@@ -80,6 +103,14 @@ export async function POST(request: NextRequest) {
 
   if (!subscription) {
     return NextResponse.json({ synced: false, reason: "subscription_not_found" });
+  }
+
+  // Subscriptions inherit customData from their checkout transaction; reject a
+  // mismatch so a paid transaction can't be pointed at someone else's subscription.
+  const subscriptionOwner = subscription.customData?.userId;
+  if (subscriptionOwner && subscriptionOwner !== dbUser.id) {
+    console.warn("[paddle:sync] Subscription does not belong to caller", { subscriptionId: subscription.id, userId: dbUser.id });
+    return NextResponse.json({ synced: false, reason: "forbidden" }, { status: 403 });
   }
 
   const fields = subscriptionFields(subscription);

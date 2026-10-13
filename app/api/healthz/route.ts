@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 
-function maskKey(key: string | undefined): string {
-  if (!key) return "MISSING";
-  if (key.length <= 12) return key.slice(0, 4) + "...";
-  return key.slice(0, 8) + "..." + key.slice(-4);
-}
+// Public endpoint: report only whether each variable is configured.
+// Never echo any part of a secret, nor raw error messages (they can contain
+// connection details).
+const present = (v: string | undefined) => (v ? "set" : "MISSING");
 
 export async function GET() {
   const checks: Record<string, string> = {};
@@ -13,13 +12,13 @@ export async function GET() {
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  checks.NEXT_PUBLIC_SUPABASE_URL = supabaseUrl || "MISSING";
-  checks.NEXT_PUBLIC_SUPABASE_ANON_KEY = anonKey ? maskKey(anonKey) : "MISSING";
-  checks.SUPABASE_SERVICE_ROLE_KEY = serviceKey ? maskKey(serviceKey) : "MISSING";
+  checks.NEXT_PUBLIC_SUPABASE_URL = present(supabaseUrl);
+  checks.NEXT_PUBLIC_SUPABASE_ANON_KEY = present(anonKey);
+  checks.SUPABASE_SERVICE_ROLE_KEY = present(serviceKey);
   checks.DATABASE_URL = process.env.DATABASE_URL ? "set" : "MISSING";
   checks.OPENAI_API_KEY = process.env.OPENAI_API_KEY ? "set" : "MISSING";
   checks.PADDLE_API_KEY = process.env.PADDLE_API_KEY ? "set" : "MISSING";
-  checks.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || "MISSING";
+  checks.NEXT_PUBLIC_APP_URL = present(process.env.NEXT_PUBLIC_APP_URL);
 
   // Test Supabase auth endpoint connectivity
   let supabaseStatus = "not tested";
@@ -31,7 +30,8 @@ export async function GET() {
       });
       supabaseStatus = res.ok ? `ok (${res.status})` : `error (${res.status})`;
     } catch (e: unknown) {
-      supabaseStatus = e instanceof Error ? e.message : String(e);
+      console.error("[healthz] supabase auth check failed", e);
+      supabaseStatus = "error (unreachable)";
     }
   } else {
     supabaseStatus = "skipped — missing url or key";
@@ -45,7 +45,8 @@ export async function GET() {
     await prisma.$queryRaw`SELECT 1`;
     prismaStatus = "connected";
   } catch (e: unknown) {
-    prismaStatus = e instanceof Error ? e.message : String(e);
+    console.error("[healthz] database check failed", e);
+    prismaStatus = "error (database unreachable)";
   }
   checks.prisma = prismaStatus;
 
