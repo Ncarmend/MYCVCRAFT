@@ -8,7 +8,7 @@ interface PassCountdownProps {
 }
 
 function formatDate(d: Date, lang: string) {
-  return d.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-GB", {
+  return d.toLocaleDateString(lang === "fr" ? "fr-FR" : lang === "nl" ? "nl-BE" : "en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",

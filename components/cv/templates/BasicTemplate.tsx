@@ -2,6 +2,7 @@
  * Basic CV template — clean, traditional layout
  * Optimized for ATS parsing
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface BasicTemplateProps {
 }
 
 export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -42,7 +45,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {cv.summary && (
         <section className="mb-5">
           <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Professional Summary
+            {L.professionalSummary}
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">{cv.summary}</p>
         </section>
@@ -52,7 +55,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {experience.length > 0 && (
         <section className="mb-5">
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Work Experience
+            {L.workExperience}
           </h2>
           <div className="space-y-4">
             {experience.map((exp) => (
@@ -86,7 +89,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {education.length > 0 && (
         <section className="mb-5">
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Education
+            {L.education}
           </h2>
           <div className="space-y-3">
             {education.map((edu) => (
@@ -111,7 +114,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {skills.length > 0 && (
         <section className="mb-5">
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Skills
+            {L.skills}
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, i) => (
@@ -130,7 +133,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {projects.length > 0 && (
         <section className="mb-5">
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Projects
+            {L.projects}
           </h2>
           <div className="space-y-3">
             {projects.map((proj) => (
@@ -157,7 +160,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {languages.length > 0 && (
         <section className="mb-5">
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Languages
+            {L.languages}
           </h2>
           <div className="flex flex-wrap gap-3">
             {languages.map((lang) => (
@@ -174,7 +177,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
       {certifications.length > 0 && (
         <section>
           <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-200 pb-1">
-            Certifications
+            {L.certificationsShort}
           </h2>
           <div className="space-y-1.5">
             {certifications.map((cert) => (

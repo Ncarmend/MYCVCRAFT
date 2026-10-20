@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/seo";
-import { LANDING_IDS, LANDING_ROUTES, TOOLS_HUB } from "@/lib/landing-routes";
+import { LANDING_IDS, LANDING_ROUTES, TOOLS_HUB, landingAlternates } from "@/lib/landing-routes";
 
 const BASE = SITE_URL;
 
@@ -50,22 +50,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // SEO landing pages (EN unprefixed, FR under /fr). Same-intent EN/FR pairs
-  // get reciprocal hreflang alternates; unpaired pages are listed on their own.
+  // SEO landing pages (EN unprefixed, FR under /fr, NL under /nl). Same-intent
+  // pages (same group) get reciprocal hreflang alternates; others stand alone.
   const landingPages: MetadataRoute.Sitemap = LANDING_IDS.map((id) => {
     const route = LANDING_ROUTES[id];
     const url = `${BASE}${route.path}`;
-    const alt = route.alternate ? LANDING_ROUTES[route.alternate] : null;
-    const languages = alt
-      ? route.lang === "en"
-        ? { en: url, fr: `${BASE}${alt.path}`, "x-default": url }
-        : { en: `${BASE}${alt.path}`, fr: url, "x-default": `${BASE}${alt.path}` }
-      : undefined;
+    const alts = landingAlternates(id);
+    const altLangs = (["en", "fr", "nl"] as const).filter((l) => alts[l]);
+    const languages =
+      altLangs.length > 1
+        ? {
+            ...Object.fromEntries(altLangs.map((l) => [l, `${BASE}${alts[l]!.path}`])),
+            "x-default": `${BASE}${(alts.en ?? route).path}`,
+          }
+        : undefined;
     return {
       url,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: id === "job-description-matching" || id === "cv-offre-emploi" ? 0.9 : 0.8,
+      priority: route.group === "match" ? 0.9 : 0.8,
       ...(languages ? { alternates: { languages } } : {}),
     };
   });
@@ -74,9 +77,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const hubLanguages = {
     en: `${BASE}${TOOLS_HUB.en.path}`,
     fr: `${BASE}${TOOLS_HUB.fr.path}`,
+    nl: `${BASE}${TOOLS_HUB.nl.path}`,
     "x-default": `${BASE}${TOOLS_HUB.en.path}`,
   };
-  const hubPages: MetadataRoute.Sitemap = (["en", "fr"] as const).map((l) => ({
+  const hubPages: MetadataRoute.Sitemap = (["en", "fr", "nl"] as const).map((l) => ({
     url: `${BASE}${TOOLS_HUB[l].path}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,

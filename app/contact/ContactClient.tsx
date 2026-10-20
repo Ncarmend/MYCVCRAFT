@@ -35,6 +35,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function ContactClient() {
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].contact;
 
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -100,7 +101,7 @@ export function ContactClient() {
                   onClick={() => setStatus("idle")}
                   className="mt-6 rounded-lg bg-slate-800 px-5 py-2 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700"
                 >
-                  {lang === "fr" ? "Envoyer un autre message" : "Send another message"}
+                  {U.contact.sendAnother}
                 </button>
               </div>
             ) : (
@@ -108,7 +109,7 @@ export function ContactClient() {
                 <div className="flex items-center gap-2 border-b border-gray-100 pb-5">
                   <MessageSquare className="h-4 w-4 text-slate-400" />
                   <h2 className="text-sm font-semibold text-slate-700">
-                    {lang === "fr" ? "Votre message" : "Your message"}
+                    {U.contact.yourMessage}
                   </h2>
                 </div>
 

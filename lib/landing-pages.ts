@@ -997,6 +997,396 @@ export const LANDING_PAGES: Record<LandingId, LandingPageContent> = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // DUTCH — tool pages (same facts as the EN/FR versions; written for BE + NL)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  "ai-cv-maker": {
+    metaTitle: "AI cv-maker – Maak een professioneel cv met AI",
+    metaDescription:
+      "Maak met AI een professioneel cv: vul je ervaring in, krijg een sterke samenvatting en bullet points, kies uit 15 sjablonen en exporteer als pdf. Gratis starten.",
+    eyebrow: "AI cv-maker",
+    h1: "Maak stap voor stap een professioneel cv met AI",
+    intro:
+      "De AI cv-maker van CVixeo zet je ervaring om in een gestructureerd, goed geschreven cv. Jij geeft de feiten — functies, data, vaardigheden, resultaten — en de AI stelt heldere secties op die je kan nalezen, aanpassen en als pdf downloaden.",
+    highlights: ["Samenvatting en bullet points door AI", "15 professionele sjablonen", "ATS-vriendelijke structuur", "Pdf-export"],
+    primaryCta: { label: "Maak gratis mijn cv", href: "/signup" },
+    secondaryCta: { label: "Bekijk de prijzen", href: "/nl/pricing" },
+    sections: [
+      {
+        heading: "Hoe werkt een AI cv-maker?",
+        paragraphs: [
+          "Een leeg blad is het moeilijkste deel van een cv schrijven. Een AI cv-maker neemt die drempel weg: je vult een begeleid formulier in (of importeert een bestaand cv) en de AI zet je ruwe informatie om in professionele formuleringen met sterke werkwoorden en een consistente toon.",
+          "Het belangrijkste woord is *jouw*. CVixeo werkt met de informatie die jij invult. De AI verbetert formulering en structuur, maar jij blijft de auteur: lees elke regel na en schrap wat niet overeenkomt met je echte ervaring voor je het verstuurt.",
+        ],
+      },
+      {
+        heading: "Waarmee de AI je helpt",
+        cards: [
+          { title: "Professionele samenvatting", body: "Een korte alinea bovenaan je cv: wie je bent, hoeveel ervaring je hebt en wat je meebrengt voor de functie die je zoekt." },
+          { title: "Bullet points per functie", body: "Elke functie herschreven als korte, resultaatgerichte bullet points in plaats van een lijst taken." },
+          { title: "Vaardigheden", body: "Je vaardigheden duidelijk gegroepeerd, zodat rekruteerders en ATS-software ze snel vinden." },
+          { title: "Betere formulering", body: "Heldere zinnen, een consistente werkwoordstijd en minder vage uitdrukkingen zoals \"verantwoordelijk voor\"." },
+        ],
+      },
+      {
+        heading: "Een professionele structuur, standaard",
+        paragraphs: [
+          "Rekruteerders scannen. Een voorspelbare opbouw laat hen in enkele seconden vinden wat ze zoeken: contactgegevens, samenvatting, werkervaring in omgekeerd chronologische volgorde, opleiding, vaardigheden en talen. De editor van CVixeo volgt die volgorde, zodat jij je op de inhoud kan concentreren.",
+          "Dezelfde structuur helpt ook ATS-systemen om je cv correct te lezen. Wil je weten waarom? Lees dan onze gids over een [ATS-vriendelijk cv](/nl/ats-cv).",
+        ],
+      },
+      {
+        heading: "Sjablonen, aanpassen en pdf-export",
+        cards: [
+          { title: "15 sjablonen", body: "Van klassiek en zakelijk tot modern en creatief. Wissel op elk moment zonder iets opnieuw te typen. Het gratis plan bevat 2 sjablonen." },
+          { title: "Eén cv per sollicitatie", body: "Dupliceer een cv en pas het aan voor elke vacature. Met [vacature-matching](/nl/cv-afstemmen-op-vacature) zie je wat een specifieke vacature verwacht." },
+          { title: "Pdf-export", body: "Download een nette, afdrukklare pdf. Pdf's van het gratis plan hebben een klein watermerk; Premium verwijdert het." },
+        ],
+      },
+      {
+        heading: "Je cv in vijf stappen",
+        steps: [
+          { title: "Vul je gegevens in", body: "Gebruik het begeleide formulier of importeer een bestaand cv in PDF, DOCX of TXT." },
+          { title: "Laat de AI een eerste versie schrijven", body: "Genereer professionele teksten voor je samenvatting en ervaring." },
+          { title: "Kies een sjabloon", body: "Bekijk je inhoud meteen in verschillende ontwerpen." },
+          { title: "Lees na en stem af", body: "Pas vrij aan en vergelijk je cv met een vacature als je voor een specifieke functie solliciteert." },
+          { title: "Download", body: "Exporteer je cv als pdf, klaar om te versturen." },
+        ],
+      },
+    ],
+    faq: [
+      { q: "Is de AI cv-maker gratis?", a: "Je kan gratis een cv maken: het gratis plan bevat 1 cv, 2 sjablonen, AI-generatie (tot 5 AI-aanvragen per dag) en een pdf met watermerk. Premium ontgrendelt alle sjablonen, de AI-tools voor samenvatting en bullet points, de ATS-score, vacature-matching en sollicitatiebrieven." },
+      { q: "Verzint de AI ervaring die ik niet heb?", a: "Hij werkt met wat jij invult, maar elke AI kan dingen sterker formuleren dan ze zijn. Behandel het resultaat als een eerste versie en controleer elke bewering, elk cijfer en elke datum." },
+      { q: "Zien rekruteerders dat een AI mijn cv schreef?", a: "Algemene AI-tekst valt snel op. Voeg daarom details toe die alleen jij kent — projecten, tools, resultaten — en herschrijf de tekst in je eigen woorden." },
+      { q: "In welke talen kan ik mijn cv schrijven?", a: "CVixeo is beschikbaar in het Nederlands, Frans en Engels, en de AI kan je inhoud in elk van die drie talen schrijven." },
+    ],
+    related: ["ats-cv", "cv-verbeteren", "cv-afstemmen-op-vacature", "sollicitatiebrief-generator"],
+    articles: ["professioneel-cv-maken-belgie", "job-vinden-zonder-ervaring"],
+    closing: { heading: "Begin nu aan je cv", body: "Maak je eerste cv gratis en upgrade alleen als je de geavanceerde tools nodig hebt." },
+  },
+
+  "ats-cv": {
+    metaTitle: "ATS-vriendelijk cv – Zo lezen ATS-systemen je cv",
+    metaDescription:
+      "Hoe ATS-systemen je cv lezen, welke zoekwoorden en structuur tellen, welke fouten je vermijdt en hoe je de ATS-score van je cv controleert.",
+    eyebrow: "ATS-vriendelijk cv",
+    h1: "Een cv dat zowel ATS-software als rekruteerders goed kunnen lezen",
+    intro:
+      "Veel middelgrote en grote werkgevers ontvangen sollicitaties via een Applicant Tracking System (ATS). Een ATS-vriendelijk cv is gewoon een cv dat die software correct kan lezen — en dat daarna ook de mens overtuigt die het leest.",
+    highlights: ["Hoe een ATS werkt", "Zoekwoorden en structuur", "Fouten om te vermijden", "ATS-score en suggesties"],
+    primaryCta: { label: "Maak een ATS-vriendelijk cv", href: "/signup" },
+    secondaryCta: { label: "Vergelijk met een vacature", href: "/nl/job-match" },
+    sections: [
+      {
+        heading: "Hoe een ATS werkt",
+        paragraphs: [
+          "Wanneer je online solliciteert, haalt het ATS de tekst uit je cv en verdeelt die in velden: naam, contactgegevens, functietitels, werkgevers, data, opleiding en vaardigheden. Rekruteerders zoeken, filteren en sorteren daarna op die velden en op zoekwoorden.",
+          "Twee gevolgen: als de software een sectie niet kan lezen, kan die informatie onzichtbaar zijn in zoekopdrachten. En als je cv niet de termen bevat waarop de rekruteerder zoekt, kan je laag eindigen, ook al ben je geschikt.",
+          "Je leest soms dat ATS-software de meeste cv's \"automatisch afwijst\". In de praktijk hangt dat af van het systeem en van hoe de werkgever het instelt — knock-outvragen en filters bestaan, maar meestal beslissen mensen. Het doel is niet om een machine te misleiden, maar om vindbaar en leesbaar te zijn.",
+        ],
+      },
+      {
+        heading: "Zoekwoorden: spreek de taal van de vacature",
+        bullets: [
+          "Gebruik de exacte functietitel uit de vacature als die eerlijk bij je ervaring past.",
+          "Neem de termen van de vacature over voor harde vaardigheden en tools (bijvoorbeeld \"Salesforce\", \"IFRS\", \"React\").",
+          "Schrijf afkortingen minstens één keer voluit: \"Search Engine Optimization (SEO)\".",
+          "Zet belangrijke zoekwoorden waar ze logisch horen: samenvatting, vaardigheden en bullet points van je ervaring.",
+          "Gebruik nooit verborgen tekst of lijsten met zoekwoorden — de rekruteerder leest je cv ook.",
+        ],
+        outro: [
+          "Zoekwoorden handmatig zoeken kost tijd. [Vacature-matching](/nl/cv-afstemmen-op-vacature) van CVixeo toont welke vaardigheden en zoekwoorden uit een vacature niet in je cv gevonden werden.",
+        ],
+      },
+      {
+        heading: "Een ATS-vriendelijke structuur",
+        cards: [
+          { title: "Standaard sectiekoppen", body: "\"Werkervaring\", \"Opleiding\", \"Vaardigheden\". Creatieve titels kunnen parsers in de war brengen." },
+          { title: "Tekst, geen afbeeldingen", body: "Vaardigheden als icoontjes, grafieken of afbeeldingen kunnen niet gelezen worden. Houd informatie in echte tekst." },
+          { title: "Consistente data", body: "Gebruik overal hetzelfde datumformaat (bv. 03/2022 – 06/2024), zodat je ervaring berekend kan worden." },
+          { title: "Een nette pdf", body: "Stuur een pdf met selecteerbare tekst, tenzij de werkgever om Word vraagt. Een ingescand cv kan niet gelezen worden." },
+        ],
+      },
+      {
+        heading: "Fouten om te vermijden",
+        dosDonts: {
+          doTitle: "Wel doen",
+          dontTitle: "Vermijden",
+          dos: [
+            "Eén duidelijke leesvolgorde",
+            "Functietitels en vaardigheden voluit schrijven",
+            "Zoekwoorden afstemmen op elke sollicitatie",
+            "Contactgegevens in de hoofdtekst van je cv",
+          ],
+          donts: [
+            "Belangrijke info in afbeeldingen of tekstvakken",
+            "Vaardigheden enkel als balkjes of sterren",
+            "Ongebruikelijke sectienamen",
+            "Eén algemeen cv voor elke vacature",
+          ],
+        },
+      },
+      {
+        heading: "Je cv analyseren en optimaliseren voor ATS",
+        paragraphs: [
+          "De sjablonen van CVixeo gebruiken standaard koppen en echte tekst, zodat je inhoud leesbaar blijft. Met Premium geeft de ATS-check je cv een score van 0 tot 100 met drie tot vijf concrete suggesties; voor een grondigere analyse, zie de [cv-check](/nl/cv-check).",
+          "Onthoud dat een ATS-score een indicator is van leesbaarheid en zoekwoorden — geen garantie. Een cv met een goede score moet een lezer nog altijd echte, relevante resultaten tonen.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Is een pdf ATS-vriendelijk?", a: "Een pdf met selecteerbare tekst wordt door de meeste moderne ATS-systemen correct gelezen. Pdf's die enkel uit een afbeelding bestaan, zoals scans, niet. Vraagt een vacature uitdrukkelijk om een Word-bestand, volg dan die instructie." },
+      { q: "Wat is een ATS-score?", a: "Een inschatting van hoe leesbaar je cv is voor screeningsoftware en hoe goed de zoekwoorden aansluiten. De score van CVixeo (0–100) komt met suggesties; het is een leidraad om te verbeteren, geen voorspelling of je aangenomen wordt." },
+      { q: "Gebruiken alle bedrijven een ATS?", a: "Nee. Veel kleine bedrijven lezen sollicitaties rechtstreeks. Maar een ATS-vriendelijk cv is ook duidelijker voor mensen, dus dezelfde regels zijn overal nuttig." },
+      { q: "Wat is het verschil tussen de ATS-score en de matchscore?", a: "De ATS-score bekijkt je cv op zich. De matchscore vergelijkt je cv met één specifieke vacature. Gebruik de eerste om algemene problemen op te lossen en de tweede voor elke sollicitatie." },
+    ],
+    related: ["cv-check", "cv-afstemmen-op-vacature", "ai-cv-maker", "cv-verbeteren"],
+    articles: ["ats-vriendelijk-cv-maken", "professioneel-cv-maken-belgie"],
+    closing: { heading: "Maak je cv leesbaar voor software én mensen", body: "Start gratis met een ATS-vriendelijk sjabloon en controleer je score met Premium." },
+  },
+
+  "cv-verbeteren": {
+    metaTitle: "Cv verbeteren met AI – Optimaliseer je bestaande cv",
+    metaDescription:
+      "Heb je al een cv? Importeer het als PDF, DOCX of TXT en laat AI het herschrijven: een sterkere samenvatting, betere bullet points en duidelijke vaardigheden.",
+    eyebrow: "Cv verbeteren",
+    h1: "Verbeter je bestaande cv met AI",
+    intro:
+      "Je hoeft niet opnieuw te beginnen. Importeer het cv dat je al hebt: CVixeo haalt de inhoud eruit in een bewerkbare structuur, verbetert de formulering en helpt je het bij te werken voor de jobs die je nu zoekt.",
+    highlights: ["Import van PDF, DOCX of TXT", "AI herschrijft samenvatting en ervaring", "Gestructureerd, bewerkbaar resultaat", "Klaar voor elk sjabloon"],
+    primaryCta: { label: "Verbeter mijn cv", href: "/signup" },
+    secondaryCta: { label: "Eerst mijn cv laten checken", href: "/nl/cv-check" },
+    sections: [
+      {
+        heading: "Hoe cv verbeteren met CVixeo werkt",
+        steps: [
+          { title: "Importeer je bestand", body: "Upload je huidige cv als PDF, DOCX of TXT." },
+          { title: "Automatische extractie", body: "De AI leest de tekst en vult een gestructureerd profiel in: contactgegevens, ervaring, opleiding, vaardigheden en talen." },
+          { title: "Betere formulering", body: "Je samenvatting en ervaringsbeschrijvingen worden helderder en professioneler herschreven." },
+          { title: "Alles nalezen", body: "Controleer elke sectie, corrigeer wat verkeerd gelezen werd en voeg details toe die alleen jij kent." },
+          { title: "Kies een nieuw ontwerp", body: "Pas eender welk sjabloon toe — je inhoud zit niet meer vast aan de oude lay-out." },
+        ],
+      },
+      {
+        heading: "Wat er verbeterd wordt",
+        cards: [
+          { title: "Samenvatting", body: "Een gerichte introductie die past bij je huidige doel, niet bij de job van vijf jaar geleden." },
+          { title: "Bullet points", body: "Taken worden prestaties met sterke werkwoorden. Met Premium genereer je bullet points opnieuw voor elke functie." },
+          { title: "Vaardigheden", body: "Een overzichtelijke lijst relevante harde vaardigheden in plaats van een lange, gemengde alinea." },
+          { title: "Structuur", body: "Standaard secties in een logische volgorde, zoals rekruteerders en ATS-software verwachten." },
+          { title: "Consistentie", body: "Overal dezelfde werkwoordstijd, datumnotatie en interpunctie." },
+        ],
+      },
+      {
+        heading: "Een voorbeeld",
+        example: {
+          beforeLabel: "Origineel",
+          before: "Werkte aan de website van het bedrijf en loste bugs op. Hielp het marketingteam.",
+          afterLabel: "Verbeterd",
+          after: "Onderhoud van de bedrijfswebsite (Next.js): gemelde bugs opgelost en landingspagina's opgeleverd voor marketingcampagnes.",
+        },
+        outro: [
+          "Merk op wat de AI niet deed: hij voegde geen cijfers of resultaten toe die niet in het origineel stonden. Heb je resultaten — verkeer, conversie, bespaarde tijd? Vul ze dan zelf aan.",
+        ],
+      },
+      {
+        heading: "Verbeteren, maken of checken?",
+        bullets: [
+          "Kies **cv verbeteren** als je een cv hebt dat herschreven moet worden.",
+          "Gebruik de [AI cv-maker](/nl/ai-cv-maker) als je van nul begint.",
+          "Gebruik de [cv-check](/nl/cv-check) voor een ATS-score en een lijst zwakke punten.",
+          "Gebruik [vacature-matching](/nl/cv-afstemmen-op-vacature) voor elke sollicitatie.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Welke bestandsformaten kan ik importeren?", a: "PDF, DOCX en TXT. De pdf moet selecteerbare tekst bevatten; een ingescand cv kan niet betrouwbaar gelezen worden." },
+      { q: "Verlies ik mijn originele cv?", a: "Nee. Je bestand wordt enkel gebruikt om een nieuw, bewerkbaar cv in je account aan te maken. Het originele bestand op je computer blijft ongewijzigd." },
+      { q: "Is importeren gratis?", a: "Ja, importeren en de eerste AI-verbetering zijn beschikbaar in het gratis plan, binnen de dagelijkse AI-limiet. Extra AI-tools zoals bullet points opnieuw genereren, de ATS-score en vacature-matching horen bij Premium." },
+      { q: "Kan de AI mijn cv vertalen?", a: "Je kan inhoud genereren in het Nederlands, Frans of Engels. Lees een vertaald cv altijd goed na — functietitels en diploma's laten zich niet altijd letterlijk vertalen." },
+    ],
+    related: ["cv-check", "cv-afstemmen-op-vacature", "ai-cv-maker", "ats-cv"],
+    articles: ["professioneel-cv-maken-belgie", "cv-aanpassen-aan-vacature"],
+    closing: { heading: "Geef je huidige cv een tweede leven", body: "Importeer het nu en bekijk de verbeterde versie in je editor." },
+  },
+
+  "cv-check": {
+    metaTitle: "Cv-check – ATS-score en analyse van je cv",
+    metaDescription:
+      "Controleer je cv sectie per sectie: een ATS-score van 0 tot 100, concrete suggesties en een checklist van de zwakke punten die rekruteerders eerst opmerken.",
+    eyebrow: "Cv-check",
+    h1: "Check je cv en los op wat je tegenhoudt",
+    intro:
+      "Voor je iets herschrijft, zoek je best uit wat er echt beter moet. De cv-check van CVixeo geeft je cv een ATS-score met gerichte suggesties, en deze pagina geeft je de checklist die rekruteerders in de praktijk gebruiken.",
+    highlights: ["ATS-score van 0 tot 100", "3 tot 5 gerichte suggesties", "Checklist per sectie", "Opnieuw checken na elke aanpassing"],
+    primaryCta: { label: "Check mijn cv", href: "/signup" },
+    secondaryCta: { label: "Bekijk Premium", href: "/nl/pricing" },
+    sections: [
+      {
+        heading: "Wat de cv-check je oplevert",
+        paragraphs: [
+          "Met Premium analyseert CVixeo hoe ATS-vriendelijk je cv is en geeft het een score van 0 tot 100, samen met drie tot vijf concrete verbeterpunten — bijvoorbeeld een ontbrekende sectie, vage formuleringen of vaardigheden die niet expliciet vermeld staan.",
+          "Pas aan, voer de check opnieuw uit en kijk of de score beweegt. Het is een snelle feedbacklus, geen eindoordeel: de score weerspiegelt leesbaarheid en aansluiting, niet je waarde als kandidaat.",
+        ],
+      },
+      {
+        heading: "Checklist per sectie",
+        cards: [
+          { title: "Kop", body: "Professioneel e-mailadres, telefoon, woonplaats en een link naar LinkedIn of een portfolio. Een geboortedatum is meestal niet nodig." },
+          { title: "Samenvatting", body: "Specifiek voor de functie die je zoekt. Als ze op iedereen van toepassing kan zijn, herschrijf ze dan." },
+          { title: "Werkervaring", body: "Omgekeerd chronologisch, consistente data, prestaties in plaats van takenlijsten." },
+          { title: "Vaardigheden", body: "Harde vaardigheden exact benoemd (tools, methodes, certificaten) en ergens in je ervaring onderbouwd." },
+          { title: "Opleiding", body: "Diploma, instelling, jaar. Relevante vakken enkel als je net begint." },
+          { title: "Talen", body: "Vermeld per taal een niveau (bv. ERK B2, moedertaal) — vage termen zoals \"goed\" zijn moeilijk te vergelijken." },
+        ],
+      },
+      {
+        heading: "De zwakke punten die rekruteerders eerst zien",
+        bullets: [
+          "Onverklaarde gaten of overlappende data.",
+          "Bullet points die beginnen met \"Verantwoordelijk voor…\".",
+          "Vaardigheden die nergens in je ervaring terugkomen.",
+          "Spelfouten, vooral in namen van bedrijven of tools.",
+          "Een samenvatting die een andere functie noemt dan die waarop je solliciteert.",
+        ],
+      },
+      {
+        heading: "Algemene check of check tegenover een vacature?",
+        paragraphs: [
+          "De cv-check beoordeelt je cv op zich. Om te zien hoe het bij één specifieke functie past, gebruik je [vacature-matching](/nl/cv-afstemmen-op-vacature): die vergelijkt je cv met de vacature en toont welke vaardigheden en zoekwoorden ontbreken.",
+          "Veel werk aan de winkel? Met [cv verbeteren](/nl/cv-verbeteren) herschrijf je secties met AI, en onze gids over een [ATS-vriendelijk cv](/nl/ats-cv) legt de opmaakregels achter de score uit.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Hoe wordt mijn cv beoordeeld?", a: "De AI beoordeelt inhoud en structuur van je cv op ATS-vriendelijkheid en geeft een score van 0 tot 100 met verbeterpunten. Gebruik die om je aanpassingen te prioriteren." },
+      { q: "Moet ik 100 halen?", a: "Nee. Los de punten op die de suggesties aanwijzen. Daarna telt de kwaliteit en relevantie van je ervaring meer dan het cijfer." },
+      { q: "Hoe vaak moet ik mijn cv checken?", a: "Na elke belangrijke aanpassing, en voor je solliciteert op een nieuw type functie." },
+      { q: "Is de cv-check gratis?", a: "De ATS-score en suggesties horen bij Premium (abonnement of 7-dagenpas). Je cv maken en bewerken is gratis." },
+    ],
+    related: ["ats-cv", "cv-verbeteren", "cv-afstemmen-op-vacature", "ai-cv-maker"],
+    articles: ["ats-vriendelijk-cv-maken", "professioneel-cv-maken-belgie"],
+    closing: { heading: "Weet precies wat je moet verbeteren", body: "Maak je cv gratis en voer de check uit wanneer je wil." },
+  },
+
+  "cv-afstemmen-op-vacature": {
+    metaTitle: "Cv afstemmen op een vacature – Matching en score",
+    metaDescription:
+      "Plak een vacature en vergelijk ze met je cv: ontbrekende vaardigheden en zoekwoorden, een matchscore per categorie en aanbevelingen om je cv af te stemmen.",
+    eyebrow: "Vacature-matching",
+    h1: "Stem je cv af op een vacature",
+    intro:
+      "Elke vacature is een checklist. CVixeo leest de vacature, vergelijkt ze met je cv en toont precies welke vaardigheden en zoekwoorden overeenkomen, welke ontbreken en wat je moet aanpassen voor je solliciteert.",
+    highlights: ["Ontbrekende vaardigheden en zoekwoorden", "Matchscore per categorie", "Concrete aanbevelingen", "Werkt in het Nederlands, Frans en Engels"],
+    primaryCta: { label: "Vergelijk mijn cv met een vacature", href: "/nl/job-match" },
+    secondaryCta: { label: "Eerst een cv maken", href: "/signup" },
+    sections: [
+      {
+        heading: "Hoe vacature-matching werkt",
+        steps: [
+          { title: "Kopieer de vacature", body: "Plak de volledige vacaturetekst — taken, vereisten en pluspunten." },
+          { title: "De vacature wordt geanalyseerd", body: "AI haalt de vereiste en gewenste vaardigheden, minimale ervaring, opleiding, talen en kernbegrippen eruit." },
+          { title: "Je cv wordt vergeleken", body: "Die vereisten worden vergeleken met de vaardigheden, ervaring, opleiding en talen die echt in je cv staan." },
+          { title: "Ontbrekende vaardigheden en zoekwoorden", body: "Je ziet wat overeenkomt, wat ontbreekt en welke zoekwoorden uit de vacature niet gevonden werden." },
+          { title: "Score en aanbevelingen", body: "Je krijgt een totaalscore, een opsplitsing per categorie en aanbevelingen die enkel gebaseerd zijn op wat gevonden werd." },
+          { title: "Verbeter en voer opnieuw uit", body: "Pas je cv aan en voer de analyse opnieuw uit. Eerdere analyses worden bewaard, zodat je kan vergelijken." },
+        ],
+      },
+      {
+        heading: "Waaruit de matchscore bestaat",
+        paragraphs: [
+          "De score wordt berekend met vaste, gedocumenteerde gewichten — dezelfde input geeft altijd hetzelfde resultaat:",
+        ],
+        matchWeights: true,
+      },
+      {
+        heading: "Waarom deze aanpak anders is",
+        cards: [
+          { title: "Geen verzonnen ervaring", body: "Jouw kant van de vergelijking komt uit de gegevens in je cv, en aanbevelingen worden enkel geschreven op basis van gevonden overeenkomsten en hiaten. De tool stelt nooit voor een diploma of functie te vermelden die je niet hebt." },
+          { title: "Meertalige matching", body: "Solliciteer met een Frans cv op een Nederlandstalige vacature, of met een Nederlands cv op een Engelse: vaardigheden worden op betekenis vergeleken, niet enkel op identieke schrijfwijze." },
+          { title: "Een eerlijke score", body: "De score meet de aansluiting tussen je cv en de vacature. Het is geen kans op aanwerving en geen garantie dat je door een ATS raakt." },
+        ],
+      },
+      {
+        heading: "Van resultaten naar een cv op maat",
+        bullets: [
+          "**Ontbrekende vaardigheid die je wél hebt?** Vermeld ze expliciet bij je vaardigheden en toon ze in een bullet point.",
+          "**Ontbrekende vaardigheid die je niet hebt?** Laat ze weg. Benoem ze eventueel in je [sollicitatiebrief](/nl/sollicitatiebrief-generator) als je eraan werkt.",
+          "**Ontbrekende zoekwoorden?** Gebruik de woorden van de vacature waar ze je werk correct beschrijven (bv. \"stakeholdermanagement\" in plaats van \"samenwerken met andere teams\").",
+          "**Lage score voor ervaring?** Controleer of je data volledig zijn en of de relevantste functies bovenaan staan.",
+        ],
+        outro: [
+          "Voer de analyse daarna opnieuw uit. Het doel is geen 100% — het doel is dat alles wat je echt te bieden hebt zichtbaar is.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Waarom staat een vaardigheid als ontbrekend terwijl ik ze heb?", a: "Ze werd niet in je cv gevonden. \"Ontbrekend\" betekent \"niet gevonden\", niet \"je hebt ze niet\". Vermeld de vaardigheid expliciet, met de term van de vacature als die klopt." },
+      { q: "Werkt het met vacatures in het Frans of Engels?", a: "Ja. Vacatures in het Nederlands, Frans en Engels worden ondersteund, en je cv mag in een andere taal zijn dan de vacature." },
+      { q: "Is de matchscore een kans op aanwerving?", a: "Nee. Hij meet hoe goed de inhoud van je cv aansluit bij de vereisten van de vacature. Een aanwerving hangt van veel andere factoren af." },
+      { q: "Wat is het verschil met de ATS-score?", a: "De [ATS-score](/nl/cv-check) beoordeelt je cv in het algemeen. Vacature-matching vergelijkt het met één specifieke vacature: de stap om voor elke sollicitatie uit te voeren." },
+      { q: "Is vacature-matching gratis?", a: "Vacature-matching is een Premium-functie, beschikbaar met een abonnement of een 7-dagenpas. Je cv maken kan eerst gratis." },
+    ],
+    related: ["sollicitatiebrief-generator", "cv-check", "ats-cv", "cv-verbeteren"],
+    articles: ["cv-aanpassen-aan-vacature", "solliciteren-belgie-tips-kandidatuur"],
+    closing: { heading: "Stem je cv af op je volgende sollicitatie", body: "Plak de vacature, bekijk wat ontbreekt, pas aan — en voer de analyse opnieuw uit." },
+  },
+
+  "sollicitatiebrief-generator": {
+    metaTitle: "Sollicitatiebrief-generator – Een brief op maat met AI",
+    metaDescription:
+      "Genereer een sollicitatiebrief op basis van je cv, de vacature en de bedrijfsnaam. Ontdek de structuur die werkt en hoe je de eerste versie persoonlijk maakt.",
+    eyebrow: "Sollicitatiebrief-generator",
+    h1: "Een sollicitatiebrief op maat van de vacature en het bedrijf",
+    intro:
+      "Een goede sollicitatiebrief verbindt je ervaring met één specifieke functie. De sollicitatiebrief-generator van CVixeo vertrekt van je cv en de vacature, zodat de eerste versie meteen over deze functie gaat — niet over een algemeen sjabloon.",
+    highlights: ["Gebaseerd op je cv", "Gebruikt de vacaturetekst", "Persoonlijk voor het bedrijf", "Aan te passen voor je verstuurt"],
+    primaryCta: { label: "Genereer mijn sollicitatiebrief", href: "/signup" },
+    secondaryCta: { label: "Bekijk de prijzen", href: "/nl/pricing" },
+    sections: [
+      {
+        heading: "Wat een sollicitatiebrief sterk maakt",
+        cards: [
+          { title: "Een concrete opening", body: "Noem de functie en één reden waarom je goed past. Sla \"Hierbij solliciteer ik naar…\" over." },
+          { title: "De match", body: "Twee of drie vereisten uit de vacature, elk onderbouwd met bewijs uit je ervaring." },
+          { title: "Waarom dit bedrijf", body: "Eén oprechte, specifieke reden — een product, een project, een waarde — die toont dat je je huiswerk hebt gedaan." },
+          { title: "Een duidelijk slot", body: "Herhaal je interesse en nodig uit tot een gesprek. Houd het kort." },
+        ],
+      },
+      {
+        heading: "Hoe de generator je brief opbouwt",
+        steps: [
+          { title: "Kies je cv", body: "Je ervaring en vaardigheden vormen het bewijs in de brief." },
+          { title: "Plak de vacature", body: "De brief focust op de vereisten die deze werkgever belangrijk vindt." },
+          { title: "Vul de bedrijfsnaam in", body: "De tekst richt zich rechtstreeks tot het bedrijf." },
+          { title: "Pas aan en maak hem persoonlijk", body: "Stel de toon bij, voeg je motivatie in je eigen woorden toe en controleer elke bewering." },
+        ],
+      },
+      {
+        heading: "Maak de eerste versie persoonlijk",
+        bullets: [
+          "Voeg één detail toe dat alleen jij kan schrijven: waarom dit team, product of deze missie je aanspreekt.",
+          "Vervang elke zin die in iedereens brief zou kunnen staan.",
+          "Controleer dat elke vermelde prestatie ook in je cv staat.",
+          "Blijf onder één pagina — 250 tot 400 woorden is meestal genoeg.",
+        ],
+        outro: [
+          "Voor het beste resultaat [stem je eerst je cv af op de vacature](/nl/cv-afstemmen-op-vacature): de brief kan maar zo relevant zijn als het cv waarop hij gebaseerd is.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "Kan ik dezelfde sollicitatiebrief voor meerdere vacatures gebruiken?", a: "Genereer er beter een nieuwe voor elke vacature. De waarde van een sollicitatiebrief zit net in hoe specifiek hij is voor de functie en het bedrijf." },
+      { q: "In welke talen?", a: "Nederlands, Frans en Engels — handig om in België in meerdere talen te solliciteren." },
+      { q: "Is de sollicitatiebrief-generator gratis?", a: "Hij hoort bij Premium, beschikbaar met een abonnement of een 7-dagenpas." },
+      { q: "Is een sollicitatiebrief nog nodig?", a: "Als de vacature erom vraagt, altijd. Hij is ook waardevol bij een carrièreswitch of wanneer je cv je motivatie niet alleen kan uitleggen. Lees ook onze gids om [een goede sollicitatiebrief te schrijven](/nl/careers/goede-sollicitatiebrief-schrijven)." },
+    ],
+    related: ["cv-afstemmen-op-vacature", "ai-cv-maker", "cv-verbeteren", "cv-check"],
+    articles: ["goede-sollicitatiebrief-schrijven", "solliciteren-belgie-tips-kandidatuur"],
+    closing: { heading: "Een relevante sollicitatiebrief in enkele minuten", body: "Vertrek van je cv en de vacature, en maak hem daarna van jou." },
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // FRENCH — guide pillars
   // Rule: only present something as Belgian when it is a verifiable fact
   // (official languages, regional institutions). Everything else is framed as

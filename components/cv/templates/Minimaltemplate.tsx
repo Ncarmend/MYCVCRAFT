@@ -2,6 +2,7 @@
  * Minimal CV template — ultra-clean layout with square photo
  * Designed for any role, focus on readability and elegance
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface MinimalTemplateProps {
 }
 
 export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -111,7 +114,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Skills */}
           {skills.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Skills</MinimalHeading>
+              <MinimalHeading>{L.skills}</MinimalHeading>
               <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "5px" }}>
                 {skills.map((skill, i) => (
                   <span key={i} style={{
@@ -130,7 +133,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Languages */}
           {languages.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Languages</MinimalHeading>
+              <MinimalHeading>{L.languages}</MinimalHeading>
               <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "7px" }}>
                 {languages.map((lang) => (
                   <div key={lang.id}>
@@ -156,7 +159,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Certifications */}
           {certifications.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Certifications</MinimalHeading>
+              <MinimalHeading>{L.certificationsShort}</MinimalHeading>
               <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {certifications.map((cert) => (
                   <div key={cert.id}>
@@ -176,7 +179,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Summary */}
           {cv.summary && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Profile</MinimalHeading>
+              <MinimalHeading>{L.profile}</MinimalHeading>
               <p style={{
                 fontSize: "12px",
                 color: "#555",
@@ -192,7 +195,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Experience */}
           {experience.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Experience</MinimalHeading>
+              <MinimalHeading>{L.experience}</MinimalHeading>
               <div style={{ marginTop: "14px", display: "flex", flexDirection: "column", gap: "20px" }}>
                 {experience.map((exp) => (
                   <div key={exp.id}>
@@ -231,7 +234,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Education */}
           {education.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <MinimalHeading>Education</MinimalHeading>
+              <MinimalHeading>{L.education}</MinimalHeading>
               <div style={{ marginTop: "14px", display: "flex", flexDirection: "column", gap: "14px" }}>
                 {education.map((edu) => (
                   <div key={edu.id}>
@@ -258,7 +261,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
           {/* Projects */}
           {projects.length > 0 && (
             <div>
-              <MinimalHeading>Projects</MinimalHeading>
+              <MinimalHeading>{L.projects}</MinimalHeading>
               <div style={{ marginTop: "14px", display: "flex", flexDirection: "column", gap: "14px" }}>
                 {projects.map((proj) => (
                   <div key={proj.id}>

@@ -13,11 +13,11 @@ export interface Crumb {
  * Visible breadcrumb trail. Pair with `breadcrumbJsonLd(sameItems)` so the
  * BreadcrumbList structured data always mirrors what users see.
  */
-export function Breadcrumbs({ items, tone = "light" }: { items: Crumb[]; tone?: "light" | "dark" }) {
+export function Breadcrumbs({ items, tone = "light", label = "Breadcrumb" }: { items: Crumb[]; tone?: "light" | "dark"; label?: string }) {
   const muted = tone === "dark" ? "text-white/60 hover:text-white" : "text-gray-400 hover:text-gray-700";
   const current = tone === "dark" ? "text-white/90" : "text-gray-600";
   return (
-    <nav aria-label="Breadcrumb">
+    <nav aria-label={label}>
       <ol className="flex flex-wrap items-center gap-1 text-xs">
         {items.map((c, i) => {
           const last = i === items.length - 1;

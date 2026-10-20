@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 /**
  * Invisible component rendered on /dashboard?success=true&transaction_id=...
@@ -23,8 +24,11 @@ import { toast } from "sonner";
  * window.location.replace() is a guaranteed full-page reload — no stale cache.
  */
 export function SubscriptionSuccessSync({ transactionId }: { transactionId?: string }) {
+  const { lang } = useLanguage();
+  const S = translations[lang].ui.subscription;
+
   useEffect(() => {
-    const toastId = toast.loading("Activating your Premium account…");
+    const toastId = toast.loading(S.activating);
 
     fetch("/api/paddle/sync-subscription", {
       method: "POST",
@@ -39,14 +43,14 @@ export function SubscriptionSuccessSync({ transactionId }: { transactionId?: str
         };
         console.log("[sync] response", data);
         if (data.synced && (data.plan === "PRO" || data.plan === "PASS")) {
-          toast.success("Premium active — all features are now unlocked!", { id: toastId, duration: 3000 });
+          toast.success(S.active, { id: toastId, duration: 3000 });
         } else {
-          toast.info("Account updated — setting up your Premium access…", { id: toastId, duration: 2000 });
+          toast.info(S.pending, { id: toastId, duration: 2000 });
         }
       })
       .catch((err) => {
         console.error("[sync] failed", err);
-        toast.error("Could not confirm subscription. Please refresh the page.", { id: toastId });
+        toast.error(S.failed, { id: toastId });
       })
       .finally(() => {
         // Wait for the toast to be visible before redirecting
@@ -54,6 +58,7 @@ export function SubscriptionSuccessSync({ transactionId }: { transactionId?: str
           window.location.replace("/dashboard");
         }, 1600);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once per transaction
   }, [transactionId]);
 
   return null;

@@ -5,6 +5,7 @@ import { Calendar, Clock, Tag } from "lucide-react";
 import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ArticleCard } from "@/components/careers/ArticleCard";
+import { ArticleToolLinks } from "@/components/seo/ArticleToolLinks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
 import { graph, articleNode, faqPageNode } from "@/lib/structured-data";
@@ -109,7 +110,7 @@ export default async function ArticlePageNl({ params }: Props) {
           />
           <div className="relative mx-auto max-w-3xl px-6 py-16 text-white">
             <div className="mb-6">
-              <Breadcrumbs items={crumbs} tone="dark" />
+              <Breadcrumbs items={crumbs} tone="dark" label={translations.nl.ui.a11y.breadcrumb} />
             </div>
 
             <div className="mb-4">
@@ -195,6 +196,8 @@ export default async function ArticlePageNl({ params }: Props) {
           </div>
 
           <ArticleFaq article={article} lang="nl" />
+
+          <ArticleToolLinks article={article} lang="nl" />
 
           {/* Tags */}
           <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-6">

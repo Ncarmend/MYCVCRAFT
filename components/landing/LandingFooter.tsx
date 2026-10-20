@@ -10,8 +10,7 @@ export function LandingFooter() {
   const { lang } = useLanguage();
   const T = translations[lang].footer;
   const href = (path: string) => localePath(lang, path);
-  // No Dutch landing pages yet: Dutch visitors get the English ones.
-  const tools = landingRoutesFor(lang === "fr" ? "fr" : "en");
+  const tools = landingRoutesFor(lang);
 
   return (
     <footer className="border-t border-slate-500 bg-slate-700">
@@ -46,7 +45,7 @@ export function LandingFooter() {
           {/* Tools (SEO landing pages) */}
           <div>
             <Link
-              href={TOOLS_HUB[lang === "fr" ? "fr" : "en"].path}
+              href={TOOLS_HUB[lang].path}
               className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 hover:text-white"
             >
               {T.tools}

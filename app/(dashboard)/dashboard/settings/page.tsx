@@ -8,11 +8,12 @@ import prisma from "@/lib/prisma";
 import { Header } from "@/components/dashboard/Header";
 import { SettingsClient } from "./SettingsClient";
 import { translations } from "@/lib/translations";
+import { langFromCookie } from "@/lib/seo";
 import { isProUser } from "@/lib/isPro";
 
 export default async function SettingsPage() {
   const cookieStore = await cookies();
-  const lang = cookieStore.get("cv-lang")?.value === "fr" ? "fr" : "en";
+  const lang = langFromCookie(cookieStore.get("cv-lang")?.value);
   const T = translations[lang].settings;
 
   const supabase = await createClient();

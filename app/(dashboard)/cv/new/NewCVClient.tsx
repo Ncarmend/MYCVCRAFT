@@ -22,6 +22,7 @@ interface Props {
 export function NewCVClient({ isPro }: Props) {
   const router = useRouter();
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].cvForm;
 
   const [previewData, setPreviewData] = useState<Partial<CVFormData>>(BLANK);
@@ -49,14 +50,15 @@ export function NewCVClient({ isPro }: Props) {
 
       const { cv } = await res.json();
       trackCvCreated({ cvId: cv.id, template: cv.template });
-      toast.success(lang === "fr" ? "CV créé avec succès !" : "CV created successfully!");
+      toast.success(U.editor.created);
       // Invalidate the Router Cache so /dashboard's CV count and "My CVs" list
       // (server-rendered from Postgres) are re-fetched fresh next time they're
       // visited, instead of serving whatever was cached before this CV existed.
       router.refresh();
       router.push(`/cv/${cv.id}/edit`);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Failed to save");
+      console.error("[NewCV] save failed", err);
+      toast.error(U.editor.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -67,7 +69,7 @@ export function NewCVClient({ isPro }: Props) {
     setFormDefaults(merged);
     setPreviewData(merged);
     setFormKey((k) => k + 1);
-    toast.success(lang === "fr" ? "CV importé et amélioré par l'IA !" : "Resume imported and improved by AI!");
+    toast.success(U.editor.imported);
   }
 
   return (
@@ -81,8 +83,8 @@ export function NewCVClient({ isPro }: Props) {
       */}
       <div className="print:hidden">
         <Header
-          title={lang === "fr" ? "Nouveau CV" : "New CV"}
-          subtitle={lang === "fr" ? "Remplissez vos informations et regardez votre CV prendre vie" : "Fill in your details and watch your CV come to life"}
+          title={U.editor.newTitle}
+          subtitle={U.editor.newSubtitle}
           actions={
             <div className="flex items-center gap-2">
               <Button
@@ -101,7 +103,7 @@ export function NewCVClient({ isPro }: Props) {
                 onClick={() => window.print()}
               >
                 <FileDown className="h-4 w-4" />
-                {lang === "fr" ? "Aperçu PDF" : "Preview PDF"}
+                {U.editor.previewPdf}
               </Button>
             </div>
           }
@@ -141,7 +143,7 @@ export function NewCVClient({ isPro }: Props) {
 
         <div className="hidden w-120 overflow-y-auto bg-gray-100 p-8 xl:block">
           <p className="mb-4 text-xs font-medium uppercase tracking-widest text-gray-400">
-            {lang === "fr" ? "Aperçu en direct" : "Live Preview"}
+            {U.editor.livePreview}
           </p>
           <CVPreview data={previewData} watermark={!isPro} previewRef={previewRef} />
         </div>

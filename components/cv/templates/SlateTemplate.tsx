@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function SlateTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -30,7 +33,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
         <p className="mt-1 text-xs text-slate-300">{cv.jobTitle}</p>
 
         <div className="mt-6 mb-5">
-          <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Contact</h2>
+          <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{L.contact}</h2>
           <div className="space-y-1 text-xs text-slate-200">
             {cv.email    && <p className="flex items-center gap-1.5"><MailIcon />     {cv.email}</p>}
             {cv.phone    && <p className="flex items-center gap-1.5"><PhoneIcon />    {cv.phone}</p>}
@@ -43,7 +46,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
         {skills.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Skills</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{L.skills}</h2>
             <div className="flex flex-wrap gap-1.5">
               {skills.map((s, i) => (
                 <span key={i} className="rounded bg-slate-600 px-2 py-0.5 text-xs text-slate-100">{s}</span>
@@ -54,7 +57,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
         {languages.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Languages</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{L.languages}</h2>
             {languages.map((l) => (
               <div key={l.id} className="flex justify-between text-xs text-slate-200">
                 <span>{l.name}</span><span className="text-slate-400">{l.proficiency}</span>
@@ -65,7 +68,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
         {certifications.length > 0 && (
           <div>
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Certifications</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{L.certificationsShort}</h2>
             {certifications.map((c) => (
               <div key={c.id} className="mb-2 text-xs">
                 <p className="font-medium text-white">{c.name}</p>
@@ -80,14 +83,14 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
       <div style={{ flex: 1, padding: "40px 32px" }}>
         {cv.summary && (
           <section className="mb-5">
-            <h2 className="mb-2 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">Summary</h2>
+            <h2 className="mb-2 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">{L.summary}</h2>
             <p className="text-gray-600 leading-relaxed">{cv.summary}</p>
           </section>
         )}
 
         {experience.length > 0 && (
           <section className="mb-5">
-            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">Experience</h2>
+            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">{L.experience}</h2>
             <div className="space-y-4">
               {experience.map((exp) => (
                 <div key={exp.id}>
@@ -118,7 +121,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
         {education.length > 0 && (
           <section className="mb-5">
-            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">Education</h2>
+            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">{L.education}</h2>
             {education.map((edu) => (
               <div key={edu.id} className="mb-2 flex items-start justify-between">
                 <div>
@@ -133,7 +136,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
 
         {projects.length > 0 && (
           <section>
-            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">Projects</h2>
+            <h2 className="mb-3 border-b-2 border-slate-700 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-700">{L.projects}</h2>
             {projects.map((p) => (
               <div key={p.id} className="mb-3">
                 <h3 className="font-semibold text-gray-900">{p.name}</h3>

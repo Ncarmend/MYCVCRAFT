@@ -8,11 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { authErrorMessage } from "@/lib/ui-errors";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const { lang } = useLanguage();
+  const T = translations[lang].ui;
+  const A = T.auth;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,7 +31,7 @@ export default function ForgotPasswordPage() {
       if (error) throw error;
       setSent(true);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Failed to send reset email");
+      toast.error(authErrorMessage(err instanceof Error ? err.message : undefined, T));
     } finally {
       setLoading(false);
     }
@@ -39,9 +44,9 @@ export default function ForgotPasswordPage() {
           <Link href="/" className="inline-flex items-center">
             <Logo height={36} />
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-gray-900">Reset your password</h1>
+          <h1 className="mt-6 text-2xl font-bold text-gray-900">{A.forgot.title}</h1>
           <p className="mt-1 text-xs text-gray-500">
-            Enter your email and we&apos;ll send you a reset link.
+            {A.forgot.subtitle}
           </p>
         </div>
 
@@ -51,30 +56,30 @@ export default function ForgotPasswordPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 mx-auto">
                 <Mail className="h-6 w-6 text-green-600" />
               </div>
-              <p className="font-medium text-gray-900">Check your inbox</p>
+              <p className="font-medium text-gray-900">{A.forgot.sentTitle}</p>
               <p className="text-sm text-gray-500">
-                We sent a password reset link to <strong>{email}</strong>.
+                {A.forgot.sentBody} <strong>{email}</strong>.
               </p>
               <Link href="/login" className="block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-700">
-                Back to sign in
+                {A.forgot.back}
               </Link>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-2">
               <Input
-                label="Email"
+                label={A.email}
                 type="email"
-                placeholder="you@example.com"
+                placeholder={A.emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <Button type="submit" size="lg" className="w-full" loading={loading}>
-                Send reset link
+                {A.forgot.submit}
               </Button>
               <p className="text-center text-xs text-gray-500">
                 <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-700">
-                  Back to sign in
+                  {A.forgot.back}
                 </Link>
               </p>
             </form>

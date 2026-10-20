@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -33,6 +34,8 @@ export function PricingCard({
   onSelect,
   loading = false,
 }: PricingCardProps) {
+  const { lang } = useLanguage();
+  const U = translations[lang].ui;
   return (
     <div
       className={cn(
@@ -51,7 +54,7 @@ export function PricingCard({
           {currentPlan ? (
             <span className="whitespace-nowrap rounded-full bg-emerald-400 px-3 py-0.5 text-xs font-semibold text-emerald-900 flex items-center gap-1">
               <Check className="h-3 w-3" />
-              Active
+              {U.plans.active}
             </span>
           ) : badge ? (
             <span
@@ -125,7 +128,7 @@ export function PricingCard({
         {currentPlan ? (
           <span className="flex items-center justify-center gap-1.5">
             <Check className="h-3.5 w-3.5" />
-            Current plan
+            {U.plans.currentPlan}
           </span>
         ) : ctaLabel}
       </Button>

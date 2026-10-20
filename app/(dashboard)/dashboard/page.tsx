@@ -16,6 +16,7 @@ import { Plus, FileText, Sparkles, TrendingUp, Target, CheckCircle, Crosshair } 
 import { SubscriptionSuccessSync } from "@/components/dashboard/SubscriptionSuccessSync";
 import { PassCountdown } from "@/components/dashboard/PassCountdown";
 import { translations } from "@/lib/translations";
+import { langFromCookie } from "@/lib/seo";
 import { isProUser, getPassState } from "@/lib/isPro";
 import { getPlanTypeFromPriceId } from "@/lib/plans";
 import type { CV } from "@/types";
@@ -28,7 +29,8 @@ export default async function DashboardPage({ searchParams }: Props) {
   const { success, transaction_id } = await searchParams;
 
   const cookieStore = await cookies();
-  const lang = cookieStore.get("cv-lang")?.value === "fr" ? "fr" : "en";
+  const lang = langFromCookie(cookieStore.get("cv-lang")?.value);
+  const U = translations[lang].ui;
   const T = translations[lang].dashboard;
 
   const supabase = await createClient();
@@ -62,11 +64,11 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   const planTier = getPlanTypeFromPriceId(sub?.paddlePriceId) ?? "MONTHLY";
   const planName = passActive
-    ? lang === "fr" ? "Pass Premium 7 jours" : "7-Day Premium Pass"
+    ? U.plans.pass
     : isPro
       ? planTier === "ANNUAL"
-        ? lang === "fr" ? "Premium Annuel" : "Annual Premium"
-        : lang === "fr" ? "Premium Mensuel" : "Monthly Premium"
+        ? U.plans.annual
+        : U.plans.monthly
       : null;
 
   const avgATS =

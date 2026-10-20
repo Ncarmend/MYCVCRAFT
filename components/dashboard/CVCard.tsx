@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { trackCvDownloaded } from "@/lib/analytics";
-import { useLanguage } from "@/components/landing/LanguageContext";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { fill } from "@/lib/ui-errors";
 
 interface CVCardProps {
   cv: CV;
@@ -32,6 +33,8 @@ interface CVCardProps {
 export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
   const router = useRouter();
   const { lang } = useLanguage();
+  const C = translations[lang].ui.cvCard;
+  const E = translations[lang].ui.editor;
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -40,10 +43,10 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
     try {
       const res = await fetch(`/api/cv/${cv.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete");
-      toast.success("CV deleted");
+      toast.success(C.deleted);
       router.refresh();
     } catch {
-      toast.error("Failed to delete CV");
+      toast.error(C.deleteFailed);
     } finally {
       setDeleting(false);
       setDeleteOpen(false);
@@ -52,7 +55,7 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
 
   async function handleDownloadPDF() {
     if (!isPro) {
-      toast.info("Upgrade to Pro for watermark-free PDF export");
+      toast.info(C.watermarkInfo);
     }
     try {
       const res = await fetch(`/api/pdf?cvId=${cv.id}&lang=${lang}`);
@@ -68,9 +71,9 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
         URL.revokeObjectURL(url);
       });
       trackCvDownloaded({ cvId: cv.id, template: cv.template });
-      toast.success("Use 'Save as PDF' in the print dialog.", { duration: 5000 });
+      toast.success(E.printHint, { duration: 5000 });
     } catch {
-      toast.error("Failed to generate PDF");
+      toast.error(C.pdfFailed);
     }
   }
 
@@ -206,18 +209,17 @@ export function CVCard({ cv, index: _index, isPro }: CVCardProps) {
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete CV</DialogTitle>
+            <DialogTitle>{C.deleteTitle}</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete &quot;{cv.title || cv.name}&quot;?
-              This action cannot be undone.
+              {fill(C.deleteConfirm, { title: cv.title || cv.name })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="secondary" onClick={() => setDeleteOpen(false)}>
-              Cancel
+              {C.cancel}
             </Button>
             <Button variant="danger" onClick={handleDelete} loading={deleting}>
-              Delete
+              {C.delete}
             </Button>
           </DialogFooter>
         </DialogContent>

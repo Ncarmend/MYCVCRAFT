@@ -17,6 +17,7 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { lang } = useLanguage();
   const T = translations[lang].sidebar;
+  const U = translations[lang].ui;
 
   return (
     <div className="flex flex-1 overflow-hidden bg-gray-50">
@@ -43,7 +44,7 @@ export function DashboardShell({ children, userEmail, userName, plan, passEnd }:
           <button
             onClick={() => setSidebarOpen(true)}
             className="rounded-lg p-1.5 text-gray-600 hover:bg-gray-100"
-            aria-label="Open sidebar"
+            aria-label={U.a11y.openSidebar}
           >
             <Menu className="h-5 w-5" />
           </button>

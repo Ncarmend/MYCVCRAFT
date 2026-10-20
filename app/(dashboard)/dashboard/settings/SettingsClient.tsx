@@ -59,6 +59,7 @@ export function SettingsClient({ user }: Props) {
   const router = useRouter();
   const supabase = createClient();
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].settings;
 
   const [activeTab, setActiveTab] = useState<Tab>("account");
@@ -290,7 +291,7 @@ export function SettingsClient({ user }: Props) {
                 </div>
                 {user.currentPeriodEnd && (
                   <p className="mt-0.5 text-xs text-gray-400">
-                    {T.subscription.renews} {new Date(user.currentPeriodEnd).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}
+                    {T.subscription.renews} {new Date(user.currentPeriodEnd).toLocaleDateString(U.dateLocale)}
                   </p>
                 )}
               </div>

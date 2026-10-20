@@ -104,7 +104,7 @@ export function JobMatchClient() {
           setShowUpgrade(true);
           return;
         }
-        toast.error(data.error || T.errors.generic);
+        toast.error(T.errors.generic);
         return;
       }
       if (res.status === 429) {
@@ -112,8 +112,7 @@ export function JobMatchClient() {
         return;
       }
       if (res.status === 400) {
-        const data = await res.json().catch(() => ({}));
-        toast.error(data.error || T.errors.empty);
+        toast.error(T.errors.empty);
         return;
       }
       if (!res.ok) {

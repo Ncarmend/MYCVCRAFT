@@ -8,6 +8,7 @@ import { PricingCard } from "@/components/pricing/PricingCard";
 import { PLANS } from "@/lib/plans";
 import { HelpCircle, CheckCircle } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { fill } from "@/lib/ui-errors";
 import { trackBeginCheckout, trackPurchase } from "@/lib/analytics";
 
 const mockStatColors = [
@@ -32,6 +33,7 @@ export function PricingClient() {
   const paddleRef = useRef<Paddle | null>(null);
   const pendingPlanRef = useRef<"MONTHLY" | "ANNUAL" | "PASS" | null>(null);
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].pricing;
   const TM = translations[lang].hero.mock;
 
@@ -86,7 +88,7 @@ export function PricingClient() {
         paddleRef.current?.Checkout.open({ transactionId });
       }
     } catch {
-      toast.error(lang === "fr" ? "Une erreur est survenue. Veuillez réessayer." : "Something went wrong. Please try again.");
+      toast.error(U.plans.checkoutError);
     } finally {
       setLoadingPlan(null);
     }
@@ -98,15 +100,15 @@ export function PricingClient() {
   const expiryLabel = (() => {
     const d = planType === "PASS" ? subStatus?.pass_end : subStatus?.current_period_end;
     if (!d) return null;
-    return new Date(d).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-GB", {
+    return new Date(d).toLocaleDateString(U.dateLocale, {
       day: "numeric", month: "long", year: "numeric",
     });
   })();
 
   const planName: Record<string, string> = {
-    PASS:    lang === "fr" ? "Pass 7 jours"    : "7-Day Premium Pass",
-    MONTHLY: lang === "fr" ? "Premium mensuel"  : "Monthly Premium",
-    ANNUAL:  lang === "fr" ? "Premium annuel"   : "Annual Premium",
+    PASS:    U.plans.pass,
+    MONTHLY: U.plans.monthly,
+    ANNUAL:  U.plans.annual,
   };
 
   return (
@@ -119,14 +121,14 @@ export function PricingClient() {
             <CheckCircle className="h-5 w-5 shrink-0 text-emerald-600" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-emerald-900">
-                {lang === "fr" ? "Votre abonnement est actif" : "Your subscription is active"}
+                {U.plans.subscriptionActive}
                 {planType !== "FREE" && ` — ${planName[planType]}`}
               </p>
               {expiryLabel && (
                 <p className="text-xs text-emerald-700">
                   {planType === "PASS"
-                    ? (lang === "fr" ? `Expire le ${expiryLabel}` : `Expires ${expiryLabel}`)
-                    : (lang === "fr" ? `Prochain renouvellement : ${expiryLabel}` : `Next renewal: ${expiryLabel}`)}
+                    ? fill(U.plans.expires, { date: expiryLabel })
+                    : fill(U.plans.renews, { date: expiryLabel })}
                 </p>
               )}
             </div>

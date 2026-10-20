@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function CrispTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -55,14 +58,14 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
       <div style={{ padding: "32px 52px" }}>
         {cv.summary && (
           <div style={{ marginBottom: "22px" }}>
-            <h2 style={sectionTitle}><span style={bar} />Professional Summary</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.professionalSummary}</h2>
             <p style={{ color: mid, lineHeight: 1.7 }}>{cv.summary}</p>
           </div>
         )}
 
         {experience.length > 0 && (
           <div style={{ marginBottom: "22px" }}>
-            <h2 style={sectionTitle}><span style={bar} />Work Experience</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.workExperience}</h2>
             {experience.map((exp) => (
               <div key={exp.id} style={entry}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -89,7 +92,7 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
 
         {education.length > 0 && (
           <div style={{ marginBottom: "22px" }}>
-            <h2 style={sectionTitle}><span style={bar} />Education</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.education}</h2>
             {education.map((edu) => (
               <div key={edu.id} style={{ ...entry, display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
                 <div>
@@ -109,7 +112,7 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
 
         {skills.length > 0 && (
           <div style={{ marginBottom: "22px" }}>
-            <h2 style={sectionTitle}><span style={bar} />Skills</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.skills}</h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
               {skills.map((s, i) => (
                 <span key={i} style={{ border: `1px solid ${blue}`, borderRadius: "4px", padding: "2px 10px", fontSize: "9.5pt", color: blue, background: lightBlue }}>
@@ -122,7 +125,7 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
 
         {projects.length > 0 && (
           <div style={{ marginBottom: "22px" }}>
-            <h2 style={sectionTitle}><span style={bar} />Projects</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.projects}</h2>
             {projects.map((p) => (
               <div key={p.id} style={entry}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -140,7 +143,7 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
 
         {(languages.length > 0 || certifications.length > 0) && (
           <div>
-            <h2 style={sectionTitle}><span style={bar} />Additional</h2>
+            <h2 style={sectionTitle}><span style={bar} />{L.additional}</h2>
             {languages.length > 0 && (
               <p style={{ color: mid, marginBottom: "6px" }}>
                 <strong>Languages:</strong>{" "}

@@ -18,11 +18,11 @@ import { LANDING_ROUTES, TOOLS_HUB, type LandingId } from "@/lib/landing-routes"
 const icons = [Sparkles, Gauge, Target, SearchCheck, WandSparkles, LayoutTemplate, FileDown, PenLine];
 const colors = ["indigo", "purple", "emerald", "violet", "indigo", "blue", "sky", "emerald"];
 
-// Landing page for each feature card (same order). Dutch has no landing pages
-// yet, so Dutch cards stay unlinked rather than pointing to English content.
-const featureLinks: Record<"en" | "fr", (LandingId | null)[]> = {
+// Landing page for each feature card (same order).
+const featureLinks: Record<"en" | "fr" | "nl", (LandingId | null)[]> = {
   en: ["ai-cv-builder", "ats-cv-builder", "job-description-matching", "job-description-matching", "resume-optimizer", null, null, "cover-letter-generator"],
   fr: ["generateur-cv-ia", "cv-ats", "cv-offre-emploi", "cv-offre-emploi", "optimiser-cv", null, null, "lettre-motivation"],
+  nl: ["ai-cv-maker", "ats-cv", "cv-afstemmen-op-vacature", "cv-afstemmen-op-vacature", "cv-verbeteren", null, null, "sollicitatiebrief-generator"],
 };
 
 const colorMap: Record<string, string> = {
@@ -55,7 +55,7 @@ export function Features() {
           {T.items.map((feature, i) => {
             const Icon = icons[i % icons.length];
             const color = colors[i % colors.length];
-            const linkId = lang === "nl" ? null : featureLinks[lang][i] ?? null;
+            const linkId = featureLinks[lang][i] ?? null;
             return (
               <div
                 key={feature.title}
@@ -78,13 +78,11 @@ export function Features() {
             );
           })}
         </div>
-        {lang !== "nl" && (
-          <p className="mt-8 text-center">
+                  <p className="mt-8 text-center">
             <Link href={TOOLS_HUB[lang].path} className="text-sm font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
               {TOOLS_HUB[lang].label} →
             </Link>
           </p>
-        )}
       </div>
     </section>
   );

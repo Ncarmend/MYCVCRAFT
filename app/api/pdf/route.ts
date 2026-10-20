@@ -13,6 +13,8 @@ import { sortCvSections } from "@/lib/cvSort";
 import { resolveCvFooterName } from "@/lib/cvFooterName";
 
 type PdfLang = "en" | "fr" | "nl";
+type CvLabels = (typeof translations)[PdfLang]["cvTemplateLabels"];
+
 function parseLang(value: string | null): PdfLang {
   return value === "fr" || value === "nl" ? value : "en";
 }
@@ -331,10 +333,10 @@ function getTemplateStyles(template: string, watermark: boolean): string {
 
 // ─── Reusable section builders ────────────────────────────────────────────────
 
-function experienceHTML(experience: Array<Record<string, unknown>>): string {
+function experienceHTML(experience: Array<Record<string, unknown>>, L: CvLabels): string {
   if (!experience.length) return "";
   return `<div class="section">
-    <h2>Work Experience</h2>
+    <h2>${L.workExperience}</h2>
     ${experience.map((exp) => `
       <div style="margin-bottom:14px;">
         <div class="row">
@@ -349,10 +351,10 @@ function experienceHTML(experience: Array<Record<string, unknown>>): string {
   </div>`;
 }
 
-function educationHTML(education: Array<Record<string, unknown>>): string {
+function educationHTML(education: Array<Record<string, unknown>>, L: CvLabels): string {
   if (!education.length) return "";
   return `<div class="section">
-    <h2>Education</h2>
+    <h2>${L.education}</h2>
     ${education.map((edu) => `
       <div class="row" style="margin-bottom:10px;">
         <div>
@@ -364,20 +366,20 @@ function educationHTML(education: Array<Record<string, unknown>>): string {
   </div>`;
 }
 
-function skillsHTML(skills: string[], className = "skill"): string {
+function skillsHTML(skills: string[], L: CvLabels, className = "skill"): string {
   if (!skills.length) return "";
   return `<div class="section">
-    <h2>Skills</h2>
+    <h2>${L.skills}</h2>
     <div style="display:flex;flex-wrap:wrap;gap:4px;">
       ${skills.map((s) => `<span class="${className}">${s}</span>`).join("")}
     </div>
   </div>`;
 }
 
-function projectsHTML(projects: Array<Record<string, unknown>>): string {
+function projectsHTML(projects: Array<Record<string, unknown>>, L: CvLabels): string {
   if (!projects.length) return "";
   return `<div class="section">
-    <h2>Projects</h2>
+    <h2>${L.projects}</h2>
     ${projects.map((proj) => `
       <div style="margin-bottom:12px;">
         <div class="row" style="align-items:baseline;">
@@ -392,20 +394,20 @@ function projectsHTML(projects: Array<Record<string, unknown>>): string {
   </div>`;
 }
 
-function languagesHTML(languages: Array<Record<string, unknown>>): string {
+function languagesHTML(languages: Array<Record<string, unknown>>, L: CvLabels): string {
   if (!languages.length) return "";
   return `<div class="section">
-    <h2>Languages</h2>
+    <h2>${L.languages}</h2>
     <div style="display:flex;flex-wrap:wrap;gap:4px;">
       ${languages.map((l) => `<span class="skill"><strong>${l.name}</strong> — ${l.proficiency}</span>`).join("")}
     </div>
   </div>`;
 }
 
-function certificationsHTML(certifications: Array<Record<string, unknown>>): string {
+function certificationsHTML(certifications: Array<Record<string, unknown>>, L: CvLabels): string {
   if (!certifications.length) return "";
   return `<div class="section">
-    <h2>Certifications</h2>
+    <h2>${L.certificationsShort}</h2>
     ${certifications.map((c) => `
       <div class="row" style="margin-bottom:6px;">
         <span><strong>${c.name}</strong> · ${c.issuer}</span>
@@ -550,6 +552,7 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
 // ─── Main builder ─────────────────────────────────────────────────────────────
 
 function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en", footerName = ""): string {
+  const L = translations[lang].cvTemplateLabels;
   // Sorted once here, before branching to any per-template HTML builder
   // (including administrativeDigitalHTML), so every template gets the same
   // chronological order the live preview shows — never the stored DB order.
@@ -576,10 +579,10 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
   if (twoColumnTemplates.includes(template as typeof twoColumnTemplates[number])) {
     const skillEl = template === "TECH" ? "div" : "span";
     const sidebarSkillsHtml = skills.length
-      ? `<h2>Skills</h2>${skills.map((s) => `<${skillEl} class="skill">${s}</${skillEl}>`).join(" ")}`
+      ? `<h2>${L.skills}</h2>${skills.map((s) => `<${skillEl} class="skill">${s}</${skillEl}>`).join(" ")}`
       : "";
     const sidebarLangHtml = languages.length
-      ? `<h2>Languages</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}`
+      ? `<h2>${L.languages}</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}`
       : "";
 
     // PHOTO template has circular photo / initials at top of sidebar
@@ -589,7 +592,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
         : `<div class="photo">${String(cv.name ?? "").split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}</div>`
       : "";
 
-    return `<!DOCTYPE html><html lang="en"><head>
+    return `<!DOCTYPE html><html lang="${lang}"><head>
       <meta charset="UTF-8"/>
       <title>${cv.name} — CV</title>
       <style>${css}</style>
@@ -610,13 +613,13 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
           </div>
           ${sidebarSkillsHtml}
           ${sidebarLangHtml}
-          ${certificationsHTML(certifications)}
+          ${certificationsHTML(certifications, L)}
         </div>
         <div class="main">
-          ${cv.summary ? `<div class="section"><h2>Summary</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
-          ${experienceHTML(experience)}
-          ${educationHTML(education)}
-          ${projectsHTML(projects)}
+          ${cv.summary ? `<div class="section"><h2>${L.summary}</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
+          ${experienceHTML(experience, L)}
+          ${educationHTML(education, L)}
+          ${projectsHTML(projects, L)}
         </div>
       </div>
       ${footerHtml}
@@ -658,17 +661,17 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
         </div>`;
 
   const bodyContent = `
-    ${cv.summary ? `<div class="section"><h2>Professional Summary</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
-    ${experienceHTML(experience)}
-    ${educationHTML(education)}
-    ${skillsHTML(skills)}
-    ${projectsHTML(projects)}
-    ${languagesHTML(languages)}
-    ${certificationsHTML(certifications)}`;
+    ${cv.summary ? `<div class="section"><h2>${L.professionalSummary}</h2><p>${stripHtml(cv.summary)}</p></div>` : ""}
+    ${experienceHTML(experience, L)}
+    ${educationHTML(education, L)}
+    ${skillsHTML(skills, L)}
+    ${projectsHTML(projects, L)}
+    ${languagesHTML(languages, L)}
+    ${certificationsHTML(certifications, L)}`;
 
   const footerHTML = hasColorHeader ? `</div>` : `</div>`;
 
-  return `<!DOCTYPE html><html lang="en"><head>
+  return `<!DOCTYPE html><html lang="${lang}"><head>
     <meta charset="UTF-8"/>
     <title>${cv.name} — CV</title>
     <style>${css}</style>

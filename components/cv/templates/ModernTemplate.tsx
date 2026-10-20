@@ -2,6 +2,7 @@
  * Modern CV template — two-column layout with indigo sidebar
  * Designed for design/tech roles
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface ModernTemplateProps {
 }
 
 export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -46,7 +49,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {/* Contact */}
         <div className="mb-6">
           <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-indigo-300">
-            Contact
+            {L.contact}
           </h2>
           <div className="space-y-1.5 text-xs text-indigo-100">
             {cv.email    && <p className="flex items-center gap-1.5"><MailIcon />     {cv.email}</p>}
@@ -63,7 +66,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {skills.length > 0 && (
           <div className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-300">
-              Skills
+              {L.skills}
             </h2>
             <div className="space-y-2">
               {skills.map((skill, i) => (
@@ -87,7 +90,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {languages.length > 0 && (
           <div className="mb-6">
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-indigo-300">
-              Languages
+              {L.languages}
             </h2>
             <div className="space-y-1">
               {languages.map((lang) => (
@@ -104,7 +107,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {certifications.length > 0 && (
           <div>
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-indigo-300">
-              Certifications
+              {L.certificationsShort}
             </h2>
             <div className="space-y-2">
               {certifications.map((cert) => (
@@ -124,7 +127,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {cv.summary && (
           <section className="mb-6">
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-indigo-600 border-b-2 border-indigo-600 pb-1">
-              About Me
+              {L.aboutMe}
             </h2>
             <p className="text-gray-600 leading-relaxed">{cv.summary}</p>
           </section>
@@ -134,7 +137,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {experience.length > 0 && (
           <section className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-600 border-b-2 border-indigo-600 pb-1">
-              Experience
+              {L.experience}
             </h2>
             <div className="space-y-5">
               {experience.map((exp) => (
@@ -172,7 +175,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {education.length > 0 && (
           <section className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-600 border-b-2 border-indigo-600 pb-1">
-              Education
+              {L.education}
             </h2>
             <div className="space-y-3">
               {education.map((edu) => (
@@ -197,7 +200,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
         {projects.length > 0 && (
           <section>
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-600 border-b-2 border-indigo-600 pb-1">
-              Projects
+              {L.projects}
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {projects.map((proj) => (

@@ -6,7 +6,7 @@ import { NavbarServer } from "@/components/landing/NavbarServer";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { FAQSection } from "@/components/landing/FAQSection";
 import { LANDING_PAGES, type LandingSection } from "@/lib/landing-pages";
-import { LANDING_ROUTES, TOOLS_HUB, type LandingId } from "@/lib/landing-routes";
+import { LANDING_ROUTES, TOOLS_HUB, landingAlternates, type LandingId, type LandingLang } from "@/lib/landing-routes";
 import { getArticleBySlug } from "@/lib/articles";
 import { JOB_MATCH_WEIGHTS } from "@/lib/jobMatch";
 import { translations } from "@/lib/translations";
@@ -37,6 +37,16 @@ const UI = {
     illustrative: "Exemple illustratif",
     weightsNote: "Pondérations utilisées par le moteur de correspondance CVixeo.",
   },
+  nl: {
+    home: "Home",
+    freeNote: "Gratis plan beschikbaar · Geen kredietkaart nodig",
+    related: "Gerelateerde tools en gidsen",
+    furtherReading: "Verder lezen",
+    faqLabel: "FAQ",
+    faqHeading: "Veelgestelde vragen",
+    illustrative: "Illustratief voorbeeld",
+    weightsNote: "Gewichten die de matchingmotor van CVixeo gebruikt.",
+  },
 } as const;
 
 function pageUrl(id: LandingId): string {
@@ -49,15 +59,16 @@ export function landingMetadata(id: LandingId): Metadata {
   const page = LANDING_PAGES[id];
   const url = pageUrl(id);
 
-  // hreflang only where a same-intent page exists in the other language.
-  const languages: Record<string, string> | undefined = route.alternate
-    ? (() => {
-        const alt = LANDING_ROUTES[route.alternate];
-        const en = route.lang === "en" ? url : pageUrl(alt.id);
-        const fr = route.lang === "fr" ? url : pageUrl(alt.id);
-        return { en, fr, "x-default": en };
-      })()
-    : undefined;
+  // hreflang only where same-intent pages exist in other languages (shared group).
+  const alts = landingAlternates(id);
+  const altLangs = (Object.keys(alts) as LandingLang[]).filter((l) => alts[l]);
+  const languages: Record<string, string> | undefined =
+    altLangs.length > 1
+      ? {
+          ...Object.fromEntries(altLangs.map((l) => [l, pageUrl(alts[l]!.id)])),
+          "x-default": pageUrl((alts.en ?? alts[route.lang])!.id),
+        }
+      : undefined;
 
   return {
     title: page.metaTitle,
@@ -113,7 +124,7 @@ function landingJsonLd(id: LandingId) {
 }
 
 // ── Section blocks ──────────────────────────────────────────────────────────
-function MatchWeights({ lang }: { lang: "en" | "fr" }) {
+function MatchWeights({ lang }: { lang: LandingLang }) {
   const labels = translations[lang].jobMatch.categories;
   const rows = (Object.keys(JOB_MATCH_WEIGHTS) as (keyof typeof JOB_MATCH_WEIGHTS)[]).map((k) => ({
     label: labels[k],
@@ -137,7 +148,7 @@ function MatchWeights({ lang }: { lang: "en" | "fr" }) {
   );
 }
 
-function Section({ section, lang, shaded }: { section: LandingSection; lang: "en" | "fr"; shaded: boolean }) {
+function Section({ section, lang, shaded }: { section: LandingSection; lang: LandingLang; shaded: boolean }) {
   return (
     <section className={`${shaded ? "bg-slate-50/70" : "bg-white"} py-12 sm:py-14`}>
       <div className="mx-auto max-w-5xl px-6">
@@ -244,7 +255,7 @@ export function SeoLandingPage({ id }: { id: LandingId }) {
   const page = LANDING_PAGES[id];
   const lang = route.lang;
   const ui = UI[lang];
-  const careersPrefix = lang === "fr" ? "/fr/careers" : "/careers";
+  const careersPrefix = localePath(lang, "/careers");
   const articles = page.articles
     .map((slug) => getArticleBySlug(slug))
     .filter((a) => a && (a.lang ?? "en") === lang);
@@ -261,7 +272,7 @@ export function SeoLandingPage({ id }: { id: LandingId }) {
             <div className="absolute -top-40 -right-40 h-120 w-120 rounded-full bg-emerald-50 opacity-70 blur-3xl" />
           </div>
           <div className="mx-auto max-w-5xl px-6 pb-12 pt-8 sm:pt-12">
-            <Breadcrumbs items={landingCrumbs(id)} />
+            <Breadcrumbs items={landingCrumbs(id)} label={translations[lang].ui.a11y.breadcrumb} />
 
             <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-emerald-800">{page.eyebrow}</p>
             <h1 className="mt-2 max-w-3xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">

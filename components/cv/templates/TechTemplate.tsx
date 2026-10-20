@@ -2,6 +2,7 @@
  * Tech CV Template — sidebar à gauche, style développeur
  * Idéal pour développeurs, ingénieurs, data, IT
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface TechTemplateProps {
 }
 
 export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -64,7 +67,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {/* Contact */}
         <div className="mb-6">
           <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-cyan-400">
-            Contact
+            {L.contact}
           </h2>
           <div className="space-y-1.5 text-xs text-gray-200">
             {cv.email    && <p className="flex items-center gap-1.5"><MailIcon />     {cv.email}</p>}
@@ -80,7 +83,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {skills.length > 0 && (
           <div className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-400">
-              Skills
+              {L.skills}
             </h2>
             <ul className="space-y-1.5 text-xs text-gray-200">
               {skills.map((skill, i) => (
@@ -97,7 +100,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {languages.length > 0 && (
           <div className="mb-6">
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-cyan-400">
-              Languages
+              {L.languages}
             </h2>
             <div className="space-y-1 text-xs">
               {languages.map((lang) => (
@@ -114,7 +117,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {certifications.length > 0 && (
           <div>
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-cyan-400">
-              Certifications
+              {L.certificationsShort}
             </h2>
             <div className="space-y-2 text-xs">
               {certifications.map((cert) => (
@@ -134,7 +137,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {cv.summary && (
           <section className="mb-6">
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-cyan-600 border-b-2 border-cyan-600 pb-1">
-              Summary
+              {L.summary}
             </h2>
             <p className="text-gray-700 leading-relaxed">{cv.summary}</p>
           </section>
@@ -144,7 +147,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {experience.length > 0 && (
           <section className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-600 border-b-2 border-cyan-600 pb-1">
-              Experience
+              {L.experience}
             </h2>
             <div className="space-y-5">
               {experience.map((exp) => (
@@ -184,7 +187,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {education.length > 0 && (
           <section className="mb-6">
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-600 border-b-2 border-cyan-600 pb-1">
-              Education
+              {L.education}
             </h2>
             <div className="space-y-3">
               {education.map((edu) => (
@@ -209,7 +212,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
         {projects.length > 0 && (
           <section>
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-600 border-b-2 border-cyan-600 pb-1">
-              Projects
+              {L.projects}
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {projects.map((proj) => (

@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function ClassicTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -41,14 +44,14 @@ export function ClassicTemplate({ cv, watermark = false }: Props) {
 
       {cv.summary && (
         <div style={{ marginBottom: "18px" }}>
-          <h2 style={S}>Objective</h2>
+          <h2 style={S}>{L.objective}</h2>
           <p style={{ color: "#333" }}>{cv.summary}</p>
         </div>
       )}
 
       {experience.length > 0 && (
         <div style={{ marginBottom: "18px" }}>
-          <h2 style={S}>Experience</h2>
+          <h2 style={S}>{L.experience}</h2>
           {experience.map((exp) => (
             <div key={exp.id} style={{ marginBottom: "14px" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -69,7 +72,7 @@ export function ClassicTemplate({ cv, watermark = false }: Props) {
 
       {education.length > 0 && (
         <div style={{ marginBottom: "18px" }}>
-          <h2 style={S}>Education</h2>
+          <h2 style={S}>{L.education}</h2>
           {education.map((edu) => (
             <div key={edu.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
               <div>
@@ -87,14 +90,14 @@ export function ClassicTemplate({ cv, watermark = false }: Props) {
 
       {skills.length > 0 && (
         <div style={{ marginBottom: "18px" }}>
-          <h2 style={S}>Skills</h2>
+          <h2 style={S}>{L.skills}</h2>
           <p style={{ color: "#333" }}>{skills.join("  ·  ")}</p>
         </div>
       )}
 
       {projects.length > 0 && (
         <div style={{ marginBottom: "18px" }}>
-          <h2 style={S}>Projects</h2>
+          <h2 style={S}>{L.projects}</h2>
           {projects.map((p) => (
             <div key={p.id} style={{ marginBottom: "10px" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -112,7 +115,7 @@ export function ClassicTemplate({ cv, watermark = false }: Props) {
 
       {(languages.length > 0 || certifications.length > 0) && (
         <div>
-          <h2 style={S}>Additional</h2>
+          <h2 style={S}>{L.additional}</h2>
           {languages.length > 0 && (
             <p style={{ color: "#333" }}>
               <strong>Languages:</strong>{" "}

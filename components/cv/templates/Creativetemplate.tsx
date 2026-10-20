@@ -2,6 +2,7 @@
  * Creative CV template — bold colorful layout with photo
  * Designed for creative, marketing, design roles
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface CreativeTemplateProps {
 }
 
 export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -126,7 +129,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Summary */}
           {cv.summary && (
             <div style={{ marginBottom: "24px" }}>
-              <CreativeSectionTitle accent={accent}>À propos</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.aboutMe}</CreativeSectionTitle>
               <p style={{ fontSize: "11px", color: "#555", lineHeight: 1.7, marginTop: "10px" }}>{cv.summary}</p>
             </div>
           )}
@@ -134,7 +137,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Skills */}
           {skills.length > 0 && (
             <div style={{ marginBottom: "24px" }}>
-              <CreativeSectionTitle accent={accent}>Compétences</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.skills}</CreativeSectionTitle>
               <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap", gap: "5px" }}>
                 {skills.map((skill, i) => (
                   <span
@@ -159,7 +162,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Languages */}
           {languages.length > 0 && (
             <div style={{ marginBottom: "24px" }}>
-              <CreativeSectionTitle accent={accent}>Langues</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.languages}</CreativeSectionTitle>
               <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "8px" }}>
                 {languages.map((lang) => (
                   <div key={lang.id}>
@@ -185,7 +188,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Certifications */}
           {certifications.length > 0 && (
             <div>
-              <CreativeSectionTitle accent={accent}>Certifications</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.certificationsShort}</CreativeSectionTitle>
               <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {certifications.map((cert) => (
                   <div key={cert.id} style={{
@@ -214,7 +217,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Experience */}
           {experience.length > 0 && (
             <div style={{ marginBottom: "24px" }}>
-              <CreativeSectionTitle accent={accent}>Expérience</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.experience}</CreativeSectionTitle>
               <div style={{ marginTop: "14px", display: "flex", flexDirection: "column", gap: "18px" }}>
                 {experience.map((exp, idx) => (
                   <div key={exp.id} style={{ position: "relative", paddingLeft: "18px" }}>
@@ -271,7 +274,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Education */}
           {education.length > 0 && (
             <div style={{ marginBottom: "24px" }}>
-              <CreativeSectionTitle accent={accent}>Formation</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.education}</CreativeSectionTitle>
               <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "12px" }}>
                 {education.map((edu) => (
                   <div key={edu.id} style={{
@@ -301,7 +304,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
           {/* Projects */}
           {projects.length > 0 && (
             <div>
-              <CreativeSectionTitle accent={accent}>Projets</CreativeSectionTitle>
+              <CreativeSectionTitle accent={accent}>{L.projects}</CreativeSectionTitle>
               <div style={{ marginTop: "12px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                 {projects.map((proj) => (
                   <div key={proj.id} style={{

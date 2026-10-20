@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { aiErrorMessage } from "@/lib/ui-errors";
 import type { CVFormData } from "@/types";
 
 type Status = "idle" | "processing" | "success" | "error";
@@ -28,6 +29,7 @@ const ACCEPTED = ".pdf,.docx,.txt";
 export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
   const { lang } = useLanguage();
   const T = translations[lang].cvForm.import;
+  const U = translations[lang].ui;
 
   const [status, setStatus] = useState<Status>("idle");
   const [step, setStep] = useState(0);
@@ -86,8 +88,13 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
       clearTimers();
 
       if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
-        throw new Error(json.error ?? "Import failed");
+        // API messages are English: translate by status instead.
+        const message =
+          res.status === 413 ? T.fileTooLarge
+          : res.status === 415 ? T.unsupportedType
+          : res.status === 422 ? U.ai.extractFailed
+          : await aiErrorMessage(res, U, U.ai.importFailed);
+        throw new Error(message);
       }
 
       const { data } = await res.json();
@@ -95,10 +102,10 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
       setStatus("success");
     } catch (err) {
       clearTimers();
-      setError(err instanceof Error ? err.message : "Import failed. Please try again.");
+      setError(err instanceof Error ? err.message : U.ai.importFailed);
       setStatus("error");
     }
-  }, [T, lang]);
+  }, [T, U, lang]);
 
   // ── Drag handlers ───────────────────────────────────────────────────────────
   function onDragOver(e: React.DragEvent) {

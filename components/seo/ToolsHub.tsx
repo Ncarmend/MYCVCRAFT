@@ -1,3 +1,4 @@
+import { translations } from "@/lib/translations";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -6,11 +7,12 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Rich } from "@/components/seo/Rich";
 import { Breadcrumbs, breadcrumbJsonLd, type Crumb } from "@/components/seo/Breadcrumbs";
-import { LANDING_ROUTES, TOOLS_HUB, TOOL_GROUPS } from "@/lib/landing-routes";
+import { LANDING_ROUTES, TOOLS_HUB, TOOL_GROUPS, type LandingLang } from "@/lib/landing-routes";
+import { Button } from "@/components/ui/button";
 import { OG_DEFAULTS, OG_LOCALE, SITE_NAME, SITE_URL, localePath } from "@/lib/seo";
 import { graph, webPageNode, SOFTWARE_ID } from "@/lib/structured-data";
 
-type HubLang = "en" | "fr";
+type HubLang = LandingLang;
 
 const COPY: Record<HubLang, {
   home: string;
@@ -20,6 +22,7 @@ const COPY: Record<HubLang, {
   intro: string;
   guideHeading: string;
   guide: string[];
+  cta: { label: string; href: string };
 }> = {
   en: {
     home: "Home",
@@ -29,6 +32,7 @@ const COPY: Record<HubLang, {
     h1: "Resume and CV tools",
     intro:
       "Each tool covers one step of a job application. Start where you are: from a blank page, from an existing CV, or from a job posting you want to apply for.",
+    cta: { label: "Try the AI tools", href: "/signup" },
     guideHeading: "Which tool should I start with?",
     guide: [
       "**No CV yet?** Start with the [AI CV Builder](/ai-cv-builder), or the [AI Resume Builder](/ai-resume-builder) if you're applying in the US or Canada.",
@@ -45,12 +49,30 @@ const COPY: Record<HubLang, {
     h1: "Outils pour créer et optimiser votre CV",
     intro:
       "Chaque outil couvre une étape de votre candidature. Partez de là où vous en êtes : une page blanche, un CV existant ou une offre d'emploi précise.",
+    cta: { label: "Essayer les outils IA", href: "/signup" },
     guideHeading: "Par quel outil commencer ?",
     guide: [
       "**Pas encore de CV ?** Suivez le guide pour [créer un CV](/fr/creer-cv) ou utilisez le [générateur de CV IA](/fr/generateur-cv-ia).",
       "**Un ancien CV à moderniser ?** Importez-le pour [optimiser votre CV](/fr/optimiser-cv).",
       "**Vous ne savez pas ce qui bloque ?** Commencez par [analyser votre CV](/fr/analyser-cv) et lisez le guide du [CV compatible ATS](/fr/cv-ats).",
       "**Une offre précise en vue ?** [Adaptez votre CV à l'offre](/fr/cv-offre-emploi), puis rédigez votre [lettre de motivation IA](/fr/lettre-motivation).",
+    ],
+  },
+  nl: {
+    home: "Home",
+    metaTitle: "AI-tools voor je cv – maken, checken en afstemmen",
+    metaDescription:
+      "Verbeter je cv met slimme AI-tools. Genereer professionele teksten, optimaliseer je werkervaring en stem je cv af op de vacature waarop je solliciteert.",
+    h1: "AI-tools voor je cv",
+    intro:
+      "Verbeter je cv met slimme AI-tools. Genereer professionele teksten, optimaliseer je werkervaring en stem je cv af op de vacature waarop je solliciteert. Elke tool dekt één stap van je sollicitatie: start waar je nu staat.",
+    cta: { label: "Probeer de AI-tools", href: "/signup" },
+    guideHeading: "Met welke tool begin ik?",
+    guide: [
+      "**Nog geen cv?** Begin met de [AI cv-maker](/nl/ai-cv-maker).",
+      "**Een oud cv?** Importeer het en [verbeter je cv](/nl/cv-verbeteren) met AI.",
+      "**Niet zeker wat er misloopt?** Doe de [cv-check](/nl/cv-check) en lees onze gids over een [ATS-vriendelijk cv](/nl/ats-cv).",
+      "**Een specifieke vacature op het oog?** [Stem je cv af op de vacature](/nl/cv-afstemmen-op-vacature) en schrijf daarna je brief met de [sollicitatiebrief-generator](/nl/sollicitatiebrief-generator).",
     ],
   },
 };
@@ -67,10 +89,11 @@ export function toolsHubMetadata(lang: HubLang): Metadata {
   const url = `${SITE_URL}${TOOLS_HUB[lang].path}`;
   const en = `${SITE_URL}${TOOLS_HUB.en.path}`;
   const fr = `${SITE_URL}${TOOLS_HUB.fr.path}`;
+  const nl = `${SITE_URL}${TOOLS_HUB.nl.path}`;
   return {
     title: c.metaTitle,
     description: c.metaDescription,
-    alternates: { canonical: url, languages: { en, fr, "x-default": en } },
+    alternates: { canonical: url, languages: { en, fr, nl, "x-default": en } },
     openGraph: {
       ...OG_DEFAULTS,
       title: `${c.metaTitle} | ${SITE_NAME}`,
@@ -108,9 +131,15 @@ export function ToolsHub({ lang }: { lang: HubLang }) {
       <main className="flex-1">
         <section className="bg-white">
           <div className="mx-auto max-w-5xl px-6 pb-10 pt-8 sm:pt-12">
-            <Breadcrumbs items={hubCrumbs(lang)} />
+            <Breadcrumbs items={hubCrumbs(lang)} label={translations[lang].ui.a11y.breadcrumb} />
             <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{c.h1}</h1>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-600 sm:text-base">{c.intro}</p>
+            <Link href={c.cta.href} className="mt-6 inline-block">
+              <Button size="lg" className="gap-2 px-8">
+                {c.cta.label}
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </section>
 

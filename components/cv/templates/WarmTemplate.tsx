@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function WarmTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -36,7 +39,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
         {cv.summary && (
           <section className="mb-6">
             <h2 className="mb-2 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-              Professional Summary
+              {L.professionalSummary}
             </h2>
             <p className="leading-relaxed text-gray-600">{cv.summary}</p>
           </section>
@@ -45,7 +48,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
         {experience.length > 0 && (
           <section className="mb-6">
             <h2 className="mb-3 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-              Work Experience
+              {L.workExperience}
             </h2>
             <div className="space-y-5">
               {experience.map((exp) => (
@@ -78,7 +81,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
             {education.length > 0 && (
               <section className="mb-6">
                 <h2 className="mb-3 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-                  Education
+                  {L.education}
                 </h2>
                 {education.map((edu) => (
                   <div key={edu.id} className="mb-3">
@@ -93,7 +96,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
             {languages.length > 0 && (
               <section className="mb-6">
                 <h2 className="mb-2 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-                  Languages
+                  {L.languages}
                 </h2>
                 {languages.map((l) => (
                   <div key={l.id} className="flex justify-between text-sm text-gray-600 mb-1">
@@ -108,7 +111,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
             {skills.length > 0 && (
               <section className="mb-6">
                 <h2 className="mb-2 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-                  Skills
+                  {L.skills}
                 </h2>
                 <div className="flex flex-wrap gap-1.5">
                   {skills.map((s, i) => (
@@ -121,7 +124,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
             {certifications.length > 0 && (
               <section>
                 <h2 className="mb-2 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-                  Certifications
+                  {L.certificationsShort}
                 </h2>
                 {certifications.map((c) => (
                   <div key={c.id} className="mb-2 text-sm">
@@ -137,7 +140,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
         {projects.length > 0 && (
           <section>
             <h2 className="mb-3 pb-1 text-[10px] font-bold uppercase tracking-widest border-b" style={{ color: "#7c5c3e", borderColor: "#e8d5c0" }}>
-              Projects
+              {L.projects}
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {projects.map((p) => (

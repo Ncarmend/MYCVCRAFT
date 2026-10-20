@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
-import { LANDING_ROUTES } from "@/lib/landing-routes";
+import { landingInGroup } from "@/lib/landing-routes";
 
 export function HowJobMatchWorks() {
   const { lang } = useLanguage();
   const T = translations[lang].jobMatch.howItWorks;
   // In-depth guide to the method (EN/FR only).
-  const guide = lang === "fr" ? LANDING_ROUTES["cv-offre-emploi"] : lang === "en" ? LANDING_ROUTES["job-description-matching"] : null;
+  const guide = landingInGroup("match", lang);
 
   return (
     <section className="bg-white py-12 sm:py-16">

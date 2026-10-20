@@ -107,7 +107,7 @@ export default async function ArticlePage({ params }: Props) {
           />
           <div className="relative mx-auto max-w-3xl px-6 py-16 text-white">
             <div className="mb-6">
-              <Breadcrumbs items={crumbs} tone="dark" />
+              <Breadcrumbs items={crumbs} tone="dark" label={translations.en.ui.a11y.breadcrumb} />
             </div>
 
             <div className="mb-4">

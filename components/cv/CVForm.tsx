@@ -20,6 +20,7 @@ import Link from "next/link";
 import { TemplateRenderer } from "@/components/cv/CVPreview";
 import { PhotoUpload } from "@/components/cv/PhotoUpload";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { aiErrorMessage as aiErrorFor, fill } from "@/lib/ui-errors";
 import { cn, normalizeWebsite } from "@/lib/utils";
 import { trackCoverLetterCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
@@ -158,6 +159,7 @@ function MiniPreview({ templateKey }: { templateKey: string }) {
 function TemplatePicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [preview, setPreview] = useState<string | null>(null);
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].cvForm.templates;
 
   const templates = TEMPLATE_KEYS.map((t, i) => ({ ...t, desc: T.descs[i] }));
@@ -182,7 +184,7 @@ function TemplatePicker({ value, onChange }: { value: string; onChange: (v: stri
             </button>
             <button
               type="button"
-              title="Preview"
+              title={U.a11y.preview}
               onClick={() => setPreview(t.value)}
               className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/40 text-white opacity-0 transition-opacity hover:bg-black/60 group-hover:opacity-100 focus:opacity-100"
               style={{ fontSize: "10px" }}
@@ -202,9 +204,7 @@ function TemplatePicker({ value, onChange }: { value: string; onChange: (v: stri
             <div className="flex items-center justify-between border-b px-5 py-3">
               <div>
                 <DialogTitle className="text-base">
-                  {lang === "fr"
-                    ? `Modèle ${templates.find((t) => t.value === preview)?.label}`
-                    : `${templates.find((t) => t.value === preview)?.label} Template`}
+                  {fill(U.editor.templatePreview, { name: templates.find((t) => t.value === preview)?.label ?? "" })}
                 </DialogTitle>
                 <DialogDescription className="text-xs">
                   {templates.find((t) => t.value === preview)?.desc}
@@ -268,6 +268,7 @@ export function CVForm({
   hideSaveButton = false,
 }: CVFormProps) {
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].cvForm;
 
   const [aiLoading, setAiLoading] = useState<string | null>(null);
@@ -328,13 +329,9 @@ export function CVForm({
 
   // --- AI Actions ---
 
+  // API error text is English: translate by status/code instead of showing it.
   async function aiErrorMessage(res: Response, fallback: string): Promise<string> {
-    try {
-      const body = await res.json();
-      if (body?.code === "QUOTA_EXCEEDED" || body?.code === "RATE_LIMIT") return T.toasts.quotaExceeded;
-      if (body?.error) return body.error;
-    } catch { /* ignore */ }
-    return fallback;
+    return aiErrorFor(res, U, fallback);
   }
 
   async function handleAIGenerate() {
@@ -1160,7 +1157,7 @@ export function CVForm({
                           type="button"
                           onClick={() => {
                             navigator.clipboard.writeText(coverLetterResult);
-                            toast.success(lang === "fr" ? "Copié !" : "Copied!");
+                            toast.success(U.editor.copied);
                           }}
                           className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
                         >

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { Upload, X, UserCircle, Loader2, AlertCircle } from "lucide-react";
 
 interface PhotoUploadProps {
@@ -13,14 +14,16 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { lang } = useLanguage();
+  const P = translations[lang].ui.photo;
 
   const upload = useCallback(async (file: File) => {
     if (!file.type.startsWith("image/")) {
-      setError("Please upload an image file (JPG, PNG, WebP).");
+      setError(P.invalidType);
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setError("File too large — max 5 MB.");
+      setError(P.tooLarge);
       return;
     }
     setError(null);
@@ -30,14 +33,16 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
       fd.append("photo", file);
       const res = await fetch("/api/cv/photo", { method: "POST", body: fd });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Upload failed");
+      if (!res.ok) throw new Error("upload_failed");
       onChange(json.url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Upload failed");
+      // Server messages are English; show the localized message instead.
+      console.error("[PhotoUpload]", e);
+      setError(P.failed);
     } finally {
       setUploading(false);
     }
-  }, [onChange]);
+  }, [onChange, P]);
 
   const onDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -49,9 +54,9 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center gap-2">
-        <label className="text-sm font-medium text-gray-700">Profile Photo</label>
+        <label className="text-sm font-medium text-gray-700">{P.label}</label>
         <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-500">
-          optional
+          {P.optional.replace(/[()]/g, "")}
         </span>
       </div>
 
@@ -61,13 +66,13 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           {value ? (
             <>
               <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-gray-200">
-                <img src={value} alt="Profile" className="h-full w-full object-cover" />
+                <img src={value} alt={P.alt} className="h-full w-full object-cover" />
               </div>
               <button
                 type="button"
                 onClick={() => { onChange(""); setError(null); }}
                 className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
-                title="Remove photo"
+                title={P.remove}
               >
                 <X className="h-3 w-3" />
               </button>
@@ -94,15 +99,15 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           {uploading ? (
             <>
               <Loader2 className="h-5 w-5 animate-spin text-indigo-500" />
-              <span className="text-xs text-gray-500">Uploading…</span>
+              <span className="text-xs text-gray-500">{P.uploading}</span>
             </>
           ) : (
             <>
               <Upload className="h-5 w-5 text-gray-400" />
               <p className="text-xs text-gray-500">
-                <span className="font-semibold text-indigo-600">Click to upload</span> or drag &amp; drop
+                <span className="font-semibold text-indigo-600">{P.clickToUpload}</span> {P.orDrag}
               </p>
-              <p className="text-[10px] text-gray-400">JPG · PNG · WebP — max 5 MB</p>
+              <p className="text-[10px] text-gray-400">{P.formats}</p>
             </>
           )}
         </button>
@@ -122,7 +127,7 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
           <div className="flex-1 min-w-0">
             <p className="text-xs text-amber-800">{error}</p>
-            <p className="mt-0.5 text-[10px] text-amber-600">You can still save your CV without a photo.</p>
+            <p className="mt-0.5 text-[10px] text-amber-600">{P.canSaveWithout}</p>
           </div>
           <button
             type="button"

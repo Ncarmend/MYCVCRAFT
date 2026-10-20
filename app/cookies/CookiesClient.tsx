@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Cookie } from "lucide-react";
-import { useLanguage } from "@/components/landing/LanguageContext";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
@@ -15,6 +15,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
 
 export function CookiesClient() {
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   return (
     <>
       {/* Header */}
@@ -25,7 +26,7 @@ export function CookiesClient() {
             className="mb-6 inline-flex items-center gap-1.5 text-xs text-slate-400 transition-colors hover:text-slate-700"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            {lang === "fr" ? "Retour à l'accueil" : "Back to home"}
+            {U.backToHome}
           </Link>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 ring-1 ring-amber-100">

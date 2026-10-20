@@ -50,10 +50,11 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, setLang } = useLanguage();
   const T = translations[lang].nav;
+  const U = translations[lang].ui;
   const pathname = usePathname();
   const jobMatchHref = lang === "fr" ? "/fr/job-match" : lang === "nl" ? "/nl/job-match" : "/job-match";
-  // Resume Tools hub exists in EN and FR only.
-  const toolsHref = lang === "nl" ? null : TOOLS_HUB[lang].path;
+  // Tools hub: /resume-tools · /fr/outils-cv · /nl/ai-tools
+  const toolsHref = TOOLS_HUB[lang].path;
 
   function isActive(href: string): boolean {
     if (!href || href.startsWith("#") || href.startsWith("/#")) return false;
@@ -189,7 +190,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className="rounded-lg p-2 text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-100"
-            aria-label="Toggle menu"
+            aria-label={U.a11y.toggleMenu}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

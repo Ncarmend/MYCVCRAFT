@@ -18,6 +18,7 @@ interface Props { cv: CV; isPro: boolean; }
 
 export function CVEditorClient({ cv, isPro }: Props) {
   const { lang } = useLanguage();
+  const U = translations[lang].ui;
   const T = translations[lang].cvForm;
 
   const previewRef = useRef<HTMLDivElement | null>(null);
@@ -49,9 +50,10 @@ export function CVEditorClient({ cv, isPro }: Props) {
       statusResetRef.current = setTimeout(() => setSaveStatus("idle"), 2500);
     } catch (err) {
       setSaveStatus("error");
-      toast.error(err instanceof Error ? err.message : "Auto-save failed — check your connection.");
+      console.error("[CVEditor] save failed", err);
+      toast.error(U.editor.autoSaveFailed);
     }
-  }, [cv.id]);
+  }, [cv.id, U.editor.autoSaveFailed]);
 
   const scheduleAutoSave = useCallback((data: Partial<CVFormData>) => {
     pendingRef.current = data;
@@ -81,13 +83,13 @@ export function CVEditorClient({ cv, isPro }: Props) {
     setPreviewData(merged);
     setFormKey((k) => k + 1);
     persist(merged);
-    toast.success(lang === "fr" ? "CV importé et amélioré par l'IA !" : "Resume imported and improved by AI!");
+    toast.success(U.editor.imported);
   }
 
   async function handleDownloadPDF() {
-    if (!isPro) toast.info(lang === "fr" ? "Le plan gratuit inclut un filigrane. Passez à Pro pour le supprimer." : "Free plan includes a watermark. Upgrade to remove it.");
+    if (!isPro) toast.info(U.editor.watermarkInfo);
     try {
-      toast.loading(lang === "fr" ? "Préparation du PDF…" : "Preparing PDF…", { id: "pdf" });
+      toast.loading(U.editor.preparingPdf, { id: "pdf" });
       const template = (previewData.template as string) || "BASIC";
       const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}&lang=${lang}`);
       if (!res.ok) throw new Error("PDF generation failed");
@@ -103,24 +105,25 @@ export function CVEditorClient({ cv, isPro }: Props) {
       const win  = window.open(url, "_blank");
       if (!win) {
         URL.revokeObjectURL(url);
-        throw new Error(lang === "fr" ? "Popup bloqué — autorisez les popups pour ce site." : "Popup blocked — allow pop-ups for this site.");
+        throw new Error(U.editor.popupBlocked);
       }
       setTimeout(() => URL.revokeObjectURL(url), 60_000);
       trackCvDownloaded({ cvId: cv.id, template });
       toast.success(
-        lang === "fr" ? "Utilisez « Enregistrer en PDF » dans la fenêtre d'impression." : "Use 'Save as PDF' in the print dialog.",
+        U.editor.printHint,
         { id: "pdf", duration: 5000 },
       );
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to generate PDF", { id: "pdf" });
+      // Only our own (already localized) popup message is shown as-is.
+      toast.error(err instanceof Error && err.message === U.editor.popupBlocked ? err.message : U.editor.pdfFailed, { id: "pdf" });
     }
   }
 
-  const savingLabel  = lang === "fr" ? "Enregistrement…" : "Saving…";
-  const savedLabel   = lang === "fr" ? "Enregistré"       : "Saved";
-  const failedLabel  = lang === "fr" ? "Échec"            : "Save failed";
-  const editingLabel = lang === "fr" ? "Modification"     : "Editing";
-  const previewLabel = lang === "fr" ? "Aperçu en direct" : "Live Preview";
+  const savingLabel  = U.editor.saving;
+  const savedLabel   = U.editor.saved;
+  const failedLabel  = U.editor.saveStatusFailed;
+  const editingLabel = U.editor.editing;
+  const previewLabel = U.editor.livePreview;
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -164,14 +167,14 @@ export function CVEditorClient({ cv, isPro }: Props) {
               variant="ghost"
               size="icon"
               onClick={() => setShowPreview((v) => !v)}
-              title={showPreview ? (lang === "fr" ? "Masquer l'aperçu" : "Hide preview") : (lang === "fr" ? "Afficher l'aperçu" : "Show preview")}
+              title={showPreview ? (U.editor.hidePreview) : (U.editor.showPreview)}
             >
               {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
 
             <Button variant="secondary" size="sm" className="gap-2" onClick={handleDownloadPDF}>
               <FileDown className="h-4 w-4" />
-              {lang === "fr" ? "Télécharger PDF" : "Download PDF"}
+              {U.editor.downloadPdf}
             </Button>
           </div>
         }

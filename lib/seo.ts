@@ -58,3 +58,8 @@ export const OG_DEFAULTS = {
 
 /** For private or utility pages (auth, onboarding, dashboard): crawlable but never indexed. */
 export const NOINDEX = { index: false, follow: false } as const;
+
+/** Parse the `cv-lang` cookie (set by LanguageProvider) for server components. */
+export function langFromCookie(value: string | undefined): Locale {
+  return value === "fr" || value === "nl" ? value : "en";
+}

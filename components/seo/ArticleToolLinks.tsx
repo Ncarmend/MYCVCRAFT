@@ -4,28 +4,30 @@ import type { Article } from "@/lib/articles";
 import { LANDING_ROUTES, type LandingId } from "@/lib/landing-routes";
 
 // First matching rules win; matched against slug + category + tags.
-const RULES: { test: RegExp; en?: LandingId; fr?: LandingId }[] = [
-  { test: /cover.?letter|lettre.?(de.?)?motivation/, en: "cover-letter-generator", fr: "lettre-motivation" },
-  { test: /tailor|adapter|offre|job.?posting|job.?description/, en: "job-description-matching", fr: "cv-offre-emploi" },
-  { test: /\bats\b|ats-/, en: "ats-cv-builder", fr: "cv-ats" },
-  { test: /mistake|erreur|skill|compétence|competence/, en: "cv-optimizer", fr: "analyser-cv" },
-  { test: /intelligence.?artificielle|chatgpt|\bia\b|\bai\b/, en: "ai-cv-builder", fr: "generateur-cv-ia" },
-  { test: /career.?change|reconversion/, en: "resume-optimizer", fr: "optimiser-cv" },
+const RULES: { test: RegExp; en?: LandingId; fr?: LandingId; nl?: LandingId }[] = [
+  { test: /cover.?letter|lettre.?(de.?)?motivation|sollicitatiebrief/, en: "cover-letter-generator", fr: "lettre-motivation", nl: "sollicitatiebrief-generator" },
+  { test: /tailor|adapter|offre|job.?posting|job.?description|vacature|aanpassen/, en: "job-description-matching", fr: "cv-offre-emploi", nl: "cv-afstemmen-op-vacature" },
+  { test: /\bats\b|ats-/, en: "ats-cv-builder", fr: "cv-ats", nl: "ats-cv" },
+  { test: /mistake|erreur|skill|compétence|competence|fout|vaardighe/, en: "cv-optimizer", fr: "analyser-cv", nl: "cv-check" },
+  { test: /intelligence.?artificielle|chatgpt|\bia\b|\bai\b/, en: "ai-cv-builder", fr: "generateur-cv-ia", nl: "ai-cv-maker" },
+  { test: /career.?change|reconversion|carrièreswitch|zonder.?ervaring/, en: "resume-optimizer", fr: "optimiser-cv", nl: "cv-verbeteren" },
   { test: /one.?page|resume/, en: "ai-resume-builder" },
-  { test: /\bcv\b|cv-/, fr: "creer-cv" },
+  { test: /\bcv\b|cv-/, fr: "creer-cv", nl: "ai-cv-maker" },
 ];
 
-const DEFAULTS: Record<"en" | "fr", LandingId[]> = {
+const DEFAULTS: Record<"en" | "fr" | "nl", LandingId[]> = {
   en: ["job-description-matching", "ai-cv-builder", "ats-cv-builder"],
   fr: ["cv-offre-emploi", "generateur-cv-ia", "cv-ats"],
+  nl: ["cv-afstemmen-op-vacature", "ai-cv-maker", "ats-cv"],
 };
 
 const COPY = {
   en: { heading: "Put it into practice with CVixeo" },
   fr: { heading: "Passez à la pratique avec CVixeo" },
+  nl: { heading: "Ga aan de slag met CVixeo" },
 };
 
-function pickTools(article: Article, lang: "en" | "fr"): LandingId[] {
+function pickTools(article: Article, lang: "en" | "fr" | "nl"): LandingId[] {
   const haystack = `${article.slug} ${article.category} ${article.tags.join(" ")}`.toLowerCase();
   const matched = RULES.filter((r) => r.test.test(haystack)).map((r) => r[lang]);
   const candidates = [...matched, ...DEFAULTS[lang]].filter((id): id is LandingId => !!id);
@@ -33,7 +35,7 @@ function pickTools(article: Article, lang: "en" | "fr"): LandingId[] {
 }
 
 /** Links from a careers article to the most relevant SEO landing pages. */
-export function ArticleToolLinks({ article, lang }: { article: Article; lang: "en" | "fr" }) {
+export function ArticleToolLinks({ article, lang }: { article: Article; lang: "en" | "fr" | "nl" }) {
   const tools = pickTools(article, lang);
 
   return (

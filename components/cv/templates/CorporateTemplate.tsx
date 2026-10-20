@@ -2,6 +2,7 @@
  * Corporate CV Template — 1 colonne, ATS-friendly
  * Idéal pour business, finance, RH, administratif
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface CorporateTemplateProps {
 }
 
 export function CorporateTemplate({ cv, watermark = false }: CorporateTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -98,7 +101,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {education.length > 0 && (
         <section className="mb-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Formation
+            {L.education}
           </h2>
 
           <div className="space-y-3">
@@ -143,7 +146,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {languages.length > 0 && (
         <section className="mb-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Langues
+            {L.languages}
           </h2>
           <div className="space-y-1 text-sm">
             {languages.map((lang) => (
@@ -160,7 +163,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {projects.length > 0 && (
         <section>
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Projets
+            {L.projects}
           </h2>
           <div className="space-y-3">
             {projects.map((proj) => (
@@ -188,7 +191,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {certifications.length > 0 && (
         <section className="mt-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Certifications
+            {L.certificationsShort}
           </h2>
           <div className="space-y-2 text-sm">
             {certifications.map((cert) => (

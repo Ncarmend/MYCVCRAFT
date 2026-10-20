@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function PhotoTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -44,7 +47,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
 
         {/* Contact */}
         <div className="mb-5">
-          <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>Contact</h2>
+          <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>{L.contact}</h2>
           <div className="space-y-1.5 text-xs" style={{ color: "#c7d2fe" }}>
             {cv.email    && <p className="flex items-center gap-1.5 break-all"><MailIcon />     {cv.email}</p>}
             {cv.phone    && <p className="flex items-center gap-1.5"><PhoneIcon />    {cv.phone}</p>}
@@ -57,7 +60,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
 
         {skills.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>Skills</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>{L.skills}</h2>
             <div className="space-y-2">
               {skills.map((s, i) => (
                 <div key={i}>
@@ -75,7 +78,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
 
         {languages.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>Languages</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>{L.languages}</h2>
             {languages.map((l) => (
               <div key={l.id} className="flex justify-between text-xs mb-1" style={{ color: "#c7d2fe" }}>
                 <span>{l.name}</span><span style={{ color: "#818cf8" }}>{l.proficiency}</span>
@@ -86,7 +89,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
 
         {certifications.length > 0 && (
           <div>
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>Certifications</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#818cf8" }}>{L.certificationsShort}</h2>
             {certifications.map((c) => (
               <div key={c.id} className="mb-2 text-xs">
                 <p className="font-medium text-white">{c.name}</p>
@@ -102,7 +105,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
         {cv.summary && (
           <section className="mb-5">
             <h2 className="mb-2 pb-1 border-b-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#4338ca", borderColor: "#4338ca" }}>
-              Profile
+              {L.profile}
             </h2>
             <p className="leading-relaxed text-gray-600">{cv.summary}</p>
           </section>
@@ -111,7 +114,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
         {experience.length > 0 && (
           <section className="mb-5">
             <h2 className="mb-3 pb-1 border-b-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#4338ca", borderColor: "#4338ca" }}>
-              Experience
+              {L.experience}
             </h2>
             <div className="space-y-4">
               {experience.map((exp) => (
@@ -145,7 +148,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
         {education.length > 0 && (
           <section className="mb-5">
             <h2 className="mb-3 pb-1 border-b-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#4338ca", borderColor: "#4338ca" }}>
-              Education
+              {L.education}
             </h2>
             {education.map((edu) => (
               <div key={edu.id} className="mb-3 flex items-start justify-between">
@@ -162,7 +165,7 @@ export function PhotoTemplate({ cv, watermark = false }: Props) {
         {projects.length > 0 && (
           <section>
             <h2 className="mb-3 pb-1 border-b-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#4338ca", borderColor: "#4338ca" }}>
-              Projects
+              {L.projects}
             </h2>
             {projects.map((p) => (
               <div key={p.id} className="mb-3">

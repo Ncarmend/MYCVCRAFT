@@ -1,9 +1,12 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function SoftTemplate({ cv, watermark = false }: Props) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -32,7 +35,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
       <div style={{ padding: "32px 56px" }}>
         {cv.summary && (
           <section className="mb-6 rounded-xl p-4" style={{ background: "#fdf2f8", border: "1px solid #f3e8ff" }}>
-            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>About Me</h2>
+            <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>{L.aboutMe}</h2>
             <p className="leading-relaxed text-gray-600">{cv.summary}</p>
           </section>
         )}
@@ -41,7 +44,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
           <section className="mb-6">
             <h2 className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>
               <span className="h-px flex-1" style={{ background: "#e9d5ff" }} />
-              Experience
+              {L.experience}
               <span className="h-px flex-1" style={{ background: "#e9d5ff" }} />
             </h2>
             <div className="space-y-4">
@@ -76,7 +79,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
           <div>
             {education.length > 0 && (
               <section className="mb-5">
-                <h2 className="mb-3 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>Education</h2>
+                <h2 className="mb-3 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>{L.education}</h2>
                 {education.map((edu) => (
                   <div key={edu.id} className="mb-3 rounded-lg p-3" style={{ background: "#fdf2f8", border: "1px solid #fce7f3" }}>
                     <h3 className="font-semibold text-gray-900">{edu.degree}{edu.field ? ` in ${edu.field}` : ""}</h3>
@@ -89,7 +92,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
 
             {languages.length > 0 && (
               <section>
-                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>Languages</h2>
+                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>{L.languages}</h2>
                 {languages.map((l) => (
                   <div key={l.id} className="mb-1 flex items-center justify-between text-sm">
                     <span className="text-gray-700">{l.name}</span>
@@ -103,7 +106,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
           <div>
             {skills.length > 0 && (
               <section className="mb-5">
-                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>Skills</h2>
+                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>{L.skills}</h2>
                 <div className="flex flex-wrap gap-1.5">
                   {skills.map((s, i) => (
                     <span key={i} className="rounded-full px-2.5 py-0.5 text-xs font-medium" style={{ background: "#fce7f3", color: "#9d174d", border: "1px solid #fbcfe8" }}>{s}</span>
@@ -114,7 +117,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
 
             {certifications.length > 0 && (
               <section>
-                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>Certifications</h2>
+                <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>{L.certificationsShort}</h2>
                 {certifications.map((c) => (
                   <div key={c.id} className="mb-2 text-sm">
                     <p className="font-medium text-gray-800">{c.name}</p>
@@ -129,7 +132,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
         {projects.length > 0 && (
           <section className="mt-2">
             <h2 className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7c3aed" }}>
-              <span className="h-px flex-1" style={{ background: "#e9d5ff" }} />Projects<span className="h-px flex-1" style={{ background: "#e9d5ff" }} />
+              <span className="h-px flex-1" style={{ background: "#e9d5ff" }} />{L.projects}<span className="h-px flex-1" style={{ background: "#e9d5ff" }} />
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {projects.map((p) => (

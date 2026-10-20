@@ -53,6 +53,7 @@ export function Sidebar({
   const supabase = createClient();
   const { lang, setLang } = useLanguage();
   const T = translations[lang].sidebar;
+  const U = translations[lang].ui;
 
   const isPro = plan === "PRO";
 
@@ -83,7 +84,7 @@ export function Sidebar({
     >
       {/* Logo */}
       <div className="flex items-center gap-2 border-b border-gray-100 px-3 py-2.5">
-        <Link href="/" className="flex items-center" title="Back to homepage">
+        <Link href="/" className="flex items-center" title={U.a11y.backToHomepage}>
           <Logo height={24} />
         </Link>
         {isPro && !passActive && (
@@ -99,7 +100,7 @@ export function Sidebar({
         <button
           onClick={onClose}
           className="ml-auto rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 lg:hidden"
-          aria-label="Close menu"
+          aria-label={U.a11y.closeMenu}
         >
           <X className="h-4 w-4" />
         </button>
@@ -154,19 +155,17 @@ export function Sidebar({
 
       {/* Language toggle */}
       <div className="border-t border-gray-100 px-3 py-2 flex justify-center">
-        <div className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
-          <button
-            onClick={() => setLang("en")}
-            className={`rounded-md px-3 py-1 transition-colors ${lang === "en" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => setLang("fr")}
-            className={`rounded-md px-3 py-1 transition-colors ${lang === "fr" ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
-          >
-            FR
-          </button>
+        <div role="group" aria-label={U.a11y.language} className="flex items-center rounded-lg border border-gray-200 p-0.5 text-xs font-semibold">
+          {(["en", "fr", "nl"] as const).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              aria-pressed={lang === l}
+              className={`rounded-md px-3 py-1 transition-colors ${lang === l ? "bg-slate-600 text-white" : "text-gray-500 hover:text-gray-900"}`}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -192,7 +191,7 @@ export function Sidebar({
           <button
             onClick={handleSignOut}
             className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500"
-            title="Sign out"
+            title={U.a11y.signOut}
           >
             <LogOut className="h-3.5 w-3.5" />
           </button>

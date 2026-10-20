@@ -10,17 +10,17 @@ import { localePath } from "@/lib/seo";
 
 const VALUE_ICONS = [Layers, Zap, Shield, TrendingUp];
 
-// Landing page for each "What does CVixeo do?" item (same order). Dutch has no
-// landing pages yet, so Dutch items stay unlinked.
-const FEATURE_LINKS: Record<"en" | "fr", (LandingId | null)[]> = {
+// Landing page for each "What does CVixeo do?" item (same order).
+const FEATURE_LINKS: Record<"en" | "fr" | "nl", (LandingId | null)[]> = {
   en: ["ai-cv-builder", "ats-cv-builder", "job-description-matching", "cv-optimizer", "job-description-matching", "resume-optimizer", "cover-letter-generator", null, null],
   fr: ["generateur-cv-ia", "cv-ats", "cv-offre-emploi", "analyser-cv", "cv-offre-emploi", "optimiser-cv", "lettre-motivation", null, null],
+  nl: ["ai-cv-maker", "ats-cv", "cv-afstemmen-op-vacature", "cv-check", "cv-afstemmen-op-vacature", "cv-verbeteren", "sollicitatiebrief-generator", null, null],
 };
 
 export function AboutClient() {
   const { lang } = useLanguage();
   const T = translations[lang].about;
-  const links = lang === "nl" ? null : FEATURE_LINKS[lang];
+  const links = FEATURE_LINKS[lang];
 
   return (
     <main className="flex-1">

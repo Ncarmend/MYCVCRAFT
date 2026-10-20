@@ -2,6 +2,8 @@ export const dynamic = "force-dynamic";
 
 import { redirect, notFound } from "next/navigation";
 import { cookies } from "next/headers";
+import { translations } from "@/lib/translations";
+import { localePath, langFromCookie } from "@/lib/seo";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
@@ -34,8 +36,8 @@ export default async function CVPreviewPage({ params }: Props) {
 
   const isPro = isProUser(dbUser.subscription);
   const cvTitle = (cv as unknown as CV).title || cv.name;
-  const storedLang = (await cookies()).get("cv-lang")?.value;
-  const lang = storedLang === "fr" || storedLang === "nl" ? storedLang : "en";
+  const lang = langFromCookie((await cookies()).get("cv-lang")?.value);
+  const V = translations[lang].ui.cvView;
 
   const cvData: Partial<CVFormData> = {
     ...(cv as unknown as CVFormData),
@@ -66,7 +68,7 @@ export default async function CVPreviewPage({ params }: Props) {
           className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Dashboard
+          {V.backToDashboard}
         </Link>
 
         <div className="mx-2 h-4 w-px bg-gray-200" />
@@ -81,7 +83,7 @@ export default async function CVPreviewPage({ params }: Props) {
             className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors"
           >
             <Edit className="h-3.5 w-3.5" />
-            Edit
+            {V.edit}
           </Link>
           {/* Opens PDF in new tab; user prints to PDF from there */}
           <PdfDownloadLink
@@ -91,7 +93,7 @@ export default async function CVPreviewPage({ params }: Props) {
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-green-600 transition-colors"
           >
             <FileDown className="h-3.5 w-3.5" />
-            Download PDF
+            {V.downloadPdf}
           </PdfDownloadLink>
         </div>
       </div>
@@ -102,9 +104,9 @@ export default async function CVPreviewPage({ params }: Props) {
           {!isPro && (
             <div className="mb-4 flex items-center justify-between rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5">
               <p className="text-xs font-medium text-amber-800">
-                Free plan — PDF export includes a watermark.{" "}
-                <Link href="/pricing" className="underline hover:text-amber-900">
-                  Upgrade to remove it.
+                {V.watermarkNotice}{" "}
+                <Link href={localePath(lang, "/pricing")} className="underline hover:text-amber-900">
+                  {V.upgrade}
                 </Link>
               </p>
             </div>

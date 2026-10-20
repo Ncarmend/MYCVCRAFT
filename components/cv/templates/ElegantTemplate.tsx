@@ -1,3 +1,4 @@
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -7,6 +8,8 @@ interface ElegantTemplateProps {
 }
 
 export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -78,7 +81,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {education.length > 0 && (
           <section style={{ marginBottom: "22px" }}>
             <h2 style={{ fontFamily: "Georgia, serif", fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #e8d48b", paddingBottom: "4px", marginBottom: "12px" }}>
-              Formation
+              {L.education}
             </h2>
             {education.map((edu) => (
               <div key={edu.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
@@ -100,7 +103,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {projects.length > 0 && (
           <section>
             <h2 style={{ fontFamily: "Georgia, serif", fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #e8d48b", paddingBottom: "4px", marginBottom: "12px" }}>
-              Projets
+              {L.projects}
             </h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
               {projects.map((proj) => (
@@ -133,7 +136,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
 
         <div style={{ marginBottom: "20px" }}>
           <h2 style={{ fontSize: "7.5pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #333", paddingBottom: "4px", marginBottom: "10px" }}>
-            Contact
+            {L.contact}
           </h2>
           <div style={{ fontSize: "9pt", color: "#d1d5db", lineHeight: 1.7 }}>
             {cv.email    && <p style={{ display: "flex", alignItems: "center", gap: "5px", wordBreak: "break-all" }}><MailIcon />     {cv.email}</p>}
@@ -164,7 +167,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {languages.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2 style={{ fontSize: "7.5pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #333", paddingBottom: "4px", marginBottom: "10px" }}>
-              Langues
+              {L.languages}
             </h2>
             {languages.map((l) => (
               <div key={l.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "9pt", marginBottom: "4px" }}>
@@ -178,7 +181,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {certifications.length > 0 && (
           <div>
             <h2 style={{ fontSize: "7.5pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #333", paddingBottom: "4px", marginBottom: "10px" }}>
-              Certifications
+              {L.certificationsShort}
             </h2>
             {certifications.map((c) => (
               <div key={c.id} style={{ marginBottom: "8px" }}>

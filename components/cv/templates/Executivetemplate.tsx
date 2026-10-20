@@ -2,6 +2,7 @@
  * Executive CV template — luxury noir & gold layout with photo
  * Designed for senior/executive roles
  */
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -11,6 +12,8 @@ interface ExecutiveTemplateProps {
 }
 
 export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplateProps) {
+  const { lang } = useLanguage();
+  const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -141,7 +144,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
           {/* Skills */}
           {skills.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <SidebarHeading>Compétences</SidebarHeading>
+              <SidebarHeading>{L.skills}</SidebarHeading>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
                 {skills.map((skill, i) => (
                   <div key={i}>
@@ -167,7 +170,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
           {/* Languages */}
           {languages.length > 0 && (
             <div style={{ marginBottom: "28px" }}>
-              <SidebarHeading>Langues</SidebarHeading>
+              <SidebarHeading>{L.languages}</SidebarHeading>
               <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "6px" }}>
                 {languages.map((lang) => (
                   <div key={lang.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "11px" }}>
@@ -182,7 +185,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
           {/* Certifications */}
           {certifications.length > 0 && (
             <div>
-              <SidebarHeading>Certifications</SidebarHeading>
+              <SidebarHeading>{L.certificationsShort}</SidebarHeading>
               <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {certifications.map((cert) => (
                   <div key={cert.id}>
@@ -201,14 +204,14 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
         <div style={{ flex: 1, padding: "32px 40px" }}>
           {/* Summary */}
           {cv.summary && (
-            <Section title="Profil Professionnel">
+            <Section title={L.professionalSummary}>
               <p style={{ color: "#555", lineHeight: 1.7, fontSize: "12px" }}>{cv.summary}</p>
             </Section>
           )}
 
           {/* Experience */}
           {experience.length > 0 && (
-            <Section title="Expérience Professionnelle">
+            <Section title={L.workExperience}>
               <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                 {experience.map((exp) => (
                   <div key={exp.id}>
@@ -259,7 +262,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
 
           {/* Education */}
           {education.length > 0 && (
-            <Section title="Formation">
+            <Section title={L.education}>
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 {education.map((edu) => (
                   <div key={edu.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -281,7 +284,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
 
           {/* Projects */}
           {projects.length > 0 && (
-            <Section title="Projets">
+            <Section title={L.projects}>
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {projects.map((proj) => (
                   <div

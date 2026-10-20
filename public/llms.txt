@@ -68,3 +68,10 @@ AI features are powered by Claude (Anthropic). Contact: support@cvixeo.com.
 
 - [Home](https://www.cvixeo.com/nl)
 - [Over CVixeo](https://www.cvixeo.com/nl/about)
+- [AI-tools](https://www.cvixeo.com/nl/ai-tools): overzicht van alle AI-tools voor je cv
+- [AI cv-maker](https://www.cvixeo.com/nl/ai-cv-maker)
+- [ATS-vriendelijk cv](https://www.cvixeo.com/nl/ats-cv)
+- [Cv verbeteren](https://www.cvixeo.com/nl/cv-verbeteren)
+- [Cv-check](https://www.cvixeo.com/nl/cv-check)
+- [Cv afstemmen op een vacature](https://www.cvixeo.com/nl/cv-afstemmen-op-vacature)
+- [Sollicitatiebrief-generator](https://www.cvixeo.com/nl/sollicitatiebrief-generator)

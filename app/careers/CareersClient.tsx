@@ -144,8 +144,7 @@ export function CareersClient() {
           >
             {T.ctaBtn}
           </a>
-          {lang !== "nl" && (
-            <p className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
+                      <p className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
               <Link href={TOOLS_HUB[lang].path} className="text-sm font-medium text-slate-200 underline underline-offset-2 hover:text-white">
                 {TOOLS_HUB[lang].label}
               </Link>
@@ -155,7 +154,6 @@ export function CareersClient() {
                 </Link>
               )}
             </p>
-          )}
         </section>
       </div>
     </main>

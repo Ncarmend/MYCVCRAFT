@@ -4,7 +4,7 @@
  */
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -16,31 +16,39 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, ChevronRight, Briefcase, User } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
+import { useLanguage, translations } from "@/components/landing/LanguageContext";
 
-const schema = z.object({
-  name: z.string().min(2, "Please enter your full name"),
-  jobTitle: z.string().min(2, "Please enter your current or target job title"),
-  goal: z.enum(["new_job", "promotion", "freelance", "other"]),
-});
+function makeSchema(v: (typeof translations)[keyof typeof translations]["ui"]["auth"]["validation"]) {
+  return z.object({
+    name: z.string().min(2, v.fullName),
+    jobTitle: z.string().min(2, v.jobTitle),
+    goal: z.enum(["new_job", "promotion", "freelance", "other"]),
+  });
+}
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<ReturnType<typeof makeSchema>>;
 
+// Labels come from translations[lang].ui.onboarding.goals.
 const GOALS = [
-  { value: "new_job", label: "Find a new job", emoji: "🎯" },
-  { value: "promotion", label: "Get a promotion", emoji: "🚀" },
-  { value: "freelance", label: "Go freelance", emoji: "💼" },
-  { value: "other", label: "Other", emoji: "✨" },
+  { value: "new_job", emoji: "🎯" },
+  { value: "promotion", emoji: "🚀" },
+  { value: "freelance", emoji: "💼" },
+  { value: "other", emoji: "✨" },
 ] as const;
 
 const STEPS = [
-  { id: 1, title: "What's your name?", icon: User },
-  { id: 2, title: "What's your goal?", icon: Briefcase },
-];
+  { id: 1, key: "stepName", icon: User },
+  { id: 2, key: "stepGoal", icon: Briefcase },
+] as const;
 
 export default function OnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
+  const { lang } = useLanguage();
+  const U = translations[lang].ui;
+  const O = U.onboarding;
+  const schema = useMemo(() => makeSchema(U.auth.validation), [U.auth.validation]);
 
   const {
     register,
@@ -66,7 +74,7 @@ export default function OnboardingPage() {
       });
       router.push("/dashboard?welcome=true");
     } catch {
-      toast.error("Failed to save profile. Please try again.");
+      toast.error(O.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -85,7 +93,7 @@ export default function OnboardingPage() {
         {/* Progress steps */}
         <div className="mb-8 flex items-center justify-center gap-3">
           {STEPS.map((s, i) => (
-            <div key={s.id} className="flex items-center gap-3">
+            <div key={s.id} className="flex items-center gap-3" aria-label={O[s.key]}>
               <div
                 className={cn(
                   "flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-all",
@@ -111,26 +119,26 @@ export default function OnboardingPage() {
         {/* Card */}
         <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100">
           <h1 className="mb-2 text-2xl font-bold text-gray-900">
-            {step === 1 ? "Welcome to CVixeo! 👋" : "What are you aiming for?"}
+            {step === 1 ? O.welcome : O.aiming}
           </h1>
           <p className="mb-4 text-xs text-gray-500">
             {step === 1
-              ? "Let's set up your profile in just two quick steps."
-              : "This helps us tailor your experience."}
+              ? O.intro1
+              : O.intro2}
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             {step === 1 && (
               <>
                 <Input
-                  label="Full name"
-                  placeholder="Jane Smith"
+                  label={U.auth.signup.fullName}
+                  placeholder={U.auth.signup.namePlaceholder}
                   error={errors.name?.message}
                   {...register("name")}
                 />
                 <Input
-                  label="Current or target job title"
-                  placeholder="Software Engineer"
+                  label={O.jobTitle}
+                  placeholder={O.jobPlaceholder}
                   error={errors.jobTitle?.message}
                   {...register("jobTitle")}
                 />
@@ -147,7 +155,7 @@ export default function OnboardingPage() {
                     setStep(2);
                   }}
                 >
-                  Continue
+                  {O.continue}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </>
@@ -169,7 +177,7 @@ export default function OnboardingPage() {
                       )}
                     >
                       <span className="text-2xl">{goal.emoji}</span>
-                      <span className="text-xs font-medium">{goal.label}</span>
+                      <span className="text-xs font-medium">{O.goals[goal.value]}</span>
                     </button>
                   ))}
                 </div>
@@ -182,7 +190,7 @@ export default function OnboardingPage() {
                     className="flex-1"
                     onClick={() => setStep(1)}
                   >
-                    Back
+                    {O.back}
                   </Button>
                   <Button
                     type="submit"
@@ -190,7 +198,7 @@ export default function OnboardingPage() {
                     loading={saving}
                     className="flex-1 gap-2"
                   >
-                    Let&apos;s go!
+                    {O.finish}
                     <Sparkles className="h-4 w-4" />
                   </Button>
                 </div>

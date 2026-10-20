@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { localePath } from "@/lib/seo";
-import { LANDING_ROUTES } from "@/lib/landing-routes";
+import { landingInGroup } from "@/lib/landing-routes";
 
 // Resume → Job Description → AI Analysis → Missing Keywords → ATS Score → Improve.
 // Order matches translations[lang].jobMatch.demo.steps.
@@ -45,8 +45,8 @@ function SkillRow({ label, state }: { label: string; state: "match" | "unclear" 
 export function JobMatchDemo() {
   const { lang } = useLanguage();
   const T = translations[lang].jobMatch.demo;
-  // In-depth guide page (EN/FR only).
-  const guide = lang === "fr" ? LANDING_ROUTES["cv-offre-emploi"] : lang === "en" ? LANDING_ROUTES["job-description-matching"] : null;
+  // In-depth guide page in the current language.
+  const guide = landingInGroup("match", lang);
 
   return (
     <section className="bg-slate-50/60 py-12 sm:py-16" id="job-match">
