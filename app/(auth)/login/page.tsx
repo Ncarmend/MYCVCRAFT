@@ -1,6 +1,7 @@
 import LoginForm from "./LoginForm";
 import type { Metadata } from "next";
 import { NOINDEX } from "@/lib/seo";
+import { safeNextPath } from "@/lib/auth-config";
 
 export const metadata: Metadata = {
   title: "Sign in",
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ redirectTo?: string }>;
+  searchParams: Promise<{ redirectTo?: string; error?: string }>;
 }) {
-  const { redirectTo = "/dashboard" } = await searchParams;
-  return <LoginForm redirectTo={redirectTo} />;
+  const { redirectTo, error } = await searchParams;
+  return <LoginForm redirectTo={safeNextPath(redirectTo)} callbackError={!!error} />;
 }

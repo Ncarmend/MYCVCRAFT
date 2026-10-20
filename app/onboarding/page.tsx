@@ -67,11 +67,12 @@ export default function OnboardingPage() {
     setSaving(true);
     try {
       // Update user profile
-      await fetch("/api/user/profile", {
+      const res = await fetch("/api/user/profile", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: data.name, jobTitle: data.jobTitle }),
       });
+      if (!res.ok) throw new Error("profile_save_failed");
       router.push("/dashboard?welcome=true");
     } catch {
       toast.error(O.saveFailed);

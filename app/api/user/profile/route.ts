@@ -14,9 +14,19 @@ export async function PATCH(request: NextRequest) {
 
     const { name, jobTitle } = await request.json();
 
-    await prisma.user.update({
+    // Upsert: right after sign-up (onboarding) the Prisma record may not exist
+    // yet — it was previously only created by the dashboard layout, so update()
+    // threw and the onboarding answers were lost. Same create fields as there.
+    await prisma.user.upsert({
       where: { supabaseId: user.id },
-      data: { name: name || undefined },
+      create: {
+        supabaseId: user.id,
+        email: user.email!,
+        name: name || user.user_metadata?.full_name || null,
+        avatarUrl: user.user_metadata?.avatar_url || null,
+        subscription: { create: { plan: "FREE", status: "ACTIVE" } },
+      },
+      update: { name: name || undefined },
     });
 
     // Also update Supabase user metadata

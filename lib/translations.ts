@@ -19,7 +19,6 @@ export const translations = {
         password: "Password",
         emailPlaceholder: "you@example.com",
         google: "Continue with Google",
-        github: "Continue with GitHub",
         login: {
           title: "Welcome back",
           subtitle: "Sign in to your account to continue",
@@ -77,6 +76,7 @@ export const translations = {
           requestNew: "Request a new link",
         },
         errors: {
+          callbackFailed: "This link is invalid or has expired, or it was opened in a different browser. Please try again.",
           invalidCredentials: "Incorrect email or password.",
           alreadyRegistered: "An account already exists with this email address.",
           emailNotConfirmed: "Please confirm your email address first — check your inbox.",
@@ -1084,7 +1084,6 @@ export const translations = {
         password: "Mot de passe",
         emailPlaceholder: "nom@exemple.com",
         google: "Continuer avec Google",
-        github: "Continuer avec GitHub",
         login: {
           title: "Bon retour",
           subtitle: "Connectez-vous à votre compte pour continuer",
@@ -1142,6 +1141,7 @@ export const translations = {
           requestNew: "Demander un nouveau lien",
         },
         errors: {
+          callbackFailed: "Ce lien est invalide ou a expiré, ou il a été ouvert dans un autre navigateur. Veuillez réessayer.",
           invalidCredentials: "E-mail ou mot de passe incorrect.",
           alreadyRegistered: "Un compte existe déjà avec cette adresse e-mail.",
           emailNotConfirmed: "Veuillez d'abord confirmer votre adresse e-mail — consultez votre boîte de réception.",
@@ -2141,7 +2141,6 @@ export const translations = {
         password: "Wachtwoord",
         emailPlaceholder: "naam@voorbeeld.be",
         google: "Doorgaan met Google",
-        github: "Doorgaan met GitHub",
         login: {
           title: "Welkom terug",
           subtitle: "Log in op je account om verder te gaan",
@@ -2199,6 +2198,7 @@ export const translations = {
           requestNew: "Nieuwe link aanvragen",
         },
         errors: {
+          callbackFailed: "Deze link is ongeldig of verlopen, of werd in een andere browser geopend. Probeer het opnieuw.",
           invalidCredentials: "Onjuist e-mailadres of wachtwoord.",
           alreadyRegistered: "Er bestaat al een account met dit e-mailadres.",
           emailNotConfirmed: "Bevestig eerst je e-mailadres — bekijk je inbox.",
