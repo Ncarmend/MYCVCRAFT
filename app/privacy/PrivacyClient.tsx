@@ -32,7 +32,7 @@ export function PrivacyClient() {
             {lang === "fr" ? "Politique de confidentialité" : lang === "nl" ? "Privacybeleid" : "Privacy Policy"}
           </h1>
           <p className="mt-2 text-xs text-slate-400">
-            {lang === "fr" ? "Dernière mise à jour : juillet 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: juli 2026 · Van toepassing op cvixeo.com" : "Last updated: July 2026 · Applies to cvixeo.com"}
+            {lang === "fr" ? "Dernière mise à jour : octobre 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: oktober 2026 · Van toepassing op cvixeo.com" : "Last updated: October 2026 · Applies to cvixeo.com"}
           </p>
         </div>
       </div>
@@ -68,6 +68,7 @@ function PrivacyEN() {
         <Section id="data-collected" title="2. Personal Data We Collect">
           <p>We collect the following categories of personal data:</p>
           <p><strong>Account data:</strong> First name, last name, email address, and hashed password when you create an account.</p>
+          <p><strong>Google sign-in (optional):</strong> If you choose to sign in with Google, Google shares with us your name, email address and profile picture (the basic &quot;email&quot; and &quot;profile&quot; permissions), together with a unique identifier for your Google account. We use this information only to create your CVixeo account and sign you in. We never receive your Google password, and we do not access your Gmail, contacts, Google Drive or any other Google data.</p>
           <p><strong>CV content:</strong> Professional information you enter into your CV — work experience, education, skills, contact details, and any other information you choose to include. This data belongs entirely to you.</p>
           <p><strong>Usage data:</strong> Pages visited, features used, session duration, browser type, device type, and IP address. This data is collected automatically to operate and improve the Service.</p>
           <p><strong>Payment data:</strong> Subscription and billing information is processed directly by Paddle.com Market Limited, which acts as our reseller and Merchant of Record for all purchases — Paddle is the seller of record and handles payment collection, fraud prevention, and applicable sales tax / VAT. We do not store payment card numbers, CVV codes, or full bank account details on our servers.</p>
@@ -115,6 +116,7 @@ function PrivacyEN() {
             <li><strong>Resend</strong> (Resend Inc.) — Transactional email delivery. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Website hosting and infrastructure. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
           </ul>
+          <p>If you sign in with Google, Google acts as an independent controller for the authentication it performs. See <a href="https://policies.google.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a>.</p>
         </Section>
 
         <Section id="transfers" title="7. International Data Transfers">
@@ -192,6 +194,7 @@ function PrivacyFR() {
         <Section id="data-collected" title="2. Données personnelles que nous collectons">
           <p>Nous collectons les catégories de données personnelles suivantes :</p>
           <p><strong>Données de compte :</strong> Prénom, nom, adresse e-mail et mot de passe haché lors de la création de votre compte.</p>
+          <p><strong>Connexion avec Google (facultative) :</strong> Si vous choisissez de vous connecter avec Google, Google nous transmet votre nom, votre adresse e-mail et votre photo de profil (autorisations de base « email » et « profile »), ainsi qu&apos;un identifiant unique de votre compte Google. Nous utilisons ces informations uniquement pour créer votre compte CVixeo et vous connecter. Nous ne recevons jamais votre mot de passe Google et n&apos;accédons ni à Gmail, ni à vos contacts, ni à Google Drive, ni à aucune autre donnée Google.</p>
           <p><strong>Contenu du CV :</strong> Informations professionnelles que vous saisissez dans votre CV — expérience professionnelle, formation, compétences, coordonnées et toute autre information que vous choisissez d'inclure. Ces données vous appartiennent entièrement.</p>
           <p><strong>Données d'utilisation :</strong> Pages visitées, fonctionnalités utilisées, durée de session, type de navigateur, type d'appareil et adresse IP. Ces données sont collectées automatiquement pour faire fonctionner et améliorer le Service.</p>
           <p><strong>Données de paiement :</strong> Les informations d'abonnement et de facturation sont traitées directement par Paddle.com Market Limited, qui agit en tant que revendeur et « Merchant of Record » (vendeur officiel) pour tous les achats — Paddle est le vendeur officiel et gère l'encaissement des paiements, la prévention de la fraude, ainsi que la TVA et les taxes de vente applicables. Nous ne stockons pas les numéros de carte de paiement, les codes CVV ou les coordonnées bancaires complètes sur nos serveurs.</p>
@@ -239,6 +242,7 @@ function PrivacyFR() {
             <li><strong>Resend</strong> (Resend Inc.) — Envoi d'e-mails transactionnels. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Hébergement du site et infrastructure. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
           </ul>
+          <p>Si vous vous connectez avec Google, Google agit en tant que responsable de traitement indépendant pour l&apos;authentification qu&apos;il effectue. Consultez les <a href="https://policies.google.com/privacy?hl=fr" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Règles de confidentialité de Google</a>.</p>
         </Section>
 
         <Section id="transfers" title="7. Transferts internationaux de données">
@@ -316,6 +320,7 @@ function PrivacyNL() {
         <Section id="data-collected" title="2. Persoonsgegevens die we verzamelen">
           <p>We verzamelen de volgende categorieën persoonsgegevens:</p>
           <p><strong>Accountgegevens:</strong> Voornaam, achternaam, e-mailadres en gehasht wachtwoord bij het aanmaken van je account.</p>
+          <p><strong>Inloggen met Google (optioneel):</strong> Als je ervoor kiest om in te loggen met Google, deelt Google je naam, e-mailadres en profielfoto met ons (de basisrechten &quot;email&quot; en &quot;profile&quot;), samen met een unieke identificatie van je Google-account. We gebruiken deze gegevens uitsluitend om je CVixeo-account aan te maken en je in te loggen. We ontvangen nooit je Google-wachtwoord en hebben geen toegang tot Gmail, je contacten, Google Drive of andere Google-gegevens.</p>
           <p><strong>Cv-inhoud:</strong> Professionele informatie die je in je cv invoert — werkervaring, opleiding, vaardigheden, contactgegevens en alle andere informatie die je ervoor kiest toe te voegen. Deze gegevens zijn en blijven volledig van jou.</p>
           <p><strong>Gebruiksgegevens:</strong> Bezochte pagina's, gebruikte functies, sessieduur, browsertype, apparaattype en IP-adres. Deze gegevens worden automatisch verzameld om de Dienst te laten werken en te verbeteren.</p>
           <p><strong>Betalingsgegevens:</strong> Abonnements- en facturatiegegevens worden rechtstreeks verwerkt door Paddle.com Market Limited, dat optreedt als onze wederverkoper en "Merchant of Record" voor alle aankopen — Paddle is de officiële verkoper en behandelt de betalingsinning, fraudepreventie en de toepasselijke btw / verkoopbelasting. Wij bewaren geen kaartnummers, CVV-codes of volledige bankgegevens op onze servers.</p>
@@ -363,6 +368,7 @@ function PrivacyNL() {
             <li><strong>Resend</strong> (Resend Inc.) — Verzending van transactionele e-mails. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Hosting en infrastructuur van de website. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
           </ul>
+          <p>Als je inlogt met Google, treedt Google op als zelfstandige verwerkingsverantwoordelijke voor de authenticatie die het uitvoert. Zie het <a href="https://policies.google.com/privacy?hl=nl" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid van Google</a>.</p>
         </Section>
 
         <Section id="transfers" title="7. Internationale gegevensoverdrachten">
