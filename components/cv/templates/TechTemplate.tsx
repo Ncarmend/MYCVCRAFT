@@ -2,7 +2,8 @@
  * Tech CV Template — sidebar à gauche, style développeur
  * Idéal pour développeurs, ingénieurs, data, IT
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface TechTemplateProps {
 }
 
 export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -106,7 +106,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
               {languages.map((lang) => (
                 <div key={lang.id} className="flex items-center justify-between">
                   <span className="text-gray-200">{lang.name}</span>
-                  <span className="text-cyan-400">{lang.proficiency}</span>
+                  <span className="text-cyan-400">{proficiencyLabel(L, lang.proficiency)}</span>
                 </div>
               ))}
             </div>

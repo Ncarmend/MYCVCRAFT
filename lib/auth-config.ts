@@ -19,3 +19,28 @@ export function safeNextPath(value: string | null | undefined, fallback = "/dash
   if (!value || !value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) return fallback;
   return value;
 }
+
+/**
+ * Login-failure redirect that keeps the reason. Supabase sends
+ * ?error=&error_code=&error_description= when the provider step fails; without
+ * this, every failure looked the same ("link invalid or expired"). The full
+ * detail goes to the server logs (Vercel → Logs); only a short, sanitized code
+ * is put in the URL and shown on the login page.
+ */
+export function authFailureRedirect(
+  origin: string,
+  route: string,
+  params: URLSearchParams,
+  exchangeError?: { message?: string; code?: string } | null,
+): string {
+  const reason =
+    params.get("error_code") || params.get("error") || exchangeError?.code || (params.get("code") ? "exchange_failed" : "missing_code");
+  console.error(`[${route}] sign-in failed`, {
+    reason,
+    error: params.get("error"),
+    error_description: params.get("error_description"),
+    exchange_error: exchangeError?.message,
+  });
+  const safeReason = reason.replace(/[^a-z0-9_]/gi, "").slice(0, 40) || "unknown";
+  return `${origin}/login?error=auth_callback_failed&reason=${safeReason}`;
+}

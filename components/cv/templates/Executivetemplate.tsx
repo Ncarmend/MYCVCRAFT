@@ -2,7 +2,8 @@
  * Executive CV template — luxury noir & gold layout with photo
  * Designed for senior/executive roles
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface ExecutiveTemplateProps {
 }
 
 export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -175,7 +175,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
                 {languages.map((lang) => (
                   <div key={lang.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "11px" }}>
                     <span style={{ color: "#333", fontWeight: 500 }}>{lang.name}</span>
-                    <span style={{ color: "#888" }}>{lang.proficiency}</span>
+                    <span style={{ color: "#888" }}>{proficiencyLabel(L, lang.proficiency)}</span>
                   </div>
                 ))}
               </div>

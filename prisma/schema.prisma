@@ -39,6 +39,11 @@ model CV {
   template CVTemplate @default(BASIC)
   status   CVStatus   @default(DRAFT)
 
+  // Document language of this CV ("en" | "fr" | "nl"): drives section headings
+  // and labels in the preview, print and PDF — independent of the interface
+  // language. Null for CVs created before 2026-10-27 (see lib/cv-language.ts).
+  language String?
+
   // Personal information
   name      String
   photoUrl  String?

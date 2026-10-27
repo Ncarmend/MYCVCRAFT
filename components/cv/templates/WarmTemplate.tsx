@@ -1,12 +1,12 @@
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function WarmTemplate({ cv, watermark = false }: Props) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -100,7 +100,7 @@ export function WarmTemplate({ cv, watermark = false }: Props) {
                 </h2>
                 {languages.map((l) => (
                   <div key={l.id} className="flex justify-between text-sm text-gray-600 mb-1">
-                    <span>{l.name}</span><span style={{ color: "#a07a5a" }}>{l.proficiency}</span>
+                    <span>{l.name}</span><span style={{ color: "#a07a5a" }}>{proficiencyLabel(L, l.proficiency)}</span>
                   </div>
                 ))}
               </section>

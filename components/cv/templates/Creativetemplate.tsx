@@ -2,7 +2,8 @@
  * Creative CV template — bold colorful layout with photo
  * Designed for creative, marketing, design roles
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface CreativeTemplateProps {
 }
 
 export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -168,7 +168,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
                   <div key={lang.id}>
                     <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", marginBottom: "3px" }}>
                       <span style={{ fontWeight: 600, color: "#333" }}>{lang.name}</span>
-                      <span style={{ color: "#888" }}>{lang.proficiency}</span>
+                      <span style={{ color: "#888" }}>{proficiencyLabel(L, lang.proficiency)}</span>
                     </div>
                     <div style={{ height: "3px", borderRadius: "2px", background: accentLight }}>
                       <div style={{

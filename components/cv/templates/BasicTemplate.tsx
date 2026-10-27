@@ -2,7 +2,8 @@
  * Basic CV template — clean, traditional layout
  * Optimized for ATS parsing
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface BasicTemplateProps {
 }
 
 export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -166,7 +166,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
             {languages.map((lang) => (
               <span key={lang.id} className="text-sm text-gray-700">
                 <span className="font-medium">{lang.name}</span>
-                <span className="text-gray-400"> — {lang.proficiency}</span>
+                <span className="text-gray-400"> — {proficiencyLabel(L, lang.proficiency)}</span>
               </span>
             ))}
           </div>

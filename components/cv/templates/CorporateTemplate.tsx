@@ -2,7 +2,8 @@
  * Corporate CV Template — 1 colonne, ATS-friendly
  * Idéal pour business, finance, RH, administratif
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface CorporateTemplateProps {
 }
 
 export function CorporateTemplate({ cv, watermark = false }: CorporateTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -51,7 +51,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {cv.summary && (
         <section className="mb-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-2">
-            Profil
+            {L.profile}
           </h2>
           <p className="text-gray-700 leading-relaxed">{cv.summary}</p>
         </section>
@@ -61,7 +61,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {experience.length > 0 && (
         <section className="mb-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Expérience Professionnelle
+            {L.workExperience}
           </h2>
 
           <div className="space-y-5">
@@ -127,7 +127,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
       {skills.length > 0 && (
         <section className="mb-8">
           <h2 className="text-sm font-bold uppercase tracking-widest text-blue-700 border-b border-blue-700 pb-1 mb-3">
-            Compétences
+            {L.skills}
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, i) => (
@@ -152,7 +152,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
             {languages.map((lang) => (
               <div key={lang.id} className="flex items-center justify-between">
                 <span className="text-gray-800">{lang.name}</span>
-                <span className="text-blue-700">{lang.proficiency}</span>
+                <span className="text-blue-700">{proficiencyLabel(L, lang.proficiency)}</span>
               </div>
             ))}
           </div>

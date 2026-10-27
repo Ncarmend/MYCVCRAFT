@@ -11,6 +11,7 @@ import { isProUser } from "@/lib/isPro";
 import { translations } from "@/lib/translations";
 import { sortCvSections } from "@/lib/cvSort";
 import { resolveCvFooterName } from "@/lib/cvFooterName";
+import { parseCvLanguage, proficiencyLabel } from "@/lib/cv-language";
 
 type PdfLang = "en" | "fr" | "nl";
 type CvLabels = (typeof translations)[PdfLang]["cvTemplateLabels"];
@@ -42,7 +43,14 @@ export async function GET(request: NextRequest) {
     // Allow client to pass the currently selected (possibly unsaved) template
     const templateOverride = request.nextUrl.searchParams.get("template");
     const cvData = { ...cv, template: templateOverride ?? cv.template ?? "BASIC" };
-    const lang = parseLang(request.nextUrl.searchParams.get("lang"));
+    // Document language, in priority order:
+    //   1. ?cvLanguage= — the editor's current (possibly not yet auto-saved) choice for this CV
+    //   2. the language stored with the CV
+    //   3. ?lang= (interface language) — only for older CVs saved before per-CV languages existed
+    const lang =
+      parseCvLanguage(request.nextUrl.searchParams.get("cvLanguage")) ??
+      parseCvLanguage(cv.language) ??
+      parseLang(request.nextUrl.searchParams.get("lang"));
     const footerName = resolveCvFooterName(cv.name, dbUser.name);
 
     const html = buildCVHTML(cvData as Record<string, unknown>, !isPro, lang, footerName);
@@ -399,7 +407,7 @@ function languagesHTML(languages: Array<Record<string, unknown>>, L: CvLabels): 
   return `<div class="section">
     <h2>${L.languages}</h2>
     <div style="display:flex;flex-wrap:wrap;gap:4px;">
-      ${languages.map((l) => `<span class="skill"><strong>${l.name}</strong> — ${l.proficiency}</span>`).join("")}
+      ${languages.map((l) => `<span class="skill"><strong>${l.name}</strong> — ${proficiencyLabel(L, l.proficiency)}</span>`).join("")}
     </div>
   </div>`;
 }
@@ -514,7 +522,7 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
     : "";
 
   const languagesSection = languages.length
-    ? `<div class="section"><h2 class="badge">${L.languages}</h2><div class="two-col">${languages.map((l) => `<div><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}</div></div>`
+    ? `<div class="section"><h2 class="badge">${L.languages}</h2><div class="two-col">${languages.map((l) => `<div><strong>${l.name}</strong> — ${proficiencyLabel(L, l.proficiency)}</div>`).join("")}</div></div>`
     : "";
 
   const certificationsSection = certifications.length
@@ -582,7 +590,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
       ? `<h2>${L.skills}</h2>${skills.map((s) => `<${skillEl} class="skill">${s}</${skillEl}>`).join(" ")}`
       : "";
     const sidebarLangHtml = languages.length
-      ? `<h2>${L.languages}</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${l.proficiency}</div>`).join("")}`
+      ? `<h2>${L.languages}</h2>${languages.map((l) => `<div class="contact"><strong>${l.name}</strong> — ${proficiencyLabel(L, l.proficiency)}</div>`).join("")}`
       : "";
 
     // PHOTO template has circular photo / initials at top of sidebar

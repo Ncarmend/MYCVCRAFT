@@ -445,6 +445,8 @@ export const translations = {
         aiTools:          "AI Tools",
       },
       personal: {
+        cvLanguage: "CV language",
+        cvLanguageHint: "Section headings in the preview, print and PDF use this language. Your own text is never translated.",
         cvTitle:              "CV Title (internal)",
         cvTitlePlaceholder:   "e.g. Senior Developer CV",
         template:             "Template",
@@ -656,6 +658,7 @@ export const translations = {
     },
     // ── CV template section labels (used by CV template components + PDF export) ──
     cvTemplateLabels: {
+      proficiencyLevels: { Native: "Native", Fluent: "Fluent", Advanced: "Advanced", Intermediate: "Intermediate", Basic: "Basic" },
       profile:        "Profile",
       experience:     "Experience",
       education:      "Education",
@@ -1502,6 +1505,8 @@ export const translations = {
         aiTools:        "Outils IA",
       },
       personal: {
+        cvLanguage: "Langue du CV",
+        cvLanguageHint: "Les titres de rubriques de l'aperçu, de l'impression et du PDF utilisent cette langue. Votre propre texte n'est jamais traduit.",
         cvTitle:              "Titre du CV (interne)",
         cvTitlePlaceholder:   "ex. CV Développeur Senior",
         template:             "Modèle",
@@ -1713,6 +1718,7 @@ export const translations = {
     },
     // ── Intitulés de sections du CV (utilisés par les modèles de CV + l'export PDF) ──
     cvTemplateLabels: {
+      proficiencyLevels: { Native: "Natif", Fluent: "Courant", Advanced: "Avancé", Intermediate: "Intermédiaire", Basic: "Notions" },
       profile:        "Profil",
       experience:     "Expérience",
       education:      "Formation",
@@ -2567,6 +2573,8 @@ export const translations = {
         aiTools:          "AI-tools",
       },
       personal: {
+        cvLanguage: "Taal van het cv",
+        cvLanguageHint: "Sectietitels in het voorbeeld, de afdruk en de pdf gebruiken deze taal. Je eigen tekst wordt nooit vertaald.",
         cvTitle:              "Cv-titel (intern)",
         cvTitlePlaceholder:   "bv. Cv Senior Developer",
         template:             "Sjabloon",
@@ -2778,6 +2786,7 @@ export const translations = {
     },
     // ── Sectielabels voor cv-sjablonen (gebruikt door cv-templates + pdf-export) ──
     cvTemplateLabels: {
+      proficiencyLevels: { Native: "Moedertaal", Fluent: "Vloeiend", Advanced: "Gevorderd", Intermediate: "Matig", Basic: "Basis" },
       profile:        "Profiel",
       experience:     "Werkervaring",
       education:      "Opleiding",

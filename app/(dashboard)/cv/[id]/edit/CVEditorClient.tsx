@@ -11,6 +11,7 @@ import { FileDown, Eye, EyeOff, Check, Loader2, AlertCircle, Upload } from "luci
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { trackCvDownloaded } from "@/lib/analytics";
 import type { CV, CVFormData } from "@/types";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 const AUTOSAVE_MS = 2000;
 
@@ -27,6 +28,8 @@ export function CVEditorClient({ cv, isPro }: Props) {
   const [formKey, setFormKey]           = useState(0);
   const [formDefaults, setFormDefaults] = useState<Partial<CVFormData>>(cv as unknown as CVFormData);
   const [previewData, setPreviewData]   = useState<Partial<CVFormData>>(cv as unknown as CVFormData);
+  // Document language: the form's current choice, else the saved one; the interface language only for older CVs that have none.
+  const cvLanguage = parseCvLanguage(previewData.language) ?? parseCvLanguage(cv.language) ?? lang;
   const [saveStatus, setSaveStatus]     = useState<"idle" | "saving" | "saved" | "error">("idle");
 
   const timerRef       = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -78,7 +81,8 @@ export function CVEditorClient({ cv, isPro }: Props) {
   }
 
   function handleImport(data: Partial<CVFormData>) {
-    const merged = { template: "BASIC" as CVFormData["template"], ...data };
+    // Keep this CV's language when replacing its content with an import.
+    const merged = { template: "BASIC" as CVFormData["template"], ...data, language: cvLanguage };
     setFormDefaults(merged);
     setPreviewData(merged);
     setFormKey((k) => k + 1);
@@ -91,7 +95,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
     try {
       toast.loading(U.editor.preparingPdf, { id: "pdf" });
       const template = (previewData.template as string) || "BASIC";
-      const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}&lang=${lang}`);
+      const res = await fetch(`/api/pdf?cvId=${cv.id}&template=${template}&cvLanguage=${cvLanguage}&lang=${lang}`);
       if (!res.ok) throw new Error("PDF generation failed");
       const html = await res.text();
 
@@ -207,6 +211,7 @@ export function CVEditorClient({ cv, isPro }: Props) {
         open={importOpen}
         onOpenChange={setImportOpen}
         onImport={handleImport}
+        cvLanguage={cvLanguage}
       />
     </div>
   );

@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ redirectTo?: string; error?: string }>;
+  searchParams: Promise<{ redirectTo?: string; error?: string; reason?: string }>;
 }) {
-  const { redirectTo, error } = await searchParams;
-  return <LoginForm redirectTo={safeNextPath(redirectTo)} callbackError={!!error} />;
+  const { redirectTo, error, reason } = await searchParams;
+  const errorCode = error ? (reason ?? "").replace(/[^a-z0-9_]/gi, "").slice(0, 40) : "";
+  return <LoginForm redirectTo={safeNextPath(redirectTo)} callbackError={!!error} errorCode={errorCode} />;
 }

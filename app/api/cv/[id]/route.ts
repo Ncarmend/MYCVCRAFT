@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { normalizeWebsite } from "@/lib/utils";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 async function getAuthorizedCV(cvId: string, supabaseUserId: string) {
   const dbUser = await prisma.user.findUnique({ where: { supabaseId: supabaseUserId } });
@@ -57,6 +58,9 @@ export async function PATCH(
       data: {
         title: body.title,
         template: body.template,
+        // Only an explicit, valid CV language changes it — never overwritten by
+        // the interface language or by clients that don't send it.
+        language: parseCvLanguage(body.language) ?? undefined,
         name: body.name,
         photoUrl: body.photoUrl || null,
         jobTitle: body.jobTitle,

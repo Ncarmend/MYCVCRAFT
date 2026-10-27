@@ -19,6 +19,8 @@ import { AdministrativeDigitalTemplate } from "./templates/AdministrativeDigital
 import { sortCvSections } from "@/lib/cvSort";
 import { resolveCvFooterName } from "@/lib/cvFooterName";
 import type { CVFormData } from "@/types";
+import { parseCvLanguage } from "@/lib/cv-language";
+import { CvDocumentLanguageProvider } from "@/components/cv/CvDocumentLanguage";
 
 // All templates are designed at this pixel width (US Letter at 96 dpi).
 const TEMPLATE_NATIVE_WIDTH = 816;
@@ -59,12 +61,16 @@ export function TemplateRenderer({ data: rawData, watermark = false }: { data: P
   // required, non-empty `data.name` for any CV that reached the editor.
   const footerName = resolveCvFooterName(data.name);
 
-  return (
+  // Headings follow the CV's own language (data.language), not the interface
+  // language. Legacy CVs without one fall back to the interface language.
+  const language = parseCvLanguage(data.language);
+  const body = (
     <>
       {template}
       {footerName && <div className="cv-footer">{footerName}</div>}
     </>
   );
+  return language ? <CvDocumentLanguageProvider language={language}>{body}</CvDocumentLanguageProvider> : body;
 }
 
 export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {

@@ -15,6 +15,7 @@ import {
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { aiErrorMessage } from "@/lib/ui-errors";
 import type { CVFormData } from "@/types";
+import type { CvLanguage } from "@/lib/cv-language";
 
 type Status = "idle" | "processing" | "success" | "error";
 
@@ -22,11 +23,13 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onImport: (data: Partial<CVFormData>) => void;
+  /** Language the imported content is rewritten in: the CV's language, not the interface's. */
+  cvLanguage?: CvLanguage;
 }
 
 const ACCEPTED = ".pdf,.docx,.txt";
 
-export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
+export function ResumeImportModal({ open, onOpenChange, onImport, cvLanguage }: Props) {
   const { lang } = useLanguage();
   const T = translations[lang].cvForm.import;
   const U = translations[lang].ui;
@@ -82,7 +85,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
     try {
       const fd = new FormData();
       fd.append("file", file);
-      fd.append("lang", lang);
+      fd.append("lang", cvLanguage ?? lang);
 
       const res = await fetch("/api/resume/import", { method: "POST", body: fd });
       clearTimers();
@@ -105,7 +108,7 @@ export function ResumeImportModal({ open, onOpenChange, onImport }: Props) {
       setError(err instanceof Error ? err.message : U.ai.importFailed);
       setStatus("error");
     }
-  }, [T, U, lang]);
+  }, [T, U, lang, cvLanguage]);
 
   // ── Drag handlers ───────────────────────────────────────────────────────────
   function onDragOver(e: React.DragEvent) {

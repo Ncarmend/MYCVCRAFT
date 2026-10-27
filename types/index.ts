@@ -49,6 +49,8 @@ export interface CertificationItem {
 
 export interface CVFormData {
   title: string;
+  /** Document language of the CV ("en" | "fr" | "nl"); independent of the interface language. */
+  language?: "en" | "fr" | "nl";
   template: "BASIC" | "MODERN" | "EXECUTIVE" | "CREATIVE" | "MINIMAL" | "TECH" | "CORPORATE" | "ELEGANT" | "SLATE" | "WARM" | "SOFT" | "PHOTO" | "CLASSIC" | "CRISP" | "ADMINISTRATIVE_DIGITAL";
   // Personal
   name: string;
@@ -75,6 +77,7 @@ export type CV = {
   id: string;
   userId: string;
   title: string;
+  language?: "en" | "fr" | "nl" | null;
   template: "BASIC" | "MODERN" | "EXECUTIVE" | "CREATIVE" | "MINIMAL" | "ELEGANT" | "TECH" | "CORPORATE" | "SLATE" | "WARM" | "SOFT" | "PHOTO" | "CLASSIC" | "CRISP" | "ADMINISTRATIVE_DIGITAL";
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
   name: string;

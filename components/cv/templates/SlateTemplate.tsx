@@ -1,12 +1,12 @@
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function SlateTemplate({ cv, watermark = false }: Props) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -60,7 +60,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
             <h2 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">{L.languages}</h2>
             {languages.map((l) => (
               <div key={l.id} className="flex justify-between text-xs text-slate-200">
-                <span>{l.name}</span><span className="text-slate-400">{l.proficiency}</span>
+                <span>{l.name}</span><span className="text-slate-400">{proficiencyLabel(L, l.proficiency)}</span>
               </div>
             ))}
           </div>

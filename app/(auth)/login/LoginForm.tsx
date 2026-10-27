@@ -24,7 +24,7 @@ function makeSchema(v: (typeof translations)[keyof typeof translations]["ui"]["a
 }
 type FormData = z.infer<ReturnType<typeof makeSchema>>;
 
-export default function LoginForm({ redirectTo, callbackError = false }: { redirectTo: string; callbackError?: boolean }) {
+export default function LoginForm({ redirectTo, callbackError = false, errorCode = "" }: { redirectTo: string; callbackError?: boolean; errorCode?: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<string | null>(null);
@@ -91,6 +91,8 @@ export default function LoginForm({ redirectTo, callbackError = false }: { redir
           {callbackError && (
             <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700 ring-1 ring-red-100">
               {A.errors.callbackFailed}
+              {/* Technical code for support/debugging (e.g. unexpected_failure) */}
+              {errorCode && <span className="mt-1 block font-mono text-[10px] text-red-500">({errorCode})</span>}
             </p>
           )}
           {/* Social login: only providers enabled in Supabase (lib/auth-config.ts). */}

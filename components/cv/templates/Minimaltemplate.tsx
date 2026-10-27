@@ -2,7 +2,8 @@
  * Minimal CV template — ultra-clean layout with square photo
  * Designed for any role, focus on readability and elegance
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface MinimalTemplateProps {
 }
 
 export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -139,7 +139,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
                   <div key={lang.id}>
                     <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", marginBottom: "3px" }}>
                       <span style={{ color: "#333" }}>{lang.name}</span>
-                      <span style={{ color: "#aaa", fontSize: "10px" }}>{lang.proficiency}</span>
+                      <span style={{ color: "#aaa", fontSize: "10px" }}>{proficiencyLabel(L, lang.proficiency)}</span>
                     </div>
                     <div style={{ height: "1px", background: "#eee" }}>
                       <div style={{

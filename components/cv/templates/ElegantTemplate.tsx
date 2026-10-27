@@ -1,4 +1,5 @@
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
@@ -8,8 +9,7 @@ interface ElegantTemplateProps {
 }
 
 export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -36,7 +36,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {cv.summary && (
           <section style={{ marginBottom: "22px" }}>
             <h2 style={{ fontFamily: "Georgia, serif", fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #e8d48b", paddingBottom: "4px", marginBottom: "10px" }}>
-              Profil
+              {L.profile}
             </h2>
             <p style={{ fontFamily: "Georgia, serif", fontSize: "10pt", color: "#374151", lineHeight: 1.7 }}>{cv.summary}</p>
           </section>
@@ -45,7 +45,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {experience.length > 0 && (
           <section style={{ marginBottom: "22px" }}>
             <h2 style={{ fontFamily: "Georgia, serif", fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #e8d48b", paddingBottom: "4px", marginBottom: "12px" }}>
-              Expérience
+              {L.experience}
             </h2>
             <div>
               {experience.map((exp) => (
@@ -151,7 +151,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
         {skills.length > 0 && (
           <div style={{ marginBottom: "20px" }}>
             <h2 style={{ fontSize: "7.5pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#b8960c", borderBottom: "1px solid #333", paddingBottom: "4px", marginBottom: "10px" }}>
-              Compétences
+              {L.skills}
             </h2>
             <ul style={{ listStyle: "none", padding: 0 }}>
               {skills.map((s, i) => (
@@ -172,7 +172,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
             {languages.map((l) => (
               <div key={l.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "9pt", marginBottom: "4px" }}>
                 <span style={{ color: "#d1d5db" }}>{l.name}</span>
-                <span style={{ color: "#b8960c" }}>{l.proficiency}</span>
+                <span style={{ color: "#b8960c" }}>{proficiencyLabel(L, l.proficiency)}</span>
               </div>
             ))}
           </div>

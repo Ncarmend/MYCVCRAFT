@@ -1,12 +1,12 @@
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function CrispTemplate({ cv, watermark = false }: Props) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -146,8 +146,8 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
             <h2 style={sectionTitle}><span style={bar} />{L.additional}</h2>
             {languages.length > 0 && (
               <p style={{ color: mid, marginBottom: "6px" }}>
-                <strong>Languages:</strong>{" "}
-                {languages.map((l) => `${l.name} (${l.proficiency})`).join(", ")}
+                <strong>{L.languages}:</strong>{" "}
+                {languages.map((l) => `${l.name} (${proficiencyLabel(L, l.proficiency)})`).join(", ")}
               </p>
             )}
             {certifications.map((c) => (

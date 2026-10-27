@@ -2,7 +2,8 @@
  * Modern CV template — two-column layout with indigo sidebar
  * Designed for design/tech roles
  */
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
 
@@ -12,8 +13,7 @@ interface ModernTemplateProps {
 }
 
 export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -96,7 +96,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
               {languages.map((lang) => (
                 <div key={lang.id} className="flex items-center justify-between text-xs">
                   <span className="text-white">{lang.name}</span>
-                  <span className="text-indigo-300">{lang.proficiency}</span>
+                  <span className="text-indigo-300">{proficiencyLabel(L, lang.proficiency)}</span>
                 </div>
               ))}
             </div>

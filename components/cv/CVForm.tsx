@@ -24,6 +24,7 @@ import { aiErrorMessage as aiErrorFor, fill } from "@/lib/ui-errors";
 import { cn, normalizeWebsite } from "@/lib/utils";
 import { trackCoverLetterCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 // Fields whose Zod rule is a genuine "must be filled in" requirement — used to keep the
 // error summary accurate (an optional field failing format validation, e.g. website, is
@@ -33,6 +34,7 @@ const REQUIRED_FIELD_KEYS = ["title", "name", "jobTitle"] as const;
 // --- Zod schema ---
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
+  language: z.enum(["en", "fr", "nl"]).optional(),
   template: z.enum(["BASIC", "MODERN", "EXECUTIVE", "CREATIVE", "MINIMAL", "ELEGANT", "TECH", "CORPORATE", "SLATE", "WARM", "SOFT", "PHOTO", "CLASSIC", "CRISP", "ADMINISTRATIVE_DIGITAL"]),
   photoUrl: z.string().optional(),
   name: z.string().min(1, "Name is required"),
@@ -114,6 +116,13 @@ const TEMPLATE_KEYS = [
 ];
 
 const PROFICIENCY_VALUES = ["Native", "Fluent", "Advanced", "Intermediate", "Basic"] as const;
+
+// Language names are shown in their own language, whatever the interface language.
+const CV_LANGUAGE_OPTIONS = [
+  { value: "nl", label: "Nederlands" },
+  { value: "fr", label: "Français" },
+  { value: "en", label: "English" },
+] as const;
 
 const SAMPLE_CV: Partial<CVFormData> = {
   name: "Sophie Laurent",
@@ -309,8 +318,12 @@ export function CVForm({
       languages: [],
       certifications: [],
       ...defaultValues,
+      // The CV's own document language. New CVs (and CVs created before this
+      // field existed) start from the interface language; it's saved with the CV.
+      language: parseCvLanguage(defaultValues?.language) ?? lang,
     },
   });
+  const cvLanguage = parseCvLanguage(watch("language")) ?? lang;
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -341,7 +354,7 @@ export function CVForm({
       const res = await fetch("/api/ai/summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, lang }),
+        body: JSON.stringify({ ...values, lang: cvLanguage }),
       });
       if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.summaryFailed)); return; }
       const { summary } = await res.json();
@@ -387,7 +400,7 @@ export function CVForm({
       const res = await fetch("/api/ai/cover-letter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cvContent, jobDescription: coverLetterJob, companyName: coverLetterCompany, cvId, lang }),
+        body: JSON.stringify({ cvContent, jobDescription: coverLetterJob, companyName: coverLetterCompany, cvId, lang: cvLanguage }),
       });
       if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.coverLetterFailed)); return; }
       const { coverLetter } = await res.json();
@@ -412,7 +425,7 @@ export function CVForm({
       const res = await fetch("/api/ai/bullets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description, lang }),
+        body: JSON.stringify({ role: exp.role, company: exp.company, description: exp.description, lang: cvLanguage }),
       });
       if (!res.ok) { toast.error(await aiErrorMessage(res, T.toasts.bulletsFailed)); return; }
       const { bullets } = await res.json();
@@ -602,6 +615,21 @@ export function CVForm({
                   <span className="text-xs text-gray-400">{T.personal.templateHint}</span>
                 </div>
               </div>
+            </div>
+
+            {/* CV document language — independent of the interface language */}
+            <div className="flex flex-col gap-0.5">
+              <label htmlFor="cv-language" className="text-xs font-medium text-gray-700">{T.personal.cvLanguage}</label>
+              <select
+                id="cv-language"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-800 focus:border-indigo-400 focus:outline-none sm:w-60"
+                {...register("language")}
+              >
+                {CV_LANGUAGE_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+              <span className="text-[11px] text-gray-400">{T.personal.cvLanguageHint}</span>
             </div>
 
             <div className="grid grid-cols-2 gap-2">

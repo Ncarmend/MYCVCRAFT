@@ -1,7 +1,8 @@
 "use client";
 
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
@@ -13,8 +14,7 @@ interface Props { cv: Partial<CV>; watermark?: boolean; }
  * hard-coded here — every value comes from the `cv` prop.
  */
 export function AdministrativeDigitalTemplate({ cv, watermark = false }: Props) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
 
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -142,7 +142,7 @@ export function AdministrativeDigitalTemplate({ cv, watermark = false }: Props) 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", columnGap: "24px", rowGap: "4px" }}>
             {languages.map((l) => (
               <div key={l.id} style={{ color: "#334155", fontSize: "10pt" }}>
-                <strong>{l.name}</strong> — {l.proficiency}
+                <strong>{l.name}</strong> — {proficiencyLabel(L, l.proficiency)}
               </div>
             ))}
           </div>

@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { isProUser } from "@/lib/isPro";
 import { normalizeWebsite } from "@/lib/utils";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 export async function GET() {
   try {
@@ -70,6 +71,8 @@ export async function POST(request: NextRequest) {
         userId: dbUser.id,
         title: body.title || `${body.name}'s CV`,
         template: body.template || "BASIC",
+        // Document language chosen in the editor (null only if a client sends none).
+        language: parseCvLanguage(body.language),
         name: body.name,
         jobTitle: body.jobTitle,
         email: body.email || null,

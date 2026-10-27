@@ -12,6 +12,7 @@ import { FileDown, Upload } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { trackCvCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 const BLANK: Partial<CVFormData> = { template: "BASIC", name: "Your Name", jobTitle: "Your Job Title" };
 
@@ -26,6 +27,8 @@ export function NewCVClient({ isPro }: Props) {
   const T = translations[lang].cvForm;
 
   const [previewData, setPreviewData] = useState<Partial<CVFormData>>(BLANK);
+  // Document language of the CV being created (the form defaults it to the interface language).
+  const cvLanguage = parseCvLanguage(previewData.language) ?? lang;
   const [formDefaults, setFormDefaults] = useState<Partial<CVFormData>>(BLANK);
   const [formKey, setFormKey] = useState(0);
   const [saving, setSaving] = useState(false);
@@ -65,7 +68,8 @@ export function NewCVClient({ isPro }: Props) {
   }
 
   function handleImport(data: Partial<CVFormData>) {
-    const merged = { template: "BASIC" as CVFormData["template"], ...data };
+    // Keep the CV language chosen before importing.
+    const merged = { template: "BASIC" as CVFormData["template"], ...data, language: cvLanguage };
     setFormDefaults(merged);
     setPreviewData(merged);
     setFormKey((k) => k + 1);
@@ -160,6 +164,7 @@ export function NewCVClient({ isPro }: Props) {
         open={importOpen}
         onOpenChange={setImportOpen}
         onImport={handleImport}
+        cvLanguage={cvLanguage}
       />
     </div>
   );

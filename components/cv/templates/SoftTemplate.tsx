@@ -1,12 +1,12 @@
-import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
+import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
 
 interface Props { cv: Partial<CV>; watermark?: boolean; }
 
 export function SoftTemplate({ cv, watermark = false }: Props) {
-  const { lang } = useLanguage();
-  const L = translations[lang].cvTemplateLabels;
+  const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
   const education = Array.isArray(cv.education) ? cv.education : [];
@@ -96,7 +96,7 @@ export function SoftTemplate({ cv, watermark = false }: Props) {
                 {languages.map((l) => (
                   <div key={l.id} className="mb-1 flex items-center justify-between text-sm">
                     <span className="text-gray-700">{l.name}</span>
-                    <span className="rounded-full px-2 py-0.5 text-xs" style={{ background: "#ede9fe", color: "#5b21b6" }}>{l.proficiency}</span>
+                    <span className="rounded-full px-2 py-0.5 text-xs" style={{ background: "#ede9fe", color: "#5b21b6" }}>{proficiencyLabel(L, l.proficiency)}</span>
                   </div>
                 ))}
               </section>

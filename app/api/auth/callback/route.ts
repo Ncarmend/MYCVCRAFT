@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { safeNextPath } from "@/lib/auth-config";
+import { safeNextPath, authFailureRedirect } from "@/lib/auth-config";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -9,9 +9,11 @@ export async function GET(request: NextRequest) {
   // Only same-site paths: prevents open redirects via ?next= (see safeNextPath).
   const next = safeNextPath(searchParams.get("next"));
 
+  let exchangeError: { message?: string; code?: string } | null = null;
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    exchangeError = error;
     if (!error) {
       const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
@@ -25,5 +27,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  return NextResponse.redirect(authFailureRedirect(origin, "api/auth/callback", searchParams, exchangeError));
 }
