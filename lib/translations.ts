@@ -445,7 +445,7 @@ export const translations = {
         aiTools:          "AI Tools",
       },
       personal: {
-        cvLanguage: "CV language",
+        cvLanguage: "Resume language",
         cvLanguageHint: "Section headings in the preview, print and PDF use this language. Your own text is never translated.",
         cvTitle:              "CV Title (internal)",
         cvTitlePlaceholder:   "e.g. Senior Developer CV",
@@ -720,7 +720,8 @@ export const translations = {
         deleteBtn: "Delete my account",
       },
       cv: {
-        language: "Language",
+        language: "Resume language",
+        languageHint: "Default language of new CVs (section headings, print and PDF). Each CV can still be changed in the editor.",
         font: "Font",
         pageFormat: "Page format",
         accentColor: "Accent color",
@@ -1780,7 +1781,8 @@ export const translations = {
         deleteBtn: "Supprimer mon compte",
       },
       cv: {
-        language: "Langue",
+        language: "Langue du CV",
+        languageHint: "Langue par défaut des nouveaux CV (titres de rubriques, impression et PDF). Chaque CV reste modifiable dans l'éditeur.",
         font: "Police",
         pageFormat: "Format de page",
         accentColor: "Couleur d'accent",
@@ -2848,7 +2850,8 @@ export const translations = {
         deleteBtn: "Mijn account verwijderen",
       },
       cv: {
-        language: "Taal",
+        language: "Taal van het cv",
+        languageHint: "Standaardtaal van nieuwe cv's (sectietitels, afdruk en pdf). Elk cv kun je nog aanpassen in de editor.",
         font: "Lettertype",
         pageFormat: "Paginaformaat",
         accentColor: "Accentkleur",

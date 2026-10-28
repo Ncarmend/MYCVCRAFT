@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 export async function GET() {
   try {
@@ -36,7 +37,9 @@ export async function PUT(req: NextRequest) {
     if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
     const body = await req.json();
-    const { cvLanguage, cvFont, cvColor, cvFormat, showSummary, showProjects, showSkills, showInterests, aiTone, aiLength, aiLanguage, aiStyle } = body;
+    const { cvFont, cvColor, cvFormat, showSummary, showProjects, showSkills, showInterests, aiTone, aiLength, aiLanguage, aiStyle } = body;
+    // Resume language: only supported CV languages (en/fr/nl); anything else is left unchanged.
+    const cvLanguage = parseCvLanguage(body.cvLanguage) ?? undefined;
 
     const settings = await prisma.userSettings.upsert({
       where: { userId: dbUser.id },

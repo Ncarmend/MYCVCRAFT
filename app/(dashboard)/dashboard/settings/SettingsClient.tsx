@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
+import { parseCvLanguage } from "@/lib/cv-language";
 
 type Tab = "account" | "cv" | "ai";
 
@@ -357,18 +358,19 @@ export function SettingsClient({ user }: Props) {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-gray-700">{T.cv.language}</label>
+                  <label htmlFor="settings-cv-language" className="text-xs font-medium text-gray-700">{T.cv.language}</label>
                   <select
                     className="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    value={settings.cvLanguage}
+                    id="settings-cv-language"
+                    // Older saved values (es/de/pt) are not CV languages: show the interface language instead.
+                    value={parseCvLanguage(settings.cvLanguage) ?? lang}
                     onChange={(e) => setSettings({ ...settings, cvLanguage: e.target.value })}
                   >
-                    <option value="en">English</option>
+                    <option value="nl">Nederlands</option>
                     <option value="fr">Français</option>
-                    <option value="es">Español</option>
-                    <option value="de">Deutsch</option>
-                    <option value="pt">Português</option>
+                    <option value="en">English</option>
                   </select>
+                  <p className="text-[11px] text-gray-400">{T.cv.languageHint}</p>
                 </div>
 
                 <div className="space-y-1">

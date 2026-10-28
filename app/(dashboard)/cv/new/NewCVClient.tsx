@@ -12,24 +12,27 @@ import { FileDown, Upload } from "lucide-react";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import { trackCvCreated } from "@/lib/analytics";
 import type { CVFormData } from "@/types";
-import { parseCvLanguage } from "@/lib/cv-language";
+import { parseCvLanguage, type CvLanguage } from "@/lib/cv-language";
 
 const BLANK: Partial<CVFormData> = { template: "BASIC", name: "Your Name", jobTitle: "Your Job Title" };
 
 interface Props {
   isPro: boolean;
+  /** "Resume language" saved in Settings → CV (null when never set). */
+  defaultCvLanguage?: CvLanguage | null;
 }
 
-export function NewCVClient({ isPro }: Props) {
+export function NewCVClient({ isPro, defaultCvLanguage }: Props) {
   const router = useRouter();
   const { lang } = useLanguage();
   const U = translations[lang].ui;
   const T = translations[lang].cvForm;
 
-  const [previewData, setPreviewData] = useState<Partial<CVFormData>>(BLANK);
-  // Document language of the CV being created (the form defaults it to the interface language).
-  const cvLanguage = parseCvLanguage(previewData.language) ?? lang;
-  const [formDefaults, setFormDefaults] = useState<Partial<CVFormData>>(BLANK);
+  // New CVs start in the "Resume language" from Settings, else the interface language.
+  const initial: Partial<CVFormData> = defaultCvLanguage ? { ...BLANK, language: defaultCvLanguage } : BLANK;
+  const [previewData, setPreviewData] = useState<Partial<CVFormData>>(initial);
+  const cvLanguage = parseCvLanguage(previewData.language) ?? defaultCvLanguage ?? lang;
+  const [formDefaults, setFormDefaults] = useState<Partial<CVFormData>>(initial);
   const [formKey, setFormKey] = useState(0);
   const [saving, setSaving] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
