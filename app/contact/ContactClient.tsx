@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Script from "next/script";
+import { CONTACT_LIMITS, HONEYPOT_FIELD } from "@/lib/contact-limits";
 import { useLanguage, translations } from "@/components/landing/LanguageContext";
 import {
   Mail,
@@ -33,6 +35,38 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
+// Cloudflare Turnstile is optional: shown only when the public site key is set
+// (the server enforces it only when TURNSTILE_SECRET_KEY is set).
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+type TurnstileApi = {
+  render: (el: HTMLElement, opts: Record<string, unknown>) => string;
+  remove: (widgetId: string) => void;
+};
+
+function TurnstileWidget({ siteKey, lang, onToken }: { siteKey: string; lang: string; onToken: (token: string) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const turnstile = (window as unknown as { turnstile?: TurnstileApi }).turnstile;
+    if (!ready || !ref.current || !turnstile) return;
+    const id = turnstile.render(ref.current, {
+      sitekey: siteKey,
+      language: lang,
+      callback: onToken,
+      "expired-callback": () => onToken(""),
+      "error-callback": () => onToken(""),
+    });
+    return () => turnstile.remove(id);
+  }, [ready, siteKey, lang, onToken]);
+  return (
+    <>
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={() => setReady(true)} />
+      <div ref={ref} className="min-h-[65px]" />
+    </>
+  );
+}
+
 export function ContactClient() {
   const { lang } = useLanguage();
   const U = translations[lang].ui;
@@ -40,6 +74,12 @@ export function ContactClient() {
 
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorKind, setErrorKind] = useState<"generic" | "rateLimited" | "verifyFailed">("generic");
+  // Honeypot value — stays empty for people (the field is hidden from them).
+  const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  // Turnstile tokens are single-use: remount the widget after each attempt.
+  const [turnstileKey, setTurnstileKey] = useState(0);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -47,18 +87,32 @@ export function ContactClient() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setErrorKind("verifyFailed");
+      setStatus("error");
+      return;
+    }
     setStatus("sending");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, [HONEYPOT_FIELD]: honeypot, "cf-turnstile-response": turnstileToken || undefined }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const { code } = await res.json().catch(() => ({ code: "" }));
+        setErrorKind(res.status === 429 ? "rateLimited" : code === "verification_failed" ? "verifyFailed" : "generic");
+        setStatus("error");
+        return;
+      }
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch {
+      setErrorKind("generic");
       setStatus("error");
+    } finally {
+      setTurnstileToken("");
+      setTurnstileKey((k) => k + 1);
     }
   }
 
@@ -118,13 +172,13 @@ export function ContactClient() {
                     <label className="mb-1.5 block text-xs font-semibold text-slate-700">
                       {T.form.name} <span className="text-red-500">*</span>
                     </label>
-                    <input required type="text" name="name" value={form.name} onChange={handleChange} placeholder={T.form.namePlaceholder} className={inputBase} />
+                    <input required type="text" name="name" maxLength={CONTACT_LIMITS.name} value={form.name} onChange={handleChange} placeholder={T.form.namePlaceholder} className={inputBase} />
                   </div>
                   <div>
                     <label className="mb-1.5 block text-xs font-semibold text-slate-700">
                       {T.form.email} <span className="text-red-500">*</span>
                     </label>
-                    <input required type="email" name="email" value={form.email} onChange={handleChange} placeholder={T.form.emailPlaceholder} className={inputBase} />
+                    <input required type="email" name="email" maxLength={CONTACT_LIMITS.email} value={form.email} onChange={handleChange} placeholder={T.form.emailPlaceholder} className={inputBase} />
                   </div>
                 </div>
 
@@ -132,19 +186,30 @@ export function ContactClient() {
                   <label className="mb-1.5 block text-xs font-semibold text-slate-700">
                     {T.form.subject} <span className="text-red-500">*</span>
                   </label>
-                  <input required type="text" name="subject" value={form.subject} onChange={handleChange} placeholder={T.form.subjectPlaceholder} className={inputBase} />
+                  <input required type="text" name="subject" maxLength={CONTACT_LIMITS.subject} value={form.subject} onChange={handleChange} placeholder={T.form.subjectPlaceholder} className={inputBase} />
                 </div>
 
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold text-slate-700">
                     {T.form.message} <span className="text-red-500">*</span>
                   </label>
-                  <textarea required name="message" value={form.message} onChange={handleChange} rows={6} placeholder={T.form.messagePlaceholder} className={`${inputBase} resize-none leading-relaxed`} />
+                  <textarea required name="message" maxLength={CONTACT_LIMITS.message} value={form.message} onChange={handleChange} rows={6} placeholder={T.form.messagePlaceholder} className={`${inputBase} resize-none leading-relaxed`} />
                 </div>
 
+                {/* Honeypot: off-screen, hidden from assistive tech and skipped by Tab.
+                    Submissions that fill it are discarded on the server. */}
+                <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                  <label htmlFor="contact-website">Website</label>
+                  <input id="contact-website" type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                </div>
+
+                {TURNSTILE_SITE_KEY && (
+                  <TurnstileWidget key={turnstileKey} siteKey={TURNSTILE_SITE_KEY} lang={lang} onToken={setTurnstileToken} />
+                )}
+
                 {status === "error" && (
-                  <p className="rounded-lg bg-red-50 px-4 py-2.5 text-xs text-red-600 ring-1 ring-red-100">
-                    {T.form.errorText}
+                  <p role="alert" className="rounded-lg bg-red-50 px-4 py-2.5 text-xs text-red-600 ring-1 ring-red-100">
+                    {errorKind === "rateLimited" ? T.form.rateLimitedText : errorKind === "verifyFailed" ? T.form.verifyFailedText : T.form.errorText}
                   </p>
                 )}
 

@@ -213,3 +213,15 @@ enum SubscriptionStatus {
   INCOMPLETE
   PAUSED
 }
+// Contact-form rate limiting (app/api/contact). One row per accepted submission:
+// key = "ip:<sha256 of the IP>" (the address itself is never stored) or "global".
+// Rows older than 24 h are deleted by the route itself.
+model ContactRateLimit {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+  @@index([createdAt])
+  @@map("contact_rate_limits")
+}

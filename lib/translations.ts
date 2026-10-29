@@ -409,6 +409,8 @@ export const translations = {
         successTitle:       "Message sent!",
         successText:        "We'll get back to you within 24 hours.",
         errorText:          "Something went wrong. Please try again.",
+        rateLimitedText:    "You've sent several messages in a short time. Please wait a few minutes and try again.",
+        verifyFailedText:   "We couldn't verify that you're human. Please complete the check and try again.",
       },
       support: {
         heading:       "We're here for you",
@@ -1471,6 +1473,8 @@ export const translations = {
         successTitle:       "Message envoyé !",
         successText:        "Nous vous répondrons dans les 24 heures.",
         errorText:          "Une erreur est survenue. Veuillez réessayer.",
+        rateLimitedText:    "Vous avez envoyé plusieurs messages en peu de temps. Veuillez patienter quelques minutes avant de réessayer.",
+        verifyFailedText:   "Nous n'avons pas pu vérifier que vous êtes humain. Veuillez compléter la vérification et réessayer.",
       },
       support: {
         heading:       "Nous sommes à votre écoute",
@@ -2539,6 +2543,8 @@ export const translations = {
         successTitle:       "Bericht verzonden!",
         successText:        "We nemen binnen 24 uur contact met je op.",
         errorText:          "Er ging iets mis. Probeer het opnieuw.",
+        rateLimitedText:    "Je hebt in korte tijd meerdere berichten verstuurd. Wacht een paar minuten en probeer het opnieuw.",
+        verifyFailedText:   "We konden niet controleren of je een mens bent. Voltooi de controle en probeer het opnieuw.",
       },
       support: {
         heading:       "We staan voor je klaar",
