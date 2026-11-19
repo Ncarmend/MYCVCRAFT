@@ -411,6 +411,8 @@ export const translations = {
         errorText:          "Something went wrong. Please try again.",
         rateLimitedText:    "You've sent several messages in a short time. Please wait a few minutes and try again.",
         verifyFailedText:   "We couldn't verify that you're human. Please complete the check and try again.",
+        verifyUnavailableText: "Our anti-spam check is temporarily unavailable. Please try again in a few minutes, or email us directly.",
+        turnstile: { loading: "Loading anti-spam check…", verified: "Verified — you can send your message.", expired: "The check expired and is refreshing…", error: "The anti-spam check couldn't load.", retry: "Retry" },
       },
       support: {
         heading:       "We're here for you",
@@ -1475,6 +1477,8 @@ export const translations = {
         errorText:          "Une erreur est survenue. Veuillez réessayer.",
         rateLimitedText:    "Vous avez envoyé plusieurs messages en peu de temps. Veuillez patienter quelques minutes avant de réessayer.",
         verifyFailedText:   "Nous n'avons pas pu vérifier que vous êtes humain. Veuillez compléter la vérification et réessayer.",
+        verifyUnavailableText: "Notre vérification anti-spam est temporairement indisponible. Réessayez dans quelques minutes ou écrivez-nous directement par e-mail.",
+        turnstile: { loading: "Chargement de la vérification anti-spam…", verified: "Vérifié — vous pouvez envoyer votre message.", expired: "La vérification a expiré et se recharge…", error: "La vérification anti-spam n'a pas pu se charger.", retry: "Réessayer" },
       },
       support: {
         heading:       "Nous sommes à votre écoute",
@@ -2545,6 +2549,8 @@ export const translations = {
         errorText:          "Er ging iets mis. Probeer het opnieuw.",
         rateLimitedText:    "Je hebt in korte tijd meerdere berichten verstuurd. Wacht een paar minuten en probeer het opnieuw.",
         verifyFailedText:   "We konden niet controleren of je een mens bent. Voltooi de controle en probeer het opnieuw.",
+        verifyUnavailableText: "Onze antispamcontrole is tijdelijk niet beschikbaar. Probeer het over een paar minuten opnieuw of mail ons rechtstreeks.",
+        turnstile: { loading: "Antispamcontrole laden…", verified: "Geverifieerd — je kunt je bericht versturen.", expired: "De controle is verlopen en wordt vernieuwd…", error: "De antispamcontrole kon niet worden geladen.", retry: "Opnieuw proberen" },
       },
       support: {
         heading:       "We staan voor je klaar",

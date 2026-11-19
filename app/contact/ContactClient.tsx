@@ -14,6 +14,8 @@ import {
   ArrowLeft,
   MessageSquare,
   Shield,
+  Loader2,
+  RotateCw,
 } from "lucide-react";
 
 function FAQItem({ q, a }: { q: string; a: string }) {
@@ -35,35 +37,89 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-// Cloudflare Turnstile is optional: shown only when the public site key is set
-// (the server enforces it only when TURNSTILE_SECRET_KEY is set).
+// Cloudflare Turnstile. The public site key is inlined at build time; the
+// server (lib/turnstile.ts) enforces verification whenever TURNSTILE_SECRET_KEY
+// is set, and refuses submissions on deployments where it's missing.
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
 type TurnstileApi = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
+  reset: (widgetId: string) => void;
   remove: (widgetId: string) => void;
 };
+type WidgetState = "loading" | "ready" | "verified" | "expired" | "error";
+type TurnstileLabels = { loading: string; verified: string; expired: string; error: string; retry: string };
 
-function TurnstileWidget({ siteKey, lang, onToken }: { siteKey: string; lang: string; onToken: (token: string) => void }) {
+function TurnstileWidget({ siteKey, lang, labels, onToken }: { siteKey: string; lang: string; labels: TurnstileLabels; onToken: (token: string) => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
+  const widgetId = useRef<string | null>(null);
+  const [scriptReady, setScriptReady] = useState(false);
+  const [state, setState] = useState<WidgetState>("loading");
+
   useEffect(() => {
     const turnstile = (window as unknown as { turnstile?: TurnstileApi }).turnstile;
-    if (!ready || !ref.current || !turnstile) return;
-    const id = turnstile.render(ref.current, {
+    const el = ref.current;
+    if (!scriptReady || !el || !turnstile) return;
+    const id = turnstile.render(el, {
       sitekey: siteKey,
+      action: "contact", // checked by the server in production
       language: lang,
-      callback: onToken,
-      "expired-callback": () => onToken(""),
-      "error-callback": () => onToken(""),
+      theme: "light",
+      // The standard widget is 300px wide: use the compact one on narrow cards.
+      size: el.clientWidth < 300 ? "compact" : "flexible",
+      "refresh-expired": "auto",
+      callback: (token: string) => { onToken(token); setState("verified"); },
+      "expired-callback": () => { onToken(""); setState("expired"); },
+      "timeout-callback": () => { onToken(""); setState("expired"); },
+      "error-callback": () => { onToken(""); setState("error"); },
     });
-    return () => turnstile.remove(id);
-  }, [ready, siteKey, lang, onToken]);
+    widgetId.current = id;
+    return () => { widgetId.current = null; turnstile.remove(id); };
+  }, [scriptReady, siteKey, lang, onToken]);
+
+  function retry() {
+    const turnstile = (window as unknown as { turnstile?: TurnstileApi }).turnstile;
+    if (turnstile && widgetId.current) {
+      turnstile.reset(widgetId.current);
+      setState("ready");
+    } else {
+      window.location.reload(); // the script itself failed to load (network or blocker)
+    }
+  }
+
+  // Once the script is ready the widget renders itself; "loading" only covers the script download.
+  const shown: WidgetState = state === "loading" && scriptReady ? "ready" : state;
+
   return (
-    <>
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={() => setReady(true)} />
+    <div>
+      <Script src={TURNSTILE_SCRIPT} strategy="afterInteractive" onReady={() => setScriptReady(true)} onError={() => setState("error")} />
       <div ref={ref} className="min-h-[65px]" />
-    </>
+      <div aria-live="polite" className="mt-1.5 min-h-[18px] text-xs">
+        {shown === "loading" && (
+          <span className="inline-flex items-center gap-1.5 text-slate-400">
+            <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
+            {labels.loading}
+          </span>
+        )}
+        {shown === "verified" && (
+          <span className="inline-flex items-center gap-1.5 text-green-700">
+            <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
+            {labels.verified}
+          </span>
+        )}
+        {shown === "expired" && <span className="text-slate-500">{labels.expired}</span>}
+        {shown === "error" && (
+          <span className="inline-flex flex-wrap items-center gap-2 text-red-600">
+            {labels.error}
+            <button type="button" onClick={retry} className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 font-semibold text-slate-700 underline underline-offset-2 hover:text-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600">
+              <RotateCw className="h-3 w-3" aria-hidden="true" />
+              {labels.retry}
+            </button>
+          </span>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -74,7 +130,7 @@ export function ContactClient() {
 
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const [errorKind, setErrorKind] = useState<"generic" | "rateLimited" | "verifyFailed">("generic");
+  const [errorKind, setErrorKind] = useState<"generic" | "rateLimited" | "verifyFailed" | "verifyUnavailable">("generic");
   // Honeypot value — stays empty for people (the field is hidden from them).
   const [honeypot, setHoneypot] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -101,7 +157,12 @@ export function ContactClient() {
       });
       if (!res.ok) {
         const { code } = await res.json().catch(() => ({ code: "" }));
-        setErrorKind(res.status === 429 ? "rateLimited" : code === "verification_failed" ? "verifyFailed" : "generic");
+        setErrorKind(
+          res.status === 429 ? "rateLimited"
+          : code === "verification_failed" ? "verifyFailed"
+          : code === "verification_unavailable" ? "verifyUnavailable"
+          : "generic",
+        );
         setStatus("error");
         return;
       }
@@ -111,6 +172,7 @@ export function ContactClient() {
       setErrorKind("generic");
       setStatus("error");
     } finally {
+      // Tokens are single-use: get a fresh one for the next attempt.
       setTurnstileToken("");
       setTurnstileKey((k) => k + 1);
     }
@@ -204,18 +266,19 @@ export function ContactClient() {
                 </div>
 
                 {TURNSTILE_SITE_KEY && (
-                  <TurnstileWidget key={turnstileKey} siteKey={TURNSTILE_SITE_KEY} lang={lang} onToken={setTurnstileToken} />
+                  <TurnstileWidget key={turnstileKey} siteKey={TURNSTILE_SITE_KEY} lang={lang} labels={T.form.turnstile} onToken={setTurnstileToken} />
                 )}
 
                 {status === "error" && (
                   <p role="alert" className="rounded-lg bg-red-50 px-4 py-2.5 text-xs text-red-600 ring-1 ring-red-100">
-                    {errorKind === "rateLimited" ? T.form.rateLimitedText : errorKind === "verifyFailed" ? T.form.verifyFailedText : T.form.errorText}
+                    {errorKind === "rateLimited" ? T.form.rateLimitedText : errorKind === "verifyFailed" ? T.form.verifyFailedText : errorKind === "verifyUnavailable" ? T.form.verifyUnavailableText : T.form.errorText}
                   </p>
                 )}
 
                 <button
                   type="submit"
-                  disabled={status === "sending"}
+                  // No submission until Turnstile has produced a token (also enforced by the server).
+                  disabled={status === "sending" || Boolean(TURNSTILE_SITE_KEY && !turnstileToken)}
                   className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-slate-800 text-sm font-semibold text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700 disabled:opacity-60"
                 >
                   {status === "sending" ? T.form.submitting : T.form.submit}

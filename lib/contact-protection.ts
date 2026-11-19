@@ -5,7 +5,7 @@
  * form and to requests sent straight to the API:
  *   - strict validation of every field (types, lengths, control characters)
  *   - honeypot field
- *   - optional Cloudflare Turnstile verification
+ *   - Cloudflare Turnstile verification (lib/turnstile.ts)
  *   - per-IP and global rate limits stored in Postgres (shared by all
  *     serverless instances; no in-memory counters)
  *   - a "possible spam" flag for random-looking submissions (flagged, never
@@ -150,33 +150,5 @@ export async function consumeContactRateLimit(ip: string): Promise<RateLimitResu
   } catch (err) {
     console.error("[contact] rate limiter unavailable:", err instanceof Error ? err.message : err);
     return "unavailable";
-  }
-}
-
-// ── Cloudflare Turnstile (optional) ───────────────────────────────────────────
-
-/** Turnstile is enforced only when the server-side secret is configured. */
-export function turnstileEnabled(): boolean {
-  return Boolean(process.env.TURNSTILE_SECRET_KEY);
-}
-
-export async function verifyTurnstile(token: unknown, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true;
-  if (typeof token !== "string" || !token || token.length > 2048) return false;
-  try {
-    const form = new URLSearchParams({ secret, response: token });
-    if (ip !== "unknown") form.set("remoteip", ip);
-    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST",
-      body: form,
-      signal: AbortSignal.timeout(5000),
-    });
-    const data = (await res.json()) as { success?: boolean; "error-codes"?: string[] };
-    if (!data.success) console.warn("[contact] turnstile rejected:", data["error-codes"]);
-    return data.success === true;
-  } catch (err) {
-    console.error("[contact] turnstile verification failed:", err instanceof Error ? err.message : err);
-    return false;
   }
 }

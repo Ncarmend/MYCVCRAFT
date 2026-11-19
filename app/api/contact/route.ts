@@ -6,10 +6,9 @@ import {
   escapeHtml,
   isHoneypotFilled,
   isSuspicious,
-  turnstileEnabled,
   validateContact,
-  verifyTurnstile,
 } from "@/lib/contact-protection";
+import { turnstileConfig, verifyTurnstileToken } from "@/lib/turnstile";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -41,9 +40,28 @@ export async function POST(request: NextRequest) {
 
     const ip = clientIp(request.headers);
 
-    // ── Turnstile (only when configured) ────────────────────────────────────
-    if (turnstileEnabled() && !(await verifyTurnstile(fields["cf-turnstile-response"], ip))) {
-      return fail(400, "verification_failed", "Verification failed. Please try again.");
+    // ── Cloudflare Turnstile — before anything is counted or sent ───────────
+    const turnstile = turnstileConfig();
+    if (turnstile.mode === "misconfigured") {
+      // Never silently switch Turnstile off on a deployment: refuse instead.
+      console.error("[contact] TURNSTILE_SECRET_KEY is not set — submissions refused");
+      return fail(503, "verification_unavailable", "Verification is temporarily unavailable. Please try again later.");
+    }
+    if (turnstile.mode === "skip") {
+      console.warn("[contact] Turnstile skipped (no TURNSTILE_SECRET_KEY, local development)");
+    } else {
+      const result = await verifyTurnstileToken(fields["cf-turnstile-response"], {
+        secret: turnstile.secret,
+        hostnames: turnstile.hostnames,
+        remoteIp: ip !== "unknown" ? ip : undefined,
+      });
+      if (!result.ok) {
+        // Reason and Cloudflare error codes only — never the token or the secret.
+        console.warn("[contact] turnstile rejected:", result.reason, result.errorCodes ?? []);
+        return result.reason === "unavailable"
+          ? fail(503, "verification_unavailable", "Verification is temporarily unavailable. Please try again later.")
+          : fail(400, "verification_failed", "Verification failed. Please try again.");
+      }
     }
 
     // ── Rate limit: 3 per IP per 10 min, plus a global cap on emails ────────
