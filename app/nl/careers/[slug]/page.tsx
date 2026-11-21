@@ -119,7 +119,7 @@ export default async function ArticlePageNl({ params }: Props) {
               </span>
             </div>
 
-            <h1 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
+            <h1 className="text-page-title font-extrabold tracking-tight">
               {article.title}
             </h1>
 

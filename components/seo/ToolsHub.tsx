@@ -132,7 +132,7 @@ export function ToolsHub({ lang }: { lang: HubLang }) {
         <section className="bg-white">
           <div className="mx-auto max-w-5xl px-6 pb-10 pt-8 sm:pt-12">
             <Breadcrumbs items={hubCrumbs(lang)} label={translations[lang].ui.a11y.breadcrumb} />
-            <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{c.h1}</h1>
+            <h1 className="mt-6 text-display font-extrabold tracking-tight text-gray-900">{c.h1}</h1>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-600 sm:text-base">{c.intro}</p>
             <Link href={c.cta.href} className="mt-6 inline-block">
               <Button size="lg" className="gap-2 px-8">

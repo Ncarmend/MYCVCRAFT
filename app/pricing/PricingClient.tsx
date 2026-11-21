@@ -138,7 +138,7 @@ export function PricingClient() {
 
       {/* Product overview */}
       <div className="mx-auto max-w-5xl px-6 pb-6 pt-6 text-center">
-        <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">{T.headline}</h1>
+        <h1 className="text-page-title font-bold tracking-tight text-slate-900">{T.headline}</h1>
         <p className="mx-auto mt-2 max-w-md text-xs text-slate-500">{T.subtext}</p>
       </div>
 

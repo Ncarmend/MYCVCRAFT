@@ -33,7 +33,7 @@ export function CookiesClient() {
               <Cookie className="h-5 w-5 text-amber-600" />
             </div>
             <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+              <h1 className="text-page-title font-extrabold tracking-tight text-slate-900">
                 {lang === "fr" ? "Politique de cookies" : lang === "nl" ? "Cookiebeleid" : "Cookie Policy"}
               </h1>
               <p className="text-xs text-slate-400">

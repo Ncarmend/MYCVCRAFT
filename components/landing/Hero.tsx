@@ -33,7 +33,7 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+        <h1 className="mx-auto max-w-2xl text-display font-extrabold tracking-tight text-gray-900">
           {T.headline1}{" "}
           <span className="bg-linear-to-r from-emerald-500 to-emerald-900 bg-clip-text text-transparent">
             {T.headline2}

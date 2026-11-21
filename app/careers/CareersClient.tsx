@@ -50,7 +50,7 @@ export function CareersClient() {
           <span className="inline-block rounded-full bg-green-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-green-700 ring-1 ring-green-200">
             {T.badge}
           </span>
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="mt-4 text-display font-extrabold tracking-tight text-slate-900">
             {T.heading}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-500">

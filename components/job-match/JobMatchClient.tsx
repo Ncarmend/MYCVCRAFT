@@ -145,7 +145,7 @@ export function JobMatchClient() {
     <div>
       <div className="mx-auto max-w-3xl px-6 py-12">
         <div className="text-center">
-          <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{T.pageTitle}</h1>
+          <h1 className="text-page-title font-extrabold tracking-tight text-gray-900">{T.pageTitle}</h1>
           <p className="mx-auto mt-2 max-w-xl text-sm text-slate-500">{T.pageSubtitle}</p>
         </div>
 

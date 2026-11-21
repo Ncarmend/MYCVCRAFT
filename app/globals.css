@@ -8,6 +8,28 @@
   --font-sans: var(--font-inter);
 }
 
+/*
+ * Fluid page-heading scale (public pages). rem-based, so it still follows the
+ * visitor's browser font-size setting. Sizes grow linearly from 320px to
+ * 1024px wide, then stay fixed.
+ *   text-display    — marketing hero titles: 28px → 36px
+ *   text-page-title — content/utility page titles: 24px → 30px
+ * `text-wrap: balance` avoids a lone word on the last line in FR/NL titles;
+ * `overflow-wrap` stops long compound words from overflowing at 320px.
+ */
+@utility text-display {
+  font-size: clamp(1.75rem, 1.52rem + 1.14vw, 2.25rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+@utility text-page-title {
+  font-size: clamp(1.5rem, 1.33rem + 0.85vw, 1.875rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

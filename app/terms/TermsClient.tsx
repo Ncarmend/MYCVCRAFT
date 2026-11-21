@@ -28,7 +28,7 @@ export function TermsClient() {
             <ArrowLeft className="h-3.5 w-3.5" />
             {U.backToHome}
           </Link>
-          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+          <h1 className="text-page-title font-extrabold tracking-tight text-slate-900">
             {lang === "fr" ? "Conditions d'utilisation" : lang === "nl" ? "Gebruiksvoorwaarden" : "Terms of Use"}
           </h1>
           <p className="mt-2 text-xs text-slate-400">

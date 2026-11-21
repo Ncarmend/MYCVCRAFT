@@ -65,7 +65,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
 
   const desktopLink = (href: string) =>
     cn(
-      "text-sm font-semibold transition-all duration-200 ease-in-out",
+      "whitespace-nowrap text-sm font-semibold transition-all duration-200 ease-in-out",
       isActive(href) ? "text-green-800" : "text-slate-900 hover:text-green-800",
     );
 
@@ -86,7 +86,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           href={localizedHref(pathname, l)}
           onClick={() => setLang(l)}
           className={cn(
-            mobile ? "rounded-md px-2 py-1" : langBase,
+            mobile ? "rounded-md px-2 py-1 text-xs font-semibold" : langBase,
             lang === l ? langActive : langInactive,
           )}
         >
@@ -98,15 +98,18 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      {/* The full link row needs ~1040px in French (the longest labels), so it
+          only appears from `lg`; narrower screens get the menu button.
+          `gap-4` keeps the three groups from ever touching. */}
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
 
-        {/* Logo */}
-        <Link href={localePath(lang, "/")} className="flex items-center">
-          <Logo height={36} />
+        {/* Logo — 32px tall on phones, 36px from `sm` (the class overrides the inline height) */}
+        <Link href={localePath(lang, "/")} className="flex shrink-0 items-center">
+          <Logo height={36} className="h-8! sm:h-9!" />
         </Link>
 
         {/* Desktop center links */}
-        <div className="hidden items-center gap-8 sm:flex">
+        <div className="hidden items-center gap-5 lg:flex xl:gap-8">
           <Link href={featuresHref} className={desktopLink(featuresHref)}>
             {T.features}
           </Link>
@@ -135,13 +138,13 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
         </div>
 
         {/* Desktop right */}
-        <div className="hidden items-center gap-3 sm:flex">
+        <div className="hidden shrink-0 items-center gap-3 lg:flex">
           <LangToggle />
           {isLoggedIn ? (
             <Link
               href="/dashboard/settings"
               className={cn(
-                "inline-flex h-9 items-center gap-1.5 rounded-lg px-4 text-sm font-medium transition-all duration-200 ease-in-out",
+                "inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-4 text-sm font-medium transition-all duration-200 ease-in-out",
                 isActive("/dashboard/settings")
                   ? "bg-green-700 text-white"
                   : "bg-slate-800 text-white hover:bg-green-700",
@@ -154,13 +157,13 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
             <>
               <Link
                 href="/login"
-                className="text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
+                className="whitespace-nowrap text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700"
               >
                 {T.signIn}
               </Link>
               <Link
                 href="/signup"
-                className="inline-flex h-9 items-center justify-center rounded-lg bg-slate-800 px-4 text-sm font-medium text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
+                className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-lg bg-slate-800 px-4 text-sm font-medium text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-green-700 active:bg-green-700"
               >
                 {T.getStarted}
               </Link>
@@ -169,7 +172,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
         </div>
 
         {/* Mobile right cluster */}
-        <div className="flex items-center gap-2 sm:hidden">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <LangToggle mobile />
           {isLoggedIn ? (
             <Link
@@ -182,7 +185,8 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
           ) : (
             <Link
               href="/signup"
-              className="inline-flex h-8 items-center justify-center rounded-lg bg-slate-800 px-3 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700"
+              // Below 375px there's no room in the bar: the same button is in the menu instead.
+              className="hidden h-8 items-center justify-center whitespace-nowrap rounded-lg bg-slate-800 px-3 text-sm font-medium text-white min-[375px]:inline-flex transition-all duration-200 ease-in-out hover:bg-green-700"
             >
               {T.getStarted}
             </Link>
@@ -199,7 +203,7 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white px-6 py-4 sm:hidden">
+        <div className="border-t border-gray-100 bg-white px-6 py-4 lg:hidden">
           <nav className="flex flex-col gap-1">
             <Link href={featuresHref} onClick={() => setMobileOpen(false)} className={mobileLink(featuresHref)}>
               {T.features}
@@ -234,9 +238,15 @@ export function Navbar({ isLoggedIn = false, userName }: NavbarProps) {
                 </Link>
               </>
             ) : (
-              <Link href="/login" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700">
-                {T.signIn}
-              </Link>
+              <>
+                <Link href="/login" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-900 transition-all duration-200 ease-in-out hover:text-green-700">
+                  {T.signIn}
+                </Link>
+                {/* Only on very narrow screens, where the bar has no room for it */}
+                <Link href="/signup" onClick={() => setMobileOpen(false)} className="mt-1 inline-flex h-10 items-center justify-center rounded-lg bg-slate-800 px-4 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-green-700 min-[375px]:hidden">
+                  {T.getStarted}
+                </Link>
+              </>
             )}
           </nav>
         </div>

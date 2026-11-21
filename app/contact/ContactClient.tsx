@@ -193,7 +193,7 @@ export function ContactClient() {
             <ArrowLeft className="h-3.5 w-3.5" />
             Back
           </Link>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          <h1 className="text-page-title font-bold tracking-tight text-slate-900">
             {T.title}
           </h1>
           <p className="mt-2 text-sm text-slate-500">{T.subtitle}</p>

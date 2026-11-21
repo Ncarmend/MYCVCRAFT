@@ -37,7 +37,7 @@ export function AboutClient() {
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-700 ring-1 ring-white/10">
             <Sparkles className="h-7 w-7 text-white" />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          <h1 className="text-display font-extrabold tracking-tight">
             {T.hero.heading}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
