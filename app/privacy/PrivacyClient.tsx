@@ -32,7 +32,7 @@ export function PrivacyClient() {
             {lang === "fr" ? "Politique de confidentialité" : lang === "nl" ? "Privacybeleid" : "Privacy Policy"}
           </h1>
           <p className="mt-2 text-xs text-slate-400">
-            {lang === "fr" ? "Dernière mise à jour : octobre 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: oktober 2026 · Van toepassing op cvixeo.com" : "Last updated: October 2026 · Applies to cvixeo.com"}
+            {lang === "fr" ? "Dernière mise à jour : novembre 2026 · S'applique à cvixeo.com" : lang === "nl" ? "Laatst bijgewerkt: november 2026 · Van toepassing op cvixeo.com" : "Last updated: November 2026 · Applies to cvixeo.com"}
           </p>
         </div>
       </div>
@@ -113,7 +113,7 @@ function PrivacyEN() {
             <li><strong>Supabase</strong> (Supabase Inc.) — Authentication and database storage. Data hosted on AWS infrastructure with EU data centres available. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Our reseller and Merchant of Record for all purchases; handles payment processing, invoicing, and global sales tax / VAT. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><strong>Anthropic</strong> (Anthropic PBC) — AI features (CV generation, ATS analysis, cover letter generation). <a href="https://www.anthropic.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
-            <li><strong>Resend</strong> (Resend Inc.) — Transactional email delivery. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
+            <li><strong>Brevo</strong> (Sendinblue SAS, France) — Transactional email delivery. <a href="https://www.brevo.com/legal/privacypolicy/" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Website hosting and infrastructure. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
           </ul>
           <p>If you sign in with Google, Google acts as an independent controller for the authentication it performs. See <a href="https://policies.google.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a>.</p>
@@ -239,7 +239,7 @@ function PrivacyFR() {
             <li><strong>Supabase</strong> (Supabase Inc.) — Authentification et stockage de base de données. Données hébergées sur l'infrastructure AWS, avec des centres de données dans l'UE disponibles. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Notre revendeur et « Merchant of Record » pour tous les achats ; gère le traitement des paiements, la facturation, et la TVA / taxes de vente à l'échelle mondiale. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
             <li><strong>Anthropic</strong> (Anthropic PBC) — Fonctionnalités d'IA (génération de CV, analyse ATS, génération de lettres de motivation). <a href="https://www.anthropic.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
-            <li><strong>Resend</strong> (Resend Inc.) — Envoi d'e-mails transactionnels. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
+            <li><strong>Brevo</strong> (Sendinblue SAS, France) — Envoi d'e-mails transactionnels. <a href="https://www.brevo.com/legal/privacypolicy/" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Hébergement du site et infrastructure. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a></li>
           </ul>
           <p>Si vous vous connectez avec Google, Google agit en tant que responsable de traitement indépendant pour l&apos;authentification qu&apos;il effectue. Consultez les <a href="https://policies.google.com/privacy?hl=fr" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Règles de confidentialité de Google</a>.</p>
@@ -365,7 +365,7 @@ function PrivacyNL() {
             <li><strong>Supabase</strong> (Supabase Inc.) — Authenticatie en databaseopslag. Gegevens gehost op AWS-infrastructuur, met EU-datacenters beschikbaar. <a href="https://supabase.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
             <li><strong>Paddle</strong> (Paddle.com Market Limited) — Onze wederverkoper en "Merchant of Record" voor alle aankopen; verzorgt de betalingsverwerking, facturatie en btw / verkoopbelasting wereldwijd. <a href="https://www.paddle.com/legal/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
             <li><strong>Anthropic</strong> (Anthropic PBC) — AI-functies (cv-generatie, ATS-analyse, generatie van sollicitatiebrieven). <a href="https://www.anthropic.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
-            <li><strong>Resend</strong> (Resend Inc.) — Verzending van transactionele e-mails. <a href="https://resend.com/privacy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
+            <li><strong>Brevo</strong> (Sendinblue SAS, Frankrijk) — Verzending van transactionele e-mails. <a href="https://www.brevo.com/legal/privacypolicy/" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
             <li><strong>Vercel</strong> (Vercel Inc.) — Hosting en infrastructuur van de website. <a href="https://vercel.com/legal/privacy-policy" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid</a></li>
           </ul>
           <p>Als je inlogt met Google, treedt Google op als zelfstandige verwerkingsverantwoordelijke voor de authenticatie die het uitvoert. Zie het <a href="https://policies.google.com/privacy?hl=nl" className="text-green-700 underline" target="_blank" rel="noopener noreferrer">Privacybeleid van Google</a>.</p>

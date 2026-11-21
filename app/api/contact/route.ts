@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import {
   clientIp,
   consumeContactRateLimit,
@@ -9,8 +8,7 @@ import {
   validateContact,
 } from "@/lib/contact-protection";
 import { turnstileConfig, verifyTurnstileToken } from "@/lib/turnstile";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { sendBrevoEmail } from "@/lib/brevo";
 
 /** Far above the largest valid submission (~5.5 KB of text + Turnstile token). */
 const MAX_BODY_BYTES = 32 * 1024;
@@ -85,13 +83,13 @@ export async function POST(request: NextRequest) {
     // No confirmation is emailed to the visitor's address: that let anyone
     // use the form to send mail from noreply@cvixeo.com to any third party.
     const h = { name: escapeHtml(name), email: escapeHtml(email), subject: escapeHtml(subject), message: escapeHtml(message) };
-    const { error: sendError } = await resend.emails.send({
-      from: "CVixeo Contact <noreply@cvixeo.com>",
-      to: toAddress,
-      replyTo: email,
+    const sent = await sendBrevoEmail({
+      sender: { name: "CVixeo Contact", email: "noreply@cvixeo.com" },
+      to: [{ email: toAddress }],
+      replyTo: { email, name },
       // subject has no CR/LF or control characters (validated above)
       subject: `${suspicious ? "[Possible spam] " : ""}[Contact] ${subject}`,
-      html: `
+      htmlContent: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
           <h2 style="color:#1e293b;border-bottom:2px solid #e2e8f0;padding-bottom:12px;">
             New contact message
@@ -113,10 +111,11 @@ export async function POST(request: NextRequest) {
           </p>
         </div>
       `,
-    });
+    }, { apiKey: process.env.BREVO_API_KEY });
 
-    if (sendError) {
-      console.error("[contact] Resend error (notification):", sendError.name, sendError.message);
+    if (!sent.ok) {
+      // Brevo's status/code/message only — never the key or the visitor's content.
+      console.error("[contact] Brevo error (notification):", sent.status, sent.code, sent.message);
       return fail(500, "send_failed", "Failed to send message. Please try again.");
     }
 
