@@ -2,10 +2,11 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
-interface Props { cv: Partial<CV>; watermark?: boolean; }
+interface Props { cv: Partial<CV>; attribution?: boolean; }
 
-export function CrispTemplate({ cv, watermark = false }: Props) {
+export function CrispTemplate({ cv, attribution = false }: Props) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -36,7 +37,6 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
 
   return (
     <div
-      className={watermark ? "cv-watermark" : ""}
       style={{ width: "816px", minHeight: "1056px", background: "white", fontFamily: "'Helvetica Neue', Arial, sans-serif", fontSize: "10.5pt", color: dark }}
     >
       {/* Header band */}
@@ -157,6 +157,7 @@ export function CrispTemplate({ cv, watermark = false }: Props) {
             ))}
           </div>
         )}
+        {attribution && <CvAttribution />}
       </div>
     </div>
   );

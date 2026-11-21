@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface ExecutiveTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplateProps) {
+export function ExecutiveTemplate({ cv, attribution = false }: ExecutiveTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -30,7 +31,7 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
 
   return (
     <div
-      className={`relative bg-white font-sans text-sm leading-relaxed ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans text-sm leading-relaxed"
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto" }}
     >
       {/* Top header bar — noir with gold accent */}
@@ -323,6 +324,8 @@ export function ExecutiveTemplate({ cv, watermark = false }: ExecutiveTemplatePr
               </div>
             </Section>
           )}
+          {/* Free-plan attribution, re-centred on the page (220px left sidebar) */}
+          {attribution && <CvAttribution offsetX={-110} />}
         </div>
       </div>
 

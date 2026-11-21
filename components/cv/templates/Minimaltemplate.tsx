@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface MinimalTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps) {
+export function MinimalTemplate({ cv, attribution = false }: MinimalTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -30,7 +31,7 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
 
   return (
     <div
-      className={`relative bg-white font-sans ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans"
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto", padding: "56px 64px" }}
     >
       {/* Header */}
@@ -282,6 +283,8 @@ export function MinimalTemplate({ cv, watermark = false }: MinimalTemplateProps)
               </div>
             </div>
           )}
+          {/* Free-plan attribution, re-centred on the page (180px left column + 48px gap) */}
+          {attribution && <CvAttribution offsetX={-114} />}
         </div>
       </div>
 

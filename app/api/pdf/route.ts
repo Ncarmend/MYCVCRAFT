@@ -12,6 +12,7 @@ import { translations } from "@/lib/translations";
 import { sortCvSections } from "@/lib/cvSort";
 import { resolveCvFooterName } from "@/lib/cvFooterName";
 import { parseCvLanguage, proficiencyLabel } from "@/lib/cv-language";
+import { attributionOffset, cvAttributionHtml } from "@/lib/cvAttribution";
 
 type PdfLang = "en" | "fr" | "nl";
 type CvLabels = (typeof translations)[PdfLang]["cvTemplateLabels"];
@@ -91,16 +92,15 @@ function sidebarContact(icon: string, value: unknown): string {
 
 // ─── Per-template CSS + layout ───────────────────────────────────────────────
 
-function getTemplateStyles(template: string, watermark: boolean): string {
-  const wm = watermark
-    ? `.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:64pt;font-weight:900;color:rgba(99,102,241,0.06);white-space:nowrap;pointer-events:none;z-index:9999;}`
-    : "";
+/** Left-sidebar widths of the two-column templates below (keep in sync with their `.sidebar` CSS). */
+const SIDEBAR_WIDTH_PX: Record<string, number> = { MODERN: 240, TECH: 220, SLATE: 230, PHOTO: 220 };
 
-  // Fixed positioning repeats on every printed page (same technique as the
-  // watermark above), so a multi-page CV shows the owner's name on each page.
+function getTemplateStyles(template: string): string {
+  // Fixed positioning repeats on every printed page, so a multi-page CV shows
+  // the owner's name on each page.
   const footerCss = `.cv-footer{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:8pt;color:#94a3b8;padding-bottom:10px;}`;
 
-  const base = `*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;background:white;color:#1a1a1a;}ul{padding-left:16px;margin-top:4px;}li{margin-bottom:2px;font-size:10pt;color:#444;line-height:1.6;}${wm}${footerCss}`;
+  const base = `*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;background:white;color:#1a1a1a;}ul{padding-left:16px;margin-top:4px;}li{margin-bottom:2px;font-size:10pt;color:#444;line-height:1.6;}${footerCss}`;
 
   switch (template) {
     case "MODERN":
@@ -426,7 +426,7 @@ function certificationsHTML(certifications: Array<Record<string, unknown>>, L: C
 
 // ─── Administrative Digital — dedicated builder (own CSS + i18n section labels) ─
 
-function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boolean, lang: PdfLang, footerName = ""): string {
+function administrativeDigitalHTML(cv: Record<string, unknown>, attribution: boolean, lang: PdfLang, footerName = ""): string {
   const L = translations[lang].cvTemplateLabels;
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
   const experience = Array.isArray(cv.experience) ? cv.experience as Array<Record<string, unknown>> : [];
@@ -435,13 +435,8 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
   const languages = Array.isArray(cv.languages) ? cv.languages as Array<Record<string, unknown>> : [];
   const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
-  const wm = watermark
-    ? `.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:64pt;font-weight:900;color:rgba(99,102,241,0.06);white-space:nowrap;pointer-events:none;z-index:9999;}`
-    : "";
-
   const css = `*{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:Calibri,'Segoe UI',Helvetica,Arial,sans-serif;font-size:10.5pt;background:white;color:#1e1e1e;line-height:1.55;}
-    ${wm}
     .page{max-width:816px;margin:0 auto;min-height:1056px;padding:56px 50px;}
     .header{text-align:center;padding-bottom:18px;margin-bottom:22px;border-bottom:1px solid #e2e8f0;}
     .header h1{font-size:22pt;font-weight:700;color:#0f172a;}
@@ -461,7 +456,6 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
     .two-col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:4px;}
     .two-col div{color:#334155;font-size:10pt;}`;
 
-  const wmDiv = watermark ? `<div class="watermark">CVixeo Free</div>` : "";
 
   const contactSpans = (
     [
@@ -538,7 +532,6 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
     <title>${cv.name} — CV</title>
     <style>${css}</style>
   </head><body>
-    ${wmDiv}
     <div class="page">
       <div class="header">
         <h1>${cv.name}</h1>
@@ -552,6 +545,7 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
       ${projectsSection}
       ${languagesSection}
       ${certificationsSection}
+      ${attribution ? cvAttributionHtml() : ""}
     </div>
     ${footerName ? `<div class="cv-footer">${footerName}</div>` : ""}
   </body></html>`;
@@ -559,7 +553,8 @@ function administrativeDigitalHTML(cv: Record<string, unknown>, watermark: boole
 
 // ─── Main builder ─────────────────────────────────────────────────────────────
 
-function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: PdfLang = "en", footerName = ""): string {
+/** `attribution`: free plan — decided by the caller from the DB subscription, never from the request. */
+function buildCVHTML(rawCv: Record<string, unknown>, attribution: boolean, lang: PdfLang = "en", footerName = ""): string {
   const L = translations[lang].cvTemplateLabels;
   // Sorted once here, before branching to any per-template HTML builder
   // (including administrativeDigitalHTML), so every template gets the same
@@ -569,7 +564,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
   const footerHtml = footerName ? `<div class="cv-footer">${footerName}</div>` : "";
 
   if (template === "ADMINISTRATIVE_DIGITAL") {
-    return administrativeDigitalHTML(cv, watermark, lang, footerName);
+    return administrativeDigitalHTML(cv, attribution, lang, footerName);
   }
 
   const skills = Array.isArray(cv.skills) ? (cv.skills as string[]) : [];
@@ -579,8 +574,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
   const languages = Array.isArray(cv.languages) ? cv.languages as Array<Record<string, unknown>> : [];
   const certifications = Array.isArray(cv.certifications) ? cv.certifications as Array<Record<string, unknown>> : [];
 
-  const css = getTemplateStyles(template, watermark);
-  const wm = watermark ? `<div class="watermark">CVixeo Free</div>` : "";
+  const css = getTemplateStyles(template);
 
   // Two-column templates with sidebar
   const twoColumnTemplates = ["MODERN", "TECH", "SLATE", "PHOTO"] as const;
@@ -606,7 +600,6 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
       <style>${css}</style>
     </head><body>
       <div class="page">
-        ${wm}
         <div class="sidebar">
           ${photoEl}
           <h1>${cv.name}</h1>
@@ -628,6 +621,7 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
           ${experienceHTML(experience, L)}
           ${educationHTML(education, L)}
           ${projectsHTML(projects, L)}
+          ${attribution ? cvAttributionHtml(attributionOffset(SIDEBAR_WIDTH_PX[template] ?? 0, "left")) : ""}
         </div>
       </div>
       ${footerHtml}
@@ -661,7 +655,6 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
       ${template === "WARM" ? `<div class="divider"></div>` : ""}
       <div class="body">`
     : `<div class="page">
-        ${wm}
         <div class="header">
           <h1>${cv.name}</h1>
           <div class="jobtitle">${cv.jobTitle}</div>
@@ -675,7 +668,8 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
     ${skillsHTML(skills, L)}
     ${projectsHTML(projects, L)}
     ${languagesHTML(languages, L)}
-    ${certificationsHTML(certifications, L)}`;
+    ${certificationsHTML(certifications, L)}
+    ${attribution ? cvAttributionHtml() : ""}`;
 
   const footerHTML = hasColorHeader ? `</div>` : `</div>`;
 
@@ -684,7 +678,6 @@ function buildCVHTML(rawCv: Record<string, unknown>, watermark: boolean, lang: P
     <title>${cv.name} — CV</title>
     <style>${css}</style>
   </head><body>
-    ${wm}
     ${headerHTML}
     ${bodyContent}
     ${footerHTML}

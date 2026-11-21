@@ -159,7 +159,7 @@ function MiniPreview({ templateKey }: { templateKey: string }) {
   return (
     <div style={{ width: "100%", aspectRatio: "0.772", overflow: "hidden", position: "relative", borderRadius: "6px" }}>
       <div style={{ transform: `scale(${SCALE})`, transformOrigin: "top left", width: `${W}px`, pointerEvents: "none", userSelect: "none", position: "absolute", top: 0, left: 0 }}>
-        <TemplateRenderer data={{ ...SAMPLE_CV, template: templateKey as CVFormData["template"] }} watermark={false} />
+        <TemplateRenderer data={{ ...SAMPLE_CV, template: templateKey as CVFormData["template"] }} />
       </div>
     </div>
   );
@@ -229,7 +229,7 @@ function TemplatePicker({ value, onChange }: { value: string; onChange: (v: stri
             </div>
             <div className="overflow-y-auto" style={{ maxHeight: "70vh" }}>
               <div style={{ transform: "scale(0.72)", transformOrigin: "top left", width: "816px", marginBottom: "-28%" }}>
-                <TemplateRenderer data={{ ...SAMPLE_CV, template: preview as CVFormData["template"] }} watermark={false} />
+                <TemplateRenderer data={{ ...SAMPLE_CV, template: preview as CVFormData["template"] }} />
               </div>
             </div>
           </DialogContent>

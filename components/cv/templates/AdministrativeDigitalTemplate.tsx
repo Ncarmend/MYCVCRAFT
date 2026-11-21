@@ -4,8 +4,9 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
-interface Props { cv: Partial<CV>; watermark?: boolean; }
+interface Props { cv: Partial<CV>; attribution?: boolean; }
 
 /**
  * "Administrative Digital" — centred icon-led header, soft rounded "badge"
@@ -13,7 +14,7 @@ interface Props { cv: Partial<CV>; watermark?: boolean; }
  * Layout reference only: no personal data from any source document is
  * hard-coded here — every value comes from the `cv` prop.
  */
-export function AdministrativeDigitalTemplate({ cv, watermark = false }: Props) {
+export function AdministrativeDigitalTemplate({ cv, attribution = false }: Props) {
   const L = useCvLabels();
 
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
@@ -37,7 +38,6 @@ export function AdministrativeDigitalTemplate({ cv, watermark = false }: Props) 
 
   return (
     <div
-      className={watermark ? "cv-watermark" : ""}
       style={{
         width: "816px", minHeight: "1056px", background: "white",
         padding: "56px 50px", fontFamily: "Calibri, 'Segoe UI', Helvetica, Arial, sans-serif",
@@ -163,6 +163,7 @@ export function AdministrativeDigitalTemplate({ cv, watermark = false }: Props) 
           ))}
         </div>
       )}
+      {attribution && <CvAttribution />}
     </div>
   );
 }

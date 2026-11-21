@@ -111,7 +111,7 @@ export default async function CVPreviewPage({ params }: Props) {
               </p>
             </div>
           )}
-          <CVPreview data={cvData} watermark={!isPro} />
+          <CVPreview data={cvData} attribution={!isPro} />
         </div>
       </div>
     </div>

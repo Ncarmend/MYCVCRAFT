@@ -42,24 +42,6 @@ html {
 .cv-prose li { font-size: 0.875rem; color: #475569; line-height: 1.6; }
 .cv-prose strong { color: #1e293b; font-weight: 600; }
 
-/* Watermark for free tier */
-.cv-watermark {
-  position: relative;
-}
-.cv-watermark::after {
-  content: "CVixeo Free";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-30deg);
-  font-size: 4rem;
-  font-weight: 700;
-  color: rgba(99, 102, 241, 0.08);
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 10;
-}
-
 /*
  * Print isolation: some pages (e.g. /cv/new) trigger window.print() directly on the
  * app shell rather than opening a dedicated /api/pdf document. Any element marked
@@ -86,9 +68,9 @@ html {
 /*
  * CV owner-name footer (React template pipeline). On screen it's just the
  * last line of the document. Under print it switches to `position: fixed`,
- * which Chrome repeats on every physical page — the same technique already
- * used for the free-plan watermark — so a multi-page CV gets the name on
- * every page, not only the last one.
+ * which Chrome repeats on every physical page, so a multi-page CV gets the
+ * name on every page, not only the last one. (The free-plan attribution,
+ * components/cv/CvAttribution.tsx, stays in normal flow: last page only.)
  */
 .cv-footer {
   margin-top: 24px;

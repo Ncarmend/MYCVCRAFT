@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface BasicTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
+export function BasicTemplate({ cv, attribution = false }: BasicTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -23,7 +24,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
 
   return (
     <div
-      className={`relative bg-white font-sans text-sm leading-relaxed text-gray-800 ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans text-sm leading-relaxed text-gray-800"
       style={{ minHeight: "1056px", padding: "48px 56px", maxWidth: "816px", margin: "0 auto" }}
     >
       {/* Header */}
@@ -192,6 +193,7 @@ export function BasicTemplate({ cv, watermark = false }: BasicTemplateProps) {
           </div>
         </section>
       )}
+      {attribution && <CvAttribution />}
     </div>
   );
 }

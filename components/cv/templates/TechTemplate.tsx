@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface TechTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
+export function TechTemplate({ cv, attribution = false }: TechTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -23,7 +24,7 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
 
   return (
     <div
-      className={`relative bg-white font-mono text-sm ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-mono text-sm"
       style={{
         minHeight: "1056px",
         maxWidth: "816px",
@@ -235,6 +236,8 @@ export function TechTemplate({ cv, watermark = false }: TechTemplateProps) {
             </div>
           </section>
         )}
+        {/* Free-plan attribution, re-centred on the page (240px left sidebar) */}
+        {attribution && <CvAttribution offsetX={-120} />}
       </div>
     </div>
   );

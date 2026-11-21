@@ -27,33 +27,34 @@ const TEMPLATE_NATIVE_WIDTH = 816;
 
 interface CVPreviewProps {
   data: Partial<CVFormData>;
-  watermark?: boolean;
+  /** Free plan: show the "CV créé avec CVixeo.com" line. Callers pass !isPro, computed on the server. */
+  attribution?: boolean;
   previewRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 /** Renders the correct template component for given data — no outer wrapper. */
-export function TemplateRenderer({ data: rawData, watermark = false }: { data: Partial<CVFormData>; watermark?: boolean }) {
+export function TemplateRenderer({ data: rawData, attribution = false }: { data: Partial<CVFormData>; attribution?: boolean }) {
   // Sorted once here, so every template — and both the live preview and the
   // print-only render — get chronological order for free. The caller's data
   // (and whatever's in the editor/database) is never mutated.
   const data = sortCvSections(rawData);
   const t = data.template ?? "BASIC";
   const template =
-    t === "MODERN"    ? <ModernTemplate    cv={data} watermark={watermark} /> :
-    t === "EXECUTIVE" ? <ExecutiveTemplate cv={data} watermark={watermark} /> :
-    t === "CREATIVE"  ? <CreativeTemplate  cv={data} watermark={watermark} /> :
-    t === "MINIMAL"   ? <MinimalTemplate   cv={data} watermark={watermark} /> :
-    t === "ELEGANT"   ? <ElegantTemplate   cv={data} watermark={watermark} /> :
-    t === "TECH"      ? <TechTemplate      cv={data} watermark={watermark} /> :
-    t === "CORPORATE" ? <CorporateTemplate cv={data} watermark={watermark} /> :
-    t === "SLATE"     ? <SlateTemplate     cv={data} watermark={watermark} /> :
-    t === "WARM"      ? <WarmTemplate      cv={data} watermark={watermark} /> :
-    t === "SOFT"      ? <SoftTemplate      cv={data} watermark={watermark} /> :
-    t === "PHOTO"     ? <PhotoTemplate     cv={data} watermark={watermark} /> :
-    t === "CLASSIC"   ? <ClassicTemplate   cv={data} watermark={watermark} /> :
-    t === "CRISP"     ? <CrispTemplate     cv={data} watermark={watermark} /> :
-    t === "ADMINISTRATIVE_DIGITAL" ? <AdministrativeDigitalTemplate cv={data} watermark={watermark} /> :
-    <BasicTemplate cv={data} watermark={watermark} />;
+    t === "MODERN"    ? <ModernTemplate    cv={data} attribution={attribution} /> :
+    t === "EXECUTIVE" ? <ExecutiveTemplate cv={data} attribution={attribution} /> :
+    t === "CREATIVE"  ? <CreativeTemplate  cv={data} attribution={attribution} /> :
+    t === "MINIMAL"   ? <MinimalTemplate   cv={data} attribution={attribution} /> :
+    t === "ELEGANT"   ? <ElegantTemplate   cv={data} attribution={attribution} /> :
+    t === "TECH"      ? <TechTemplate      cv={data} attribution={attribution} /> :
+    t === "CORPORATE" ? <CorporateTemplate cv={data} attribution={attribution} /> :
+    t === "SLATE"     ? <SlateTemplate     cv={data} attribution={attribution} /> :
+    t === "WARM"      ? <WarmTemplate      cv={data} attribution={attribution} /> :
+    t === "SOFT"      ? <SoftTemplate      cv={data} attribution={attribution} /> :
+    t === "PHOTO"     ? <PhotoTemplate     cv={data} attribution={attribution} /> :
+    t === "CLASSIC"   ? <ClassicTemplate   cv={data} attribution={attribution} /> :
+    t === "CRISP"     ? <CrispTemplate     cv={data} attribution={attribution} /> :
+    t === "ADMINISTRATIVE_DIGITAL" ? <AdministrativeDigitalTemplate cv={data} attribution={attribution} /> :
+    <BasicTemplate cv={data} attribution={attribution} />;
 
   // Priority: CV's own name field, never an email/ID/blob URL. The
   // authenticated user's profile-name fallback is applied server-side
@@ -73,7 +74,7 @@ export function TemplateRenderer({ data: rawData, watermark = false }: { data: P
   return language ? <CvDocumentLanguageProvider language={language}>{body}</CvDocumentLanguageProvider> : body;
 }
 
-export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProps) {
+export function CVPreview({ data, attribution = false, previewRef }: CVPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.5);
 
@@ -101,7 +102,7 @@ export function CVPreview({ data, watermark = false, previewRef }: CVPreviewProp
       {/* zoom scales both visual size and layout dimensions, so the full
           template width is visible without overflow-clipping. */}
       <div style={{ zoom: scale }}>
-        <TemplateRenderer data={data} watermark={watermark} />
+        <TemplateRenderer data={data} attribution={attribution} />
       </div>
     </div>
   );

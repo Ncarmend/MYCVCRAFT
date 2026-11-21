@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface CreativeTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProps) {
+export function CreativeTemplate({ cv, attribution = false }: CreativeTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -34,7 +35,7 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
 
   return (
     <div
-      className={`relative bg-white font-sans text-sm leading-relaxed ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans text-sm leading-relaxed"
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto" }}
     >
       {/* Top colorful banner */}
@@ -333,6 +334,8 @@ export function CreativeTemplate({ cv, watermark = false }: CreativeTemplateProp
               </div>
             </div>
           )}
+          {/* Free-plan attribution, re-centred on the page (230px left column, 28/36px column padding) */}
+          {attribution && <CvAttribution offsetX={-111} />}
         </div>
       </div>
 

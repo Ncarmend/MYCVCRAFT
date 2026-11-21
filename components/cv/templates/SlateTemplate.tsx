@@ -2,10 +2,11 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
-interface Props { cv: Partial<CV>; watermark?: boolean; }
+interface Props { cv: Partial<CV>; attribution?: boolean; }
 
-export function SlateTemplate({ cv, watermark = false }: Props) {
+export function SlateTemplate({ cv, attribution = false }: Props) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -15,7 +16,7 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
   const certifications = Array.isArray(cv.certifications) ? cv.certifications : [];
 
   return (
-    <div className={`relative bg-white font-sans text-sm ${watermark ? "cv-watermark" : ""}`}
+    <div className="relative bg-white font-sans text-sm"
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto", display: "flex" }}>
 
       {/* Slate sidebar */}
@@ -150,6 +151,8 @@ export function SlateTemplate({ cv, watermark = false }: Props) {
             ))}
           </section>
         )}
+        {/* Free-plan attribution, re-centred on the page (230px left sidebar) */}
+        {attribution && <CvAttribution offsetX={-115} />}
       </div>
     </div>
   );

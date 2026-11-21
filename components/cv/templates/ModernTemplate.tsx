@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon, PortfolioIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface ModernTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
+export function ModernTemplate({ cv, attribution = false }: ModernTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -23,7 +24,7 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
 
   return (
     <div
-      className={`relative bg-white font-sans text-sm ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans text-sm"
       style={{ minHeight: "1056px", maxWidth: "816px", margin: "0 auto", display: "flex" }}
     >
       {/* Left sidebar */}
@@ -223,6 +224,8 @@ export function ModernTemplate({ cv, watermark = false }: ModernTemplateProps) {
             </div>
           </section>
         )}
+        {/* Free-plan attribution, re-centred on the page (240px left sidebar) */}
+        {attribution && <CvAttribution offsetX={-120} />}
       </div>
     </div>
   );

@@ -2,13 +2,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon, GithubIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface ElegantTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps) {
+export function ElegantTemplate({ cv, attribution = false }: ElegantTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -19,7 +20,7 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
 
   return (
     <div
-      className={`relative bg-white text-sm ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white text-sm"
       style={{ width: "816px", minHeight: "1056px", display: "flex", flexDirection: "row" }}
     >
       {/* Left main content */}
@@ -122,6 +123,8 @@ export function ElegantTemplate({ cv, watermark = false }: ElegantTemplateProps)
             </div>
           </section>
         )}
+        {/* Free-plan attribution, re-centred on the page (220px right sidebar) */}
+        {attribution && <CvAttribution offsetX={110} />}
       </div>
 
       {/* Right sidebar — dark gold & black */}

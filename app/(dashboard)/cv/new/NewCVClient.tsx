@@ -152,7 +152,7 @@ export function NewCVClient({ isPro, defaultCvLanguage }: Props) {
           <p className="mb-4 text-xs font-medium uppercase tracking-widest text-gray-400">
             {U.editor.livePreview}
           </p>
-          <CVPreview data={previewData} watermark={!isPro} previewRef={previewRef} />
+          <CVPreview data={previewData} attribution={!isPro} previewRef={previewRef} />
         </div>
       </div>
 
@@ -160,7 +160,7 @@ export function NewCVClient({ isPro, defaultCvLanguage }: Props) {
           and same `previewData` as the live preview panel above, so printing
           ("Preview PDF") never shows anything but the finished CV. */}
       <div className="print-cv-area hidden print:block">
-        <TemplateRenderer data={previewData} watermark={!isPro} />
+        <TemplateRenderer data={previewData} attribution={!isPro} />
       </div>
 
       <ResumeImportModal

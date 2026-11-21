@@ -6,13 +6,14 @@ import { useCvLabels } from "@/components/cv/CvDocumentLanguage";
 import { proficiencyLabel } from "@/lib/cv-language";
 import type { CV } from "@/types";
 import { MailIcon, PhoneIcon, LocationIcon, WebIcon, LinkedinIcon } from "./ContactIcons";
+import { CvAttribution } from "@/components/cv/CvAttribution";
 
 interface CorporateTemplateProps {
   cv: Partial<CV>;
-  watermark?: boolean;
+  attribution?: boolean;
 }
 
-export function CorporateTemplate({ cv, watermark = false }: CorporateTemplateProps) {
+export function CorporateTemplate({ cv, attribution = false }: CorporateTemplateProps) {
   const L = useCvLabels();
   const skills = Array.isArray(cv.skills) ? cv.skills : [];
   const experience = Array.isArray(cv.experience) ? cv.experience : [];
@@ -23,7 +24,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
 
   return (
     <div
-      className={`relative bg-white font-sans text-sm ${watermark ? "cv-watermark" : ""}`}
+      className="relative bg-white font-sans text-sm"
       style={{
         minHeight: "1056px",
         maxWidth: "816px",
@@ -203,6 +204,7 @@ export function CorporateTemplate({ cv, watermark = false }: CorporateTemplatePr
           </div>
         </section>
       )}
+      {attribution && <CvAttribution />}
     </div>
   );
 }
