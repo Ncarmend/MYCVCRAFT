@@ -10,6 +10,9 @@ import {
 import { turnstileConfig, verifyTurnstileToken } from "@/lib/turnstile";
 import { sendBrevoEmail } from "@/lib/brevo";
 
+/** The Brevo-verified address the notification is sent from. */
+const CONTACT_SENDER = "contact@cvixeo.com";
+
 /** Far above the largest valid submission (~5.5 KB of text + Turnstile token). */
 const MAX_BODY_BYTES = 32 * 1024;
 
@@ -81,10 +84,11 @@ export async function POST(request: NextRequest) {
 
     // ── Notify the support inbox (recipient fixed by server config) ─────────
     // No confirmation is emailed to the visitor's address: that let anyone
-    // use the form to send mail from noreply@cvixeo.com to any third party.
+    // use the form to send mail from our address to any third party.
     const h = { name: escapeHtml(name), email: escapeHtml(email), subject: escapeHtml(subject), message: escapeHtml(message) };
     const sent = await sendBrevoEmail({
-      sender: { name: "CVixeo Contact", email: "noreply@cvixeo.com" },
+      // Must be a sender verified in Brevo (Senders, Domains & Dedicated IPs → Senders).
+      sender: { name: "CVixeo Contact", email: CONTACT_SENDER },
       to: [{ email: toAddress }],
       replyTo: { email, name },
       // subject has no CR/LF or control characters (validated above)
